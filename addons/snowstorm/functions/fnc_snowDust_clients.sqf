@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_snowDust
+Function: btc_snowstorm_fnc_snowDust_clients
 
 Description:
     Spawns several particles simulating wind lifting snow
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_snowDust;
+	[] call btc_snowstorm_fnc_snowDust_clients;
     (end)
 
 Author:
@@ -19,7 +19,11 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-if(!hasInterface) exitWith {};
+if(!hasInterface) exitWith {
+	#ifdef BTC_DEBUG_SNOWSTORM
+    [["%1: attempted to exec on a client with no interface", __FILE__], 2, "snowstorm"] call EFUNC(tools,debug);
+	#endif
+};
 
 if(!isNil QGVAR(snowDust)) then { //do not allow more than one particle object
 	deleteVehicle GVAR(snowDust);
@@ -31,25 +35,18 @@ private _curRain = rain;
 private _dropInterval = linearConversion[0, 1, rain, 0.008, 0.09, true];
 private _radius = [15, 40] select (!isNull objectParent player);
 
-private _pos = (player modelToWorldWorld [0,0,0]) vectorAdd (wind vectorMultiply -1); //the stronger the wind the farther from the player
-
-#ifdef BTC_DEBUG_SNOWSTORM
-Points1 pushBack [_pos#0, _pos#1, 1];
-#endif
-
-private _snowDust = "#particlesource" createVehicleLocal (ASLToAGL _pos);
+private _snowDust = "#particlesource" createVehicleLocal ([player, 50] call CBA_fnc_randPos);
 GVAR(snowDust) = _snowDust;
-_snowDust attachTo[player, [0,0,0]];
 
 private _emissive = [[4,4,4,0]];
 private _opacityFactor = 1;
 if (((apertureParams select 0) < 9) && {currentVisionMode player == 0}) then {
 	// Night
-	_opacityFactor = 0.3 + (fog / 2);
+	_opacityFactor = 0.2 + (fog / 2);
 	_emissive = [[0.5, 0.5, 0.5, 0]];
 } else {
 	// Day
-	_opacityFactor = 0.3;
+	_opacityFactor = 0.2;
 	_emissive = [[100, 100, 100, 0]];
 };
 
@@ -77,7 +74,7 @@ _snowDust setParticleParams [
 	3, // rot vel
 	0.3, // weight
 	0.232, //vol
-	0.1, //rub
+	0.02, //rub
 	[2, 10, 15], //size
 	[[1,1,1, 0.001],[1,1,1, 0.01],[1,1,1, _opacityFactor], [1, 1, 1, _opacityFactor],[1, 1, 1, _opacityFactor/2],[1,1,1, 0.05],[1,1,1, 0.01],[1,1,1, 0]], //col
 	[3], // anim speed
@@ -85,7 +82,7 @@ _snowDust setParticleParams [
 	0, // rnd dir intens
 	"", // on timer script
 	"", // before destroy script
-	"", // obj
+	player, // obj
 	0,  // angle
 	true, // on surface
 	-1, // bounceOnSurface

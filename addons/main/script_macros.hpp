@@ -53,7 +53,6 @@
 #define ACEPATHTOF(component,path) \z\ace\addons\component\path
 #define QACEPATHTOF(component,path) QUOTE(ACEPATHTOF(component,path))
 
-#define BTC_DEBUG_SNOWSTORM
 #ifdef BTC_DEBUG_FULL
     #define BTC_DEBUG_AIPATHS
     #define BTC_DEBUG_C4BOOBY

@@ -1,4 +1,8 @@
-#define VERSION 1.2
-#define VERSION_STR 1.2.7
-#define VERSION_AR 1, 2, 7
+#define MAJOR 1
+#define MINOR 2
+#define PATCH 8// `#define PATCHLVL` can also be used
+#define BUILD 0// Optional
+#define VERSION MAJOR.MINOR
+#define VERSION_STR MAJOR.MINOR.PATCH
+#define VERSION_AR MAJOR, MINOR, PATCH
 #define REQUIRED_VERSION 2.20

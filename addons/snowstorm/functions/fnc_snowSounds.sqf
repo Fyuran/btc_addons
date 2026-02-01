@@ -22,15 +22,20 @@ Author:
 params[
     ["_intensity", 0, [123]]
 ];
-if(_intensity <= 0) exitWith {};
+if(_intensity <= 0) exitWith {
+    [["%1: _intesity is zero or below", __FILE__], 6, "snowstorm"] call EFUNC(tools,debug);
+};
+if(random 1 < 0.98) exitWith {
+    #ifdef BTC_DEBUG_SNOWSTORM
+    [["%1: chance was not high enough", __FILE__], 2, "snowstorm"] call EFUNC(tools,debug);
+	#endif
+};
 
 GVAR(ambientSound) = -1;
 private _allPlayers = ([] call BIS_fnc_listPlayers) select {alive _x};
 
 if(_allPlayers isNotEqualTo []) then {
-    if(random 1 > 0.98) then {
-        private _randomPlayer = selectRandom _allPlayers;
-        private _randomPosASL = [getPosASL _randomPlayer, 1] call CBA_fnc_randPos;
-        GVAR(ambientSound) = playSound3D[selectRandom[QPATHTOF(sounds\Wolf1.ogg), QPATHTOF(sounds\Wolf2.ogg)], objNull, false, _randomPosASL, 1, 1, 0, 0, false];
-    };
+    private _randomPlayer = selectRandom _allPlayers;
+    private _randomPosASL = [getPosASL _randomPlayer, 1] call CBA_fnc_randPos;
+    GVAR(ambientSound) = playSound3D[selectRandom[QPATHTOF(sounds\Wolf1.ogg), QPATHTOF(sounds\Wolf2.ogg)], objNull, false, _randomPosASL, 1, 1, 0, 0, false];
 };

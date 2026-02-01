@@ -39,6 +39,8 @@ GVAR(indoor_windSounds) = [
     QGVAR(indoor_h_windLoop_2)
 ];
 
+enableEnvironment false;
+
 //periodic checking of player position
 GVAR(indoor_handle) = [{
     private _pos1 = getPosWorldVisual player;

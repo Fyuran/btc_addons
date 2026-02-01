@@ -16,11 +16,7 @@ include = [
 ]
 
 [version]
-major = 1
-minor = 2
-patch = 7
-build = 0 # Optional
-git_hash = 0
+git_hash = 0 # Disabled
 
 [hemtt.release]
 sign = true

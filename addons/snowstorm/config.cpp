@@ -8,7 +8,7 @@ class CfgPatches {
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main"};
+		requiredAddons[] = {"btc_main", "ace_medical"};
 		VERSION_CONFIG;
 	};
 };
@@ -34,7 +34,7 @@ class Cfg3DEN {
 				class Edit;
 			};
 		};
-		class GVAR(Slider) : Slider {
+		class GVAR(Slider_0_to_1) : Slider {
 			attributeLoad = "[_this, _value] call btc_snowstorm_fnc_initSlider";
 			attributeSave = "sliderPosition (_this controlsGroupCtrl 52)";
 			onLoad = "[_this, _value] call btc_snowstorm_fnc_initSlider";
@@ -50,6 +50,25 @@ class Cfg3DEN {
 					sliderRange[] = {0,1};
 					sliderStep = 0.1;
 					lineSize = 0.1;
+				};
+			};
+		};
+		class GVAR(Slider_5000to5000) : Slider {
+			attributeLoad = "[_this, _value] call btc_snowstorm_fnc_initSlider";
+			attributeSave = "sliderPosition (_this controlsGroupCtrl 52)";
+			onLoad = "[_this, _value] call btc_snowstorm_fnc_initSlider";
+			class Controls: Controls {
+				class Edit: Edit {
+					idc = 50;
+				};
+				class Title: Title {
+					idc = 51;
+				};
+				class Value: Value {
+					idc = 52;
+					sliderRange[] = {-5000,5000};
+					sliderStep = 100;
+					lineSize = 100;
 				};
 			};
 		};
@@ -92,7 +111,7 @@ class CfgVehicles {
 				displayName = "Fog Value"; // Name assigned to UI control class Title
 				tooltip = "Change fog value"; // Tooltip assigned to UI control class Title
 				property = QGVAR(fogValue); // Unique config property name saved in SQM
-				control = QGVAR(Slider); // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
+				control = QGVAR(Slider_0_to_1); // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
 				// Expression called when applying the attribute in Eden and at the scenario start
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
@@ -120,8 +139,8 @@ class CfgVehicles {
 			};
 			class GVAR(fogBase): GVAR(fogValue) {
 				displayName = "Fog Base";
-				tooltip = "Change fog base value";
-				control = QGVAR(Slider);
+				tooltip = "Change fog base altitude in ASL meters";
+				control = QGVAR(Slider_5000to5000);
 				property = QGVAR(fogBase);
 				defaultValue = 0;
 				expression = "_this setVariable ['btc_snowstorm_fogBase',_value];";
@@ -133,6 +152,33 @@ class CfgVehicles {
 				control = "Edit";
 				expression = "_this setVariable ['btc_snowstorm_duration',_value];";
 				defaultValue = -1;
+				typeName = "NUMBER";
+			};
+			class GVAR(intensity_min) {
+				displayName = "Wind intensity minimum";
+				tooltip = "Change snowstorm wind intensity minimum";
+				property = QGVAR(intensity_min);
+				control = "Edit";
+				expression = "_this setVariable ['btc_snowstorm_wind_min',_value];";
+				defaultValue = 20;
+				typeName = "NUMBER";
+			};
+			class GVAR(intensity_avg) {
+				displayName = "Wind intensity average";
+				tooltip = "Change snowstorm wind intensity average";
+				property = QGVAR(intensity_avg);
+				control = "Edit";
+				expression = "_this setVariable ['btc_snowstorm_wind_avg',_value];";
+				defaultValue = 30;
+				typeName = "NUMBER";
+			};
+			class GVAR(intensity_max) {
+				displayName = "Wind intensity maximum";
+				tooltip = "Change snowstorm wind intensity maximum";
+				property = QGVAR(intensity_max);
+				control = "Edit";
+				expression = "_this setVariable ['btc_snowstorm_wind_max',_value];";
+				defaultValue = 40;
 				typeName = "NUMBER";
 			};
 			class ModuleDescription : ModuleDescription {};
@@ -188,4 +234,12 @@ class Extended_PreInit_EventHandlers {
     class ADDON {
         init = QUOTE(call COMPILE_FILE(XEH_preInit));
     };
+};
+
+class Extended_Deleted_EventHandlers {
+	class GVAR(module) {
+		class GVAR(module_deleted) {
+			serverDeleted = QUOTE([] call FUNC(terminate););
+		};
+	};
 };

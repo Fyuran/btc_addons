@@ -42,7 +42,10 @@ if(_activated) then {
 	private _fogDecay = _logic getVariable [QGVAR(fogDecay), 0];
 	private _fogBase = _logic getVariable [QGVAR(fogBase), 0];
 	private _duration = _logic getVariable [QGVAR(duration), -1];
-    [_fogValue, _fogDecay, _fogBase, _duration] call FUNC(init);
+	private _wind_min = _logic getVariable [QGVAR(intensity_min), 20];
+	private _wind_avg = _logic getVariable [QGVAR(intensity_avg), 30];
+	private _wind_max = _logic getVariable [QGVAR(intensity_max), 40];
+    [_fogValue, _fogDecay, _fogBase, _duration, [_wind_min, _wind_avg, _wind_max]] call FUNC(init);
 } else {
     if(_handle isEqualTo -1) then { //make sure the previous handler is removed
         #ifdef BTC_DEBUG_SNOWSTORM

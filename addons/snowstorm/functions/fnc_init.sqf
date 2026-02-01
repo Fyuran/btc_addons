@@ -25,7 +25,8 @@ params[
 	["_fogValue", 0.5, [123]],
 	["_fogDecay", 0, [123]],
 	["_fogBase", 0, [123]],
-	["_duration", -1, [123]] //passed duration should be seconds
+	["_duration", -1, [123]], //passed duration should be seconds
+	["_windIntensity", [20, 30, 40], [[]], 3]
 ];
 GVAR(duration) = -1;
 GVAR(timedSnowstorm) = false;
@@ -70,8 +71,9 @@ forceWeatherChange;
 TRANS_DELAY setFog [_fogValue, _fogDecay, _fogBase];
 TRANS_DELAY setRain 1;
 GVAR(windTrans) = [TRANS_DELAY, 40] spawn FUNC(windSmoothTrans);
-GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(snowSounds_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
-[{
+[
+{
+	[] remoteExecCall [QFUNC(snowDust_clients), [0, -2] select isDedicated];
 	GVAR(handle) = [{
 		0 setOvercast 1;
 		private _randMag = random [10, 15, 20];
@@ -80,13 +82,13 @@ GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(snowSounds_clients), [0, -2] select
 			4, // dropsInTexture - the number of drops that are present in the drop texture
 			0.01, // minimum rain strength when the effect starts to be rendered
 			_randMag, // distance of the effect
-			1, // coefficient of how much the wind influences water drops
+			0.8, // coefficient of how much the wind influences water drops
 			_randMag, // fall speed of the drops
 			0.5, // random part of the fall speed
 			0.5, // coefficient of how much the drop could randomly change direction
 			0.07, // width of the single drop
 			0.07, // height of the single drop
-			[1, 1, 1, 0.5], // color of the drop
+			[1, 1, 1, 0.45], // color of the drop
 			0.5, // luminescence of the drop facing to sun	
 			0.5, // luminescence of the drop opposite to sun
 			0.5, // coefficient that tells us how much "refracted" light from the scene is added to the drop color
@@ -96,9 +98,8 @@ GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(snowSounds_clients), [0, -2] select
 		] call BIS_fnc_setRain;
 		[_randMag] call FUNC(snowSounds);
 		0 setRain 1;
-		//[] remoteExecCall [QFUNC(snowDust), [0, -2] select isDedicated];
 
-		GVAR(windTrans) = [TRANS_DELAY, random [20, 30, 40]] spawn FUNC(windSmoothTrans);
+		GVAR(windTrans) = [TRANS_DELAY, random (_this#0)] spawn FUNC(windSmoothTrans);
 
 		if(GVAR(timedSnowstorm)) then {
 			GVAR(duration) = GVAR(duration) - CBA_missionTime;
@@ -106,6 +107,10 @@ GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(snowSounds_clients), [0, -2] select
 				[] remoteExecCall [QFUNC(terminate), 0];
 			};
 		};
+	}, TRANS_DELAY, _this] call CBA_fnc_addPerFrameHandler;
+}, _windIntensity, TRANS_DELAY] call CBA_fnc_waitAndExecute;
 
-	}, TRANS_DELAY, []] call CBA_fnc_addPerFrameHandler;
-}, [], TRANS_DELAY] call CBA_fnc_waitAndExecute;
+//Clients
+GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(snowSounds_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
+GVAR(JIP_Breath) = [] remoteExecCall [QFUNC(breath_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
+GVAR(JIP_PPE) = [] remoteExecCall [QFUNC(postprocess_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
