@@ -30,6 +30,8 @@ params[
 ];
 GVAR(duration) = -1;
 GVAR(timedSnowstorm) = false;
+GVAR(snowfall) = true;
+publicVariable QGVAR(snowfall);
 if(_duration > 0) then { 
 	GVAR(duration) = CBA_missionTime + (GVAR(duration) * 1000); //s to ms
 	GVAR(timedSnowstorm) = true;

@@ -51,5 +51,7 @@ TRANS_DELAY setFog 0;
 
 GVAR(timedSnowstorm) = false;
 
+GVAR(snowfall) = false;
+publicVariable QGVAR(snowfall);
 //Clients
 [] remoteExecCall [QFUNC(terminate_clients), [0, -2] select isDedicated];
