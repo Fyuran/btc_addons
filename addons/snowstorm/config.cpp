@@ -90,7 +90,7 @@ class CfgVehicles {
 	};
 
 	class GVAR(module) : Module_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		scope = 2;
 		scopeCurator = 1;
 		category = "Effects";

@@ -15,7 +15,7 @@ Examples:
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 if(!hasInterface) exitWith {
