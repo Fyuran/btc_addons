@@ -47,4 +47,4 @@ private _array = switch (typeOf _heli) do {
         };
     };
 };
-_array
+_array + GVAR(liftable_classes)
