@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_tools_timer
+Function: btc_tools_fnc_timer
 
 Description:
     Shows a timer that can be stopped by either timeout or a predicate
@@ -15,11 +15,11 @@ Returns:
 
 Examples:
     (begin example)
-	[60] call btc_tools_timer;
+	[60] call btc_tools_fnc_timer;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

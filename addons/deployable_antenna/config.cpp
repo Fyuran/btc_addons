@@ -61,7 +61,7 @@ class CfgVehicles {
 	};
 
 	class GVAR(DeployableAntenna_Item): Item_Base_F {
-        author = "=BTC=Fyuran";
+        author = "=BTC= Fyuran";
 		icon = "iconObject_5x4";
         displayName = "Folded Deployable Antenna"; 
         model = "\a3\Weapons_F\DummyItem.p3d"; 

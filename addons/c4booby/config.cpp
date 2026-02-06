@@ -36,7 +36,7 @@ class CfgMissions {
 class CfgVehicles {
 	class Land_MetalBarrel_F;
 	class GVAR(Land_MetalBarrel_F): Land_MetalBarrel_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		displayName = "Metal Barrel (C4)";
 		class Attributes {
 			class GVAR(Land_MetalBarrel_F_EndTime) {
@@ -65,7 +65,7 @@ class CfgVehicles {
 	};
 	class CargoNet_01_barrels_F;
 	class GVAR(CargoNet_01_barrels_F): CargoNet_01_barrels_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		displayName = "Cargo Net (C4-Barrels)";
 		class Attributes {
 			class GVAR(CargoNet_01_barrels_F_EndTime) {
@@ -83,7 +83,7 @@ class CfgVehicles {
 	};
 	class CargoNet_01_box_F;
 	class GVAR(CargoNet_01_box_F): CargoNet_01_box_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		displayName = "Cargo Net (C4-Box)";
 		class Attributes {
 			class GVAR(CargoNet_01_box_F_EndTime) {
@@ -101,7 +101,7 @@ class CfgVehicles {
 	};
 	class B_CargoNet_01_ammo_F;
 	class GVAR(B_CargoNet_01_ammo_F): B_CargoNet_01_ammo_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-NATO]";
 		class Attributes {
 			class GVAR(B_CargoNet_01_ammo_F_EndTime) {
@@ -119,7 +119,7 @@ class CfgVehicles {
 	};
 	class I_CargoNet_01_ammo_F;
 	class GVAR(I_CargoNet_01_ammo_F): I_CargoNet_01_ammo_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-AAF]";
 		class Attributes {
 			class GVAR(I_CargoNet_01_ammo_F_EndTime) {
@@ -137,7 +137,7 @@ class CfgVehicles {
 	};
 	class O_CargoNet_01_ammo_F;
 	class GVAR(O_CargoNet_01_ammo_F): O_CargoNet_01_ammo_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-CSAT]";
 		class Attributes {
 			class GVAR(O_CargoNet_01_ammo_F_EndTime) {
@@ -155,7 +155,7 @@ class CfgVehicles {
 	};
 	class I_E_CargoNet_01_ammo_F;
 	class GVAR(I_E_CargoNet_01_ammo_F): I_E_CargoNet_01_ammo_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-LDF]";
 		class Attributes {
 			class GVAR(I_E_CargoNet_01_ammo_F_EndTime) {
@@ -173,7 +173,7 @@ class CfgVehicles {
 	};
 	class C_IDAP_CargoNet_01_supplies_F;
 	class GVAR(C_IDAP_CargoNet_01_supplies_F): C_IDAP_CargoNet_01_supplies_F {
-		author = "=BTC=Fyuran";
+		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-IDAP]";
 		class Attributes {
 			class GVAR(C_IDAP_CargoNet_01_supplies_F_EndTime) {
