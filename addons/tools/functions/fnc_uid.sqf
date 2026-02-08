@@ -20,9 +20,9 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_seed", str(diag_tickTime), []]
+    ["_seed", round diag_tickTime, []]
 ];
-private _tick = (str _seed) + "-";
+
 private _chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" splitString "";
 private _suffix = "";
 
@@ -30,5 +30,5 @@ for "_i" from 1 to 12 do {
 	_suffix = _suffix + selectRandom _chars;
 };
 
-private _uniqueID = _tick + _suffix;
+private _uniqueID = format["%1-%2", _seed, _suffix];
 _uniqueID
