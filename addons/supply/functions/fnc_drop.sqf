@@ -75,7 +75,7 @@ private _enableDamage = _logic getVariable [QGVAR(enableDamage), true];
 
 //Create Pilot and Vehicle
 private _randomAngle = random 360;
-private _vehPos = _logicPos vectorAdd [(cos _randomAngle) * 500, (sin _randomAngle) * 500, 500];
+private _vehPos = _logicPos vectorAdd [(cos _randomAngle) * 2000, (sin _randomAngle) * 2000, 500];
 private _veh = createVehicle[_class, _vehPos, [], 0, "FLY"];
 private _logicPosDirection = _logicPos vectorDiff _vehPos;
 _logicPosDirection = [_logicPosDirection#0, _logicPosDirection#1, 0];
@@ -94,16 +94,6 @@ private _wp1 = _grp addWaypoint [[_logicPos#0, _logicPos#1, 500], 0];
 _wp1 setWaypointBehaviour "CARELESS";
 private _wp2 = _grp addWaypoint [_logicPos vectorAdd [(_logicPosDirection#0) * 10, (_logicPosDirection#1) * 10, 500], 0];
 _wp2 setWaypointBehaviour "CARELESS";
-
-_wp2 setWaypointStatements ["true", "
-if(!isServer) exitWith {};
-_veh = objectParent _this;
-_grp = group _this;
-deleteVehicle _this;
-deleteVehicle _veh;
-deleteGroup _this;
-"];
-_wp2 setWaypointTimeout [60, 120, 300];
 
 private _paradropData = [];
 /*
@@ -172,7 +162,7 @@ _data apply {
 			continue;
 		};
 		
-		private _calculatedDropPos = _vehPosATL vectorAdd ((vectorDir _veh) vectorMultiply -10);
+		private _calculatedDropPos = _vehPosATL vectorAdd ((vectorDir _veh) vectorMultiply -15);
 
 		_calculatedDropPos = _calculatedDropPos vectorDiff [0, 0, 1];
 		private _supply = createVehicle[_paradropClass, [0, 0, 100], [], 0, "CAN_COLLIDE"];  
@@ -244,7 +234,25 @@ _data apply {
 			};			 
 		};		 
 	};
+
+	[
+	{
+		CBA_missionTime >= (_this#1)
+	},
+	{
+		params[
+			["_veh", objNull, [objNull]]
+		];
+
+		deleteVehicle driver _veh;
+		deleteVehicle _veh;
+		#ifdef BTC_DEBUG_SUPPLY
+		[["%1: Supply drop complete, deleting _veh %2", __FILE__, _veh], 3, "supply"] call EFUNC(tools,debug);
+		#endif
+	},
+	[_veh, CBA_missionTime + 60]
+	] call CBA_fnc_waitUntilAndExecute;
 };
-#ifdef BTC_DEBUG_supply_drop
+#ifdef BTC_DEBUG_SUPPLY
 [["%1: %2 Spawning supplies...", __FILE__, _class], 3, "supply"] call EFUNC(tools,debug);
 #endif

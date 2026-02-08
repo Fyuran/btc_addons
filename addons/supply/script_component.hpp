@@ -2,8 +2,8 @@
 #include "\z\btc\addons\main\script_mod.hpp"
 
 //#define BTC_DEBUG_SUPPLY_DIALOG
-#define BTC_DEBUG_SUPPLY
-#define DISABLE_COMPILE_CACHE
+//#define BTC_DEBUG_SUPPLY
+//#define DISABLE_COMPILE_CACHE
 
 #include "\z\btc\addons\main\script_macros.hpp"
 
