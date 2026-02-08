@@ -1,11 +1,4 @@
 #include "script_component.hpp"
-/* 
-    z\btc\addons\aipaths\materials\btc_AIPaths_dev_floor_CA.paa
-    z\btc\addons\aipaths\materials\btc_AIPaths_dev_wall_CA.paa
-
-    a3\data_f\surfaces\beton.paa
-    a3\data_f\default.rvmat
-*/
 class CfgPatches { 
 	class ADDON {
 		name = "=BTC= AI Paths";
@@ -35,6 +28,8 @@ class CfgPatches {
         VERSION_CONFIG;
 	};
 }; 
+
+#include "\z\btc\addons\aipaths\models\models.hpp"
 
 class CfgMissions {
 	class Missions {

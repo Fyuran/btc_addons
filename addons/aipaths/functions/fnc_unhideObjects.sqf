@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: 
     btc_AIPaths_fnc_unhideObjects

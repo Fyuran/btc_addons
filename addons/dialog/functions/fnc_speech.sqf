@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 #define RADIO_IN1 "\a3\dubbing_radio_f\Sfx\in2a.ogg"
 #define RADIO_IN2 "\a3\dubbing_radio_f\Sfx\in2b.ogg"
 #define RADIO_IN3 "\a3\dubbing_radio_f\Sfx\in2c.ogg"

@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_deployable_antenna_fnc_dismantle
 

@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_tools_fnc_uid
 

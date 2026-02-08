@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 #define RADIUS 30
 /* ----------------------------------------------------------------------------
 Function: btc_c4booby_fnc_objectInit

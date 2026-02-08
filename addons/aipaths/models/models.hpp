@@ -1,5 +1,3 @@
-#include "script_component.hpp"
-
 class CfgSkeletons {
 	class Default {
 		isDiscrete = 1;

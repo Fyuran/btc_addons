@@ -1,4 +1,4 @@
-#include "\z\btc\addons\c4booby\script_component.hpp"
+#include "..\..\script_component.hpp"
 
 if (!isDedicated && hasInterface) then {
     [{!isNull player}, {

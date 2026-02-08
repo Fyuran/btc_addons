@@ -1,4 +1,4 @@
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 #define __CHAT__ 1
 #define __LOGS__ 2
 #define __ERROR__ 4

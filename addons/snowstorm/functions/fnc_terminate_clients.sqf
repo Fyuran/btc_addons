@@ -2,7 +2,7 @@
 #define BREATH 4
 #define SNOWDUST 6
 #define PPE 8
-#include "script_component.hpp"
+#include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_snowstorm_fnc_terminate_clients
 

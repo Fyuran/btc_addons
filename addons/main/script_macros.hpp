@@ -1,9 +1,3 @@
-#include "script_version.hpp"
-
-#define MAIN_AUTHOR "Black Templars Clan"
-#define AUTHORS "=BTC= Fyuran"
-#define MAINPREFIX z
-#define PREFIX btc
 #include "\x\cba\addons\main\script_macros_common.hpp"
 
 #ifdef DISABLE_COMPILE_CACHE
@@ -60,8 +54,9 @@
     #define BTC_DEBUG_DEPLOYABLE_ANTENNA
     #define BTC_DEBUG_DIALOG
     #define BTC_DEBUG_INSIGNIA
-    #define BTC_DEBUG_SNOWSTORM
     #define BTC_DEBUG_LIFT
+    #define BTC_DEBUG_MAIN
+    #define BTC_DEBUG_SNOWSTORM
     #define BTC_DEBUG_SUPPLY
     #define BTC_DEBUG_TOOLS
     #define BTC_DEBUG_WEIGHT_CALCULATOR
