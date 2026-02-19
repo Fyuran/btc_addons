@@ -20,7 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 
 #ifdef BTC_DEBUG_SNOWSTORM
-[["%1: terminating snowstorm on server", __FILE__], 3, "snowstorm"] call EFUNC(tools,debug);
+[["%1: terminating snowstorm on server", __FILE_NAME__], 3, "snowstorm"] call EFUNC(tools,debug);
 #endif
 if(!isNil QGVAR(JIP_CSounds)) then { //client sounds handler
     remoteExecCall ["", GVAR(JIP_CSounds)];

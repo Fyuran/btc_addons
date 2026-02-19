@@ -23,14 +23,15 @@ params[
 disableSerialization;
 
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing attribute init", __FILE__], 2, "supply"] call EFUNC(tools,debug);
+[["% 1: executing attribute init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 GVAR(table) = createHashMap;
+uiNamespace setVariable[QGVAR(list_grp), _main_grp];
 
 //Group 1
 private _grp1 = _main_grp controlsGroupCtrl GROUP_1;
 if((ctrlIDC _grp1) isNotEqualTo GROUP_1) exitWith {
-	[["%1: invalid idc: %2 should be %3", __FILE__, ctrlIDC _grp1, GROUP_1], 6, "supply"] call EFUNC(tools,debug);
+	[["% 1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp1, GROUP_1], REPORT, "supply"] call EFUNC(tools,debug);
 };
 private _grp1_edit = _grp1 controlsGroupCtrl EDIT_1;
 private _grp1_add = _grp1 controlsGroupCtrl ADD_1;
@@ -41,9 +42,9 @@ private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
     ADD_1 adds new item if cfg is valid then update/init the HashMap with new a new entry and default values
 */
 _grp1_add ctrlAddEventHandler ["ButtonClick", {
-    params ["_control"];
+    params ["_add"];
 
-    _grp1 = ctrlParentControlsGroup _control;
+    _grp1 = ctrlParentControlsGroup _add;
     _grp1_list = _grp1 controlsGroupCtrl LIST_1;
     _edit = _grp1 controlsGroupCtrl EDIT_1;
     
@@ -55,7 +56,7 @@ _grp1_add ctrlAddEventHandler ["ButtonClick", {
 
     _row = _grp1_list lbAdd (getText (_cfg >> "displayName"));
     _grp1_list lbSetCurSel _row;
-    _grp1_list lbSetPicture [_row, getText (_cfg >> "icon")];
+    //_grp1_list lbSetPicture [_row, getText (_cfg >> "icon")];
 
     _uid = format["%1-%2", _class, ([] call EFUNC(tools,uid))];
     _grp1_list lbSetData [_row, _uid];
@@ -137,8 +138,8 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
             };
             default {
                 [
-                    "ERROR",
-                    "ERROR",
+                    "REPORT",
+                    "REPORT",
                     -1
                 ]
             };
@@ -149,7 +150,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
             ["_icon", "", [""]],
             ["_amount", 0, [123]]
         ];
-        if(_displayName isEqualTo "ERROR") exitWith {
+        if(_displayName isEqualTo "REPORT") exitWith {
             [format["%1 invalid vehicle, weapon or magazine class", _class], 1] call BIS_fnc_3DENNotification;
         };
 
@@ -160,24 +161,27 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
 }];
 
 /*
+    copyToClipboard is restricted to server
     0x2E = C key, Copy to clipboard selected object's class from LIST_1 lbCurSel
 */
-_grp1_list ctrlAddEventHandler["KeyDown", {
-    params ["_grp1_list", "_key", "_shift", "_ctrl", "_alt"];
-    if(_key isEqualTo 0x2E && {_ctrl}) then {
-        //retrieve LIST_1 lbCurSel's data from the HashMap
-        _uid = _grp1_list lbData (lbCurSel _grp1_list);
-        _class = (GVAR(table) get _uid) get "class";
-        [format["%1 class saved into clipboard", _class]] call BIS_fnc_3DENNotification;
-        copyToClipboard _class;
-        false
-    };
-}];
+if(isServer) then {
+    _grp1_list ctrlAddEventHandler["KeyDown", {
+        params ["_grp1_list", "_key", "_shift", "_ctrl", "_alt"];
+        if(_key isEqualTo 0x2E && {_ctrl}) then {
+            //retrieve LIST_1 lbCurSel's data from the HashMap
+            _uid = _grp1_list lbData (lbCurSel _grp1_list);
+            _class = (GVAR(table) get _uid) get "class";
+            [format["%1 class saved into clipboard", _class]] call BIS_fnc_3DENNotification;
+            copyToClipboard _class;
+            false
+        };
+    }];
+};
 
 //Group 2
 private _grp2 = _main_grp controlsGroupCtrl GROUP_2;
 if((ctrlIDC _grp2) isNotEqualTo GROUP_2) exitWith {
-	[["%1: invalid idc: %2 should be %3", __FILE__, ctrlIDC _grp2, GROUP_2], 6, "supply"] call EFUNC(tools,debug);
+	[["% 1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp2, GROUP_2], REPORT, "supply"] call EFUNC(tools,debug);
 };
 private _grp2_edit = _grp2 controlsGroupCtrl EDIT_2;
 private _grp2_add = _grp2 controlsGroupCtrl ADD_2;
@@ -227,8 +231,8 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
         };
         default {
             [
-                "ERROR",
-                "ERROR",
+                "REPORT",
+                "REPORT",
                 -1
             ]
         };
@@ -239,7 +243,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
         ["_amount", 0, [123]]
 
     ];
-    if(_displayName isEqualTo "ERROR") exitWith {
+    if(_displayName isEqualTo "REPORT") exitWith {
         [format["%1 invalid inventory class", _class], 1] call BIS_fnc_3DENNotification;
     };
     _inventory set [_class, 1];
@@ -284,18 +288,21 @@ _grp2_remove ctrlAddEventHandler ["ButtonClick", {
 }];
 
 /*
+    copyToClipboard is restricted to server
     0x2E = C key, Copy to clipboard selected object's class from LIST_2 lnbCurSelRow
 */
-_grp2_list ctrlAddEventHandler["KeyDown", {
-    params ["_grp2_list", "_key", "_shift", "_ctrl", "_alt"];
-    if(_key isEqualTo 0x2E && {_ctrl}) then {
-        //retrieve LIST_1 lbCurSel's data from the HashMap
-        _class = _grp2_list lnbData[(lnbCurSelRow _grp2_list), 0];
-        [format["%1 class saved into clipboard", _class]] call BIS_fnc_3DENNotification;
-        copyToClipboard _class;
-        false
-    };
-}];
+if(isServer) then {
+    _grp2_list ctrlAddEventHandler["KeyDown", {
+        params ["_grp2_list", "_key", "_shift", "_ctrl", "_alt"];
+        if(_key isEqualTo 0x2E && {_ctrl}) then {
+            //retrieve LIST_1 lbCurSel's data from the HashMap
+            _class = _grp2_list lnbData[(lnbCurSelRow _grp2_list), 0];
+            [format["%1 class saved into clipboard", _class]] call BIS_fnc_3DENNotification;
+            copyToClipboard _class;
+            false
+        };
+    }];
+};
 
 /*
     LIST_2 idcLeft and idcRight add or remove one unit from LIST_2 lnbCurSelRow column 1 and update the HashMap accordingly

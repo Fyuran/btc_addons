@@ -28,7 +28,7 @@ if(!isServer) exitWith {
     _this remoteExecCall [QFUNC(hideObject), 2];
 };
 #ifdef BTC_DEBUG_AIPATHS
-[["%1: %2 is being hidden", __FILE__, _object], 3, "aipaths"] call EFUNC(tools,debug);
+[["%1: %2 is being hidden", __FILE_NAME__, _object], LOGS, "aipaths"] call EFUNC(tools,debug);
 #endif
 
 GVAR(objects) = missionNamespace getVariable [QGVAR(objects), []];

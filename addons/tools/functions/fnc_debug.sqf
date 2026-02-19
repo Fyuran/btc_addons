@@ -1,8 +1,4 @@
 #include "..\script_component.hpp"
-#define __CHAT__ 1
-#define __LOGS__ 2
-#define __ERROR__ 4
-#define __GLOBAL__ 8
 /* ----------------------------------------------------------------------------
 Function: btc_debug_fnc_message
 
@@ -18,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [["%1: Hello World", __FILE__], 2, "debug"] call EFUNC(tools,debug);
+        [["% 1: Hello World", __FILE_NAME__], CHAT, "debug"] call EFUNC(tools,debug);
     (end)
 
 Author:
@@ -33,14 +29,14 @@ params [
 ];
 if (_mode <= 0 || _mode > 15) exitWith {
     #ifdef BTC_DEBUG_DEBUG
-    [["%1: invalid _mode: %2 passed to btc_debug_fnc_message", __FILE__, _mode], 6, "debug"] call FUNC(debug);  
+    [["%1: invalid _mode: %2 passed to btc_debug_fnc_message", __FILE_NAME__, _mode], 6, "debug"] call FUNC(debug);  
     #endif
 };
 
-private _useChat = [_mode, __CHAT__] call BIS_fnc_bitflagsCheck;
-private _useLogs = [_mode, __LOGS__] call BIS_fnc_bitflagsCheck;
-private _isError = [_mode, __ERROR__] call BIS_fnc_bitflagsCheck;
-private _global = [_mode, __GLOBAL__] call BIS_fnc_bitflagsCheck;
+private _useChat = [_mode, CHAT] call BIS_fnc_bitflagsCheck;
+private _useLogs = [_mode, LOGS] call BIS_fnc_bitflagsCheck;
+private _isError = [_mode, REPORT] call BIS_fnc_bitflagsCheck;
+private _global = [_mode, GLOBAL] call BIS_fnc_bitflagsCheck;
 
 if(_title isNotEqualTo "DEBUG") then {
     _title = format["[BTC] (%1)", toUpper _title];
@@ -48,9 +44,9 @@ if(_title isNotEqualTo "DEBUG") then {
 
 if(!_isError) then {
     [format _message, _title, [_useChat, _useLogs, _global]] call CBA_fnc_debug2;
-} else { //it's an error message
+} else { //it's an REPORT message
     ["%1", format _message] remoteExecCall ["BIS_fnc_error", 0];
-    _title = format["%1 ERROR", _title];
+    _title = format["%1 REPORT", _title];
     [format _message, _title, [_useChat, _useLogs, _global]] call CBA_fnc_debug2;
 };
 

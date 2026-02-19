@@ -26,7 +26,7 @@ if(!isServer) exitWith {
 };
 GVAR(objects) = missionNamespace getVariable [QGVAR(objects), []];
 if(GVAR(objects) isEqualTo []) exitWith {
-    [["%1: no btc_AIPaths objects found", __FILE__], 6, "aipaths"] call EFUNC(tools,debug);
+    [["%1: no btc_AIPaths objects found", __FILE_NAME__], REPORT, "aipaths"] call EFUNC(tools,debug);
 };
 
 private _cfg = configFile >> "CfgVehicles";
@@ -39,5 +39,5 @@ GVAR(objects) apply {
 };
 
 #ifdef BTC_DEBUG_AIPATHS
-[["%1: %1 objects are being shown", __FILE__, count GVAR(objects)], 3, "aipaths"] call EFUNC(tools,debug);
+[["%1: %1 objects are being shown", __FILE_NAME__, count GVAR(objects)], CHAT + LOGS, "aipaths"] call EFUNC(tools,debug);
 #endif

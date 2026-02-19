@@ -23,7 +23,7 @@ if(!params [
 	["_defuser",objNull,[objNull]],
 	["_obj",objNull,[objNull]]
 ]) exitWith {
-    [["%1: bad params: %2", __FILE__, _this], 6, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "c4booby"] call EFUNC(tools,debug);
 };
 
 private _color_actions = [];
@@ -54,7 +54,7 @@ private _action = ["c4booby_examine", "Examine", "",
 	{
 		_args params ["_target","_caller","_params"];
 		_params params ["_color_actions","_action_ids"];
-		hint format["Cut the %1 wire",(_target getVariable ["wire_colors",["ERROR"]])select 0];
+		hint format["Cut the %1 wire",(_target getVariable ["wire_colors",["REPORT"]])select 0];
 		if !(_target getVariable ["obj_hasActions",false]) then {
 			_target setVariable ["obj_hasActions",true];
 			_color_actions apply {

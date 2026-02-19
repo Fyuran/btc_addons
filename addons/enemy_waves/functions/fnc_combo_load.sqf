@@ -1,0 +1,56 @@
+#include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_enemy_waves_fnc_combo_load
+
+Description:
+
+Parameters:
+
+Returns:
+
+Examples:
+    (begin example)
+        [] call btc_enemy_waves_fnc_combo_load;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
+params[
+    ["_combo", controlNull, [controlNull]],
+    ["_value", "", []]
+];
+disableSerialization;
+#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
+[["% 1: executing combo init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
+#endif
+if((ctrlIDC _combo) isNotEqualTo COMBO) exitWith {
+	[["% 1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, COMBO], REPORT, "supply"] call EFUNC(tools,debug);
+};
+
+/*
+0 = opfor (east) "\a3\Data_f\cfgFactionClasses_OPF_ca.paa";
+1 = blufor (west) "\a3\Data_f\cfgFactionClasses_BLU_ca.paa";
+2 = independent (resistance) "\a3\Data_f\cfgFactionClasses_IND_ca.paa";
+3 = civilian "\a3\Data_f\cfgFactionClasses_CIV_ca.paa";
+*/
+lbClear _combo;
+
+private _east_row = _combo lbAdd "OPFOR";
+_combo lbSetValue[_east_row, 0];
+_combo lbSetPicture[_east_row, "\a3\Data_f\cfgFactionClasses_OPF_ca.paa"];
+
+private _west_row = _combo lbAdd "BLUFOR";
+_combo lbSetValue[_west_row, 0];
+_combo lbSetPicture[_west_row, "\a3\Data_f\cfgFactionClasses_BLU_ca.paa"];
+
+private _ind_row = _combo lbAdd "INDFOR";
+_combo lbSetValue[_ind_row, 0];
+_combo lbSetPicture[_ind_row, "\a3\Data_f\cfgFactionClasses_IND_ca.paa"];
+
+private _civ_row = _combo lbAdd "CIVILIANS";
+_combo lbSetValue[_civ_row, 0];
+_combo lbSetPicture[_civ_row, "\a3\Data_f\cfgFactionClasses_CIV_ca.paa"];
+
+_combo lbSetCurSel _value;

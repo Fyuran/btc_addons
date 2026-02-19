@@ -50,33 +50,40 @@ params [
 	["_activated", true, [true]]		// True when the module was activated, false when it is deactivated (i.e., synced triggers are no longer active)
 ];
 
+if(!isServer) exitWith {
+	[["% 1: attempted to call %2 as client", __FILE_NAME__, QFUNC(drop)], REPORT, "supply"] call EFUNC(tools,debug);
+};
 if(!_activated) exitWith {};
 if (isNull _logic) exitWith {
-	[["%1: _logic is null", __FILE__], 6, "supply"] call EFUNC(tools,debug);
+	[["% 1: _logic is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
 };
 private _logicPos = getPosATL _logic;	
 if (surfaceIsWater _logicPos) exitWith {
-	[["%1: attempting to supply over water %2", __FILE__, _logicPos], 6, "supply"] call EFUNC(tools,debug);
+	[["% 1: attempting to supply over water %2", __FILE_NAME__, _logicPos], REPORT, "supply"] call EFUNC(tools,debug);
 };
 
-private _class = _logic getVariable [QGVAR(class), ""];
-if(_class isEqualTo "") exitWith {
-	[["%1: bad class has been passed to %2", __FILE__, _logic], 6, "supply"] call EFUNC(tools,debug);
+private _vehicleClass = _logic getVariable [QGVAR(vehicleClass), ""];
+if(_vehicleClass isEqualTo "") exitWith {
+	[["% 1: empty vehicle class has been passed to %2", __FILE_NAME__, _logic], REPORT, "supply"] call EFUNC(tools,debug);
 };
+if(!isClass (configFile >> "CfgVehicles" >> _vehicleClass)) exitWith {
+	[["% 1: bad vehicle class '%2' has been passed to %3", __FILE_NAME__, _vehicleClass, _logic], REPORT, "supply"] call EFUNC(tools,debug);
+};
+
 private _data = _logic getVariable [QGVAR(list_value), ""];
 if(_data isEqualTo "") exitWith {
-	[["%1: bad data has been passed to %2", __FILE__, _logic], 6, "supply"] call EFUNC(tools,debug);
+	[["% 1: bad logic data has been passed to %2", __FILE_NAME__, _logic], REPORT, "supply"] call EFUNC(tools,debug);
 };
 _data = fromJSON _data;
 private _enableDamage = _logic getVariable [QGVAR(enableDamage), true];
 #ifdef BTC_DEBUG_SUPPLY
-[["%1: calling supply %2 with data: %3", __FILE__, _logic, [_class, _data]], 2, "supply"] call EFUNC(tools,debug);
+[["% 1: calling supply %2 with data: %3", __FILE_NAME__, _logic, [_vehicleClass, _data]], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 
 //Create Pilot and Vehicle
 private _randomAngle = random 360;
 private _vehPos = _logicPos vectorAdd [(cos _randomAngle) * 2000, (sin _randomAngle) * 2000, 500];
-private _veh = createVehicle[_class, _vehPos, [], 0, "FLY"];
+private _veh = createVehicle[_vehicleClass, _vehPos, [], 0, "FLY"];
 private _logicPosDirection = _logicPos vectorDiff _vehPos;
 _logicPosDirection = [_logicPosDirection#0, _logicPosDirection#1, 0];
 _veh setVectorDir _logicPosDirection;
@@ -98,6 +105,8 @@ _wp2 setWaypointBehaviour "CARELESS";
 private _paradropData = [];
 /*
     HashMap structure is as follows:
+	    "vehicle": STRING
+        "allowDamage": BOOL
         "CLASS-diag_tickTime-hashedChars": HashMap
             "class": STRING
             "inventory": HashMap
@@ -118,9 +127,10 @@ _data apply {
 };
 
 #ifdef BTC_DEBUG_SUPPLY
-[["%1: parsed data is: %2", __FILE__, _paradropData], 2, "supply"] call EFUNC(tools,debug);
+[["% 1: parsed data is: %2", __FILE_NAME__, _paradropData], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 
+deleteVehicle _logic;
 [_logicPos, _veh, _paradropData] spawn {
 	params[
 		["_logicPos", [0, 0, 0], [[]]],
@@ -128,13 +138,13 @@ _data apply {
 		["_paradropData", [], []]
 	];
 	if(_logicPos isEqualTo [0, 0, 0]) exitWith {
-		[["%1: _logicPos is invalid pos: %2", __FILE__, _logicPos], 6, "supply"] call EFUNC(tools,debug);
+		[["% 1: _logicPos is invalid pos: %2", __FILE_NAME__, _logicPos], REPORT, "supply"] call EFUNC(tools,debug);
 	};
 	if (isNull _veh) exitWith {
-		[["%1: _veh is null", __FILE__], 6, "supply"] call EFUNC(tools,debug);
+		[["% 1: _veh is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
 	};
 	if(_paradropData isEqualTo []) exitWith {
-		[["%1: empty _paradropClasses", __FILE__], 6, "supply"] call EFUNC(tools,debug);
+		[["% 1: empty _paradropClasses", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
 	};
 	private _time = CBA_missionTime + 300; //5 minutes
 	waitUntil{(_veh distance2D _logicPos) <= 100 || CBA_missionTime >= _time};
@@ -145,19 +155,19 @@ _data apply {
 		];
 		 //if object is a class create a vehicle else null check
 		if(!isClass (configFile >> "CfgVehicles" >> _paradropClass)) then {
-			[["%1: invalid class %2", __FILE__, _paradropClass], 6, "supply"] call EFUNC(tools,debug);
+			[["% 1: invalid class %2", __FILE_NAME__, _paradropClass], REPORT, "supply"] call EFUNC(tools,debug);
 		   continue; 
 		};
 		if(!alive _veh) exitWith {
 			#ifdef BTC_DEBUG_SUPPLY
-			[["%1: veh is not alive or has become null", __FILE__], 3, "supply"] call EFUNC(tools,debug);
+			[["%1: veh is not alive or has become null", __FILE_NAME__], 3, "supply"] call EFUNC(tools,debug);
 			#endif
 		};
 		private _vehPosATL = getPosATL _veh;
 		
 		if((_vehPosATL#2) < 15) then {
 			#ifdef BTC_DEBUG_SUPPLY
-			[["%1: flight path too low, must be above 15m, currently: %2", __FILE__, _vehPosATL#2], 6, "supply"] call EFUNC(tools,debug);
+			[["% 1: flight path too low, must be above 15m, currently: %2", __FILE_NAME__, _vehPosATL#2], REPORT, "supply"] call EFUNC(tools,debug);
 			#endif
 			continue;
 		};
@@ -216,12 +226,12 @@ _data apply {
 				{(!isClass (configFile >> "CfgAmmo" >> _class))} &&
 				{(!isClass (configFile >> "CfgMagazines" >> _class))}
 			) then {
-				[["%1: invalid class %2", __FILE__, _class], 6, "supply"] call EFUNC(tools,debug);
+				[["% 1: invalid class %2", __FILE_NAME__, _class], REPORT, "supply"] call EFUNC(tools,debug);
 				continue;
 			};
 			
 			if !([_supply, _class] call CBA_fnc_canAddItem) then {
-				[["%1: no inventory room for %2 in %3", __FILE__, _class, _paradropClass], 6, "supply"] call EFUNC(tools,debug);
+				[["% 1: no inventory room for %2 in %3", __FILE_NAME__, _class, _paradropClass], REPORT, "supply"] call EFUNC(tools,debug);
 				continue;
 			};
 			
@@ -247,12 +257,12 @@ _data apply {
 		deleteVehicle driver _veh;
 		deleteVehicle _veh;
 		#ifdef BTC_DEBUG_SUPPLY
-		[["%1: Supply drop complete, deleting _veh %2", __FILE__, _veh], 3, "supply"] call EFUNC(tools,debug);
+		[["%1: Supply drop complete, deleting _veh %2", __FILE_NAME__, _veh], 3, "supply"] call EFUNC(tools,debug);
 		#endif
 	},
 	[_veh, CBA_missionTime + 60]
 	] call CBA_fnc_waitUntilAndExecute;
 };
 #ifdef BTC_DEBUG_SUPPLY
-[["%1: %2 Spawning supplies...", __FILE__, _class], 3, "supply"] call EFUNC(tools,debug);
+[["%1: %2 Spawning supplies...", __FILE_NAME__, _vehicleClass], 3, "supply"] call EFUNC(tools,debug);
 #endif

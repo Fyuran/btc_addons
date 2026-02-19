@@ -24,7 +24,7 @@ params[
 	["_obj",objNull,[objNull]]
 ];
 if(isNull _obj) exitWith {
-    [["%1: bad params: %2", __FILE__, _this], 6, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "c4booby"] call EFUNC(tools,debug);
 };
 
 private _handle = _obj getVariable ["c4booby_timer_handle", -1];

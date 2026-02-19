@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_list_save
+Function: btc_enemy_waves_fnc_combo_init
 
 Description:
 
@@ -10,18 +10,16 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_list_save;
+        [] call btc_enemy_waves_fnc_combo_init;
     (end)
 
 Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+params[
+    ["_combo", controlNull, [controlNull]]
+];
 disableSerialization;
 
-private _table = missionNamespace getVariable[QGVAR(table), createHashMap];
-#ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["% 1: executing attribute save with _value: %2", __FILE_NAME__, _table], CHAT, "supply"] call EFUNC(tools,debug);
-#endif
-
-toJSON _table;
+[_combo, 0] call btc_enemy_waves_fnc_combo_load;

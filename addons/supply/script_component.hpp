@@ -3,7 +3,7 @@
 
 //#define BTC_DEBUG_SUPPLY_DIALOG
 //#define BTC_DEBUG_SUPPLY
-//#define DISABLE_COMPILE_CACHE
+#define DISABLE_COMPILE_CACHE
 
 #include "\z\btc\addons\main\script_macros.hpp"
 
@@ -28,3 +28,22 @@
 #define TEXT_3 66681
 #define EDIT_3 66682
 #define BUTTON_3 66683
+
+#define GUI_TITLE_BACKGROUND {0.772, 0.509, 0.08, 1}
+
+//Curator GUI
+#define CURATOR_DISPLAY 66600
+#define CLASS 100
+#define ALLOW_DAMAGE 101
+#define MAIN 102
+#define FOOTER 103
+#define FOOTER_OK 1031
+#define FOOTER_ABORT 1032
+
+//Presets
+#define PRESETS 66500
+#define PRESETS_LIST 66501
+#define PRESETS_LOAD 66502
+#define PRESETS_DELETE 66503
+#define PRESETS_SAVE 66504
+#define PRESETS_EDIT 66505

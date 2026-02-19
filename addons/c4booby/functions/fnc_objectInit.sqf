@@ -27,7 +27,7 @@ params[
 	["_max_colors", 1, [0]]
 ];
 if(isNull _obj) exitWith {
-    [["%1: bad params: %2", __FILE__, _this], 6, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "c4booby"] call EFUNC(tools,debug);
 };
 
 #define __NORTH 0
@@ -36,7 +36,7 @@ if(isNull _obj) exitWith {
 #define __WEST 3
 
 #ifdef BTC_DEBUG_C4BOOBY
-[["%1: creating c4 booby %2 at %3", __FILE__, typeOf _obj, getPosATL _obj], 3, "c4booby"] call EFUNC(tools,debug);
+[["%1: creating c4 booby %2 at %3", __FILE_NAME__, typeOf _obj, getPosATL _obj], CHAT + LOGS, "c4booby"] call EFUNC(tools,debug);
 #endif
 
 private _defuser_VectorDirAndUp = [
@@ -78,7 +78,7 @@ private _deco_pos = call {
 	[]
 };
 if (_deco_pos isEqualTo []) exitWith {
-    [["%1: bad _deco_pos: %2", __FILE__, _deco_pos], 6, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad _deco_pos: %2", __FILE_NAME__, _deco_pos], REPORT, "c4booby"] call EFUNC(tools,debug);
 };
 
 private _exp_pos = _deco_pos select 0;

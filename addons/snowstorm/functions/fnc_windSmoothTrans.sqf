@@ -38,8 +38,8 @@ while{_currentTime < _duration} do {
     _currentTime = _currentTime + UPDATE_RATE;
     #ifdef BTC_DEBUG_SNOWSTORM
     [["%1: _currentTime: %2, _duration: %3,  _linearTime: %4,
-            _plannedWindVector: %5, intervalVec: %6", __FILE__, 
-        _currentTime, _duration, _linearTime, _plannedWindVector, _intervalVector], 2, "snowstorm"] call EFUNC(tools,debug);
+            _plannedWindVector: %5, intervalVec: %6", __FILE_NAME__, 
+        _currentTime, _duration, _linearTime, _plannedWindVector, _intervalVector], CHAT, "snowstorm"] call EFUNC(tools,debug);
     #endif
     sleep UPDATE_RATE;
 };

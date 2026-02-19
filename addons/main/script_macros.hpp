@@ -47,12 +47,18 @@
 #define ACEPATHTOF(component,path) \z\ace\addons\component\path
 #define QACEPATHTOF(component,path) QUOTE(ACEPATHTOF(component,path))
 
+#define CHAT 2
+#define LOGS 4
+#define REPORT 8
+#define GLOBAL 16
+
 #ifdef BTC_DEBUG_FULL
     #define BTC_DEBUG_AIPATHS
     #define BTC_DEBUG_C4BOOBY
     #define BTC_DEBUG_CANTEEN
     #define BTC_DEBUG_DEPLOYABLE_ANTENNA
     #define BTC_DEBUG_DIALOG
+    #define BTC_DEBUG_ENEMY_WAVES
     #define BTC_DEBUG_INSIGNIA
     #define BTC_DEBUG_LIFT
     #define BTC_DEBUG_MAIN

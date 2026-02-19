@@ -1,14 +1,4 @@
-class ctrlListBox;
-class ctrlListNBox;
-class ctrlStatic;
-class ctrlButton;
-class ctrlStaticTitle;
-class ctrlEdit;
-class ctrlCombo;
-class ctrlCheckboxBaseline;
-class ctrlControlsGroupNoScrollbars;
-class ctrlStaticBackground;
-class GVAR(module_ctrlGrp): ctrlControlsGroupNoScrollbars {
+class GVAR(ctrlGrp): ctrlControlsGroupNoScrollbars {
 	w = "40 * (pixelW * pixelGrid * 0.50)";
 	h = "60 * (pixelH * pixelGrid * 0.50)";
 	class Controls {
@@ -44,7 +34,7 @@ class GVAR(module_ctrlGrp): ctrlControlsGroupNoScrollbars {
 		};
 	};
 };
-class GVAR(module_ctrlGrp_ListN): ctrlControlsGroupNoScrollbars {
+class GVAR(ctrlGrp_ListN): ctrlControlsGroupNoScrollbars {
 	w = "80 * (pixelW * pixelGrid * 0.50)";
 	h = "60 * (pixelH * pixelGrid * 0.50)";
 	class Controls {
@@ -147,6 +137,21 @@ class Cfg3DEN {
 				};
 			};
 		};
+		class GVAR(presets): Title {
+			x = "5 * (pixelW * pixelGrid * 0.50)";
+			w = "40 * (pixelW * pixelGrid * 0.50)";
+			h = "5 * (pixelH * pixelGrid * 0.50)";
+			class Controls: Controls {
+				class Presets: ctrlButton {
+					idc = -1;
+					onButtonClick = "[] call btc_supply_fnc_presets_init;";
+					text = "Presets";
+					colorBackground[] = {0.13, 0.47, 0.30, 1};
+					w = "40 * (pixelW * pixelGrid * 0.50)";
+					h = "5 * (pixelH * pixelGrid * 0.50)";
+				};
+			};
+		};
 		class GVAR(list): Title {
 			onLoad = "params[""_grp""]; [_grp] call btc_supply_fnc_list_init;";
 			attributeLoad = "params[""_grp""]; [_grp, _value] call btc_supply_fnc_list_load;";
@@ -155,7 +160,7 @@ class Cfg3DEN {
 			w = "((40 + 80) + 15) * (pixelW * pixelGrid * 0.50)";
 			h = "60 * (pixelH * pixelGrid * 0.50)";
 			class Controls: Controls {
-				class Grp1: GVAR(module_ctrlGrp) {
+				class Grp1: GVAR(ctrlGrp) {
 					idc = GROUP_1;
 					class Controls: Controls {
 						class Edit: Edit {
@@ -176,7 +181,7 @@ class Cfg3DEN {
 					};
 				};
 				//-------------------------------------------
-				class Grp2: GVAR(module_ctrlGrp_ListN) {
+				class Grp2: GVAR(ctrlGrp_ListN) {
 					idc = GROUP_2;
 					x = "(40 + 5) * (pixelW * pixelGrid * 0.50)";
 					class Controls: Controls {

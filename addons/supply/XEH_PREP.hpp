@@ -11,3 +11,8 @@ PREP(combo_load);
 PREP(checkbox_init);
 PREP(checkbox_save);
 PREP(checkbox_load);
+
+PREP(curator_init);
+PREP(curator_gui);
+PREP(presets_init);
+PREP(presets_delete);

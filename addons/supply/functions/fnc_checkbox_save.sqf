@@ -22,6 +22,6 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing checkbox save", __FILE__], 2, "supply"] call EFUNC(tools,debug);
+[["% 1: executing checkbox save", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 cbChecked _checkbox
