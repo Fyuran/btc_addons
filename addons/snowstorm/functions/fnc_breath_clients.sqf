@@ -21,13 +21,13 @@ Author:
 ---------------------------------------------------------------------------- */
 if(!hasInterface) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
-    [["% 1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
 	#endif
 };
 
 if(!GVAR(show_breath)) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
-    [["% 1: client has disabled breath", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: client has disabled breath", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
 	#endif
 };
 /* private _isKatPresent = isClass (configFile >> "CfgPatches" >> "kat_main");

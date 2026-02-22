@@ -23,11 +23,11 @@ params[
 disableSerialization;
 
 if(isNull _parent) exitWith {
-	[["% 1: _parent is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: _parent is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
 };
 private _display = _parent createDisplay QGVAR(RscPresets);
 if(isNull _display) exitWith {
-	[["% 1: _display is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: _display is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
 };
 
 private _list = _display displayCtrl PRESETS_LIST;
@@ -96,7 +96,7 @@ _save ctrlAddEventHandler["ButtonClick", {
     if(_inventory isEqualTo createHashMap) exitWith {
 	    [["No inventory has been set yet"], REPORT, "supply"] call EFUNC(tools,debug);
         #ifdef BTC_DEBUG_SUPPLY
-        [["% 1: inventory was: %2", __FILE_NAME__, _inventory], CHAT, "supply"] call EFUNC(tools,debug);
+        [["%1: inventory was: %2", __FILE_NAME__, _inventory], CHAT, "supply"] call EFUNC(tools,debug);
         #endif
     };
 
@@ -124,7 +124,7 @@ _save ctrlAddEventHandler["ButtonClick", {
     };
 
     #ifdef BTC_DEBUG_SUPPLY
-    [["% 1: Saving preset: %2", __FILE_NAME__, _inner], CHAT, "supply"] call EFUNC(tools,debug);
+    [["%1: Saving preset: %2", __FILE_NAME__, _inner], CHAT, "supply"] call EFUNC(tools,debug);
     #endif
 
     if(_savename in _savedPresets) then {
@@ -146,6 +146,19 @@ _list ctrlAddEventHandler["LBSelChanged", {
 
 
 private _delete = _display displayCtrl PRESETS_DELETE;
-_delete ctrlAddEventHandler["ButtonClick", FUNC(presets_delete)];
-
-_display
+_delete ctrlAddEventHandler["ButtonClick", {
+	params ["_delete"];
+	private _display = ctrlParent _delete;
+	private _list = _display displayCtrl PRESETS_LIST;
+	private _lbCurSel = lbCurSel _list;
+	if(_lbCurSel < 0) exitWith {
+		[["Nothing is selected", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+	};
+	_savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
+	_savedPresets deleteAt (_list lbText _lbCurSel);
+	#ifdef BTC_DEBUG_SUPPLY
+	[["%1: removing save: %2", __FILE_NAME__, _list lbText _lbCurSel], CHAT, "supply"] call EFUNC(tools,debug);
+	#endif
+	_list lbDelete _lbCurSel;
+	profileNamespace setVariable[QGVAR(savedPresets), _savedPresets];
+}];

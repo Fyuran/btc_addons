@@ -17,11 +17,9 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-disableSerialization;
-
 private _table = missionNamespace getVariable[QGVAR(table), createHashMap];
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["% 1: executing attribute save with _value: %2", __FILE_NAME__, _table], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing attribute save with _value: %2", __FILE_NAME__, _table], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 
 toJSON _table;

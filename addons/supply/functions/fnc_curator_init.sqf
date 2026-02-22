@@ -22,6 +22,12 @@ params [
 	["_activated", true, [true]]		// True when the module was activated, false when it is deactivated (i.e., synced triggers are no longer active)
 ];
 
+if(isNull _logic) exitWith {
+    #ifdef BTC_DEBUG_SUPPLY
+    [["%1: _logic is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+    #endif
+};
+
 if(!_activated) exitWith {};
-diag_log format["_logic owner is %1", owner _logic];
-missionNamespace setVariable[QGVAR(logic), _logic, true];
+//diag_log format["_logic owner is %1", owner _logic];
+missionNamespace setVariable[QGVAR(logic), _logic, owner _logic];

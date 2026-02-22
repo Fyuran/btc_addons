@@ -32,7 +32,7 @@ private _handle = missionNamespace getVariable[QGVAR(handle), -1];
 if(_activated) then {
     if(_handle isNotEqualTo -1) exitWith {
         #ifdef BTC_DEBUG_SNOWSTORM
-        [["% 1: one module is already running", __FILE_NAME__], REPORT, "snowstorm"] call EFUNC(tools,debug);
+        [["%1: one module is already running", __FILE_NAME__], REPORT, "snowstorm"] call EFUNC(tools,debug);
         #endif
     };
     #ifdef BTC_DEBUG_SNOWSTORM

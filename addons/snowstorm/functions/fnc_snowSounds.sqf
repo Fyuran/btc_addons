@@ -23,11 +23,11 @@ params[
     ["_intensity", 0, [123]]
 ];
 if(_intensity <= 0) exitWith {
-    [["% 1: _intesity is zero or below", __FILE_NAME__], REPORT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: _intesity is zero or below", __FILE_NAME__], REPORT, "snowstorm"] call EFUNC(tools,debug);
 };
 if(random 1 < 0.98) exitWith {
     #ifdef BTC_DEBUG_SNOWSTORM
-    [["% 1: chance was not high enough", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: chance was not high enough", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
 	#endif
 };
 

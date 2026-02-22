@@ -23,12 +23,12 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["% 1: executing checkbox load", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing checkbox load", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 
 if(_value isEqualType 123) then {
     if(_value > 1) exitWith {
-        [["% 1: checkbox _value is not 0 or 1 when passed as SCALAR", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+        [["%1: checkbox _value is not 0 or 1 when passed as SCALAR", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
     };
     _value = [false, true] select _value;
 };

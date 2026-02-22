@@ -1,7 +1,7 @@
 class GVAR(RscAttributeSupply) {
 	idd = CURATOR_DISPLAY;
 	movingEnable = "false";
-	onLoad = "params[""_display""]; [_display] call btc_fnc_supply_curator_gui;";
+	onLoad = "params[""_display""]; [_display] call btc_supply_fnc_curator_gui;";
 	class ControlsBackground {
 		class Window_Grp: ctrlControlsGroupNoScrollbars {
 			x = "((safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2))";

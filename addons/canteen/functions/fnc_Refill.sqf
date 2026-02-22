@@ -30,7 +30,7 @@ Author:
 if(!params[
 	["_item","",[""]]
 ]) exitWith {
-	[["% 1: bad params: %2", __FILE_NAME__, _this], REPORT, "canteen"] call EFUNC(tools,debug);
+	[["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "canteen"] call EFUNC(tools,debug);
 };
 
 

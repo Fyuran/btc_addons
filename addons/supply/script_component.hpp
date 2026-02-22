@@ -3,7 +3,7 @@
 
 //#define BTC_DEBUG_SUPPLY_DIALOG
 //#define BTC_DEBUG_SUPPLY
-#define DISABLE_COMPILE_CACHE
+//#define DISABLE_COMPILE_CACHE
 
 #include "\z\btc\addons\main\script_macros.hpp"
 
@@ -23,11 +23,6 @@
 #define LIST_2 66674
 #define ARROWLEFT 666741
 #define ARROWRIGHT 666742
-
-#define GROUP_3 66680
-#define TEXT_3 66681
-#define EDIT_3 66682
-#define BUTTON_3 66683
 
 #define GUI_TITLE_BACKGROUND {0.772, 0.509, 0.08, 1}
 

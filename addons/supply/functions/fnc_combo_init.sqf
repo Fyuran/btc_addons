@@ -22,10 +22,10 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["% 1: executing combo init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing combo init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 if((ctrlIDC _combo) isNotEqualTo COMBO) exitWith {
-	[["% 1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, COMBO], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, COMBO], REPORT, "supply"] call EFUNC(tools,debug);
 };
 
 uiNamespace setVariable[QGVAR(combo), _combo];
@@ -33,18 +33,18 @@ _combo ctrlAddEventHandler["LBSelChanged", {
     params ["_combo", "_lbCurSel"];
     if(_lbCurSel < 0) exitWith {
         #ifdef BTC_DEBUG_SUPPLY_DIALOG
-        [["% 1: _lbCurSel was negative", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+        [["%1: _lbCurSel was negative", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
         #endif
     };
     _vehicleClass = _combo lbData _lbCurSel;
     if(_vehicleClass isEqualTo "") exitWith {
         #ifdef BTC_DEBUG_SUPPLY_DIALOG
-        [["% 1: _vehicleClass was empty", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+        [["%1: _vehicleClass was empty", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
         #endif
     };
     if(!isClass(configFile >> "CfgVehicles" >> _vehicleClass)) exitWith {
         #ifdef BTC_DEBUG_SUPPLY_DIALOG
-        [["% 1: _vehicleClass is not a valid cfg class %2", __FILE_NAME__, _vehicleClass], REPORT, "supply"] call EFUNC(tools,debug);
+        [["%1: _vehicleClass is not a valid cfg class %2", __FILE_NAME__, _vehicleClass], REPORT, "supply"] call EFUNC(tools,debug);
         #endif
     };
 

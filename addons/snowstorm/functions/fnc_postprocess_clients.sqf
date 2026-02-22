@@ -20,13 +20,13 @@ Author:
 ---------------------------------------------------------------------------- */
 if(!hasInterface) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
-    [["% 1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
 	#endif
 };
 
 if(!GVAR(enable_ppe)) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
-    [["% 1: client has disabled ppe", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: client has disabled ppe", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
 	#endif
 };
 GVAR(color_correction) = ppEffectCreate["ColorCorrections", 1500];

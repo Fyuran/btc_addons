@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [["% 1: Hello World", __FILE_NAME__], CHAT, "debug"] call EFUNC(tools,debug);
+        [["%1: Hello World", __FILE_NAME__], CHAT, "debug"] call EFUNC(tools,debug);
     (end)
 
 Author:

@@ -21,7 +21,7 @@ params[
     ["_checkbox", controlNull, [controlNull]]
 ];
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["% 1: executing checkbox init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing checkbox init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 disableSerialization;
 

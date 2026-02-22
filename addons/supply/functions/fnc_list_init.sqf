@@ -23,7 +23,7 @@ params[
 disableSerialization;
 
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["% 1: executing attribute init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing attribute init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
 #endif
 GVAR(table) = createHashMap;
 uiNamespace setVariable[QGVAR(list_grp), _main_grp];
@@ -31,7 +31,7 @@ uiNamespace setVariable[QGVAR(list_grp), _main_grp];
 //Group 1
 private _grp1 = _main_grp controlsGroupCtrl GROUP_1;
 if((ctrlIDC _grp1) isNotEqualTo GROUP_1) exitWith {
-	[["% 1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp1, GROUP_1], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp1, GROUP_1], REPORT, "supply"] call EFUNC(tools,debug);
 };
 private _grp1_edit = _grp1 controlsGroupCtrl EDIT_1;
 private _grp1_add = _grp1 controlsGroupCtrl ADD_1;
@@ -112,7 +112,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
     _inventory apply {
         [_x, _y] params [
             ["_class", "", [""]],
-            ["_amount", 0, [123]]
+            ["_amount", 1, [123]]
         ];
         private _lnbNewRow = switch (true) do {
             case (isClass (configFile >> "CfgVehicles" >> _class)): {
@@ -148,10 +148,11 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
         _lnbNewRow params [
             ["_displayName", "UNKNOWN", [""]], 
             ["_icon", "", [""]],
-            ["_amount", 0, [123]]
+            ["_amount", 1, [123]]
         ];
-        if(_displayName isEqualTo "REPORT") exitWith {
+        if(_displayName isEqualTo "REPORT") then {
             [format["%1 invalid vehicle, weapon or magazine class", _class], 1] call BIS_fnc_3DENNotification;
+			continue;
         };
 
         private _row = _grp2_list lnbAddRow [_displayName, str _amount];
@@ -181,7 +182,7 @@ if(isServer) then {
 //Group 2
 private _grp2 = _main_grp controlsGroupCtrl GROUP_2;
 if((ctrlIDC _grp2) isNotEqualTo GROUP_2) exitWith {
-	[["% 1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp2, GROUP_2], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp2, GROUP_2], REPORT, "supply"] call EFUNC(tools,debug);
 };
 private _grp2_edit = _grp2 controlsGroupCtrl EDIT_2;
 private _grp2_add = _grp2 controlsGroupCtrl ADD_2;
@@ -240,7 +241,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
     _lnbNewRow params [
         ["_displayName", "UNKNOWN", [""]], 
         ["_icon", "", [""]],
-        ["_amount", 0, [123]]
+        ["_amount", 1, [123]]
 
     ];
     if(_displayName isEqualTo "REPORT") exitWith {
@@ -363,29 +364,3 @@ _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
     //Update UI
     _grp2_list lnbSetText [[_grp2_list_lnbCurSelRow, 1], str (_amount + 1)];
 }];
-
-/* #ifdef BTC_DEBUG_SUPPLY_DIALOG
-if(missionNamespace getVariable[QGVAR(debug_init), false]) exitWith {}; //Test Load if it works
-//Row 0
-_grp1_list lbAdd getText(configFile >> "CfgVehicles" >> "Land_CargoBox_V1_F" >> "displayName");
-private _uid = "Land_CargoBox_V1_F" + ([] call EFUNC(tools,uid));
-_grp1_list lbSetData[0, _uid];
-private _inner = GVAR(table) getOrDefault [_uid, createHashMap, true];
-_inner set ["class", "Land_CargoBox_V1_F"];
-_inner set ["inventory", createHashMap];
-private _inventory = (GVAR(table) get _uid) get "inventory";
-_inventory set ["30Rnd_556x45_Stanag", 2];
-_inventory set ["30Rnd_556x45_Stanag_green", 10];
-
-//Row 1
-_grp1_list lbAdd getText(configFile >> "CfgVehicles" >> "Land_CargoBox_V1_F" >> "displayName");
-private _uid = "Land_CargoBox_V1_F" + ([] call EFUNC(tools,uid));
-_grp1_list lbSetData[1, _uid];
-private _inner = GVAR(table) getOrDefault [_uid, createHashMap, true];
-_inner set ["class", "Land_CargoBox_V1_F"];
-_inner set ["inventory", createHashMap];
-private _inventory = (GVAR(table) get _uid) get "inventory";
-_inventory set ["30Rnd_556x45_Stanag", 4];
-
-GVAR(debug_init) = true;
-#endif */
