@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_presets_init
+Function: btc_enemy_waves_fnc_presets_init
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_presets_init;
+        [] call btc_enemy_waves_fnc_presets_init;
     (end)
 
 Author:
@@ -23,11 +23,11 @@ params[
 disableSerialization;
 
 if(isNull _parent) exitWith {
-	[["%1: _parent is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: _parent is null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
 };
-private _display = _parent createDisplay QGVAR(RscPresets);
+private _display = _parent createDisplay QEGVAR(supply,RscPresets);
 if(isNull _display) exitWith {
-	[["%1: _display is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: _display is null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
 };
 
 private _list = _display displayCtrl PRESETS_LIST;
@@ -51,30 +51,32 @@ _load ctrlAddEventHandler["ButtonClick", {
     _list = _display displayCtrl PRESETS_LIST;
     _lbCurSel = lbCurSel _list;
     if(_lbCurSel < 0) exitWith {
-	    [["No preset is selected"], REPORT, "supply"] call EFUNC(tools,debug);
+	    [["No preset is selected"], REPORT, "enemy_waves"] call EFUNC(tools,debug);
     };
 
-    _combo = uiNamespace getVariable[QGVAR(combo), controlNull];
-    _checkbox = uiNamespace getVariable[QGVAR(checkbox), controlNull];
+    _side_combo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
+	_timeout = uiNamespace getVariable[QGVAR(timeout), controlNull];
+    _formation_combo = uiNamespace getVariable[QGVAR(formation_combo), controlNull];
     _list_grp = uiNamespace getVariable[QGVAR(list_grp), controlNull];
 
-    if(isNull _checkbox || isNull _combo || isNull _list_grp) exitWith {
-	    [["Supply gui malfunctioned, one control is null: _checkbox %1, _combo: %2, _list_grp: %3", _checkbox, _combo, _list_grp], REPORT, "supply"] call EFUNC(tools,debug);
+    if(isNull _formation_combo || isNull _side_combo || isNull _timeout || isNull _list_grp) exitWith {
+	    [["Enemy Waves gui malfunctioned, one control is null: _formation_combo %1, _side_combo: %2, _timeout: %3, _list_grp: %4", _formation_combo, _side_combo, _timeout, _list_grp], REPORT, "enemy_waves"] call EFUNC(tools,debug);
     };
 
     _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
     if(_savedPresets isEqualTo createHashMap) exitWith {
-	    [["No presets found in profileNamespace"], REPORT, "supply"] call EFUNC(tools,debug);
+	    [["No presets found in profileNamespace"], REPORT, "enemy_waves"] call EFUNC(tools,debug);
     };
     _savename = _list lbText _lbCurSel;
     _preset = _savedPresets getOrDefault[_savename, createHashMap];
     if(_preset isEqualTo createHashMap) exitWith {
-	    [["No preset found in profileNamespace by %1 name", _savename], REPORT, "supply"] call EFUNC(tools,debug);
+	    [["No preset found in profileNamespace by %1 name", _savename], REPORT, "enemy_waves"] call EFUNC(tools,debug);
     };
 
-    [_combo, _preset getOrDefault[QGVAR(table_vehicle), "B_Heli_Light_01_F"]] call FUNC(combo_load);
-    [_checkbox, _preset getOrDefault[QGVAR(table_allowDamage), true]] call FUNC(checkbox_load);
-    [_list_grp, _preset getOrDefault[QGVAR(table), createHashMap]] call FUNC(list_load);
+    [_side_combo, _preset getOrDefault[QGVAR(side), east]] call FUNC(side_combo_load);
+    [_timeout, _preset getOrDefault[QGVAR(timeout), 60]] call FUNC(timeout_load);
+    [_formation_combo, _preset getOrDefault[QGVAR(formation), "COLUMN"]] call FUNC(formation_combo_load);
+    [_list_grp, _preset getOrDefault[QGVAR(table), []]] call FUNC(list_load);
 
     [format["Loaded preset %1", _savename]] call EFUNC(tools,3DENNotification);
     _display closeDisplay 1;
@@ -87,17 +89,21 @@ _save ctrlAddEventHandler["ButtonClick", {
     _edit = _display displayCtrl PRESETS_EDIT;
     _list = _display displayCtrl PRESETS_LIST;
 
-	_allowDamageCheckbox = uiNamespace getVariable[QGVAR(checkbox), controlNull];
-	_vehicleClassCombo = uiNamespace getVariable[QGVAR(combo), controlNull];
+    _side_combo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
+	_timeout = uiNamespace getVariable[QGVAR(timeout), controlNull];
+    _formation_combo = uiNamespace getVariable[QGVAR(formation_combo), controlNull];
 
-    _vehicleClass = _vehicleClassCombo lbData (lbCurSel _vehicleClassCombo);
-    _allowDamage = [false, true] select (cbChecked _allowDamageCheckbox);
-    
-    _inventory = missionNamespace getVariable[QGVAR(table), createHashMap];
-    if(_inventory isEqualTo createHashMap) exitWith {
-	    [["No inventory has been set yet"], REPORT, "supply"] call EFUNC(tools,debug);
-        #ifdef BTC_DEBUG_SUPPLY
-        [["%1: inventory was: %2", __FILE_NAME__, _inventory], CHAT, "supply"] call EFUNC(tools,debug);
+    _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
+
+    _side = _side_combo lbValue (lbCurSel _side_combo);
+    _timeout = parseNumber (ctrlText _timeout);
+    _formation = _formation_combo lbText (lbCurSel _formation_combo);
+
+    _classes = missionNamespace getVariable[QGVAR(table), createHashMap];
+    if(_classes isEqualTo createHashMap) exitWith {
+	    [["No inventory has been set yet"], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+        #ifdef BTC_ENEMY_WAVES_DEBUG
+        [["%1: inventory was: %2", __FILE_NAME__, _classes], CHAT, "enemy_waves"] call EFUNC(tools,debug);
         #endif
     };
 
@@ -107,11 +113,11 @@ _save ctrlAddEventHandler["ButtonClick", {
     };
 
     _inner = createHashMapFromArray[
-        [QGVAR(table_vehicle), _vehicleClass],
-        [QGVAR(table_allowDamage), _allowDamage],
-        [QGVAR(table), _inventory]
+        [QGVAR(side), _side],
+        [QGVAR(timeout), _timeout],
+        [QGVAR(formation), _formation],
+        [QGVAR(table), _classes]
     ];
-	_savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
 	if(_savename in _savedPresets) then {
         [format["Overwriting preset %1", _savename]] call EFUNC(tools,3DENNotification);
     } else {
@@ -130,8 +136,8 @@ _save ctrlAddEventHandler["ButtonClick", {
         _list lbSetData[_row, toJSON _inner];
     };
 
-    #ifdef BTC_DEBUG_SUPPLY
-    [["%1: Saving preset: %2", __FILE_NAME__, _inner], CHAT, "supply"] call EFUNC(tools,debug);
+    #ifdef BTC_ENEMY_WAVES_DEBUG
+    [["%1: Saving preset: %2", __FILE_NAME__, _inner], CHAT, "enemy_waves"] call EFUNC(tools,debug);
     #endif
 
     profileNamespace setVariable[QGVAR(savedPresets), _savedPresets];
@@ -153,12 +159,12 @@ _delete ctrlAddEventHandler["ButtonClick", {
 	private _list = _display displayCtrl PRESETS_LIST;
 	private _lbCurSel = lbCurSel _list;
 	if(_lbCurSel < 0) exitWith {
-		[["Nothing is selected", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+		[["Nothing is selected", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
 	};
 	_savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
 	_savedPresets deleteAt (_list lbText _lbCurSel);
-	#ifdef BTC_DEBUG_SUPPLY
-	[["%1: removing save: %2", __FILE_NAME__, _list lbText _lbCurSel], CHAT, "supply"] call EFUNC(tools,debug);
+	#ifdef BTC_ENEMY_WAVES_DEBUG
+	[["%1: removing save: %2", __FILE_NAME__, _list lbText _lbCurSel], CHAT, "enemy_waves"] call EFUNC(tools,debug);
 	#endif
 	_list lbDelete _lbCurSel;
 	profileNamespace setVariable[QGVAR(savedPresets), _savedPresets];

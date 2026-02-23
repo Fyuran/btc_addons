@@ -22,7 +22,7 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing combo init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing combo save", __FILE_NAME__], LOGS, "supply"] call EFUNC(tools,debug);
 #endif
 if((ctrlIDC _combo) isNotEqualTo COMBO) exitWith {
 	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, COMBO], REPORT, "supply"] call EFUNC(tools,debug);

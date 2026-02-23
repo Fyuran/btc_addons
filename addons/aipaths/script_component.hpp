@@ -1,4 +1,4 @@
-#define COMPONENT AIPaths
+#define COMPONENT aipaths
 #include "\z\btc\addons\main\script_mod.hpp"
 
 // #define BTC_DEBUG_AIPATHS

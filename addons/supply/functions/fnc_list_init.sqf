@@ -23,7 +23,7 @@ params[
 disableSerialization;
 
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing attribute init", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing list init", __FILE_NAME__], LOGS, "supply"] call EFUNC(tools,debug);
 #endif
 GVAR(table) = createHashMap;
 uiNamespace setVariable[QGVAR(list_grp), _main_grp];
@@ -51,7 +51,7 @@ _grp1_add ctrlAddEventHandler ["ButtonClick", {
     _class = trim(ctrlText _edit);
     _cfg = configFile >> "CfgVehicles" >> _class;
     if(!isClass _cfg) exitWith {
-        [format["%1 invalid ammo box or vehicle class", _class], 1] call BIS_fnc_3DENNotification;
+        [format["%1 invalid ammo box or vehicle class", _class], 1] call EFUNC(tools,3DENNotification);
     };
 
     _row = _grp1_list lbAdd (getText (_cfg >> "displayName"));
@@ -65,6 +65,10 @@ _grp1_add ctrlAddEventHandler ["ButtonClick", {
     _inner = GVAR(table) getOrDefault [_uid, createHashMap, true];
     _inner set ["class", _class];
     _inner set ["inventory", createHashMap];
+
+	#ifdef BTC_DEBUG_SUPPLY_DIALOG
+	[["%1: adding %2 to LIST_1", __FILE_NAME__, _class], LOGS, "supply"] call EFUNC(tools,debug);
+	#endif
 }];
 
 /*
@@ -78,7 +82,7 @@ _grp1_remove ctrlAddEventHandler ["ButtonClick", {
 
     _lbCurSel = lbCurSel _grp1_list;
     if(_lbCurSel < 0) exitWith {
-        ["Nothing is selected in Objects List", 1] call BIS_fnc_3DENNotification;
+        ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
 
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
@@ -86,6 +90,9 @@ _grp1_remove ctrlAddEventHandler ["ButtonClick", {
 
     _grp1_list lbDelete _lbCurSel;
     _grp1_list lbSetCurSel -1; //Should trigger LBSelChanged -1 exitWith lbClear
+	#ifdef BTC_DEBUG_SUPPLY_DIALOG
+	[["%1: removing %2 from LIST_1", __FILE_NAME__, _uid], LOGS, "supply"] call EFUNC(tools,debug);
+	#endif
 }];
 
 /*
@@ -106,9 +113,15 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
 
     //retrieve LIST_1 lbCurSel's data from the HashMap
     _uid = _grp1_list lbData _lbCurSel;
-    _inventory = (GVAR(table) get _uid) get "inventory";
+    _inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
 
     lnbClear _grp2_list;
+	if(_inventory isEqualTo createHashMap) exitWith {
+		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
+		[["%1: LIST_1 LBSelChanged's _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		#endif
+	};
+
     _inventory apply {
         [_x, _y] params [
             ["_class", "", [""]],
@@ -151,7 +164,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
             ["_amount", 1, [123]]
         ];
         if(_displayName isEqualTo "REPORT") then {
-            [format["%1 invalid vehicle, weapon or magazine class", _class], 1] call BIS_fnc_3DENNotification;
+            [format["%1 invalid vehicle, weapon or magazine class", _class], 1] call EFUNC(tools,3DENNotification);
 			continue;
         };
 
@@ -159,6 +172,10 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
         _grp2_list lnbSetData [[_row, 0], _class];
         _grp2_list lnbSetPicture [[_row, 0], _icon];
     };
+
+	#ifdef BTC_DEBUG_SUPPLY_DIALOG
+	[["%1: building LIST_2 with inventory: %2", __FILE_NAME__, _inventory], LOGS, "supply"] call EFUNC(tools,debug);
+	#endif
 }];
 
 /*
@@ -171,8 +188,11 @@ if(isServer) then {
         if(_key isEqualTo 0x2E && {_ctrl}) then {
             //retrieve LIST_1 lbCurSel's data from the HashMap
             _uid = _grp1_list lbData (lbCurSel _grp1_list);
-            _class = (GVAR(table) get _uid) get "class";
-            [format["%1 class saved into clipboard", _class]] call BIS_fnc_3DENNotification;
+			_class = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["class", ""];
+			if(_class isEqualTo "") exitWith {
+				["Could not copy to clipboard selected class"] call EFUNC(tools,3DENNotification);
+			};
+            [format["%1 class saved into clipboard", _class]] call EFUNC(tools,3DENNotification);
             copyToClipboard _class;
             false
         };
@@ -204,15 +224,21 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
     _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
     if((lbCurSel _grp1_list) < 0) exitWith {
-        ["Nothing is selected in Objects List", 1] call BIS_fnc_3DENNotification;
+        ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
 
     _class = trim(ctrlText _edit);
     //Update HashMap
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
-    _inventory = (GVAR(table) get _uid) get "inventory";
+	_inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
+	if(_inventory isEqualTo createHashMap) exitWith {
+		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
+		[["%1: LIST_2 ADD _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		#endif
+	};
+
     if(_class in _inventory) exitWith {
-        [format["%1 already exists inside this object's inventory", _class], 1] call BIS_fnc_3DENNotification;
+        [format["%1 already exists inside this object's inventory", _class], 1] call EFUNC(tools,3DENNotification);
     };
     
     private _lnbNewRow = switch (true) do {
@@ -245,7 +271,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
 
     ];
     if(_displayName isEqualTo "REPORT") exitWith {
-        [format["%1 invalid inventory class", _class], 1] call BIS_fnc_3DENNotification;
+        [format["%1 invalid inventory class", _class], 1] call EFUNC(tools,3DENNotification);
     };
     _inventory set [_class, 1];
 
@@ -256,6 +282,9 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
     _grp2_list lnbSetPicture [[_row, 0], _icon];
     _grp2_list lnbSetCurSelRow _row;
 
+	#ifdef BTC_DEBUG_SUPPLY_DIALOG
+	[["%1: adding %2 to LIST_2", __FILE_NAME__, _class], LOGS, "supply"] call EFUNC(tools,debug);
+	#endif
 }];
 
 /*
@@ -272,20 +301,29 @@ _grp2_remove ctrlAddEventHandler ["ButtonClick", {
 
     _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
     if((lbCurSel _grp1_list) < 0) exitWith {
-        ["Nothing is selected in Objects List", 1] call BIS_fnc_3DENNotification;
+        ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
     if(_grp2_list_lnbCurSelRow < 0) exitWith {
-        ["Nothing is selected in Supplies List", 1] call BIS_fnc_3DENNotification;
+        ["Nothing is selected in Supplies List", 1] call EFUNC(tools,3DENNotification);
     };
 
     //Update HashMap
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
-    _inventory = (GVAR(table) get _uid) get "inventory";
+    _inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
+	if(_inventory isEqualTo createHashMap) exitWith {
+		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
+		[["%1: LIST_2 REMOVE _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		#endif
+	};
     _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
     _inventory deleteAt _class;
 
     _grp2_list lnbDeleteRow _grp2_list_lnbCurSelRow;
     _grp2_list lnbSetCurSelRow -1;
+
+	#ifdef BTC_DEBUG_SUPPLY_DIALOG
+	[["%1: removing %2 from LIST_2", __FILE_NAME__, _class], LOGS, "supply"] call EFUNC(tools,debug);
+	#endif
 }];
 
 /*
@@ -298,7 +336,7 @@ if(isServer) then {
         if(_key isEqualTo 0x2E && {_ctrl}) then {
             //retrieve LIST_1 lbCurSel's data from the HashMap
             _class = _grp2_list lnbData[(lnbCurSelRow _grp2_list), 0];
-            [format["%1 class saved into clipboard", _class]] call BIS_fnc_3DENNotification;
+            [format["%1 class saved into clipboard", _class]] call EFUNC(tools,3DENNotification);
             copyToClipboard _class;
             false
         };
@@ -319,22 +357,30 @@ _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
 
     _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
     if((lbCurSel _grp1_list) < 0) exitWith {
-        ["Nothing is selected in Objects List", 1] call BIS_fnc_3DENNotification;
+        ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
     if(_grp2_list_lnbCurSelRow < 0) exitWith {
-        ["Nothing is selected in Supplies List", 1] call BIS_fnc_3DENNotification;
+        ["Nothing is selected in Supplies List", 1] call EFUNC(tools,3DENNotification);
     };
 
 
     //Update HashMap
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
-    _inventory = (GVAR(table) get _uid) get "inventory";
+    _inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
+	if(_inventory isEqualTo createHashMap) exitWith {
+		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
+		[["%1: LIST_2 buttonLeft _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		#endif
+	};
     _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
-    _amount = _inventory get _class;
+    _amount = _inventory getOrDefault [_class, 1];
     _inventory set [_class, (_amount - 1) max 1];
 
     //Update UI
     _grp2_list lnbSetText [[_grp2_list_lnbCurSelRow, 1], str ((_amount - 1) max 1)];
+	#ifdef BTC_DEBUG_SUPPLY_DIALOG
+	[["%1: adding 1 LIST_2's class: ", __FILE_NAME__, _class], LOGS, "supply"] call EFUNC(tools,debug);
+	#endif
 }];
 _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
     params ["_btn"];
@@ -347,20 +393,28 @@ _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
 
     _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
     if((lbCurSel _grp1_list) < 0) exitWith {
-        ["Nothing is selected in Objects List", 1] call BIS_fnc_3DENNotification;
+        ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
     if(_grp2_list_lnbCurSelRow < 0) exitWith {
-        ["Nothing is selected in Supplies List", 1] call BIS_fnc_3DENNotification;
+        ["Nothing is selected in Supplies List", 1] call EFUNC(tools,3DENNotification);
     };
 
 
     //Update HashMap
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
-    _inventory = (GVAR(table) get _uid) get "inventory";
+    _inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
+	if(_inventory isEqualTo createHashMap) exitWith {
+		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
+		[["%1: LIST_2 ButtonRight _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		#endif
+	};
     _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
-    _amount = _inventory get _class;
+    _amount = _inventory getOrDefault [_class, 1];
     _inventory set [_class, _amount + 1];
 
     //Update UI
     _grp2_list lnbSetText [[_grp2_list_lnbCurSelRow, 1], str (_amount + 1)];
+	#ifdef BTC_DEBUG_SUPPLY_DIALOG
+	[["%1: removing 1 from LIST_2's class: ", __FILE_NAME__, _class], LOGS, "supply"] call EFUNC(tools,debug);
+	#endif
 }];

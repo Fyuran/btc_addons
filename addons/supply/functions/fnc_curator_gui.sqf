@@ -40,15 +40,15 @@ if(isNull _display) exitWith {
 
     private _comboGrp = _display displayCtrl CLASS;
     private _combo = _comboGrp controlsGroupCtrl COMBO;
-    [_combo] call btc_supply_fnc_combo_init;
+    [_combo] call FUNC(combo_init);
 
     private _checkboxGrp = _display displayCtrl ALLOW_DAMAGE;
     private _checkbox = _checkboxGrp controlsGroupCtrl CHECKBOX;
-    [_checkbox] call btc_supply_fnc_checkbox_init;
+    [_checkbox] call FUNC(checkbox_init);
     _checkbox cbSetChecked true;
 
     private _list_grp = _display displayCtrl MAIN;
-    [_list_grp] call btc_supply_fnc_list_init;
+    [_list_grp] call FUNC(list_init);
 
     if(isNull _checkbox || isNull _combo || isNull _list_grp) exitWith {
         [["Supply gui malfunctioned, one control is null: _checkbox %1, _combo: %2, _list_grp: %3", _checkbox, _combo, _list_grp], REPORT, "supply"] call EFUNC(tools,debug);

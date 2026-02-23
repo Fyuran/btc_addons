@@ -23,7 +23,7 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing checkbox load", __FILE_NAME__], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing checkbox load with _value %2", __FILE_NAME__, _value], LOGS, "supply"] call EFUNC(tools,debug);
 #endif
 
 if(_value isEqualType 123) then {

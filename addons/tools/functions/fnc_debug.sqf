@@ -42,11 +42,14 @@ if(_title isNotEqualTo "DEBUG") then {
     _title = format["[BTC] (%1)", toUpper _title];
 };
 
+_message = format _message;
 if(!_isError) then {
-    [format _message, _title, [_useChat, _useLogs, _global]] call CBA_fnc_debug2;
+    [_message, _title, [_useChat, _useLogs, _global]] call CBA_fnc_debug2;
 } else { //it's an REPORT message
-    ["%1", format _message] remoteExecCall ["BIS_fnc_error", 0];
-    _title = format["%1 REPORT", _title];
-    [format _message, _title, [_useChat, _useLogs, _global]] call CBA_fnc_debug2;
+	if(is3DEN) then {
+		[_message, 1] call BIS_fnc_3DENNotification;
+	};
+    _title = format["%1 ERROR", _title];
+    [_message, _title, [_useChat, _useLogs, _global]] call CBA_fnc_debug2;
 };
 

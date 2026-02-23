@@ -24,7 +24,7 @@ params[
 disableSerialization;
 
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing attribute load with _value: %2", __FILE_NAME__, _value], CHAT, "supply"] call EFUNC(tools,debug);
+[["%1: executing list load with _value: %2", __FILE_NAME__, _value], LOGS, "supply"] call EFUNC(tools,debug);
 #endif
 if(_value isEqualTo "") exitWith {};
 if(_value isEqualTo createHashMap) exitWith {};
@@ -33,14 +33,21 @@ if(_value isEqualType "") then {
 } else {
     GVAR(table) = +_value;
 };
+if(GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
+	#ifdef BTC_DEBUG_SUPPLY
+	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__, GVAR(table)], LOGS, "supply"] call EFUNC(tools,debug);
+	#endif
+};
 
 //Group 1
 private _grp1 = _main_grp controlsGroupCtrl GROUP_1;
-if((ctrlIDC _grp1) isNotEqualTo GROUP_1) exitWith {
-	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp1, GROUP_1], REPORT, "supply"] call EFUNC(tools,debug);
-};
 private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 lbClear _grp1_list;
+
+//Group 2
+private _grp2 = _main_grp controlsGroupCtrl GROUP_2;
+private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+lnbClear _grp2_list;
 /*
     HashMap structure is as follows:
         "vehicle": STRING

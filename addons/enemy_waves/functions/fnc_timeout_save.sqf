@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_checkbox_save
+Function: btc_enemy_waves_fnc_timeout_init
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_checkbox_save;
+        [] call btc_enemy_waves_fnc_timeout_init;
     (end)
 
 Author:
@@ -18,10 +18,11 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_checkbox", controlNull, [controlNull]]
+    ["_edit", controlNull, [controlNull]]
 ];
 disableSerialization;
-#ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing checkbox save", __FILE_NAME__], LOGS, "supply"] call EFUNC(tools,debug);
+#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
+[["%1: executing timeout save", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
 #endif
-cbChecked _checkbox
+
+parseNumber(ctrlText _edit);

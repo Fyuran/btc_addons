@@ -22,6 +22,7 @@ class CfgPatches {
 300: Weapon state
 12: Map
 160: UAV Terminal
+315: 3DEN
 */
 class ctrlListBox;
 class ctrlListNBox;
@@ -150,8 +151,8 @@ class CfgVehicles {
 				typeName = "STRING"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
 			};
 			class GVAR(list): Default {
-				displayName = "Vehicle inventory"; // Name assigned to UI control class Title
-				tooltip = "Change supplies"; // Tooltip assigned to UI control class Title
+				//displayName = "Vehicle inventory"; // Name assigned to UI control class Title
+				//tooltip = "Change supplies"; // Tooltip assigned to UI control class Title
 				property = QGVAR(list_value); // Unique config property name saved in SQM
 				control = QGVAR(list); // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
 				// Expression called when applying the attribute in Eden and at the scenario start

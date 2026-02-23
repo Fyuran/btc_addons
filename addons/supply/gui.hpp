@@ -155,7 +155,7 @@ class Cfg3DEN {
 		class GVAR(list): Title {
 			onLoad = "params[""_grp""]; [_grp] call btc_supply_fnc_list_init;";
 			attributeLoad = "params[""_grp""]; [_grp, _value] call btc_supply_fnc_list_load;";
-			attributeSave = "params[""_grp""]; [_grp] call btc_supply_fnc_list_save;";
+			attributeSave = "[] call btc_supply_fnc_list_save;";
 			x = "5 * (pixelW * pixelGrid * 0.50)";
 			w = "((40 + 80) + 15) * (pixelW * pixelGrid * 0.50)";
 			h = "60 * (pixelH * pixelGrid * 0.50)";
@@ -165,6 +165,7 @@ class Cfg3DEN {
 					class Controls: Controls {
 						class Edit: Edit {
 							idc = EDIT_1;
+							tooltip = "Insert valid class from CfgVehicles here";
 						};
 						class Add: Add {
 							idc = ADD_1;
@@ -176,7 +177,7 @@ class Cfg3DEN {
 							idc = LIST_1;
 						};
 						class Title: Title {
-							text = "Objects List";
+							text = "Objects";
 						};
 					};
 				};
@@ -187,6 +188,7 @@ class Cfg3DEN {
 					class Controls: Controls {
 						class Edit: Edit {
 							idc = EDIT_2;
+							tooltip = "Insert valid class from CfgWeapons or CfgMagazines here";
 						};
 						class Add: Add {
 							idc = ADD_2;
@@ -206,7 +208,7 @@ class Cfg3DEN {
 							idc = LIST_2;
 						};
 						class Title: Title {
-							text = "Supplies List";
+							text = "Supplies";
 						};
 						class List_Background1: List_Background1 {
 							idc = -1;
