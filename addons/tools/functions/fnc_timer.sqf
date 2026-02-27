@@ -43,7 +43,7 @@ btc_tools_ui_timer_handle = [_duration, _clock, _predicate, _guiPosSize] spawn {
 		"_guiPosSize"
 	];
 	if (_clock != 24 && _clock != 12) exitWith {
-		[["%1: invalid clock time: %2", __FILE_NAME__, _clock], 6, "tools"] call FUNC(debug);
+		[["%1: invalid clock time: %2", __FILE_NAME__, _clock], REPORT, "tools"] call FUNC(debug);
 	};
 	private _display = findDisplay 46;
 	private _textCtrl = _display ctrlCreate ["RscStructuredText", 6001];

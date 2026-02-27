@@ -27,9 +27,9 @@ params [
     ["_mode", 0, [123]],
     ["_title", "DEBUG", [""]]
 ];
-if (_mode <= 0 || _mode > 15) exitWith {
+if (_mode <= 0 || _mode > GLOBAL) exitWith {
     #ifdef BTC_DEBUG_DEBUG
-    [["%1: invalid _mode: %2 passed to btc_debug_fnc_message", __FILE_NAME__, _mode], 6, "debug"] call FUNC(debug);  
+    [["%1: invalid _mode: %2 passed to btc_debug_fnc_message", __FILE_NAME__, _mode], REPORT, "debug"] call FUNC(debug);  
     #endif
 };
 

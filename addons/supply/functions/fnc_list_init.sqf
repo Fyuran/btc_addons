@@ -113,7 +113,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
 
     //retrieve LIST_1 lbCurSel's data from the HashMap
     _uid = _grp1_list lbData _lbCurSel;
-    _inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
+    _inventory = (GVAR(table) get _uid) get "inventory";
 
     lnbClear _grp2_list;
 	if(_inventory isEqualTo createHashMap) exitWith {
@@ -188,7 +188,7 @@ if(isServer) then {
         if(_key isEqualTo 0x2E && {_ctrl}) then {
             //retrieve LIST_1 lbCurSel's data from the HashMap
             _uid = _grp1_list lbData (lbCurSel _grp1_list);
-			_class = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["class", ""];
+			_class = (GVAR(table) get _uid) get "class";
 			if(_class isEqualTo "") exitWith {
 				["Could not copy to clipboard selected class"] call EFUNC(tools,3DENNotification);
 			};
@@ -230,12 +230,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
     _class = trim(ctrlText _edit);
     //Update HashMap
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
-	_inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
-	if(_inventory isEqualTo createHashMap) exitWith {
-		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-		[["%1: LIST_2 ADD _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
-		#endif
-	};
+	_inventory = (GVAR(table) get _uid) get "inventory";
 
     if(_class in _inventory) exitWith {
         [format["%1 already exists inside this object's inventory", _class], 1] call EFUNC(tools,3DENNotification);
@@ -258,8 +253,8 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
         };
         default {
             [
-                "REPORT",
-                "REPORT",
+                "ERROR",
+                "ERROR",
                 -1
             ]
         };
@@ -270,7 +265,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
         ["_amount", 1, [123]]
 
     ];
-    if(_displayName isEqualTo "REPORT") exitWith {
+    if(_displayName isEqualTo "ERROR") exitWith {
         [format["%1 invalid inventory class", _class], 1] call EFUNC(tools,3DENNotification);
     };
     _inventory set [_class, 1];
@@ -309,7 +304,7 @@ _grp2_remove ctrlAddEventHandler ["ButtonClick", {
 
     //Update HashMap
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
-    _inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
+	_inventory = (GVAR(table) get _uid) get "inventory";
 	if(_inventory isEqualTo createHashMap) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 REMOVE _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
@@ -366,14 +361,14 @@ _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
 
     //Update HashMap
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
-    _inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
+	_inventory = (GVAR(table) get _uid) get "inventory";
 	if(_inventory isEqualTo createHashMap) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 buttonLeft _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
 		#endif
 	};
     _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
-    _amount = _inventory getOrDefault [_class, 1];
+    _amount = _inventory get _class;
     _inventory set [_class, (_amount - 1) max 1];
 
     //Update UI
@@ -402,14 +397,14 @@ _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
 
     //Update HashMap
     _uid = _grp1_list lbData (lbCurSel _grp1_list);
-    _inventory = (GVAR(table) getOrDefault [_uid, createHashMap, true]) getOrDefault ["inventory", createHashMap, true];
+	_inventory = (GVAR(table) get _uid) get "inventory";
 	if(_inventory isEqualTo createHashMap) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 ButtonRight _inventory is empty", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
 		#endif
 	};
     _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
-    _amount = _inventory getOrDefault [_class, 1];
+    _amount = _inventory get _class;
     _inventory set [_class, _amount + 1];
 
     //Update UI
