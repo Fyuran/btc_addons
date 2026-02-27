@@ -12,17 +12,14 @@
 Function: btc_dialog_fnc_speech
 
 Description:
-    Initiates snowfall.
+    Initiates speech/conversation from JSON config.
 
 Parameters:
-    _convo: string
+    _conv_name[STRING]: Name of conversation
+    _path[STRING]: Path to conversation config file
 
 Returns:
-
-Examples:
-    (begin example)
-	[] call btc_dialog_fnc_speech;
-    (end)
+    NOTHING
 
 Author:
     =BTC= Fyuran

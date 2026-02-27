@@ -3,14 +3,17 @@
 Function: btc_supply_fnc_combo_save
 
 Description:
+    Returns the currently selected air vehicle class name from a combo box.
 
 Parameters:
+    _combo[CONTROL]: Combo box control to query
 
 Returns:
+    STRING: Vehicle class name, empty string if no selection
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_combo_save;
+        _vehicleClass = [_vehicleCombo] call btc_supply_fnc_combo_save;
     (end)
 
 Author:

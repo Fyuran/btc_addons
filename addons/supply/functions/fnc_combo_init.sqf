@@ -3,14 +3,17 @@
 Function: btc_supply_fnc_combo_init
 
 Description:
+    Initializes a combo box with available air vehicle classes from config and stores reference.
 
 Parameters:
+    _combo[CONTROL]: Combo box control to populate with aircraft
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_combo_init;
+        [_vehicleCombo] call btc_supply_fnc_combo_init;
     (end)
 
 Author:

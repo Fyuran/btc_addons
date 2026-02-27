@@ -3,14 +3,17 @@
 Function: btc_supply_fnc_list_save
 
 Description:
+    Encodes and returns the supply table data as JSON string for serialization.
 
 Parameters:
+    NONE
 
 Returns:
+    STRING: JSON encoded supply table data
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_list_save;
+        _jsonData = [] call btc_supply_fnc_list_save;
     (end)
 
 Author:

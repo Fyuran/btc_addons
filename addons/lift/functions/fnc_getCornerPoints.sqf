@@ -1,19 +1,15 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_fnc_getCornerPoints
+Function: btc_lift_fnc_getCornerPoints
 
 Description:
-    Calculates where in the object geometry reside the fartest corners
+    Calculates where in the object geometry reside the farthest corners
 
 Parameters:
-    _vehicle - [Object]
+    _vehicle[OBJECT]: Vehicle to calculate corner points for
 
 Returns:
-
-Examples:
-    (begin example)
-        _result = [cursorObject] call btc_fnc_getCornerPoints;
-    (end)
+    NOTHING
 
 Author:
     Giallustio

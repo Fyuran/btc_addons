@@ -3,14 +3,17 @@
 Function: btc_supply_fnc_checkbox_save
 
 Description:
+    Returns the current checked status of a checkbox control.
 
 Parameters:
+    _checkbox[CONTROL]: Checkbox control to query
 
 Returns:
+    BOOLEAN: True if checkbox is checked, false otherwise
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_checkbox_save;
+        _isDamageAllowed = [_damageCheckbox] call btc_supply_fnc_checkbox_save;
     (end)
 
 Author:

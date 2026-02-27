@@ -3,14 +3,15 @@
 Function: btc_supply_fnc_drop
 
 Description:
-    Comands an air unit to drop certain items on location, items will be attached to a parachute.
+    Commands an air unit to spawn and drop supply items on a location with parachutes.
 
 Parameters:
-    _veh - Air unit to which spawn supplies from. [Object]
-    _paradropClasses - Array of CfgVehicles string classes. [Array]
-	_inventoryClasses - Array of items string classes. [Array]
+    _logic[OBJECT]: Module logic containing supply configuration
+    _units[ARRAY]: Array of affected units (unused for server-side execution)
+    _activated[BOOLEAN]: True when module is activated, false on deactivation
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)

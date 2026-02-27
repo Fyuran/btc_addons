@@ -3,15 +3,17 @@
 Function: btc_lift_fnc_shortcuts
 
 Description:
-    Create CBA keybinds for lift.
+    Registers CBA keybinds for helicopter lift operations (deploy and cut ropes).
 
 Parameters:
+    NONE
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        _result = [] call btc_lift_fnc_shortcuts;
+        [] call btc_lift_fnc_shortcuts;
     (end)
 
 Author:

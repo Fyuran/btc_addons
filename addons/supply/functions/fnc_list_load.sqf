@@ -3,14 +3,18 @@
 Function: btc_supply_fnc_list_load
 
 Description:
+    Populates supply list controls from JSON or hashmap data and syncs UI.
 
 Parameters:
+    _main_grp[CONTROL]: Main control group containing list displays
+    _value[STRING or HASHMAP]: JSON string or hashmap containing supply data
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_list_load;
+        [_mainGroup, _supplyData] call btc_supply_fnc_list_load;
     (end)
 
 Author:

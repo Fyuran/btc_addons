@@ -3,14 +3,18 @@
 Function: btc_enemy_waves_fnc_formation_combo_load
 
 Description:
+    Populates and manages a formation combo box control with available military formation types.
 
 Parameters:
+    _combo[CONTROL]: Combo box control to populate with formation options
+    _value[STRING]: Current formation type to select (default: "COLUMN")
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_formation_combo_load;
+        [_formationCombo, "WEDGE"] call btc_enemy_waves_fnc_formation_combo_load;
     (end)
 
 Author:

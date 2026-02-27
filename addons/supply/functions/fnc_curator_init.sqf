@@ -1,11 +1,17 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_supply_fnc_curator_init
+
 Description:
+    Initializes the supply module when synced with a curator.
 
 Parameters:
+    _logic[OBJECT]: Module logic object
+    _units[ARRAY]: Array of affected units
+    _activated[BOOLEAN]: True when activated, false when deactivated
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)

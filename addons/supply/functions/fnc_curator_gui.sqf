@@ -3,14 +3,17 @@
 Function: btc_supply_fnc_curator_gui
 
 Description:
+    Sets up and initializes the curator supply GUI with control handlers and defaults.
 
 Parameters:
+    _display[DISPLAY]: Display object containing the supply GUI controls
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_curator_gui;
+        [_supplyDisplay] call btc_supply_fnc_curator_gui;
     (end)
 
 Author:

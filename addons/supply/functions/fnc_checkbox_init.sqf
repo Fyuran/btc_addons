@@ -3,14 +3,17 @@
 Function: btc_supply_fnc_checkbox_init
 
 Description:
+    Initializes a checkbox control and stores a reference to it in UI namespace for later access.
 
 Parameters:
+    _checkbox[CONTROL]: Checkbox control to initialize
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_checkbox_init;
+        [_damageCheckbox] call btc_supply_fnc_checkbox_init;
     (end)
 
 Author:

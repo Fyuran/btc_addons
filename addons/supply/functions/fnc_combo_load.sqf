@@ -3,14 +3,18 @@
 Function: btc_supply_fnc_combo_load
 
 Description:
+    Populates a combo box with available air vehicles and selects a specified vehicle.
 
 Parameters:
+    _combo[CONTROL]: Combo box control to populate
+    _value[STRING]: Vehicle class name to select
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_combo_load;
+        [_vehicleCombo, "B_Heli_Transport_01_F"] call btc_supply_fnc_combo_load;
     (end)
 
 Author:

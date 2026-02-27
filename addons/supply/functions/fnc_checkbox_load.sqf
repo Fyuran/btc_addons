@@ -3,14 +3,19 @@
 Function: btc_supply_fnc_checkbox_load
 
 Description:
+    Sets the checked state of a checkbox control from a boolean or scalar value.
 
 Parameters:
+    _checkbox[CONTROL]: Checkbox control to update
+    _value[BOOLEAN or SCALAR]: Checked state (boolean or 0/1 as scalar)
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_checkbox_load;
+        [_damageCheckbox, true] call btc_supply_fnc_checkbox_load;
+        [_damageCheckbox, 1] call btc_supply_fnc_checkbox_load;
     (end)
 
 Author:

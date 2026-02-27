@@ -3,14 +3,17 @@
 Function: btc_supply_fnc_presets_init
 
 Description:
+    Creates and displays a presets window with saved supply configurations loaded from profile.
 
 Parameters:
+    _parent[DISPLAY]: Parent display to create the presets window on
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_presets_init;
+        [_mainDisplay] call btc_supply_fnc_presets_init;
     (end)
 
 Author:

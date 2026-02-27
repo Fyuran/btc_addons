@@ -3,14 +3,17 @@
 Function: btc_supply_fnc_list_init
 
 Description:
+    Initializes supply list controls with event handlers for adding, removing, and managing items.
 
 Parameters:
+    _main_grp[CONTROL]: Main control group containing the supply list interface
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_list_init;
+        [_mainGroup] call btc_supply_fnc_list_init;
     (end)
 
 Author:
