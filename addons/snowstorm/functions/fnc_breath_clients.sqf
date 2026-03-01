@@ -1,4 +1,3 @@
-#define HANDLE_DELAY 0.5
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_snowstorm_fnc_breath_clients

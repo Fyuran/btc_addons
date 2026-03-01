@@ -1,5 +1,4 @@
 #include "..\script_component.hpp"
-#define UPDATE_RATE 0.1
 /* ----------------------------------------------------------------------------
 Function: btc_snowstorm_fnc_windSmoothTrans
 
