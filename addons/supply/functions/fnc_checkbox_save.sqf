@@ -25,6 +25,6 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing checkbox save", __FILE_NAME__], LOGS, "supply"] call EFUNC(tools,debug);
+[["%1: executing checkbox save", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 cbChecked _checkbox

@@ -24,7 +24,7 @@ params[
 disableSerialization;
 
 #ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-[["%1: executing list load with _value: %2", __FILE_NAME__, _value], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+[["%1: executing list load with _value: %2", __FILE_NAME__, _value], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 if(_value isEqualType "") then {
@@ -32,7 +32,7 @@ if(_value isEqualType "") then {
 };
 if(_value isEqualTo []) exitWith {
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-	[["%1: _value is empty", __FILE_NAME__, GVAR(table)], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: _value is empty", __FILE_NAME__, GVAR(table)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 GVAR(table) = +_value;

@@ -24,7 +24,7 @@ params[
     ["_checkbox", controlNull, [controlNull]]
 ];
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing checkbox init", __FILE_NAME__], LOGS, "supply"] call EFUNC(tools,debug);
+[["%1: executing checkbox init", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 disableSerialization;
 

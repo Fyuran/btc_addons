@@ -23,10 +23,10 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-[["%1: executing combo load with _value %2", __FILE_NAME__, _value], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+[["%1: executing combo load with _value %2", __FILE_NAME__, _value], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 if((ctrlIDC _combo) isNotEqualTo SIDE_COMBO) exitWith {
-	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, SIDE_COMBO], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, SIDE_COMBO], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 /*
@@ -58,6 +58,6 @@ _combo lbSetValue[_civ_row, 3];
 _combo lbSetPicture[_civ_row, "\a3\Data_f\cfgFactionClasses_CIV_ca.paa"];
 
 if(_value < 0 || _value > 3) exitWith {
-    [["%1: _value is out range must be between 0 and 3", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+    [["%1: _value is out range must be between 0 and 3", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 _combo lbSetCurSel _value;

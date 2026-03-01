@@ -26,11 +26,11 @@ params[
 disableSerialization;
 
 if(isNull _parent) exitWith {
-	[["%1: _parent is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: _parent is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 private _display = _parent createDisplay QGVAR(RscPresets);
 if(isNull _display) exitWith {
-	[["%1: _display is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: _display is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _list = _display displayCtrl PRESETS_LIST;
@@ -54,7 +54,7 @@ _load ctrlAddEventHandler["ButtonClick", {
     _list = _display displayCtrl PRESETS_LIST;
     _lbCurSel = lbCurSel _list;
     if(_lbCurSel < 0) exitWith {
-	    [["No preset is selected"], REPORT, "supply"] call EFUNC(tools,debug);
+	    [["No preset is selected"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
     _combo = uiNamespace getVariable[QGVAR(combo), controlNull];
@@ -62,17 +62,17 @@ _load ctrlAddEventHandler["ButtonClick", {
     _list_grp = uiNamespace getVariable[QGVAR(list_grp), controlNull];
 
     if(isNull _checkbox || isNull _combo || isNull _list_grp) exitWith {
-	    [["Supply gui malfunctioned, one control is null: _checkbox %1, _combo: %2, _list_grp: %3", _checkbox, _combo, _list_grp], REPORT, "supply"] call EFUNC(tools,debug);
+	    [["Supply gui malfunctioned, one control is null: _checkbox %1, _combo: %2, _list_grp: %3", _checkbox, _combo, _list_grp], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
     _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
     if(_savedPresets isEqualTo createHashMap) exitWith {
-	    [["No presets found in profileNamespace"], REPORT, "supply"] call EFUNC(tools,debug);
+	    [["No presets found in profileNamespace"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
     _savename = _list lbText _lbCurSel;
     _preset = _savedPresets getOrDefault[_savename, createHashMap];
     if(_preset isEqualTo createHashMap) exitWith {
-	    [["No preset found in profileNamespace by %1 name", _savename], REPORT, "supply"] call EFUNC(tools,debug);
+	    [["No preset found in profileNamespace by %1 name", _savename], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
     [_combo, _preset getOrDefault[QGVAR(table_vehicle), "B_Heli_Light_01_F"]] call FUNC(combo_load);
@@ -98,9 +98,9 @@ _save ctrlAddEventHandler["ButtonClick", {
     
     _inventory = missionNamespace getVariable[QGVAR(table), createHashMap];
     if(_inventory isEqualTo createHashMap) exitWith {
-	    [["No inventory has been set yet"], REPORT, "supply"] call EFUNC(tools,debug);
+	    [["No inventory has been set yet"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         #ifdef BTC_DEBUG_SUPPLY
-        [["%1: inventory was: %2", __FILE_NAME__, _inventory], CHAT, "supply"] call EFUNC(tools,debug);
+        [["%1: inventory was: %2", __FILE_NAME__, _inventory], CHAT, QCOMPONENT] call EFUNC(tools,debug);
         #endif
     };
 
@@ -134,7 +134,7 @@ _save ctrlAddEventHandler["ButtonClick", {
     };
 
     #ifdef BTC_DEBUG_SUPPLY
-    [["%1: Saving preset: %2", __FILE_NAME__, _inner], CHAT, "supply"] call EFUNC(tools,debug);
+    [["%1: Saving preset: %2", __FILE_NAME__, _inner], CHAT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 
     profileNamespace setVariable[QGVAR(savedPresets), _savedPresets];
@@ -156,12 +156,12 @@ _delete ctrlAddEventHandler["ButtonClick", {
 	private _list = _display displayCtrl PRESETS_LIST;
 	private _lbCurSel = lbCurSel _list;
 	if(_lbCurSel < 0) exitWith {
-		[["Nothing is selected", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+		[["Nothing is selected", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	};
 	_savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
 	_savedPresets deleteAt (_list lbText _lbCurSel);
 	#ifdef BTC_DEBUG_SUPPLY
-	[["%1: removing save: %2", __FILE_NAME__, _list lbText _lbCurSel], CHAT, "supply"] call EFUNC(tools,debug);
+	[["%1: removing save: %2", __FILE_NAME__, _list lbText _lbCurSel], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 	_list lbDelete _lbCurSel;
 	profileNamespace setVariable[QGVAR(savedPresets), _savedPresets];

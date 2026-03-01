@@ -33,34 +33,36 @@ class CfgMissions {
 	};
 };
 
+class GVAR(Timer_Attribute) {
+	displayName = "Edit timer"; // Name assigned to UI control class Title
+	tooltip = "Change timeout before detonation"; // Tooltip assigned to UI control class Title
+	property = QGVAR(EndTime); // Unique config property name saved in SQM
+	control = "Edit"; // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
+	// Expression called when applying the attribute in Eden and at the scenario start
+	// The expression is called twice - first for data validation, and second for actual saving
+	// Entity is passed as _this, value is passed as _value
+	// c4booby_endtime is replaced by attribute config name. It can be used only once in the expression
+	// In MP scenario, the expression is called only on server.
+	expression = "_this setVariable ['c4booby_endtime',_value];";
+	// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
+	// Entity (unit, group, marker, comment etc.) is passed as _this
+	// Returned value is the default value
+	// Used when no value is returned, or when it's of other type than NUMBER, STRING or ARRAY
+	// Custom attributes of logic entities (e.g., modules) are saved always, even when they have default value
+	defaultValue = "60";
+	//--- Optional properties
+	unique = 0; // When 1, only one entity of the type can have the value in the mission (used for example for variable names or player control)
+	validate = "number"; // Validate the value before saving. Can be "none", "expression", "condition", "number" or "variable"
+	typeName = "NUMBER"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
+};
+
 class CfgVehicles {
 	class Land_MetalBarrel_F;
 	class GVAR(Land_MetalBarrel_F): Land_MetalBarrel_F {
 		author = "=BTC= Fyuran";
 		displayName = "Metal Barrel (C4)";
 		class Attributes {
-			class GVAR(Land_MetalBarrel_F_EndTime) {
-				displayName = "Edit timer"; // Name assigned to UI control class Title
-				tooltip = "Change timeout before detonation"; // Tooltip assigned to UI control class Title
-				property = QGVAR(Land_MetalBarrel_F_EndTime); // Unique config property name saved in SQM
-				control = "Edit"; // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
-				// Expression called when applying the attribute in Eden and at the scenario start
-				// The expression is called twice - first for data validation, and second for actual saving
-				// Entity is passed as _this, value is passed as _value
-				// c4booby_endtime is replaced by attribute config name. It can be used only once in the expression
-				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['c4booby_endtime',_value];";
-				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
-				// Entity (unit, group, marker, comment etc.) is passed as _this
-				// Returned value is the default value
-				// Used when no value is returned, or when it's of other type than NUMBER, STRING or ARRAY
-				// Custom attributes of logic entities (e.g., modules) are saved always, even when they have default value
-				defaultValue = "60";
-				//--- Optional properties
-				unique = 0; // When 1, only one entity of the type can have the value in the mission (used for example for variable names or player control)
-				validate = "number"; // Validate the value before saving. Can be "none", "expression", "condition", "number" or "variable"
-				typeName = "NUMBER"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
-			};
+			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class CargoNet_01_barrels_F;
@@ -68,17 +70,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		displayName = "Cargo Net (C4-Barrels)";
 		class Attributes {
-			class GVAR(CargoNet_01_barrels_F_EndTime) {
-				displayName = "Edit timer"; 
-				tooltip = "Change timeout before detonation";
-				property = QGVAR(CargoNet_01_barrels_F_EndTime);
-				control = "Edit";
-				expression = "_this setVariable ['c4booby_endtime',_value];";
-				defaultValue = "60";
-				unique = 0;
-				validate = "number";
-				typeName = "NUMBER";
-			};
+			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class CargoNet_01_box_F;
@@ -86,17 +78,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		displayName = "Cargo Net (C4-Box)";
 		class Attributes {
-			class GVAR(CargoNet_01_box_F_EndTime) {
-				displayName = "Edit timer"; 
-				tooltip = "Change timeout before detonation";
-				property = QGVAR(CargoNet_01_box_F_EndTime);
-				control = "Edit";
-				expression = "_this setVariable ['c4booby_endtime',_value];";
-				defaultValue = "60";
-				unique = 0;
-				validate = "number";
-				typeName = "NUMBER";
-			};
+			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class B_CargoNet_01_ammo_F;
@@ -104,17 +86,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-NATO]";
 		class Attributes {
-			class GVAR(B_CargoNet_01_ammo_F_EndTime) {
-				displayName = "Edit timer"; 
-				tooltip = "Change timeout before detonation";
-				property = QGVAR(B_CargoNet_01_ammo_F_EndTime);
-				control = "Edit";
-				expression = "_this setVariable ['c4booby_endtime',_value];";
-				defaultValue = "60";
-				unique = 0;
-				validate = "number";
-				typeName = "NUMBER";
-			};
+			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class I_CargoNet_01_ammo_F;
@@ -122,17 +94,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-AAF]";
 		class Attributes {
-			class GVAR(I_CargoNet_01_ammo_F_EndTime) {
-				displayName = "Edit timer"; 
-				tooltip = "Change timeout before detonation";
-				property = QGVAR(I_CargoNet_01_ammo_F_EndTime);
-				control = "Edit";
-				expression = "_this setVariable ['c4booby_endtime',_value];";
-				defaultValue = "60";
-				unique = 0;
-				validate = "number";
-				typeName = "NUMBER";
-			};
+			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class O_CargoNet_01_ammo_F;
@@ -140,17 +102,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-CSAT]";
 		class Attributes {
-			class GVAR(O_CargoNet_01_ammo_F_EndTime) {
-				displayName = "Edit timer"; 
-				tooltip = "Change timeout before detonation";
-				property = QGVAR(O_CargoNet_01_ammo_F_EndTime);
-				control = "Edit";
-				expression = "_this setVariable ['c4booby_endtime',_value];";
-				defaultValue = "60";
-				unique = 0;
-				validate = "number";
-				typeName = "NUMBER";
-			};
+			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class I_E_CargoNet_01_ammo_F;
@@ -158,17 +110,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-LDF]";
 		class Attributes {
-			class GVAR(I_E_CargoNet_01_ammo_F_EndTime) {
-				displayName = "Edit timer"; 
-				tooltip = "Change timeout before detonation";
-				property = QGVAR(I_E_CargoNet_01_ammo_F_EndTime);
-				control = "Edit";
-				expression = "_this setVariable ['c4booby_endtime',_value];";
-				defaultValue = "60";
-				unique = 0;
-				validate = "number";
-				typeName = "NUMBER";
-			};
+			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class C_IDAP_CargoNet_01_supplies_F;
@@ -176,17 +118,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		displayName = "Cargo Net [C4-IDAP]";
 		class Attributes {
-			class GVAR(C_IDAP_CargoNet_01_supplies_F_EndTime) {
-				displayName = "Edit timer"; 
-				tooltip = "Change timeout before detonation";
-				property = QGVAR(C_IDAP_CargoNet_01_supplies_F_EndTime);
-				control = "Edit";
-				expression = "_this setVariable ['c4booby_endtime',_value];";
-				defaultValue = "60";
-				unique = 0;
-				validate = "number";
-				typeName = "NUMBER";
-			};
+			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 };
@@ -213,89 +145,68 @@ class CfgSounds {
 	};
 };
 
-class Extended_InitPost_EventHandlers {
-	class GVAR(Land_MetalBarrel_F) {
-		class GVAR(objectInit) {
-			serverInit = QUOTE(_this call FUNC(objectInit));
-		};
-	};
-	class GVAR(CargoNet_01_barrels_F) {
-		class GVAR(objectInit) {
-			serverInit = QUOTE(_this call FUNC(objectInit));
-		};
-	};
-	class GVAR(CargoNet_01_box_F) {
-		class GVAR(objectInit) {
-			serverInit = QUOTE(_this call FUNC(objectInit));
-		};
-	};
-	class GVAR(B_CargoNet_01_ammo_F) {
-		class GVAR(objectInit) {
-			serverInit = QUOTE(_this call FUNC(objectInit));
-		};
-	};
-	class GVAR(I_CargoNet_01_ammo_F) {
-		class GVAR(objectInit) {
-			serverInit = QUOTE(_this call FUNC(objectInit));
-		};
-	};
-	class GVAR(O_CargoNet_01_ammo_F) {
-		class GVAR(objectInit) {
-			serverInit = QUOTE(_this call FUNC(objectInit));
-		};
-	};
-	class GVAR(I_E_CargoNet_01_ammo_F) {
-		class GVAR(objectInit) {
-			serverInit = QUOTE(_this call FUNC(objectInit));
-		};
-	};
-	class GVAR(C_IDAP_CargoNet_01_supplies_F) {
-		class GVAR(objectInit) {
-			serverInit = QUOTE(_this call FUNC(objectInit));
-		};
+class GVAR(InitPost_Base) {
+	class GVAR(InitPost) {
+		serverInit = QUOTE(_this call FUNC(objectInit));
 	};
 };
 
-class Extended_Deleted_EventHandlers {
+class Extended_InitPost_EventHandlers {
 	class GVAR(Land_MetalBarrel_F) {
-		class GVAR(deleted) {
-			deleted = QUOTE(_this call FUNC(deleteObject));
-		};
+		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
 	class GVAR(CargoNet_01_barrels_F) {
-		class GVAR(deleted) {
-			deleted = QUOTE(_this call FUNC(deleteObject));
-		};
+		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
 	class GVAR(CargoNet_01_box_F) {
-		class GVAR(deleted) {
-			deleted = QUOTE(_this call FUNC(deleteObject));
-		};
+		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
 	class GVAR(B_CargoNet_01_ammo_F) {
-		class GVAR(deleted) {
-			deleted = QUOTE(_this call FUNC(deleteObject));
-		};
+		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
 	class GVAR(I_CargoNet_01_ammo_F) {
-		class GVAR(deleted) {
-			deleted = QUOTE(_this call FUNC(deleteObject));
-		};
+		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
 	class GVAR(O_CargoNet_01_ammo_F) {
-		class GVAR(deleted) {
-			deleted = QUOTE(_this call FUNC(deleteObject));
-		};
+		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
 	class GVAR(I_E_CargoNet_01_ammo_F) {
-		class GVAR(deleted) {
-			deleted = QUOTE(_this call FUNC(deleteObject));
-		};
+		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
 	class GVAR(C_IDAP_CargoNet_01_supplies_F) {
-		class GVAR(deleted) {
-			deleted = QUOTE(_this call FUNC(deleteObject));
-		};
+		class GVAR(InitPost): GVAR(InitPost_Base) {};
+	};
+};
+
+class GVAR(Deleted_Base) {
+	class GVAR(Deleted) {
+		deleted = QUOTE(_this call FUNC(deleteObject));
+	};
+};
+class Extended_Deleted_EventHandlers {
+	class GVAR(Land_MetalBarrel_F) {
+		class GVAR(Deleted): GVAR(Deleted_Base) {};
+	};
+	class GVAR(CargoNet_01_barrels_F) {
+		class GVAR(Deleted): GVAR(Deleted_Base) {};
+	};
+	class GVAR(CargoNet_01_box_F) {
+		class GVAR(Deleted): GVAR(Deleted_Base) {};
+	};
+	class GVAR(B_CargoNet_01_ammo_F) {
+		class GVAR(Deleted): GVAR(Deleted_Base) {};
+	};
+	class GVAR(I_CargoNet_01_ammo_F) {
+		class GVAR(Deleted): GVAR(Deleted_Base) {};
+	};
+	class GVAR(O_CargoNet_01_ammo_F) {
+		class GVAR(Deleted): GVAR(Deleted_Base) {};
+	};
+	class GVAR(I_E_CargoNet_01_ammo_F) {
+		class GVAR(Deleted): GVAR(Deleted_Base) {};
+	};
+	class GVAR(C_IDAP_CargoNet_01_supplies_F) {
+		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
 };
 

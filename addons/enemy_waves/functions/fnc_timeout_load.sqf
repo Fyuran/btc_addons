@@ -23,7 +23,7 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-[["%1: executing timeout load with _value %2", __FILE_NAME__, _value], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+[["%1: executing timeout load with _value %2", __FILE_NAME__, _value], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 if(_value isEqualType 123) then {

@@ -40,8 +40,7 @@ class ctrlStaticBackground;
 
 class CfgVehicles {
 	class Logic;
-	class Module_F : Logic
-	{
+	class Module_F : Logic {
 		class AttributesBase
 		{
 			class Default;

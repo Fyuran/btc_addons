@@ -21,7 +21,7 @@ Author:
 
 if(!hasInterface) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
-    [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 
@@ -35,7 +35,7 @@ private _curRain = rain;
 private _dropInterval = linearConversion[0, 1, rain, 0.008, 0.09, true];
 private _radius = [15, 40] select (!isNull objectParent player);
 
-private _snowDust = "#particlesource" createVehicleLocal ([player, 50] call CBA_fnc_randPos);
+private _snowDust = "#particlesource" createVehicleLocal ([player, 50] CBAFUNC(randPos));
 GVAR(snowDust) = _snowDust;
 
 private _emissive = [[4,4,4,0]];

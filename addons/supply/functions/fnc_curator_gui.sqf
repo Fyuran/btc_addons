@@ -26,7 +26,7 @@ params[
 disableSerialization;
 
 if(isNull _display) exitWith {
-    [["%1: _display is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+    [["%1: _display is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 [{!isNull (missionNamespace getVariable[QGVAR(logic), objNull])}, {
@@ -35,7 +35,7 @@ if(isNull _display) exitWith {
     ];
     private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
     if(isNull _logic) exitWith {
-        [["%1: _logic is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+        [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
     GVAR(table) = createHashMap;
 
@@ -54,7 +54,7 @@ if(isNull _display) exitWith {
     [_list_grp] call FUNC(list_init);
 
     if(isNull _checkbox || isNull _combo || isNull _list_grp) exitWith {
-        [["Supply gui malfunctioned, one control is null: _checkbox %1, _combo: %2, _list_grp: %3", _checkbox, _combo, _list_grp], REPORT, "supply"] call EFUNC(tools,debug);
+        [["Supply gui malfunctioned, one control is null: _checkbox %1, _combo: %2, _list_grp: %3", _checkbox, _combo, _list_grp], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
     private _footerGrp = _display displayCtrl FOOTER;
@@ -67,7 +67,7 @@ if(isNull _display) exitWith {
         _logic = missionNamespace getVariable[QGVAR(logic), objNull];
         if(isNull _logic) exitWith {
             #ifdef BTC_DEBUG_SUPPLY
-            [["%1: _logic of _footerOK onButtonClick is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+            [["%1: _logic of _footerOK onButtonClick is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
             #endif
         };
 
@@ -75,7 +75,7 @@ if(isNull _display) exitWith {
         _combo = _comboGrp controlsGroupCtrl COMBO;
         _comboCurSel = lbCurSel _combo;
         if(_comboCurSel < 0) exitWith {
-            [["No vehicle class selected"], REPORT, "supply"] call EFUNC(tools,debug);
+            [["No vehicle class selected"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         };
         _vehicleClass = _combo lbData _comboCurSel;
 
@@ -100,4 +100,4 @@ if(isNull _display) exitWith {
 
         _display closeDisplay 2;
     }];
-}, [_display], 10] call CBA_fnc_waitUntilAndExecute;
+}, [_display], 10] CBAFUNC(waitUntilAndExecute);

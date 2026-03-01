@@ -48,7 +48,7 @@ params[
 ]; 
  
 if(isNull _logic) exitWith { 
-	[["%1: _logic is null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _side = (_logic getVariable[QGVAR(side), east]) call BIS_fnc_sideType;
@@ -59,7 +59,7 @@ if(_groups isEqualType "") then { //module config sets the value as STRING
 	_groups = parseSimpleArray _groups;
 };
 if(_groups isEqualTo []) exitWith {
-	[["%1: _groups is empty", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: _groups is empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 }; 
  
 /*
@@ -91,20 +91,20 @@ if(_groups isEqualTo []) exitWith {
 		waitUntil { 
 			sleep 5;
             #ifdef BTC_DEBUG_ENEMY_WAVES
-			[["%1: %2(Group %3) - time remaining: %4", __FILE_NAME__, _logic, _group, _time - CBA_missionTime], LOGS, "enemy_waves"] call EFUNC(tools,debug);
-			[["%1: %2(Group %3) - units remaining: %4 threshold: %5", __FILE_NAME__, _logic, _group, count _units, _threshold], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+			[["%1: %2(Group %3) - time remaining: %4", __FILE_NAME__, _logic, _group, _time - CBA_missionTime], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+			[["%1: %2(Group %3) - units remaining: %4 threshold: %5", __FILE_NAME__, _logic, _group, count _units, _threshold], LOGS, QCOMPONENT] call EFUNC(tools,debug);
             #endif  
 			(CBA_missionTime > _time) ||   
 			((count _units) <= _threshold) 
 		}; 
 
 		if(isNull _logic) exitWith {
-			[["%1: _logic has become null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+			[["%1: _logic has become null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 		};
 		private _grp = createGroup[_side, true]; 
 		_grp setVariable ["acex_headless_blacklist", true]; 
         #ifdef BTC_DEBUG_ENEMY_WAVES
-		[["%1: %2 - Spawning wave: %3", __FILE_NAME__, _logic, _group], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		[["%1: %2 - Spawning wave: %3", __FILE_NAME__, _logic, _group], LOGS, QCOMPONENT] call EFUNC(tools,debug);
         #endif
 		_group apply { //wave's classes hashmap
 			_x params [
@@ -113,12 +113,12 @@ if(_groups isEqualTo []) exitWith {
 			]; 
 
 			if(!(isClass (configFile >> "CfgVehicles" >> _class))) then { 
-				[["%1: %2 is not a valid class", __FILE_NAME__, _class], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+				[["%1: %2 is not a valid class", __FILE_NAME__, _class], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 				continue; 
 			}; 
 			
 			for "_i" from 1 to _quantity do { 
-				private _unit = _grp createUnit [_class, [_logic, 1] call CBA_fnc_randPos, [], 0, "NONE"]; 
+				private _unit = _grp createUnit [_class, [_logic, 1] CBAFUNC(randPos), [], 0, "NONE"]; 
 				_units pushBack _unit;
 				_unit setVariable[QGVAR(wave_spawn), _logic]; 
 
@@ -129,7 +129,7 @@ if(_groups isEqualTo []) exitWith {
 					private _index = _units find _unit; 
 					_units deleteAt _index;
 					#ifdef BTC_DEBUG_ENEMY_WAVES
-					[["%1: Removing %2(%3) from %4", __FILE_NAME__, _unit, _logic, _units], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+					[["%1: Removing %2(%3) from %4", __FILE_NAME__, _unit, _logic, _units], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 					#endif
 					_logic setVariable[QGVAR(wave_units), _units];
 				}]; 
@@ -140,7 +140,7 @@ if(_groups isEqualTo []) exitWith {
 					private _index = _units find _unit; 
 					_units deleteAt _index;
 					#ifdef BTC_DEBUG_ENEMY_WAVES
-						[["%1: Removing %2(%3) from %4", __FILE_NAME__, _unit, _logic, _units], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+						[["%1: Removing %2(%3) from %4", __FILE_NAME__, _unit, _logic, _units], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 					#endif
 					_logic setVariable[QGVAR(wave_units), _units];
 				}]; 
@@ -150,7 +150,7 @@ if(_groups isEqualTo []) exitWith {
  
 		_logic setVariable[QGVAR(wave_units), _units];
 		#ifdef BTC_DEBUG_ENEMY_WAVES
-		[["%1: %2 now holds %3 units", __FILE_NAME__, _logic, count _units], 3, "enemy_waves"] call EFUNC(tools,debug);
+		[["%1: %2 now holds %3 units", __FILE_NAME__, _logic, count _units], 3, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 
 		allCurators apply {
@@ -168,7 +168,7 @@ if(_groups isEqualTo []) exitWith {
 		private _leader = _playerLeaders select 0;
 		
 		#ifdef BTC_DEBUG_ENEMY_WAVES
-		[["%1: %2 heading for: %3", __FILE_NAME__, _grp, _leader], 3, "enemy_waves"] call EFUNC(tools,debug);
+		[["%1: %2 heading for: %3", __FILE_NAME__, _grp, _leader], 3, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 		private _wp = _grp addWaypoint [getPosASL _leader, -1];  
 		_wp setWaypointBehaviour "AWARE"; 

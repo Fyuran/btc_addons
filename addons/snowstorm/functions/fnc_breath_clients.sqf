@@ -20,13 +20,13 @@ Author:
 ---------------------------------------------------------------------------- */
 if(!hasInterface) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
-    [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 
 if(!GVAR(show_breath)) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
-    [["%1: client has disabled breath", __FILE_NAME__], CHAT, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: client has disabled breath", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 /* private _isKatPresent = isClass (configFile >> "CfgPatches" >> "kat_main");
@@ -57,7 +57,7 @@ private _fnc_getBreathEntitiesData = {
 
 //Avoid at any cost duplicates
 if(!isNil QGVAR(breath_handle)) then {
-    [GVAR(breath_handle)] call CBA_fnc_removePerFrameHandler;
+    [GVAR(breath_handle)] CBAFUNC(removePerFrameHandler);
 };
 GVAR(breath_handle) = [{
     params["_fnc_getBreathEntitiesData", "_handle"];
@@ -96,10 +96,9 @@ GVAR(breath_handle) = [{
 			// Let it "puff", then stop
 			[{
 				deleteVehicle _this;
-			}, _breath, 0.25] call CBA_fnc_waitAndExecute;
+			}, _breath, 0.25] CBAFUNC(waitAndExecute);
 		} else {
 			_unit setVariable[QGVAR(breath_time), _time + _deltaTime];
-			//systemChat format["_unit: %1 _time %2 to %3, max: %4", _unit, _time, _time + _deltaTime, _maxTime];
 		};
     };
-}, HANDLE_DELAY, _fnc_getBreathEntitiesData] call CBA_fnc_addPerFrameHandler;
+}, HANDLE_DELAY, _fnc_getBreathEntitiesData] CBAFUNC(addPerFrameHandler);

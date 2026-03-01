@@ -28,7 +28,7 @@ params[
 disableSerialization;
 
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing list load with _value: %2", __FILE_NAME__, _value], LOGS, "supply"] call EFUNC(tools,debug);
+[["%1: executing list load with _value: %2", __FILE_NAME__, _value], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 if(_value isEqualTo "") exitWith {};
 if(_value isEqualTo createHashMap) exitWith {};
@@ -39,7 +39,7 @@ if(_value isEqualType "") then {
 };
 if(GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
 	#ifdef BTC_DEBUG_SUPPLY
-	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__, GVAR(table)], LOGS, "supply"] call EFUNC(tools,debug);
+	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__, GVAR(table)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 
@@ -74,7 +74,7 @@ if(GVAR(table) isNotEqualTo createHashMap) then {
         private _class = _inner get "class";
         private _cfg = configFile >> "CfgVehicles" >> _class;
         if(!isClass _cfg) then {
-            [["%1 invalid ammo box or vehicle class", _class], REPORT, "supply"] call EFUNC(tools,debug);
+            [["%1 invalid ammo box or vehicle class", _class], REPORT, QCOMPONENT] call EFUNC(tools,debug);
             continue;
         };
 

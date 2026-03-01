@@ -34,12 +34,12 @@ if(_disableSounds) then {
     };
 
     if(!isNil QGVAR(sound_loop_handle)) then { //sound loop
-        [GVAR(sound_loop_handle)] call CBA_fnc_removePerFrameHandler;
+        [GVAR(sound_loop_handle)] CBAFUNC(removePerFrameHandler);
         GVAR(sound_loop_handle) = nil;
     };
 
     if(!isNil QGVAR(indoor_handle)) then {
-        [GVAR(indoor_handle)] call CBA_fnc_removePerFrameHandler;
+        [GVAR(indoor_handle)] CBAFUNC(removePerFrameHandler);
         GVAR(indoor_handle) = nil; //reset to allow execution of client side function again
     };
 
@@ -47,7 +47,7 @@ if(_disableSounds) then {
 };
 
 if(_disableBreath) then {
-    [GVAR(breath_handle)] call CBA_fnc_removePerFrameHandler;
+    [GVAR(breath_handle)] CBAFUNC(removePerFrameHandler);
     GVAR(breath_handle) = nil;
 };
 

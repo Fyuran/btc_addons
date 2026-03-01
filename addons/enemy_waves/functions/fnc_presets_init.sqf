@@ -23,11 +23,11 @@ params[
 disableSerialization;
 
 if(isNull _parent) exitWith {
-	[["%1: _parent is null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: _parent is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 private _display = _parent createDisplay QEGVAR(supply,RscPresets);
 if(isNull _display) exitWith {
-	[["%1: _display is null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: _display is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _list = _display displayCtrl PRESETS_LIST;
@@ -51,7 +51,7 @@ _load ctrlAddEventHandler["ButtonClick", {
     _list = _display displayCtrl PRESETS_LIST;
     _lbCurSel = lbCurSel _list;
     if(_lbCurSel < 0) exitWith {
-	    [["No preset is selected"], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	    [["No preset is selected"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
     _side_combo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
@@ -60,17 +60,17 @@ _load ctrlAddEventHandler["ButtonClick", {
     _list_grp = uiNamespace getVariable[QGVAR(list_grp), controlNull];
 
     if(isNull _formation_combo || isNull _side_combo || isNull _timeout || isNull _list_grp) exitWith {
-	    [["Enemy Waves gui malfunctioned, one control is null: _formation_combo %1, _side_combo: %2, _timeout: %3, _list_grp: %4", _formation_combo, _side_combo, _timeout, _list_grp], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	    [["Enemy Waves gui malfunctioned, one control is null: _formation_combo %1, _side_combo: %2, _timeout: %3, _list_grp: %4", _formation_combo, _side_combo, _timeout, _list_grp], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
     _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
     if(_savedPresets isEqualTo createHashMap) exitWith {
-	    [["No presets found in profileNamespace"], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	    [["No presets found in profileNamespace"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
     _savename = _list lbText _lbCurSel;
     _preset = _savedPresets getOrDefault[_savename, createHashMap];
     if(_preset isEqualTo createHashMap) exitWith {
-	    [["No preset found in profileNamespace by %1 name", _savename], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	    [["No preset found in profileNamespace by %1 name", _savename], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
     [_side_combo, _preset getOrDefault[QGVAR(side), east]] call FUNC(side_combo_load);
@@ -101,9 +101,9 @@ _save ctrlAddEventHandler["ButtonClick", {
 
     _classes = missionNamespace getVariable[QGVAR(table), createHashMap];
     if(_classes isEqualTo createHashMap) exitWith {
-	    [["No inventory has been set yet"], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	    [["No inventory has been set yet"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         #ifdef BTC_ENEMY_WAVES_DEBUG
-        [["%1: inventory was: %2", __FILE_NAME__, _classes], CHAT, "enemy_waves"] call EFUNC(tools,debug);
+        [["%1: inventory was: %2", __FILE_NAME__, _classes], CHAT, QCOMPONENT] call EFUNC(tools,debug);
         #endif
     };
 
@@ -137,7 +137,7 @@ _save ctrlAddEventHandler["ButtonClick", {
     };
 
     #ifdef BTC_ENEMY_WAVES_DEBUG
-    [["%1: Saving preset: %2", __FILE_NAME__, _inner], CHAT, "enemy_waves"] call EFUNC(tools,debug);
+    [["%1: Saving preset: %2", __FILE_NAME__, _inner], CHAT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 
     profileNamespace setVariable[QGVAR(savedPresets), _savedPresets];
@@ -159,12 +159,12 @@ _delete ctrlAddEventHandler["ButtonClick", {
 	private _list = _display displayCtrl PRESETS_LIST;
 	private _lbCurSel = lbCurSel _list;
 	if(_lbCurSel < 0) exitWith {
-		[["Nothing is selected", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+		[["Nothing is selected", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	};
 	_savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
 	_savedPresets deleteAt (_list lbText _lbCurSel);
 	#ifdef BTC_ENEMY_WAVES_DEBUG
-	[["%1: removing save: %2", __FILE_NAME__, _list lbText _lbCurSel], CHAT, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: removing save: %2", __FILE_NAME__, _list lbText _lbCurSel], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 	_list lbDelete _lbCurSel;
 	profileNamespace setVariable[QGVAR(savedPresets), _savedPresets];

@@ -10,5 +10,5 @@ if (!isDedicated && hasInterface) then {
         player addAction ["<t color='#FF0000'>Hide AI Paths</t>", {call btc_AIPaths_fnc_hideObjects}, nil, 1.5, false];
         player addAction ["<t color='#00FF00'>Show AI Paths</t>", {call btc_AIPaths_fnc_unhideObjects}, nil, 1.5, false];
 
-    }] call CBA_fnc_waitUntilAndExecute;
+    }] CBAFUNC(waitUntilAndExecute);
 };

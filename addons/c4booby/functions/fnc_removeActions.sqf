@@ -22,13 +22,13 @@ Author:
 if(!params[
 	["_defuser",objNull,[objNull]]
 ]) exitWith{
-    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-_actionIDS = _defuser getVariable ["c4booby_actionids",[]];
+_actionIDS = _defuser getVariable [QGAR(actionids),[]];
 if(_actionIDS isEqualTo []) exitWith {
-    [["%1: bad action ids: %2", __FILE_NAME__, _actionIDS], REPORT, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad action ids: %2", __FILE_NAME__, _actionIDS], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-_actionIDS apply {[_defuser,0,_x] call ace_interact_menu_fnc_removeActionFromObject};
+_actionIDS apply {[_defuser, 0, _x] call ACEFUNC(interact_menu,removeActionFromObject);};
 
 true

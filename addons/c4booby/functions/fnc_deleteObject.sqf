@@ -24,12 +24,12 @@ params[
 	["_obj",objNull,[objNull]]
 ];
 if(isNull _obj) exitWith {
-    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-private _handle = _obj getVariable ["c4booby_timer_handle", -1];
+private _handle = _obj getVariable [QGVAR(timer_handle), -1];
 if(_handle != -1) then {
-	[_handle] call CBA_fnc_removePerFrameHandler;
+	[_handle] CBAFUNC(removePerFrameHandler);
 };
 private _objs = attachedObjects _obj;
 _objs apply {deleteVehicle _x};

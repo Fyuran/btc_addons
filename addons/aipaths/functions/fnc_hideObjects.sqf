@@ -26,7 +26,7 @@ if(!isServer) exitWith {
 };
 GVAR(objects) = missionNamespace getVariable [QGVAR(objects), []];
 if(GVAR(objects) isEqualTo []) exitWith {
-    [["%1: no btc_AIPaths objects found", __FILE_NAME__], REPORT, "aipaths"] call EFUNC(tools,debug);
+    [["%1: no btc_AIPaths objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 GVAR(objects) apply {
@@ -38,5 +38,5 @@ GVAR(objects) apply {
 };
 
 #ifdef BTC_DEBUG_AIPATHS
-[["%1: %1 objects are being hidden", __FILE_NAME__, count GVAR(objects)], LOGS, "aipaths"] call EFUNC(tools,debug);
+[["%1: %1 objects are being hidden", __FILE_NAME__, count GVAR(objects)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif

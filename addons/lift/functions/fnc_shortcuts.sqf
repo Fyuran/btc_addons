@@ -38,7 +38,7 @@ private _menuString = "BTC Toolchain Lift";
             };
         };
     },
-{}] call CBA_fnc_addKeybind;
+{}] CBAFUNC(addKeybind);
 
 [
     _menuString,
@@ -55,7 +55,7 @@ private _menuString = "BTC Toolchain Lift";
             };
         };
     },
-{}] call CBA_fnc_addKeybind;
+{}] CBAFUNC(addKeybind);
 
 [
     _menuString,
@@ -69,7 +69,7 @@ private _menuString = "BTC Toolchain Lift";
             };
         };
     },
-{}] call CBA_fnc_addKeybind;
+{}] CBAFUNC(addKeybind);
 
 
 [
@@ -84,4 +84,4 @@ private _menuString = "BTC Toolchain Lift";
             };
         };
     },
-{}] call CBA_fnc_addKeybind;
+{}] CBAFUNC(addKeybind);

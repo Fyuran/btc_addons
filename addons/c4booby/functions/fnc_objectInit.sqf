@@ -27,7 +27,7 @@ params[
 	["_max_colors", 1, [0]]
 ];
 if(isNull _obj) exitWith {
-    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 #define __NORTH 0
@@ -36,7 +36,7 @@ if(isNull _obj) exitWith {
 #define __WEST 3
 
 #ifdef BTC_DEBUG_C4BOOBY
-[["%1: creating c4 booby %2 at %3", __FILE_NAME__, typeOf _obj, getPosATL _obj], CHAT + LOGS, "c4booby"] call EFUNC(tools,debug);
+[["%1: creating c4 booby %2 at %3", __FILE_NAME__, typeOf _obj, getPosATL _obj], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 private _defuser_VectorDirAndUp = [
@@ -78,7 +78,7 @@ private _deco_pos = call {
 	[]
 };
 if (_deco_pos isEqualTo []) exitWith {
-    [["%1: bad _deco_pos: %2", __FILE_NAME__, _deco_pos], REPORT, "c4booby"] call EFUNC(tools,debug);
+    [["%1: bad _deco_pos: %2", __FILE_NAME__, _deco_pos], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _exp_pos = _deco_pos select 0;
@@ -105,9 +105,9 @@ private _defuser = "Land_FMRadio_F" createVehicle [0,0,0];
 _defuser attachTo [_obj,(_deco_pos select 1) select 0];
 private _VecDU_index = ((_deco_pos select 1) select 1);
 _defuser setVectorDirAndUp (_defuser_VectorDirAndUp select _VecDU_index);
-_defuser setVariable ["wire_colors",_wire_colors,true];
+_defuser setVariable [QGVAR(wire_colors),_wire_colors,true];
 _defuser allowDamage false;
-[_defuser,_obj] remoteExecCall[QFUNC(addActions),0,_obj];
+[_defuser,_obj] remoteExecCall[QFUNC(addActions), [0, -2] select isDedicated, _obj];
 
 //trigger for TIMER and setVariable
 private _trigger = createTrigger["EmptyDetector",_obj];
@@ -115,7 +115,7 @@ _obj setVariable ["trigger",_trigger];
 _trigger attachTo [_obj,[0,0,0]];
 _trigger setTriggerArea[RADIUS,RADIUS,0,false];
 _trigger setTriggerActivation["ANYPLAYER","PRESENT",false];
-_trigger setVariable ["c4booby_trigger_data",[_obj,_max_colors,_end_time]];
+_trigger setVariable [QGVAR(trigger_data), [_obj,_max_colors,_end_time]];
 _trigger setTriggerStatements ["this", "
 	_obj = (thisTrigger getVariable ['c4booby_trigger_data',objNull]) select 0;
 	_max_colors = (thisTrigger getVariable ['c4booby_trigger_data',objNull]) select 1;
@@ -127,22 +127,22 @@ _trigger setTriggerStatements ["this", "
 _obj setVariable ["isBoobyTrapped",true,true];
 //frame check for SUCCESS or FAIL state
 [{
-	count ((_this select 1) getVariable ["input_wire_colors",[]]) >= (_this select 2)
+	count ((_this select 1) getVariable [QGVAR(input_wire_colors),[]]) >= (_this select 2)
 },
 {
 	params["_defuser","_obj","_max_colors","_wire_colors","_light_pos"];
-	private _obj_colors = _obj getVariable ["input_wire_colors",[]];
-	private _handle = _obj getVariable ["c4booby_timer_handle",0];
-	[_handle] call CBA_fnc_removePerFrameHandler;
-	[_defuser] remoteExecCall [QFUNC(removeActions),0,_obj];
+	private _obj_colors = _obj getVariable [QGVAR(input_wire_colors),[]];
+	private _handle = _obj getVariable [QGVAR(timer_handle),0];
+	[_handle] CBAFUNC(removePerFrameHandler);
+	[_defuser] remoteExecCall [QFUNC(removeActions), [0, -2] select isDedicated, _obj];
 	(attachedObjects _obj) apply {deleteVehicle _x};
 	//Defused
 	if (_obj_colors isEqualTo _wire_colors) then {
 		private _targets = _obj nearEntities ["CAManBase", 50];
-		["ace_medical_feedback_forceSay3D", [_obj, QGVAR(defused), 50], _targets] call CBA_fnc_targetEvent;
+		[QACEGVAR(medical_feedback,forceSay3D), [_obj, QGVAR(defused), 50], _targets] CBAFUNC(targetEvent);
 		private _light = "PortableHelipadLight_01_green_F" createVehicle [0,0,0];
 		_light attachTo[_obj,_light_pos];
-		[{deleteVehicle _this}, _light, 60] call CBA_fnc_waitAndExecute;
+		[{deleteVehicle _this}, _light, 60] CBAFUNC(waitAndExecute);
 		_obj setVariable ["isBoobyTrapped",false,true];
 	}
 	else { //Explode
@@ -152,6 +152,6 @@ _obj setVariable ["isBoobyTrapped",true,true];
 		hideObjectGlobal _r;
 	};
 
-}, [_defuser,_obj,_max_colors,_wire_colors,_light_pos]] call CBA_fnc_waitUntilAndExecute;
+}, [_defuser,_obj,_max_colors,_wire_colors,_light_pos]] CBAFUNC(waitUntilAndExecute);
 
 _obj

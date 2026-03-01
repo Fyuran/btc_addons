@@ -43,7 +43,7 @@ if(!isNil QGVAR(handle)) then { //make sure the previous handler is removed
 
 //ace will overwrite any kind of weather settings passed
 if(ACEGVAR(weather,windSimulation)) exitWith {
-	[["%1: snowfall could not be executed while ace is managing wind simulation", __FILE_NAME__], REPORT, "snowstorm"] call EFUNC(tools,debug);
+	[["%1: snowfall could not be executed while ace is managing wind simulation", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 0 setRainbow 0;
@@ -109,8 +109,8 @@ GVAR(windTrans) = [TRANS_DELAY, 40] spawn FUNC(windSmoothTrans);
 				[] remoteExecCall [QFUNC(terminate), 0];
 			};
 		};
-	}, TRANS_DELAY, _this] call CBA_fnc_addPerFrameHandler;
-}, _windIntensity, TRANS_DELAY] call CBA_fnc_waitAndExecute;
+	}, TRANS_DELAY, _this] CBAFUNC(addPerFrameHandler);
+}, _windIntensity, TRANS_DELAY] CBAFUNC(waitAndExecute);
 
 //Clients
 GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(snowSounds_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc

@@ -30,7 +30,7 @@ _ui params ["_arrow_up", "_arrow_down", "_complete", "_incomplete", "_crosshair"
 disableSerialization;
 
 if !((alive player && {!isNull objectParent player}) && GVAR(hud)) then {
-    [_PFH_id] call CBA_fnc_removePerFrameHandler;
+    [_PFH_id] CBAFUNC(removePerFrameHandler);
     939996 cutText ["", "PLAIN"];
 };
 

@@ -1,4 +1,6 @@
 #include "script_component.hpp"
-PREP(hideObject);
-PREP(unhideObjects);
-PREP(hideObjects);
+if(!isDedicated) then {
+	PREP(hideObject);
+	PREP(unhideObjects);
+	PREP(hideObjects);
+};

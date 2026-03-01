@@ -23,11 +23,11 @@ Author:
 if(!params[
 ["_item","",[""]]
 ]) exitWith {    
-	[["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "canteen"] call EFUNC(tools,debug);
+	[["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _targets = ACE_player nearEntities ["CAManBase", 20];
-["ace_medical_feedback_forceSay3D", [ACE_player, QGVAR(Drink_sound), 20], _targets] call CBA_fnc_targetEvent;
+["ace_medical_feedback_forceSay3D", [ACE_player, QGVAR(Drink_sound), 20], _targets] CBAFUNC(targetEvent);
 
 //animation
 private _config = configFile >> "CfgWeapons" >> _item >> "acex_field_rations_consumeAnims";
@@ -42,7 +42,7 @@ private _consumeAnim = getArray (_config) param [_stanceIndex, "", [""]];
 	_args params ["_item"];
 
 	if(isNil "ace_advanced_fatigue_anreserve") exitWith {
-    	[["%1: non existing ace_advanced_fatigue_anreserve, check if ACE is loaded", __FILE_NAME__], REPORT, "canteen"] call EFUNC(tools,debug);
+    	[["%1: non existing ace_advanced_fatigue_anreserve, check if ACE is loaded", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	};
 	ace_advanced_fatigue_anreserve = 2300; //GVAR of ace_advanced_fatigue
 	[format["You took a sip of %1.", getText(configFile >> "CfgWeapons" >> _item >> "DisplayName")], 2.5, ACE_player] call ace_common_fnc_displayTextStructured;

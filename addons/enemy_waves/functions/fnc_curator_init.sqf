@@ -24,7 +24,7 @@ params [
 
 if(isNull _logic) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
-    [["%1: _logic is null", __FILE_NAME__], REPORT, "supply"] call EFUNC(tools,debug);
+    [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
 

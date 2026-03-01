@@ -26,17 +26,17 @@ params [
 
 if(!isServer) exitWith {};
 #ifdef BTC_DEBUG_SNOWSTORM
-[["%1: initializing snowstorm by module _this: %2", __FILE_NAME__, _this], 3, "snowstorm"] call EFUNC(tools,debug);
+[["%1: initializing snowstorm by module _this: %2", __FILE_NAME__, _this], 3, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 private _handle = missionNamespace getVariable[QGVAR(handle), -1];
 if(_activated) then {
     if(_handle isNotEqualTo -1) exitWith {
         #ifdef BTC_DEBUG_SNOWSTORM
-        [["%1: one module is already running", __FILE_NAME__], REPORT, "snowstorm"] call EFUNC(tools,debug);
+        [["%1: one module is already running", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         #endif
     };
     #ifdef BTC_DEBUG_SNOWSTORM
-    [["%1: activating snowstorm by module: %2", __FILE_NAME__, _logic], 3, "snowstorm"] call EFUNC(tools,debug);
+    [["%1: activating snowstorm by module: %2", __FILE_NAME__, _logic], 3, QCOMPONENT] call EFUNC(tools,debug);
     #endif
     private _fogValue = _logic getVariable [QGVAR(fogValue), 0.5];
 	private _fogDecay = _logic getVariable [QGVAR(fogDecay), 0];
@@ -49,7 +49,7 @@ if(_activated) then {
 } else {
     if(_handle isEqualTo -1) then { //make sure the previous handler is removed
         #ifdef BTC_DEBUG_SNOWSTORM
-        [["%1: deactivating snowstorm by module: %2", __FILE_NAME__, _logic], 3, "snowstorm"] call EFUNC(tools,debug);
+        [["%1: deactivating snowstorm by module: %2", __FILE_NAME__, _logic], 3, QCOMPONENT] call EFUNC(tools,debug);
         #endif
         [] remoteExecCall [QFUNC(terminate), 0];
     };

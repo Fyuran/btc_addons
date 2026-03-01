@@ -23,7 +23,7 @@ params[
 disableSerialization;
 
 if(isNull _display) exitWith {
-    [["%1: _display is null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+    [["%1: _display is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 [{!isNull (missionNamespace getVariable[QGVAR(logic), objNull])}, {
@@ -32,7 +32,7 @@ if(isNull _display) exitWith {
     ];
     private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
     if(isNull _logic) exitWith {
-        [["%1: _logic is null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+        [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
     GVAR(table) = [];
 
@@ -55,7 +55,7 @@ if(isNull _display) exitWith {
 	[_list_grp] call FUNC(list_init);
 
     if(isNull _formation_combo || isNull _side_combo || isNull _timeout || isNull _list_grp) exitWith {
-	    [["Enemy Waves gui malfunctioned, one control is null: _formation_combo %1, _side_combo: %2, _timeout: %3, _list_grp: %4", _formation_combo, _side_combo, _timeout, _list_grp], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	    [["Enemy Waves gui malfunctioned, one control is null: _formation_combo %1, _side_combo: %2, _timeout: %3, _list_grp: %4", _formation_combo, _side_combo, _timeout, _list_grp], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
     private _footerGrp = _display displayCtrl FOOTER;
@@ -68,7 +68,7 @@ if(isNull _display) exitWith {
         _logic = missionNamespace getVariable[QGVAR(logic), objNull];
         if(isNull _logic) exitWith {
             #ifdef BTC_DEBUG_ENEMY_WAVES
-            [["%1: _logic of _footerOK onButtonClick is null", __FILE_NAME__], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+            [["%1: _logic of _footerOK onButtonClick is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
             #endif
         };
 
@@ -106,4 +106,4 @@ if(isNull _display) exitWith {
 
         _display closeDisplay 2;
     }];
-}, [_display], 10] call CBA_fnc_waitUntilAndExecute;
+}, [_display], 10] CBAFUNC(waitUntilAndExecute);

@@ -23,7 +23,7 @@ params[
 disableSerialization;
 
 #ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-[["%1: executing list init", __FILE_NAME__], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+[["%1: executing list init", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 GVAR(table) = [];
 uiNamespace setVariable[QGVAR(list_grp), _main_grp];
@@ -31,7 +31,7 @@ uiNamespace setVariable[QGVAR(list_grp), _main_grp];
 //Group 1
 private _grp1 = _main_grp controlsGroupCtrl GROUP_1;
 if((ctrlIDC _grp1) isNotEqualTo GROUP_1) exitWith {
-	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp1, GROUP_1], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp1, GROUP_1], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 private _grp1_add = _grp1 controlsGroupCtrl ADD_1;
 private _grp1_remove = _grp1 controlsGroupCtrl REMOVE_1;
@@ -55,7 +55,7 @@ _grp1_add ctrlAddEventHandler ["ButtonClick", {
     _grp1_list lbSetCurSel _row;
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-	[["%1: adding new row: Group %2", __FILE_NAME__, _groupsCount + 1], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: adding new row: Group %2", __FILE_NAME__, _groupsCount + 1], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 }];
 
@@ -77,7 +77,7 @@ _grp1_remove ctrlAddEventHandler ["ButtonClick", {
     _grp1_list lbSetCurSel -1; //Triggers LBSelChanged exitWith lbClear
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-	[["%1: removing _row %2 with Group %3", __FILE_NAME__, _groupIndex, _groupIndex], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: removing _row %2 with Group %3", __FILE_NAME__, _groupIndex, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 }];
 
@@ -99,7 +99,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
 
 	if(_groupClasses isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-		[["%1: LIST_1 LBSelChanged's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		[["%1: LIST_1 LBSelChanged's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
 
@@ -111,7 +111,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
 		_classCfg = configFile >> "CfgVehicles" >> _class;
 		_manCfg = configFile >> "CfgVehicles" >> "CAManBase";
 		_landCfg = configFile >> "CfgVehicles" >> "Land";
-		_inherits = ([_classCfg, _manCfg] call CBA_fnc_inheritsFrom) || ([_classCfg, _landCfg] call CBA_fnc_inheritsFrom);
+		_inherits = ([_classCfg, _manCfg] CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] CBAFUNC(inheritsFrom));
 		if(!_inherits) then {
             [format["%1 class is not of type 'Land' or 'CAManBase'", _class], 1] call EFUNC(tools,3DENNotification);
 			continue;
@@ -133,14 +133,14 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
         _grp2_list lnbSetPicture [[_row, 0], format["\a3\ui_f\data\map\vehicleicons\%1_ca.paa", _icon]];
     };
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-	[["%1: filling LIST_2 with %2", __FILE_NAME__, _groupClasses], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: filling LIST_2 with %2", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 }];
 
 //Group 2
 private _grp2 = _main_grp controlsGroupCtrl GROUP_2;
 if((ctrlIDC _grp2) isNotEqualTo GROUP_2) exitWith {
-	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp2, GROUP_2], REPORT, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _grp2, GROUP_2], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 private _grp2_edit = _grp2 controlsGroupCtrl EDIT_2;
 private _grp2_add = _grp2 controlsGroupCtrl ADD_2;
@@ -185,7 +185,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
 	_classCfg = configFile >> "CfgVehicles" >> _class;
 	_manCfg = configFile >> "CfgVehicles" >> "CAManBase";
 	_landCfg = configFile >> "CfgVehicles" >> "Land";
-	_inherits = ([_classCfg, _manCfg] call CBA_fnc_inheritsFrom) || ([_classCfg, _landCfg] call CBA_fnc_inheritsFrom);
+	_inherits = ([_classCfg, _manCfg] CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] CBAFUNC(inheritsFrom));
 	if(!_inherits) exitWith {
 		[format["%1 class is not of type 'Land' or 'CAManBase'", _class], 1] call EFUNC(tools,3DENNotification);
 	};
@@ -219,7 +219,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
     _groupClasses pushBack [_class, 1];
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-	[["%1: Adding %2 to Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: Adding %2 to Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 }];
 
@@ -251,7 +251,7 @@ _grp2_remove ctrlAddEventHandler ["ButtonClick", {
     _groupClasses = GVAR(table) select _groupIndex;
 	if(_groupClasses isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-		[["%1: LIST_2 REMOVE's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		[["%1: LIST_2 REMOVE's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
 
@@ -260,7 +260,7 @@ _grp2_remove ctrlAddEventHandler ["ButtonClick", {
     _grp2_list lnbSetCurSelRow -1;
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-	[["%1: Removing %2 from Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: Removing %2 from Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 }];
 
@@ -307,7 +307,7 @@ _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
 	_groupClasses = GVAR(table) select _groupIndex;
 	if(_groupClasses isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-		[["%1: LIST_2 buttonLeft's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		[["%1: LIST_2 buttonLeft's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
     _group = _groupClasses select _enemyClassIndex;
@@ -318,7 +318,7 @@ _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
     _grp2_list lnbSetText [[_enemyClassIndex, 1], str ((_amount - 1) max 1)];
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-	[["%1: Removing 1 of %2 from Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: Removing 1 of %2 from Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 }];
 _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
@@ -344,7 +344,7 @@ _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
 	_groupClasses = GVAR(table) select _groupIndex;
 	if(_groupClasses isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-		[["%1: LIST_2 buttonLeft's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+		[["%1: LIST_2 buttonLeft's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
     _group = _groupClasses select _enemyClassIndex;
@@ -355,6 +355,6 @@ _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
     _grp2_list lnbSetText [[_enemyClassIndex, 1], str (_amount + 1)];
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-	[["%1: Adding 1 of %2 to Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, "enemy_waves"] call EFUNC(tools,debug);
+	[["%1: Adding 1 of %2 to Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 }];

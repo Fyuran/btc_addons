@@ -1,5 +1,6 @@
 #include "\x\cba\addons\main\script_macros_common.hpp"
 
+//REDEFINES
 #ifdef DISABLE_COMPILE_CACHE
     #undef PREP
     #define PREP(fncName) FUNC(fncName) = compileScript [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf)]
@@ -8,6 +9,7 @@
     #define PREP(fncName) [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call SLX_XEH_COMPILE_NEW
 #endif
 
+//MACRO HELPERS
 #define MAG_XX(a,b)   \
     class _xx_##a      \
     {                  \
@@ -27,8 +29,7 @@
         count = b;    \
     }
 
-// BEGIN ACE3 reference macros
-
+// ACE3 macros
 #define ACE_PREFIX ace
 
 #define ACE_ADDON(component)        DOUBLES(ACE_PREFIX,component)
@@ -47,6 +48,29 @@
 #define ACEPATHTOF(component,path) \z\ace\addons\component\path
 #define QACEPATHTOF(component,path) QUOTE(ACEPATHTOF(component,path))
 
+// CBA macros
+#define CBA_PREFIX CBA
+
+#define CBA_ADDON(component)        DOUBLES(CBA_PREFIX,component)
+
+#define CBAGVAR(module,var)         TRIPLES(CBA_PREFIX,module,var)
+#define QCBAGVAR(module,var)        QUOTE(CBAGVAR(module,var))
+#define QQCBAGVAR(module,var)       QUOTE(QCBAGVAR(module,var))
+
+#define CBAFUNC(module,function)    TRIPLES(DOUBLES(CBA_PREFIX,module),fnc,function)
+#define QCBAFUNC(module,function)   QUOTE(CBAFUNC(module,function))
+
+#define CBALSTRING(module,string)   QUOTE(TRIPLES(STR,DOUBLES(CBA_PREFIX,module),string))
+#define CBALLSTRING(module,string)  localize CBALSTRING(module,string)
+#define CBACSTRING(module,string)   QUOTE(TRIPLES($STR,DOUBLES(CBA_PREFIX,module),string))
+
+#define CBAPATHTOF(component,path) \z\ace\addons\component\path
+#define QCBAPATHTOF(component,path) QUOTE(CBAPATHTOF(component,path))
+
+//BTC MACROS
+#define QCOMPONENT QUOTE(COMPONENT)
+
+//debug
 #define CHAT 2
 #define LOGS 4
 #define REPORT 8

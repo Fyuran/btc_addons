@@ -9,7 +9,7 @@
     } else {
         [] call FUNC(snowSounds_clients);
     };
-}] call CBA_fnc_addSetting;
+}] CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
 [QGVAR(show_breath), "CHECKBOX", ["Show Breath", "Enable or disable breath particles"], "=BTC= Snowstorm", true, 0, {
     params["_value"];
@@ -19,7 +19,7 @@
     } else {
         [] call FUNC(breath_clients);
     };
-}] call CBA_fnc_addSetting;
+}] CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
 [QGVAR(enable_snowdust), "CHECKBOX", ["Enable Snow dust", "Enable or disable snow dust"], "=BTC= Snowstorm", true, 0, {
     params["_value"];
@@ -29,7 +29,7 @@
     } else {
         [] call FUNC(snowDust_clients);
     };
-}] call CBA_fnc_addSetting;
+}] CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
 [QGVAR(enable_ppe), "CHECKBOX", ["Enable Post Process Effects", "Enable or disable post-process"], "=BTC= Snowstorm", true, 0, {
     params["_value"];
@@ -39,4 +39,4 @@
     } else {
         [] call FUNC(postprocess_clients);
     };
-}] call CBA_fnc_addSetting;
+}] CBAFUNC(addSetting);

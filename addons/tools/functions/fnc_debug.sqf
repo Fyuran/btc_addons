@@ -14,7 +14,8 @@ Returns:
 
 Examples:
     (begin example)
-        [["%1: Hello World", __FILE_NAME__], CHAT, "debug"] call EFUNC(tools,debug);
+        [["%1: Hello World", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
+        [["%1: Hello World", __FILE_NAME__], CHAT, QCOMPONENT] call FUNC(debug);
     (end)
 
 Author:
@@ -29,7 +30,7 @@ params [
 ];
 if (_mode <= 0 || _mode > GLOBAL) exitWith {
     #ifdef BTC_DEBUG_DEBUG
-    [["%1: invalid _mode: %2 passed to btc_debug_fnc_message", __FILE_NAME__, _mode], REPORT, "debug"] call FUNC(debug);  
+    [["%1: invalid _mode: %2 passed to btc_debug_fnc_message", __FILE_NAME__, _mode], REPORT, QCOMPONENT] call FUNC(debug);  
     #endif
 };
 
@@ -44,12 +45,12 @@ if(_title isNotEqualTo "DEBUG") then {
 
 _message = format _message;
 if(!_isError) then {
-    [_message, _title, [_useChat, _useLogs, _global]] call CBA_fnc_debug2;
+    [_message, _title, [_useChat, _useLogs, _global]] CBAFUNC(debug2);
 } else { //it's an REPORT message
 	if(is3DEN) then {
 		[_message, 1] call BIS_fnc_3DENNotification;
 	};
     _title = format["%1 ERROR", _title];
-    [_message, _title, [_useChat, _useLogs, _global]] call CBA_fnc_debug2;
+    [_message, _title, [_useChat, _useLogs, _global]] CBAFUNC(debug2);
 };
 

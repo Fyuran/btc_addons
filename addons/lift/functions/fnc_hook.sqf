@@ -61,7 +61,7 @@ if ((_bbr isEqualTo []) OR (_ropes_check select {!isNull _x} isEqualTo [])) then
     private _support = _cargo;
     private _bbr_z = 0;
     if (!alive _cargo) then {
-        _support = [FUNC(hookFake), [_cargo, _chopper]] call CBA_fnc_directCall;
+        _support = [FUNC(hookFake), [_cargo, _chopper]] CBAFUNC(directCall);
         _bbr_z = _support distance _cargo;
         sleep 0.3;
     };
@@ -73,7 +73,7 @@ if ((_bbr isEqualTo []) OR (_ropes_check select {!isNull _x} isEqualTo [])) then
 };
 
 #ifdef BTC_DEBUG_LIFT
-[["%1: boundingBoxReal : %2 rope length : %3", __FILE_NAME__, _bbr, _rope_length], 2, "lift"] call btc_debug_fnc_message;
+[["%1: boundingBoxReal : %2 rope length : %3", __FILE_NAME__, _bbr, _rope_length], 2, COMPONENT] call btc_debug_fnc_message;
 #endif
 private _max_cargo  = getNumber (configOf _chopper >> "slingLoadMaxCargoMass");
 private _mass = getMass _cargo;

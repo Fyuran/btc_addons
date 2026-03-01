@@ -27,10 +27,10 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing combo load with _value %2", __FILE_NAME__, _value], LOGS, "supply"] call EFUNC(tools,debug);
+[["%1: executing combo load with _value %2", __FILE_NAME__, _value], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 if((ctrlIDC _combo) isNotEqualTo COMBO) exitWith {
-	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, COMBO], REPORT, "supply"] call EFUNC(tools,debug);
+	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, COMBO], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 private _cfg = configFile >> "CfgVehicles" >> _value;
 if(!isClass _cfg) exitWith {};

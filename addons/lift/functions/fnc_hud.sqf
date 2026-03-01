@@ -44,4 +44,4 @@ private _incomplete = "\A3\ui_f\data\map\markers\nato\b_unknown.paa";
 
 [FUNC(hudLoop), 0,
     [_arrow_up, _arrow_down, _complete, _incomplete, _crosshair, _obj_pic, _arrow, _obj_name, _obj_alt]
-] call CBA_fnc_addPerFrameHandler;
+] CBAFUNC(addPerFrameHandler);

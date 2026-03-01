@@ -20,7 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 
 #ifdef BTC_DEBUG_SNOWSTORM
-[["%1: terminating snowstorm on server", __FILE_NAME__], 3, "snowstorm"] call EFUNC(tools,debug);
+[["%1: terminating snowstorm on server", __FILE_NAME__], 3, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 if(!isNil QGVAR(JIP_CSounds)) then { //client sounds handler
     remoteExecCall ["", GVAR(JIP_CSounds)];
@@ -35,7 +35,7 @@ if(!isNil QGVAR(JIP_PPE)) then {
 };
 
 if(!isNil QGVAR(handle)) then { //make sure the previous handler is removed
-    [GVAR(handle)] call CBA_fnc_removePerFrameHandler;
+    [GVAR(handle)] CBAFUNC(removePerFrameHandler);
 };
 
 if(!isNil QGVAR(windTrans)) then { //should wind transition not be done just end it

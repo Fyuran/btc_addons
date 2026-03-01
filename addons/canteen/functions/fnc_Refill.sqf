@@ -30,7 +30,7 @@ Author:
 if(!params[
 	["_item","",[""]]
 ]) exitWith {
-	[["%1: bad params: %2", __FILE_NAME__, _this], REPORT, "canteen"] call EFUNC(tools,debug);
+	[["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 
@@ -45,7 +45,7 @@ if(!params[
 	};
 	ACE_player addItem _new_item;
 	private _targets = ACE_player nearEntities ["CAManBase", 20];
-	["ace_medical_feedback_forceSay3D", [ACE_player, QGVAR(Refill_sound), 20], _targets] call CBA_fnc_targetEvent;
+	["ace_medical_feedback_forceSay3D", [ACE_player, QGVAR(Refill_sound), 20], _targets] CBAFUNC(targetEvent);
 	[format["%1 refilled.", getText(configFile >> "CfgWeapons" >> _item >> "DisplayName")], 2.5, ACE_player] call ace_common_fnc_displayTextStructured;
 
 }, {}, "Refilling"] call ace_common_fnc_progressBar;

@@ -34,7 +34,7 @@ if(!hasInterface) exitWith {};
 disableSerialization;
 
 if (!canSuspend) exitWith {
-	[["%1: attempted to call in unscheduled envinronment, use spawn to call this function", __FILE_NAME__], REPORT, "dialog"] call EFUNC(tools,debug);
+	[["%1: attempted to call in unscheduled envinronment, use spawn to call this function", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 if (!isNil QGVAR(box_handle) && {!scriptDone GVAR(box_handle)}) then {
 	private _time = CBA_missionTime + 10;
@@ -53,7 +53,7 @@ params[
 	"btc_dialog" cutRsc [QGVAR(RscDialogBox), "PLAIN"];
 	private _dialog = uiNamespace getVariable [QGVAR(RscDialogBox), displayNull];
 	if (isNull _dialog) exitWith {
-	  [["%1: btc_dialog_RscDialogBox not found, something went wrong", __FILE_NAME__], REPORT, "dialog"] call EFUNC(tools,debug);  
+	  [["%1: btc_dialog_RscDialogBox not found, something went wrong", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);  
 	};
 	private _text_box = _dialog displayCtrl 1000;
 	//private _frame = _dialog displayCtrl 1801;
@@ -62,7 +62,7 @@ params[
 	for "_i" from 1 to (count _speeches) do {
 		private _y = _speeches getOrDefault [(format["speech_%1", _i]), createHashMap];
 		if (_y isEqualTo createHashMap) then { //failsafe for bad conv tables
-			[["%1: bad conv table: %2", __FILE_NAME__, format["speech_%1", _i]], REPORT, "dialog"] call EFUNC(tools,debug);
+			[["%1: bad conv table: %2", __FILE_NAME__, format["speech_%1", _i]], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 			continue;
 		};
 		private _duration = (_y getOrDefault ["duration", 0]) + 2;
