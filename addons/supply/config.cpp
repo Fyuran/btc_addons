@@ -77,7 +77,7 @@ class CfgVehicles {
 		icon = "\z\btc\addons\canteen\data\btc_ace_actions_icon.paa";
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {
-			description = "Initiates a =BTC= supply drop with passed values";
+			description = "Sync a trigger and initiate a =BTC= supply drop with passed values";
 			sync[] = { "EmptyDetector" };	
 		};
 		class Attributes : AttributesBase {
