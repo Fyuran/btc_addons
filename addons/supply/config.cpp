@@ -1,14 +1,14 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Supply Drop";
+		name = "=BTC= Toolchain Supply Drop";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {QGVAR(module_curator), QGVAR(module)};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		VERSION_CONFIG;
 	};
 };
@@ -60,7 +60,7 @@ class CfgVehicles {
 		displayName = "Supply Module";
 		isGlobal = 0; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
 		function = QFUNC(curator_init);
-		icon = "\z\btc\addons\canteen\data\btc_ace_actions_icon.paa";
+		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
 		curatorInfoType = QGVAR(RscAttributeSupply); // Menu displayed when the module is placed or double-clicked on by Zeus
 	};
 	//To be used only in 3DEN editor
@@ -73,7 +73,7 @@ class CfgVehicles {
 		category = "Effects";
 		displayName = "Supply Module";
 		function = QFUNC(drop);
-		icon = "\z\btc\addons\canteen\data\btc_ace_actions_icon.paa";
+		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {
 			description = "Sync a trigger and initiate a =BTC= supply drop with passed values";
@@ -88,9 +88,9 @@ class CfgVehicles {
 				// Expression called when applying the attribute in Eden and at the scenario start
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
-				// btc_supply_class is replaced by attribute config name. It can be used only once in the expression
+				// btc_toolchain_supply_class is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_supply_vehicleClass', _value];";
+				expression = "_this setVariable ['btc_toolchain_supply_vehicleClass', _value];";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -111,9 +111,9 @@ class CfgVehicles {
 				// Expression called when applying the attribute in Eden and at the scenario start
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
-				// btc_supply_enableDamage is replaced by attribute config name. It can be used only once in the expression
+				// btc_toolchain_supply_enableDamage is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_supply_enableDamage', _value];";
+				expression = "_this setVariable ['btc_toolchain_supply_enableDamage', _value];";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -134,7 +134,7 @@ class CfgVehicles {
 				// Expression called when applying the attribute in Eden and at the scenario start
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
-				// btc_supply_list_value is replaced by attribute config name. It can be used only once in the expression
+				// btc_toolchain_supply_list_value is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
 				expression = "";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
@@ -157,9 +157,9 @@ class CfgVehicles {
 				// Expression called when applying the attribute in Eden and at the scenario start
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
-				// btc_supply_list_value is replaced by attribute config name. It can be used only once in the expression
+				// btc_toolchain_supply_list_value is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_supply_list_value', _value];";
+				expression = "_this setVariable ['btc_toolchain_supply_list_value', _value];";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-	Function: btc_WGC_parseClasses
+	Function: btc_toolchain_weight_calculator_parseClasses
 	
 	Description:
 	    Retrieves list of JSON files and allow saving, deleting or copying
@@ -11,7 +11,7 @@
 	
 	Examples:
 	    (begin example)
-	        [] call btc_WGC_parseClasses;
+	        [] call btc_toolchain_weight_calculator_parseClasses;
 	    (end)
 	
 	Author:

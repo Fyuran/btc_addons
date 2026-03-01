@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_deployable_antenna_fnc_dismantle
+Function: btc_toolchain_deployable_antenna_fnc_dismantle
 
 Description:
     Dismantles a 'Land_SatelliteAntenna_01_F' object into a 'Deployable_antenna_Item'
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-        [cursorObject] call btc_deployable_antenna_fnc_dismantle;
+        [cursorObject] call btc_toolchain_deployable_antenna_fnc_dismantle;
     (end)
 
 Author:

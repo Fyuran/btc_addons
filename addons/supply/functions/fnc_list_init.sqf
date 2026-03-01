@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_list_init
+Function: btc_toolchain_supply_fnc_list_init
 
 Description:
     Initializes supply list controls with event handlers for adding, removing, and managing items.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_mainGroup] call btc_supply_fnc_list_init;
+        [_mainGroup] call btc_toolchain_supply_fnc_list_init;
     (end)
 
 Author:

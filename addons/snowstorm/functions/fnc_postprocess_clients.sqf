@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_postprocess_clients
+Function: btc_toolchain_snowstorm_fnc_postprocess_clients
 
 Description:
     Handles color correction.
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_postprocess_clients;
+	[] call btc_toolchain_snowstorm_fnc_postprocess_clients;
     (end)
 
 Author:

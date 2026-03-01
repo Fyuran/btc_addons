@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_combo_load
+Function: btc_toolchain_supply_fnc_combo_load
 
 Description:
     Populates a combo box with available air vehicles and selects a specified vehicle.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_vehicleCombo, "B_Heli_Transport_01_F"] call btc_supply_fnc_combo_load;
+        [_vehicleCombo, "B_Heli_Transport_01_F"] call btc_toolchain_supply_fnc_combo_load;
     (end)
 
 Author:

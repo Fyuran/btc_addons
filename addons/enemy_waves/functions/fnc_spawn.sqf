@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_spawn
+Function: btc_toolchain_enemy_waves_fnc_spawn
 
 Description:
     Handles AI units spawn with a set or random timer
@@ -35,7 +35,7 @@ Examples:
                 ["O_Soldier_A_F", 1],["O_soldierU_AT_F", 1]
             ]
         ]
-    ]] call btc_enemy_waves_fnc_spawn;
+    ]] call btc_toolchain_enemy_waves_fnc_spawn;
     (end)
 
 Author:
@@ -118,7 +118,7 @@ if(_groups isEqualTo []) exitWith {
 			}; 
 			
 			for "_i" from 1 to _quantity do { 
-				private _unit = _grp createUnit [_class, [_logic, 1] CBAFUNC(randPos), [], 0, "NONE"]; 
+				private _unit = _grp createUnit [_class, [_logic, 1] call CBAFUNC(randPos), [], 0, "NONE"]; 
 				_units pushBack _unit;
 				_unit setVariable[QGVAR(wave_spawn), _logic]; 
 

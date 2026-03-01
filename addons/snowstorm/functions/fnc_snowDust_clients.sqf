@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_snowDust_clients
+Function: btc_toolchain_snowstorm_fnc_snowDust_clients
 
 Description:
     Spawns several particles simulating wind lifting snow
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_snowDust_clients;
+	[] call btc_toolchain_snowstorm_fnc_snowDust_clients;
     (end)
 
 Author:
@@ -35,7 +35,7 @@ private _curRain = rain;
 private _dropInterval = linearConversion[0, 1, rain, 0.008, 0.09, true];
 private _radius = [15, 40] select (!isNull objectParent player);
 
-private _snowDust = "#particlesource" createVehicleLocal ([player, 50] CBAFUNC(randPos));
+private _snowDust = "#particlesource" createVehicleLocal ([player, 50] call CBAFUNC(randPos));
 GVAR(snowDust) = _snowDust;
 
 private _emissive = [[4,4,4,0]];

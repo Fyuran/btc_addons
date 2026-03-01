@@ -4,11 +4,11 @@
 
 class CfgPatches {
     class ADDON {
-        name = "=BTC= Toolchain main";
+        name = "=BTC= Toolchain Main";
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {"cba_main"};
+        requiredAddons[] = {"cba_main", "ace_main"};
         author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
         url = "https://www.blacktemplars.it/";

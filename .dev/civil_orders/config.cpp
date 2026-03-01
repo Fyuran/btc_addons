@@ -1,14 +1,14 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Civil orders";
+		name = "=BTC= Toolchain Civil orders";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 	};
 };
 

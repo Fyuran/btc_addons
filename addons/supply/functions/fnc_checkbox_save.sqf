@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_checkbox_save
+Function: btc_toolchain_supply_fnc_checkbox_save
 
 Description:
     Returns the current checked status of a checkbox control.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _isDamageAllowed = [_damageCheckbox] call btc_supply_fnc_checkbox_save;
+        _isDamageAllowed = [_damageCheckbox] call btc_toolchain_supply_fnc_checkbox_save;
     (end)
 
 Author:

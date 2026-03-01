@@ -1,14 +1,14 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Deployable Antennas";
+		name = "=BTC= Toolchain Deployable Antennas";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {QGVAR(DeployableAntenna_Item)};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {QGVAR(DeployableAntenna)};
-		requiredAddons[] = {"btc_main", "ace_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		VERSION_CONFIG;
 	};
 };

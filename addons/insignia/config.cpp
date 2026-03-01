@@ -2,14 +2,14 @@
 
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Wearable Sleeve Insignia";
+		name = "=BTC= Toolchain Insignia";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {};
 		url = "https://www.blacktemplars.it/";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		VERSION_CONFIG;
 	};
 };

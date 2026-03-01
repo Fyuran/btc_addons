@@ -1,7 +1,7 @@
 class GVAR(RscAttributeSupply) {
 	idd = CURATOR_DISPLAY;
 	movingEnable = "false";
-	onLoad = "params[""_display""]; [_display] call btc_supply_fnc_curator_gui;";
+	onLoad = "params[""_display""]; [_display] call btc_toolchain_supply_fnc_curator_gui;";
 	class ControlsBackground {
 		class Window_Grp: ctrlControlsGroupNoScrollbars {
 			x = "((safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2))";
@@ -78,7 +78,7 @@ class GVAR(RscAttributeSupply) {
 		};
 		class Presets: ctrlButton {
 			idc = -1;
-			onButtonClick = "[ctrlParent (_this#0)] call btc_supply_fnc_presets_init;";
+			onButtonClick = "[ctrlParent (_this#0)] call btc_toolchain_supply_fnc_presets_init;";
 			text = "Presets";
 			colorBackground[] = {0.13, 0.47, 0.30, 1};
 			x = "((safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)) + (50 * pixelW * pixelGrid)";

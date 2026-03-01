@@ -1,14 +1,14 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Enemy Waves";
+		name = "=BTC= Toolchain Enemy Waves";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {QGVAR(module_curator), QGVAR(module)};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main", "btc_supply"};
+		requiredAddons[] = {"btc_toolchain_main", "btc_toolchain_supply"};
 		VERSION_CONFIG;
 	};
 };
@@ -61,7 +61,7 @@ class CfgVehicles {
 		displayName = "Enemy Waves Module";
 		isGlobal = 0; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
 		function = QFUNC(curator_init);
-		icon = "\z\btc\addons\canteen\data\btc_ace_actions_icon.paa";
+		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
 		curatorInfoType = QGVAR(RscAttributeEWaves); // Menu displayed when the module is placed or double-clicked on by Zeus
 	};
 	//To be used only in 3DEN editor
@@ -74,7 +74,7 @@ class CfgVehicles {
 		category = "Effects";
 		displayName = "Enemy Waves Module";
 		function = QFUNC(spawn);
-		icon = "\z\btc\addons\canteen\data\btc_ace_actions_icon.paa";
+		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {
 			description = "Sync a trigger and initiate a =BTC= enemy waves incursion against the closest player who activated the trigger, with passed values";
@@ -90,7 +90,7 @@ class CfgVehicles {
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_enemy_waves_side', _value];";
+				expression = "_this setVariable ['btc_toolchain_enemy_waves_side', _value];";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -112,7 +112,7 @@ class CfgVehicles {
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_enemy_waves_timeout', _value];";
+				expression = "_this setVariable ['btc_toolchain_enemy_waves_timeout', _value];";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -134,7 +134,7 @@ class CfgVehicles {
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_enemy_waves_formation', _value];";
+				expression = "_this setVariable ['btc_toolchain_enemy_waves_formation', _value];";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -162,7 +162,7 @@ class CfgVehicles {
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_enemy_waves_list', _value];";
+				expression = "_this setVariable ['btc_toolchain_enemy_waves_list', _value];";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this

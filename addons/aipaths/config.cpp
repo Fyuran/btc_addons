@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 class CfgPatches { 
 	class ADDON {
-		name = "=BTC= AI Paths";
+		name = "=BTC= Toolchain AI Paths";
 		units[] = {
             QGVAR(2x2),
             QGVAR(2x4),
@@ -20,7 +20,7 @@ class CfgPatches {
 	        QGVAR(Wall_6x2)
         };
 		weapons[] = {};
-		requiredAddons[] = {"btc_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		url = "https://www.blacktemplars.it/";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
@@ -29,14 +29,14 @@ class CfgPatches {
 	};
 }; 
 
-#include "\z\btc\addons\aipaths\models\models.hpp"
+#include "\z\btc_toolchain\addons\aipaths\models\models.hpp"
 
 class CfgMissions {
 	class Missions {
-		class GVAR(testingGrounds) { // class name MUST match the name in the 'directory' path
+		class GVAR(demo) { // class name MUST match the name in the 'directory' path
             overviewPicture = "a3\missions_f_curator\data\img\showcase_curator_overview_ca.paa";
 			briefingName = "=BTC= AIPaths Testing Grounds";
-			directory = "z\btc\addons\aipaths\missions\btc_AIPaths_testingGrounds.VR"; // <--- match
+			directory = QPATHTOF(missions\GVAR(demo).VR); // <--- match
             overviewText = "Overview the AIPaths offered by =Black Templars Clan=";
 		};
 	};

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_hookFake
+Function: btc_toolchain_lift_fnc_hookFake
 
 Description:
     Dummy Hook
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_lift_fnc_hookFake;
+        _result = [] call btc_toolchain_lift_fnc_hookFake;
     (end)
 
 Author:

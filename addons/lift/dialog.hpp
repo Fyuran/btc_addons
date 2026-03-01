@@ -9,12 +9,12 @@ class RscPicture;
 class RscText;
 
 class RscTitles {
-    class btc_lift_hud {
+    class btc_toolchain_lift_hud {
         idd = 1000;
         movingEnable=0;
         duration=1e+011;
-        name = "btc_lift_hud";
-        onLoad = "uiNamespace setVariable [""btc_lift_hud"", _this select 0];";
+        name = "btc_toolchain_lift_hud";
+        onLoad = "uiNamespace setVariable [""btc_toolchain_lift_hud"", _this select 0];";
         class controls {
             class Radar_background_RscPicture_1001 : RscPicture {
                 idc = 1001;

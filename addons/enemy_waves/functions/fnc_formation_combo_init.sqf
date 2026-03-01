@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_formation_combo_init
+Function: btc_toolchain_enemy_waves_fnc_formation_combo_init
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_formation_combo_init;
+        [] call btc_toolchain_enemy_waves_fnc_formation_combo_init;
     (end)
 
 Author:
@@ -26,4 +26,4 @@ disableSerialization;
 #endif
 uiNamespace setVariable[QGVAR(formation_combo), _combo];
 
-[_combo, "COLUMN"] call btc_enemy_waves_fnc_formation_combo_load;
+[_combo, "COLUMN"] call btc_toolchain_enemy_waves_fnc_formation_combo_load;

@@ -1,24 +1,24 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Snowstorm";
+		name = "=BTC= Toolchain Snowstorm";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {QGVAR(module)};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main", "ace_medical"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		VERSION_CONFIG;
 	};
 };
 
 class CfgMissions {
 	class Missions {
-		class btc_snowstorm_demo { // class name MUST match the name in the 'directory' path
+		class GVAR(demo) { // class name MUST match the name in the 'directory' path
             overviewPicture = "a3\missions_f_curator\data\img\showcase_curator_overview_ca.paa";
 			briefingName = "=BTC= Snowstorm Demo";
-			directory = "z\btc\addons\snowstorm\missions\btc_snowstorm_demo.Stratis"; // <--- match
+			directory = QPATHTOF(missions\GVAR(demo).Stratis); // <--- match
             overviewText = "Overview Snowstorm offered by =Black Templars Clan=";
 		};
 	};
@@ -35,9 +35,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(Slider_0_to_1) : Slider {
-			attributeLoad = "[_this, _value] call btc_snowstorm_fnc_initSlider";
+			attributeLoad = "[_this, _value] call btc_toolchain_snowstorm_fnc_initSlider";
 			attributeSave = "sliderPosition (_this controlsGroupCtrl 52)";
-			onLoad = "[_this, _value] call btc_snowstorm_fnc_initSlider";
+			onLoad = "[_this, _value] call btc_toolchain_snowstorm_fnc_initSlider";
 			class Controls: Controls {
 				class Edit: Edit {
 					idc = 50;
@@ -54,9 +54,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(Slider_5000to5000) : Slider {
-			attributeLoad = "[_this, _value] call btc_snowstorm_fnc_initSlider";
+			attributeLoad = "[_this, _value] call btc_toolchain_snowstorm_fnc_initSlider";
 			attributeSave = "sliderPosition (_this controlsGroupCtrl 52)";
-			onLoad = "[_this, _value] call btc_snowstorm_fnc_initSlider";
+			onLoad = "[_this, _value] call btc_toolchain_snowstorm_fnc_initSlider";
 			class Controls: Controls {
 				class Edit: Edit {
 					idc = 50;
@@ -96,7 +96,7 @@ class CfgVehicles {
 		category = "Effects";
 		displayName = "Snowstorm Module";
 		function = QFUNC(moduleInit);
-		icon = "\z\btc\addons\canteen\data\btc_ace_actions_icon.paa";
+		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {
 			description = "Initiates a =BTC= snowstorm with passed values";
@@ -110,9 +110,9 @@ class CfgVehicles {
 				// Expression called when applying the attribute in Eden and at the scenario start
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
-				// btc_snowstorm_fogValue is replaced by attribute config name. It can be used only once in the expression
+				// btc_toolchain_snowstorm_fogValue is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_snowstorm_fogValue',_value];";
+				expression = "_this setVariable ['btc_toolchain_snowstorm_fogValue',_value];";
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -130,7 +130,7 @@ class CfgVehicles {
 				tooltip = "Change fog decay value";
 				property = QGVAR(fogDecay);
 				defaultValue = 0;
-				expression = "_this setVariable ['btc_snowstorm_fogDecay',_value];";
+				expression = "_this setVariable ['btc_toolchain_snowstorm_fogDecay',_value];";
 			};
 			class GVAR(fogBase): GVAR(fogValue) {
 				displayName = "Fog Base";
@@ -138,14 +138,14 @@ class CfgVehicles {
 				control = QGVAR(Slider_5000to5000);
 				property = QGVAR(fogBase);
 				defaultValue = 0;
-				expression = "_this setVariable ['btc_snowstorm_fogBase',_value];";
+				expression = "_this setVariable ['btc_toolchain_snowstorm_fogBase',_value];";
 			};
 			class GVAR(duration) {
 				displayName = "Snowstorm Duration";
 				tooltip = "Change snowstorm duration (-1 for infinite)";
 				property = QGVAR(duration);
 				control = "Edit";
-				expression = "_this setVariable ['btc_snowstorm_duration',_value];";
+				expression = "_this setVariable ['btc_toolchain_snowstorm_duration',_value];";
 				defaultValue = -1;
 				typeName = "NUMBER";
 			};
@@ -154,7 +154,7 @@ class CfgVehicles {
 				tooltip = "Change snowstorm wind intensity minimum";
 				property = QGVAR(intensity_min);
 				control = "Edit";
-				expression = "_this setVariable ['btc_snowstorm_wind_min',_value];";
+				expression = "_this setVariable ['btc_toolchain_snowstorm_wind_min',_value];";
 				defaultValue = 20;
 				typeName = "NUMBER";
 			};
@@ -163,7 +163,7 @@ class CfgVehicles {
 				tooltip = "Change snowstorm wind intensity average";
 				property = QGVAR(intensity_avg);
 				control = "Edit";
-				expression = "_this setVariable ['btc_snowstorm_wind_avg',_value];";
+				expression = "_this setVariable ['btc_toolchain_snowstorm_wind_avg',_value];";
 				defaultValue = 30;
 				typeName = "NUMBER";
 			};
@@ -172,7 +172,7 @@ class CfgVehicles {
 				tooltip = "Change snowstorm wind intensity maximum";
 				property = QGVAR(intensity_max);
 				control = "Edit";
-				expression = "_this setVariable ['btc_snowstorm_wind_max',_value];";
+				expression = "_this setVariable ['btc_toolchain_snowstorm_wind_max',_value];";
 				defaultValue = 40;
 				typeName = "NUMBER";
 			};

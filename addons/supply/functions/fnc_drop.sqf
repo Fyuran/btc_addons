@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_drop
+Function: btc_toolchain_supply_fnc_drop
 
 Description:
     Commands an air unit to spawn and drop supply items on a location with parachutes.
@@ -37,7 +37,7 @@ Examples:
 		],
 		[]
 	] 
-] call btc_supply_fnc_drop;
+] call btc_toolchain_supply_fnc_drop;
     (end)
 
 Author:
@@ -206,7 +206,7 @@ deleteVehicle _logic;
 			_smoke attachTo [_supply, [0,0,0]]; 
 		},
 		[_supply, CBA_missionTime + 30]
-		] CBAFUNC(waitUntilAndExecute);
+		] call CBAFUNC(waitUntilAndExecute);
 
 		sleep 0.5;	
 
@@ -235,13 +235,13 @@ deleteVehicle _logic;
 				continue;
 			};
 			
-			if !([_supply, _class] CBAFUNC(canAddItem)) then {
+			if !([_supply, _class] call CBAFUNC(canAddItem)) then {
 				[["%1: no inventory room for %2 in %3", __FILE_NAME__, _class, _paradropClass], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 				continue;
 			};
 			
 			private _probableBackpack = configFile >> "CfgVehicles" >> _class;
-			private _inheritsFromBackpackbase = [_probableBackpack, _backpackBase] CBAFUNC(inheritsFrom);
+			private _inheritsFromBackpackbase = [_probableBackpack, _backpackBase] call CBAFUNC(inheritsFrom);
 			if(_inheritsFromBackpackbase) then {
 			_supply addBackpackCargoGlobal[_class, (_count) max 1];												 
 			} else {
@@ -266,7 +266,7 @@ deleteVehicle _logic;
 		#endif
 	},
 	[_veh, CBA_missionTime + 60]
-	] CBAFUNC(waitUntilAndExecute);
+	] call CBAFUNC(waitUntilAndExecute);
 };
 #ifdef BTC_DEBUG_SUPPLY
 [["%1: %2 Spawning supplies...", __FILE_NAME__, _vehicleClass], 3, QCOMPONENT] call EFUNC(tools,debug);

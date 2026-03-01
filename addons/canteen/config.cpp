@@ -39,14 +39,14 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Water Bottle & Canteen stamina regain";
+		name = "=BTC= Toolchain Canteen";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {"ACE_Canteen_Nearly_Empty_Item","ACE_Canteen_Nearly_Full_Item"};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {"ACE_Canteen_Nearly_Empty","ACE_Canteen_Nearly_Full"};
-		requiredAddons[] = {"btc_main", "ace_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		VERSION_CONFIG;
 	};
 };
@@ -105,12 +105,12 @@ class CfgVehicles {
 					exceptions[] = {};
 					statement = "";
 					priority = 2.1;
-					icon = "\z\btc\addons\canteen\data\btc_ace_actions_icon.paa";
+					icon = QPATHTOF(data\btc_ace_actions_icon.paa);
 					class GVAR(WaterBottle) {
 						displayName = "Refill Water Bottle (Half)";
 						condition = "'ACE_WaterBottle_Half' in items _player";
 						exceptions[] = {};
-						icon = "\z\btc\addons\canteen\data\item_waterbottle_refill_icon.paa";
+						icon = QPATHTOF(data\item_waterbottle_refill_icon.paa);
 						statement = QUOTE(['ACE_WaterBottle_Half'] call FUNC(Refill));
 					};
 					class GVAR(WaterBottle_a): GVAR(WaterBottle) {
@@ -123,7 +123,7 @@ class CfgVehicles {
 						displayName = "Refill Canteen (Nearly-Full)";
 						condition = "'ACE_Canteen_Nearly_Full' in items _player";
 						exceptions[] = {};
-						icon = "\z\btc\addons\canteen\data\item_canteen_refill_icon.paa";
+						icon = QPATHTOF(data\item_canteen_refill_icon.paa);
 						statement = QUOTE(['ACE_Canteen_Nearly_Full'] call FUNC(Refill));
 					};
 					class GVAR(Canteen_a): GVAR(Canteen) {
@@ -154,12 +154,12 @@ class CfgVehicles {
 				exceptions[] = {};
 				statement = "";
 				priority = 2.1;
-				icon = "\z\btc\addons\canteen\data\btc_ace_actions_icon.paa";
+				icon = QPATHTOF(data\btc_ace_actions_icon.paa);
 				class GVAR(WaterBottle) {
 					displayName = "Drink Water Bottle (Full)";
 					condition = "'ACE_WaterBottle' in items _player";
 					exceptions[] = {};
-					icon = "\z\btc\addons\canteen\data\item_waterbottle_drink_icon.paa";
+					icon = QPATHTOF(data\item_waterbottle_drink_icon.paa);
 					statement = QUOTE(['ACE_WaterBottle'] call FUNC(Drink));
 				};
 				class GVAR(WaterBottle_a): GVAR(WaterBottle) {
@@ -172,7 +172,7 @@ class CfgVehicles {
 					displayName = "Drink Canteen (Full)";
 					condition = "'ACE_Canteen' in items _player";
 					exceptions[] = {};
-					icon = "\z\btc\addons\canteen\data\item_canteen_drink_icon.paa";
+					icon = QPATHTOF(data\item_canteen_drink_icon.paa);
 					statement = QUOTE(['ACE_Canteen'] call FUNC(Drink));
 				};
 				class GVAR(Canteen_a): GVAR(Canteen) {
@@ -197,12 +197,12 @@ class CfgVehicles {
 class CfgSounds {
 	class GVAR(Drink_sound) {
 		name = QGVAR(Drink_sound);
-		sound[] = {"\z\btc\addons\canteen\data\drink.ogg",2,1,15};
+		sound[] = {QPATHTOF(data\drink.ogg),2,1,15};
 		titles[] = {};
 	};
 	class GVAR(Refill_sound) {
 		name = QGVAR(Refill_sound);
-		sound[] = {"\z\btc\addons\canteen\data\pour.ogg",2,1,15};
+		sound[] = {QPATHTOF(data\pour.ogg),2,1,15};
 		titles[] = {};
 	};
 };

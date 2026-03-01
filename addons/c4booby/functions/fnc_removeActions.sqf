@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_c4booby_fnc_removeActions
+Function: btc_toolchain_c4booby_fnc_removeActions
 
 Description:
     Helper function that removes actions from a single barrel and its phone
@@ -25,7 +25,7 @@ if(!params[
     [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-_actionIDS = _defuser getVariable [QGAR(actionids),[]];
+_actionIDS = _defuser getVariable [QGVAR(actionids),[]];
 if(_actionIDS isEqualTo []) exitWith {
     [["%1: bad action ids: %2", __FILE_NAME__, _actionIDS], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_check
+Function: btc_toolchain_lift_fnc_check
 
 Description:
     Performs check if cargo can be lifted
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_lift_fnc_check;
+        _result = [] call btc_toolchain_lift_fnc_check;
     (end)
 
 Author:

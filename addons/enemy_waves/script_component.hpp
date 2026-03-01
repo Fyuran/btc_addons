@@ -1,11 +1,11 @@
 #define COMPONENT enemy_waves
-#include "\z\btc\addons\main\script_mod.hpp"
+#include "\z\btc_toolchain\addons\main\script_mod.hpp"
 
 //#define BTC_DEBUG_ENEMY_WAVES_DIALOG
 //#define BTC_DEBUG_ENEMY_WAVES
 //#define DISABLE_COMPILE_CACHE
 
-#include "\z\btc\addons\main\script_macros.hpp"
+#include "\z\btc_toolchain\addons\main\script_macros.hpp"
 
 #define SIDE_COMBO 66650
 #define TIMEOUT_EDIT 66651

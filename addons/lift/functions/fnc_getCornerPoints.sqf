@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_getCornerPoints
+Function: btc_toolchain_lift_fnc_getCornerPoints
 
 Description:
     Calculates where in the object geometry reside the farthest corners

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_list_init
+Function: btc_toolchain_enemy_waves_fnc_list_init
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_list_init;
+        [] call btc_toolchain_enemy_waves_fnc_list_init;
     (end)
 
 Author:
@@ -73,7 +73,7 @@ _grp1_remove ctrlAddEventHandler ["ButtonClick", {
         ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
     GVAR(table) deleteAt _groupIndex;
-	[ctrlParentControlsGroup _grp1, GVAR(table)] call btc_enemy_waves_fnc_list_load;
+	[ctrlParentControlsGroup _grp1, GVAR(table)] call btc_toolchain_enemy_waves_fnc_list_load;
     _grp1_list lbSetCurSel -1; //Triggers LBSelChanged exitWith lbClear
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
@@ -111,7 +111,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
 		_classCfg = configFile >> "CfgVehicles" >> _class;
 		_manCfg = configFile >> "CfgVehicles" >> "CAManBase";
 		_landCfg = configFile >> "CfgVehicles" >> "Land";
-		_inherits = ([_classCfg, _manCfg] CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] CBAFUNC(inheritsFrom));
+		_inherits = ([_classCfg, _manCfg] call CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] call CBAFUNC(inheritsFrom));
 		if(!_inherits) then {
             [format["%1 class is not of type 'Land' or 'CAManBase'", _class], 1] call EFUNC(tools,3DENNotification);
 			continue;
@@ -185,7 +185,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
 	_classCfg = configFile >> "CfgVehicles" >> _class;
 	_manCfg = configFile >> "CfgVehicles" >> "CAManBase";
 	_landCfg = configFile >> "CfgVehicles" >> "Land";
-	_inherits = ([_classCfg, _manCfg] CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] CBAFUNC(inheritsFrom));
+	_inherits = ([_classCfg, _manCfg] call CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] call CBAFUNC(inheritsFrom));
 	if(!_inherits) exitWith {
 		[format["%1 class is not of type 'Land' or 'CAManBase'", _class], 1] call EFUNC(tools,3DENNotification);
 	};

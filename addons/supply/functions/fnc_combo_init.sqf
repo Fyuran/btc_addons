@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_combo_init
+Function: btc_toolchain_supply_fnc_combo_init
 
 Description:
     Initializes a combo box with available air vehicle classes from config and stores reference.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_vehicleCombo] call btc_supply_fnc_combo_init;
+        [_vehicleCombo] call btc_toolchain_supply_fnc_combo_init;
     (end)
 
 Author:

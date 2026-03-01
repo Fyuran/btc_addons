@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_moduleInit
+Function: btc_toolchain_snowstorm_fnc_moduleInit
 
 Description:
     Initiates snowfall, executed from a module.
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_moduleInit;
+	[] call btc_toolchain_snowstorm_fnc_moduleInit;
     (end)
 
 Author:

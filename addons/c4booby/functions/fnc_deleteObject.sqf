@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_c4booby_fnc_deleteObject
+Function: btc_toolchain_c4booby_fnc_deleteObject
 
 Description:
     Passed object is stripped of its attached objects, timer is halted and conditions are evaluated
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [this] call btc_c4booby_fnc_deleteObject;
+        [this] call btc_toolchain_c4booby_fnc_deleteObject;
     (end)
 
 Author:
@@ -29,7 +29,7 @@ if(isNull _obj) exitWith {
 
 private _handle = _obj getVariable [QGVAR(timer_handle), -1];
 if(_handle != -1) then {
-	[_handle] CBAFUNC(removePerFrameHandler);
+	[_handle] call CBAFUNC(removePerFrameHandler);
 };
 private _objs = attachedObjects _obj;
 _objs apply {deleteVehicle _x};

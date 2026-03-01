@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_curator_init
+Function: btc_toolchain_enemy_waves_fnc_curator_init
 Description:
 
 Parameters:
@@ -9,7 +9,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_curator_init;
+        [] call btc_toolchain_enemy_waves_fnc_curator_init;
     (end)
 
 Author:

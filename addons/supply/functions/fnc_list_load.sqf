@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_list_load
+Function: btc_toolchain_supply_fnc_list_load
 
 Description:
     Populates supply list controls from JSON or hashmap data and syncs UI.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_mainGroup, _supplyData] call btc_supply_fnc_list_load;
+        [_mainGroup, _supplyData] call btc_toolchain_supply_fnc_list_load;
     (end)
 
 Author:

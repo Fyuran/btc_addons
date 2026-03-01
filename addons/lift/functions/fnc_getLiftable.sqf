@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_getLiftable
+Function: btc_toolchain_lift_fnc_getLiftable
 
 Description:
     Retrieves Liftable config classes
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_lift_fnc_getLiftable;
+        _result = [] call btc_toolchain_lift_fnc_getLiftable;
     (end)
 
 Author:

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_tools_fnc_uid
+Function: btc_toolchain_tools_fnc_uid
 
 Description:
     Generates a random UID
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_tools_fnc_uid;
+	[] call btc_toolchain_tools_fnc_uid;
     (end)
 
 Author:

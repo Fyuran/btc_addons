@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_breath_clients
+Function: btc_toolchain_snowstorm_fnc_breath_clients
 
 Description:
     Check when should the breath particle be spawned, also handles if it should be spawned if object is either in sight or not.
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_breath_clients;
+	[] call btc_toolchain_snowstorm_fnc_breath_clients;
     (end)
 
 Author:
@@ -57,7 +57,7 @@ private _fnc_getBreathEntitiesData = {
 
 //Avoid at any cost duplicates
 if(!isNil QGVAR(breath_handle)) then {
-    [GVAR(breath_handle)] CBAFUNC(removePerFrameHandler);
+    [GVAR(breath_handle)] call CBAFUNC(removePerFrameHandler);
 };
 GVAR(breath_handle) = [{
     params["_fnc_getBreathEntitiesData", "_handle"];
@@ -96,9 +96,9 @@ GVAR(breath_handle) = [{
 			// Let it "puff", then stop
 			[{
 				deleteVehicle _this;
-			}, _breath, 0.25] CBAFUNC(waitAndExecute);
+			}, _breath, 0.25] call CBAFUNC(waitAndExecute);
 		} else {
 			_unit setVariable[QGVAR(breath_time), _time + _deltaTime];
 		};
     };
-}, HANDLE_DELAY, _fnc_getBreathEntitiesData] CBAFUNC(addPerFrameHandler);
+}, HANDLE_DELAY, _fnc_getBreathEntitiesData] call CBAFUNC(addPerFrameHandler);

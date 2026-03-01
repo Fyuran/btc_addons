@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_hud
+Function: btc_toolchain_lift_fnc_hud
 
 Description:
     Initializes HUD
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_lift_fnc_hud;
+        _result = [] call btc_toolchain_lift_fnc_hud;
     (end)
 
 Author:
@@ -44,4 +44,4 @@ private _incomplete = "\A3\ui_f\data\map\markers\nato\b_unknown.paa";
 
 [FUNC(hudLoop), 0,
     [_arrow_up, _arrow_down, _complete, _incomplete, _crosshair, _obj_pic, _arrow, _obj_name, _obj_alt]
-] CBAFUNC(addPerFrameHandler);
+] call CBAFUNC(addPerFrameHandler);

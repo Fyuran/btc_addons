@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_initSlider
+Function: btc_toolchain_snowstorm_fnc_initSlider
 
 Description:
     Initiates snowfall.
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_initSlider;
+	[] call btc_toolchain_snowstorm_fnc_initSlider;
     (end)
 
 Author:

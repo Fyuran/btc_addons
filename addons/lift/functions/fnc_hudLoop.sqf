@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_hudLoop
+Function: btc_toolchain_lift_fnc_hudLoop
 
 Description:
     Performs HUD functions such as crosshair adjustment, cargo icon etc.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_lift_fnc_hudLoop;
+        _result = [] call btc_toolchain_lift_fnc_hudLoop;
     (end)
 
 Author:
@@ -30,7 +30,7 @@ _ui params ["_arrow_up", "_arrow_down", "_complete", "_incomplete", "_crosshair"
 disableSerialization;
 
 if !((alive player && {!isNull objectParent player}) && GVAR(hud)) then {
-    [_PFH_id] CBAFUNC(removePerFrameHandler);
+    [_PFH_id] call CBAFUNC(removePerFrameHandler);
     939996 cutText ["", "PLAIN"];
 };
 

@@ -1,7 +1,7 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: 
-    btc_AIPaths_fnc_hideObject
+    btc_toolchain_aipaths_fnc_hideObject
 
 Description:
     Hides object textures ingame and adds it to global pool of hidden objects
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [cursorObject] call btc_AIPaths_fnc_hideObject;
+        [cursorObject] call btc_toolchain_aipaths_fnc_hideObject;
     (end)
 
 Author:

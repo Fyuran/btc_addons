@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_curator_gui
+Function: btc_toolchain_supply_fnc_curator_gui
 
 Description:
     Sets up and initializes the curator supply GUI with control handlers and defaults.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_supplyDisplay] call btc_supply_fnc_curator_gui;
+        [_supplyDisplay] call btc_toolchain_supply_fnc_curator_gui;
     (end)
 
 Author:
@@ -100,4 +100,4 @@ if(isNull _display) exitWith {
 
         _display closeDisplay 2;
     }];
-}, [_display], 10] CBAFUNC(waitUntilAndExecute);
+}, [_display], 10] call CBAFUNC(waitUntilAndExecute);

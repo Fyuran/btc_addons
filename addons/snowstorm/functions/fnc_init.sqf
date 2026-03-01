@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_init
+Function: btc_toolchain_snowstorm_fnc_init
 
 Description:
     Initiates snowfall.
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_init;
+	[] call btc_toolchain_snowstorm_fnc_init;
     (end)
 
 Author:
@@ -109,8 +109,8 @@ GVAR(windTrans) = [TRANS_DELAY, 40] spawn FUNC(windSmoothTrans);
 				[] remoteExecCall [QFUNC(terminate), 0];
 			};
 		};
-	}, TRANS_DELAY, _this] CBAFUNC(addPerFrameHandler);
-}, _windIntensity, TRANS_DELAY] CBAFUNC(waitAndExecute);
+	}, TRANS_DELAY, _this] call CBAFUNC(addPerFrameHandler);
+}, _windIntensity, TRANS_DELAY] call CBAFUNC(waitAndExecute);
 
 //Clients
 GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(snowSounds_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc

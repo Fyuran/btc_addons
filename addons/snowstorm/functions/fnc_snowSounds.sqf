@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_snowSounds
+Function: btc_toolchain_snowstorm_fnc_snowSounds
 
 Description:
     Handles sounds on client
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_snowSounds;
+	[] call btc_toolchain_snowstorm_fnc_snowSounds;
     (end)
 
 Author:
@@ -36,6 +36,6 @@ private _allPlayers = ([] call BIS_fnc_listPlayers) select {alive _x};
 
 if(_allPlayers isNotEqualTo []) then {
     private _randomPlayer = selectRandom _allPlayers;
-    private _randomPosASL = [getPosASL _randomPlayer, 1] CBAFUNC(randPos);
+    private _randomPosASL = [getPosASL _randomPlayer, 1] call CBAFUNC(randPos);
     GVAR(ambientSound) = playSound3D[selectRandom[QPATHTOF(sounds\Wolf1.ogg), QPATHTOF(sounds\Wolf2.ogg)], objNull, false, _randomPosASL, 1, 1, 0, 0, false];
 };

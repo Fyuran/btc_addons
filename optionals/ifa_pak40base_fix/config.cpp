@@ -2,10 +2,10 @@
 
 class CfgPatches { 
 	class ADDON {
-		name = "=BTC= IFA - Pak40Base Fix";
+		name = "=BTC= Toolchain IFA - Pak40Base Fix";
 		units[] = {};
 		weapons[] = {};
-		requiredAddons[] = {"btc_main", "WW2_Assets_c_Vehicles_StaticWeapons_c", "fow_cannons_c"};
+		requiredAddons[] = {"btc_toolchain_main", "WW2_Assets_c_Vehicles_StaticWeapons_c", "fow_cannons_c"};
 		url = "https://www.blacktemplars.it/";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};

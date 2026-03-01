@@ -11,13 +11,13 @@ class RscFrame;
 class RscTextMulti;
 
 class RscTitles {
-	class btc_dialog_RscDialogBox {
+	class GVAR(RscDialogBox) {
 		idd = 6661;
 		movingEnable = 1;
 		fadeIn = "true";
 		fadeOut = "true";
 		duration = 1e+11;
-		onload = "uiNamespace setVariable ['btc_dialog_RscDialogBox', _this select 0]";
+		onload = "uiNamespace setVariable ['btc_toolchain_dialog_RscDialogBox', _this select 0]";
 		onunload = "";
 		class ControlsBackground {
 			class RscPicture_1200: RscPicture

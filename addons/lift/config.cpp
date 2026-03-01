@@ -1,14 +1,14 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Heli Lift";
+		name = "=BTC= Toolchain Heli Lift";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main", "ace_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		VERSION_CONFIG;
 	};
 };
@@ -20,7 +20,7 @@ class CfgMissions {
 		class GVAR(demo) { // class name MUST match the name in the 'directory' path
             overviewPicture = "a3\missions_f_curator\data\img\showcase_curator_overview_ca.paa";
 			briefingName = "=BTC= Heli Lift";
-			directory = "z\btc\addons\lift\missions\btc_lift_demo.VR"; // <--- match
+			directory = QPATHTOF(missions\GVAR(demo).VR); // <--- match
             overviewText = "Overview Lift assistance tools offered by =Black Templars Clan=";
 		};
 	};
@@ -31,16 +31,16 @@ class CfgVehicles {
         class ACE_SelfActions {
             class GVAR(deploy_ropes) {
                 displayName = "$STR_ACE_Fastroping_Interaction_deployRopes";
-                condition = "!(missionNamespace getVariable[""btc_lift_ropes_deployed"", false]) && {(driver vehicle player) isEqualTo player} && {(getPosATL player) select 2 > 4}";
+                condition = "!(missionNamespace getVariable[""btc_toolchain_lift_ropes_deployed"", false]) && {(driver vehicle player) isEqualTo player} && {(getPosATL player) select 2 > 4}";
                 exceptions[] = {};
-                statement = "[] spawn btc_lift_fnc_deployRopes;";
+                statement = "[] spawn btc_toolchain_lift_fnc_deployRopes;";
                 icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\container_ca.paa";
             };
             class GVAR(destroy_ropes) {
                 displayName = "$STR_ACE_Fastroping_Interaction_cutRopes";
-                condition = "(missionNamespace getVariable[""btc_lift_ropes_deployed"", false]) && {(driver vehicle player) isEqualTo player}";
+                condition = "(missionNamespace getVariable[""btc_toolchain_lift_ropes_deployed"", false]) && {(driver vehicle player) isEqualTo player}";
                 exceptions[] = {};
-                statement = "[] spawn btc_lift_fnc_destroyRopes;";
+                statement = "[] spawn btc_toolchain_lift_fnc_destroyRopes;";
                 icon = "\z\ace\addons\logistics_wirecutter\ui\wirecutter_ca.paa";
             };
         };

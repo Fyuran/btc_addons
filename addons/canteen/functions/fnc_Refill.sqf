@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_canteen_fnc_Refill
+Function: btc_toolchain_canteen_fnc_Refill
 
 Description:
 	Will replenish unit's
@@ -19,7 +19,7 @@ Returns:
 
 Examples:
     (begin example)
-		["ACE_Canteen"] call btc_canteen_fnc_Refill
+		["ACE_Canteen"] call btc_toolchain_canteen_fnc_Refill
     (end)
 
 Author:
@@ -45,7 +45,7 @@ if(!params[
 	};
 	ACE_player addItem _new_item;
 	private _targets = ACE_player nearEntities ["CAManBase", 20];
-	["ace_medical_feedback_forceSay3D", [ACE_player, QGVAR(Refill_sound), 20], _targets] CBAFUNC(targetEvent);
+	["ace_medical_feedback_forceSay3D", [ACE_player, QGVAR(Refill_sound), 20], _targets] call CBAFUNC(targetEvent);
 	[format["%1 refilled.", getText(configFile >> "CfgWeapons" >> _item >> "DisplayName")], 2.5, ACE_player] call ace_common_fnc_displayTextStructured;
 
 }, {}, "Refilling"] call ace_common_fnc_progressBar;

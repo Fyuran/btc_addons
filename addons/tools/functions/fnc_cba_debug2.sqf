@@ -64,12 +64,12 @@ _type params [
 
 
 if (_global) then {
-	["cba_diagnostic_debug", [_message, _title, [_useChat, _useLog, false]]] CBAFUNC(remoteEvent);
+	["cba_diagnostic_debug", [_message, _title, [_useChat, _useLog, false]]] call CBA_fnc_remoteEvent;
 };
 
 
 if (_message isEqualType "") then {
-	_message = [_message, "\n"] CBAFUNC(split);
+	_message = [_message, "\n"] call CBA_fnc_split;
 };
 
 // format the first line to include title

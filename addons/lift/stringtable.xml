@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project name="btc_lift">
+<Project name="btc_toolchain_lift">
     <Package name="Description">
         <Container name="Logistic: Lift deploy ropes ">
             <Key ID="STR_BTC_TOOLCHAIN_LIFT_HOOK">

@@ -53,18 +53,18 @@
 
 #define CBA_ADDON(component)        DOUBLES(CBA_PREFIX,component)
 
-#define CBAGVAR(module,var)         TRIPLES(CBA_PREFIX,module,var)
-#define QCBAGVAR(module,var)        QUOTE(CBAGVAR(module,var))
-#define QQCBAGVAR(module,var)       QUOTE(QCBAGVAR(module,var))
+#define CBAGVAR(var)         DOUBLES(CBA_PREFIX,var)
+#define QCBAGVAR(var)        QUOTE(CBAGVAR(var))
+#define QQCBAGVAR(var)       QUOTE(QCBAGVAR(var))
 
-#define CBAFUNC(module,function)    TRIPLES(DOUBLES(CBA_PREFIX,module),fnc,function)
-#define QCBAFUNC(module,function)   QUOTE(CBAFUNC(module,function))
+#define CBAFUNC(function)    TRIPLES(CBA_PREFIX,fnc,function)
+#define QCBAFUNC(function)   QUOTE(CBAFUNC(function))
 
-#define CBALSTRING(module,string)   QUOTE(TRIPLES(STR,DOUBLES(CBA_PREFIX,module),string))
-#define CBALLSTRING(module,string)  localize CBALSTRING(module,string)
-#define CBACSTRING(module,string)   QUOTE(TRIPLES($STR,DOUBLES(CBA_PREFIX,module),string))
+#define CBALSTRING(string)   QUOTE(TRIPLES(STR,CBA_PREFIX,string))
+#define CBALLSTRING(string)  localize CBALSTRING(string)
+#define CBACSTRING(string)   QUOTE(TRIPLES($STR,CBA_PREFIX,string))
 
-#define CBAPATHTOF(component,path) \z\ace\addons\component\path
+#define CBAPATHTOF(component,path) \x\cba\addons\component\path
 #define QCBAPATHTOF(component,path) QUOTE(CBAPATHTOF(component,path))
 
 //BTC MACROS

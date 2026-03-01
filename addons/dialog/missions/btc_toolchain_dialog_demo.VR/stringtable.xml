@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="BTC_Dialog">
+    <Package name="Conversations">
+        <Container name="Conv_1">
+            <Key ID="STR_BTC_DIALOG_CONV_1_S_1">
+                <Original>Goddamnit, I've been missing my targets the whole day, I must be going blind.</Original>
+                <English>Goddamnit, I've been missing my targets the whole day, I must be going blind.</English>
+                <Italian>Maledizione, è tutto il giorno che manco il bersaglio, sto diventando cieco.</Italian>
+            </Key>
+            <Key ID="STR_BTC_DIALOG_CONV_1_S_2">
+                <Original>I thought it was me, these damn 6.5 rifles they've been issuing lately are pieces of junk.</Original>
+                <English>I thought it was me, these damn 6.5 rifles they've been issuing lately are pieces of junk.</English>
+                <Italian>Pensavo di essere l'unico, questi stramaledetti fucili calibro 6.5 che ci stanno consegnando sono orribili.</Italian>
+            </Key>
+            <Key ID="STR_BTC_DIALOG_CONV_1_S_3">
+                <Original>You two best start practicing more, missing targets of that size at that range means you two have been masturbating instead of training your shots with your fucking rifle.\nGet a move on it or else you'll be practicing how to clean the shitters with your mouth.</Original>
+                <English>You two best start practicing more, missing targets of that size at that range means you two have been masturbating instead of training your shots with your fucking rifle.\nGet a move on it or else you'll be practicing how to clean the shitters with your mouth.</English>
+                <Italian>E' meglio se voi due continuate a far pratica, mancare bersaglio di quella taglia a quella distanza significa che al posto di allenarvi avete fatto altro.\nDatevi una mossa o farete pratica a pulire i cessi.</Italian>
+            </Key>
+            <Key ID="STR_BTC_DIALOG_CONV_1_S_4">
+                <Original>Ooh, the captain sounds upset, better keep my distance from these two.</Original>
+                <English>Ooh, the captain sounds upset, better keep my distance from these two.</English>
+                <Italian>Ooh, il capitano sembra arrabbiato, meglio se mi tengo alla larga da questi due.</Italian>
+            </Key>
+        </Container>
+    </Package>
+    <Package name="UI">
+        <Container name="UI">
+            <Key ID="STR_BTC_DIALOG_INCOMING_TRANS">
+                <Original>INCOMING TRANSMISSION</Original>
+                <English>INCOMING TRANSMISSION</English>
+                <Italian>TRASMISSIONE IN ARRIVO</Italian>
+            </Key>
+        </Container>
+    </Package>
+</Project>

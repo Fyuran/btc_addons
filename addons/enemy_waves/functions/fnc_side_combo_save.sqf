@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_side_combo_save
+Function: btc_toolchain_enemy_waves_fnc_side_combo_save
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_side_combo_save;
+        [] call btc_toolchain_enemy_waves_fnc_side_combo_save;
     (end)
 
 Author:

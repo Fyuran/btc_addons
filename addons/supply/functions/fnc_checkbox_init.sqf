@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_checkbox_init
+Function: btc_toolchain_supply_fnc_checkbox_init
 
 Description:
     Initializes a checkbox control and stores a reference to it in UI namespace for later access.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_damageCheckbox] call btc_supply_fnc_checkbox_init;
+        [_damageCheckbox] call btc_toolchain_supply_fnc_checkbox_init;
     (end)
 
 Author:

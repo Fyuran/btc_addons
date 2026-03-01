@@ -1,11 +1,11 @@
 #define COMPONENT supply
-#include "\z\btc\addons\main\script_mod.hpp"
+#include "\z\btc_toolchain\addons\main\script_mod.hpp"
 
 //#define BTC_DEBUG_SUPPLY_DIALOG
 //#define BTC_DEBUG_SUPPLY
 //#define DISABLE_COMPILE_CACHE
 
-#include "\z\btc\addons\main\script_macros.hpp"
+#include "\z\btc_toolchain\addons\main\script_macros.hpp"
 
 #define COMBO 66650
 #define CHECKBOX 66651

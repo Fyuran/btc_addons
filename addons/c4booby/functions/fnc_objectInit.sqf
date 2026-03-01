@@ -1,7 +1,7 @@
 #include "..\script_component.hpp"
 #define RADIUS 30
 /* ----------------------------------------------------------------------------
-Function: btc_c4booby_fnc_objectInit
+Function: btc_toolchain_c4booby_fnc_objectInit
 
 Description:
     Passed object is prepared for a bomb defusal situation
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [this] call btc_c4booby_fnc_objectInit;
+        [this] call btc_toolchain_c4booby_fnc_objectInit;
     (end)
 
 Author:
@@ -120,7 +120,7 @@ _trigger setTriggerStatements ["this", "
 	_obj = (thisTrigger getVariable ['c4booby_trigger_data',objNull]) select 0;
 	_max_colors = (thisTrigger getVariable ['c4booby_trigger_data',objNull]) select 1;
 	_end_time = (thisTrigger getVariable ['c4booby_trigger_data',objNull]) select 2;
-	[_obj,_end_time,_max_colors] call btc_c4booby_fnc_timer;
+	[_obj,_end_time,_max_colors] call btc_toolchain_c4booby_fnc_timer;
 	deleteVehicle thisTrigger;
 ", ""];
 
@@ -133,16 +133,16 @@ _obj setVariable ["isBoobyTrapped",true,true];
 	params["_defuser","_obj","_max_colors","_wire_colors","_light_pos"];
 	private _obj_colors = _obj getVariable [QGVAR(input_wire_colors),[]];
 	private _handle = _obj getVariable [QGVAR(timer_handle),0];
-	[_handle] CBAFUNC(removePerFrameHandler);
+	[_handle] call CBAFUNC(removePerFrameHandler);
 	[_defuser] remoteExecCall [QFUNC(removeActions), [0, -2] select isDedicated, _obj];
 	(attachedObjects _obj) apply {deleteVehicle _x};
 	//Defused
 	if (_obj_colors isEqualTo _wire_colors) then {
 		private _targets = _obj nearEntities ["CAManBase", 50];
-		[QACEGVAR(medical_feedback,forceSay3D), [_obj, QGVAR(defused), 50], _targets] CBAFUNC(targetEvent);
+		[QACEGVAR(medical_feedback,forceSay3D), [_obj, QGVAR(defused), 50], _targets] call CBAFUNC(targetEvent);
 		private _light = "PortableHelipadLight_01_green_F" createVehicle [0,0,0];
 		_light attachTo[_obj,_light_pos];
-		[{deleteVehicle _this}, _light, 60] CBAFUNC(waitAndExecute);
+		[{deleteVehicle _this}, _light, 60] call CBAFUNC(waitAndExecute);
 		_obj setVariable ["isBoobyTrapped",false,true];
 	}
 	else { //Explode
@@ -152,6 +152,6 @@ _obj setVariable ["isBoobyTrapped",true,true];
 		hideObjectGlobal _r;
 	};
 
-}, [_defuser,_obj,_max_colors,_wire_colors,_light_pos]] CBAFUNC(waitUntilAndExecute);
+}, [_defuser,_obj,_max_colors,_wire_colors,_light_pos]] call CBAFUNC(waitUntilAndExecute);
 
 _obj

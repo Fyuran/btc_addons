@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_tools_fnc_timer
+Function: btc_toolchain_tools_fnc_timer
 
 Description:
     Shows a timer that can be stopped by either timeout or a predicate
@@ -15,7 +15,7 @@ Returns:
 
 Examples:
     (begin example)
-	[60] call btc_tools_fnc_timer;
+	[60] call btc_toolchain_tools_fnc_timer;
     (end)
 
 Author:
@@ -30,12 +30,12 @@ params[
 	["_guiPosSize", [0.275,0.96,0.425,0.06], [[]], 4]
 ];
 disableSerialization;
-if (!isNil "btc_tools_ui_timer_handle") then {
-	terminate btc_tools_ui_timer_handle;
+if (!isNil "btc_toolchain_tools_ui_timer_handle") then {
+	terminate btc_toolchain_tools_ui_timer_handle;
 	ctrlDelete((findDisplay 46) displayCtrl 6001); 
 };
    
-btc_tools_ui_timer_handle = [_duration, _clock, _predicate, _guiPosSize] spawn {
+btc_toolchain_tools_ui_timer_handle = [_duration, _clock, _predicate, _guiPosSize] spawn {
 	params[
 		"_duration",
 		"_clock",

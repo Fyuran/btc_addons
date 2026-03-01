@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_destroyRopes
+Function: btc_toolchain_lift_fnc_destroyRopes
 
 Description:
     Destroys ropes
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_lift_fnc_destroyRopes;
+        _result = [] call btc_toolchain_lift_fnc_destroyRopes;
     (end)
 
 Author:

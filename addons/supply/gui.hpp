@@ -112,9 +112,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(class): Combo {
-			onLoad = "params[""_grp""]; _combo = _grp controlsGroupCtrl 66650; [_combo] call btc_supply_fnc_combo_init;";
-			attributeLoad = "params[""_grp""];  _combo = _grp controlsGroupCtrl 66650; [_combo, _value] call btc_supply_fnc_combo_load;";
-			attributeSave = "params[""_grp""];  _combo = _grp controlsGroupCtrl 66650; [_combo] call btc_supply_fnc_combo_save;";
+			onLoad = "params[""_grp""]; _combo = _grp controlsGroupCtrl 66650; [_combo] call btc_toolchain_supply_fnc_combo_init;";
+			attributeLoad = "params[""_grp""];  _combo = _grp controlsGroupCtrl 66650; [_combo, _value] call btc_toolchain_supply_fnc_combo_load;";
+			attributeSave = "params[""_grp""];  _combo = _grp controlsGroupCtrl 66650; [_combo] call btc_toolchain_supply_fnc_combo_save;";
 			class Controls: Controls {
 				class Title: Title {
 					idc = -1;
@@ -125,9 +125,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(enableDamage): Checkbox {
-			onLoad = "params[""_grp""]; _combo = _grp controlsGroupCtrl 66651; [_combo] call btc_supply_fnc_checkbox_init;";
-			attributeLoad = "params[""_grp""];  _combo = _grp controlsGroupCtrl 66651; [_combo, _value] call btc_supply_fnc_checkbox_load;";
-			attributeSave = "params[""_grp""];  _combo = _grp controlsGroupCtrl 66651; [_combo] call btc_supply_fnc_checkbox_save;";
+			onLoad = "params[""_grp""]; _combo = _grp controlsGroupCtrl 66651; [_combo] call btc_toolchain_supply_fnc_checkbox_init;";
+			attributeLoad = "params[""_grp""];  _combo = _grp controlsGroupCtrl 66651; [_combo, _value] call btc_toolchain_supply_fnc_checkbox_load;";
+			attributeSave = "params[""_grp""];  _combo = _grp controlsGroupCtrl 66651; [_combo] call btc_toolchain_supply_fnc_checkbox_save;";
 			class Controls: Controls {
 				class Title: Title {
 					idc = -1;
@@ -144,7 +144,7 @@ class Cfg3DEN {
 			class Controls: Controls {
 				class Presets: ctrlButton {
 					idc = -1;
-					onButtonClick = "[] call btc_supply_fnc_presets_init;";
+					onButtonClick = "[] call btc_toolchain_supply_fnc_presets_init;";
 					text = "Presets";
 					colorBackground[] = {0.13, 0.47, 0.30, 1};
 					w = "40 * (pixelW * pixelGrid * 0.50)";
@@ -153,9 +153,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(list): Title {
-			onLoad = "params[""_grp""]; [_grp] call btc_supply_fnc_list_init;";
-			attributeLoad = "params[""_grp""]; [_grp, _value] call btc_supply_fnc_list_load;";
-			attributeSave = "[] call btc_supply_fnc_list_save;";
+			onLoad = "params[""_grp""]; [_grp] call btc_toolchain_supply_fnc_list_init;";
+			attributeLoad = "params[""_grp""]; [_grp, _value] call btc_toolchain_supply_fnc_list_load;";
+			attributeSave = "[] call btc_toolchain_supply_fnc_list_save;";
 			x = "5 * (pixelW * pixelGrid * 0.50)";
 			w = "((40 + 80) + 15) * (pixelW * pixelGrid * 0.50)";
 			h = "60 * (pixelH * pixelGrid * 0.50)";

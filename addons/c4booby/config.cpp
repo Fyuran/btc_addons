@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= C4 Booby trap";
+		name = "=BTC= Toolchain C4 Booby trap";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {
@@ -17,17 +17,17 @@ class CfgPatches {
 		url = "http://www.blacktemplars.altervista.org";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main", "ace_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		VERSION_CONFIG;
 	};
 };
 
 class CfgMissions {
 	class Missions {
-		class GVAR(testingGrounds) { // class name MUST match the name in the 'directory' path
+		class GVAR(demo) { // class name MUST match the name in the 'directory' path
             overviewPicture = "a3\missions_f_curator\data\img\showcase_curator_overview_ca.paa";
 			briefingName = "=BTC= C4Booby Testing Grounds";
-			directory = "z\btc\addons\c4booby\missions\btc_c4booby_testingGrounds.VR"; // <--- match
+			directory = QPATHTOF(missions\GVAR(demo).VR); // <--- match
             overviewText = "Overview the C4 Booby Traps by =Black Templars Clan=";
 		};
 	};

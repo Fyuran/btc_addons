@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_timeout_init
+Function: btc_toolchain_enemy_waves_fnc_timeout_init
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_timeout_init;
+        [] call btc_toolchain_enemy_waves_fnc_timeout_init;
     (end)
 
 Author:

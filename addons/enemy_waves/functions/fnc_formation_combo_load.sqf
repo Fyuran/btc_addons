@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_formation_combo_load
+Function: btc_toolchain_enemy_waves_fnc_formation_combo_load
 
 Description:
     Populates and manages a formation combo box control with available military formation types.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_formationCombo, "WEDGE"] call btc_enemy_waves_fnc_formation_combo_load;
+        [_formationCombo, "WEDGE"] call btc_toolchain_enemy_waves_fnc_formation_combo_load;
     (end)
 
 Author:

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_presets_init
+Function: btc_toolchain_supply_fnc_presets_init
 
 Description:
     Creates and displays a presets window with saved supply configurations loaded from profile.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_mainDisplay] call btc_supply_fnc_presets_init;
+        [_mainDisplay] call btc_toolchain_supply_fnc_presets_init;
     (end)
 
 Author:

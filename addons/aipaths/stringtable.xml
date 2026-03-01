@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project name="BTC_AIPaths">
+<Project name="btc_toolchain_aipaths">
     <Package name="EdenEditorAttributes">
         <Container name="EdenEditorAttributes">
-            <Key ID="STR_BTC_AIPATHS_HIDEOBJECT">
+            <Key ID="STR_btc_toolchain_aipaths_HIDEOBJECT">
                 <Original>Hide Object at Mission Start:</Original>
                 <English>Hide Object at Mission Start:</English>
                 <Italian>Nascondi oggetto ad inizio Missione:</Italian>
             </Key>
         </Container>
         <Container name="EdenEditorAttributesTooltip">
-            <Key ID="STR_BTC_AIPATHS_HIDEOBJECT_TOOLTIP">
+            <Key ID="STR_btc_toolchain_aipaths_HIDEOBJECT_TOOLTIP">
                 <Original>Hides Object as Scenario start</Original>
                 <English>Hides Object as Scenario start</English>
                 <Italian>Nasconde l'oggetto ad inizio Scenario</Italian>

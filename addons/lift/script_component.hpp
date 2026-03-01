@@ -1,10 +1,10 @@
 #define COMPONENT lift
-#include "\z\btc\addons\main\script_mod.hpp"
+#include "\z\btc_toolchain\addons\main\script_mod.hpp"
 
 // #define BTC_DEBUG_LIFT
 // #define DISABLE_COMPILE_CACHE
 
-#include "\z\btc\addons\main\script_macros.hpp"
+#include "\z\btc_toolchain\addons\main\script_macros.hpp"
 
 #define BTC_LIFT_RADIUS 3
 #define BTC_LIFT_MIN_H 7

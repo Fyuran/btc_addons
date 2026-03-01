@@ -45,12 +45,12 @@ if(_title isNotEqualTo "DEBUG") then {
 
 _message = format _message;
 if(!_isError) then {
-    [_message, _title, [_useChat, _useLogs, _global]] CBAFUNC(debug2);
+    [_message, _title, [_useChat, _useLogs, _global]] call CBAFUNC(debug2);
 } else { //it's an REPORT message
 	if(is3DEN) then {
 		[_message, 1] call BIS_fnc_3DENNotification;
 	};
     _title = format["%1 ERROR", _title];
-    [_message, _title, [_useChat, _useLogs, _global]] CBAFUNC(debug2);
+    [_message, _title, [_useChat, _useLogs, _global]] call CBAFUNC(debug2);
 };
 

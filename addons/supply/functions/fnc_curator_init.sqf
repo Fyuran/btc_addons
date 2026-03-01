@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_curator_init
+Function: btc_toolchain_supply_fnc_curator_init
 
 Description:
     Initializes the supply module when synced with a curator.
@@ -15,7 +15,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_supply_fnc_curator_init;
+        [] call btc_toolchain_supply_fnc_curator_init;
     (end)
 
 Author:

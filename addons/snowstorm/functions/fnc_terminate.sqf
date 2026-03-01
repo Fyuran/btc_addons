@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_terminate
+Function: btc_toolchain_snowstorm_fnc_terminate
 
 Description:
     Stops snowfall
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_terminate;
+	[] call btc_toolchain_snowstorm_fnc_terminate;
     (end)
 
 Author:
@@ -35,7 +35,7 @@ if(!isNil QGVAR(JIP_PPE)) then {
 };
 
 if(!isNil QGVAR(handle)) then { //make sure the previous handler is removed
-    [GVAR(handle)] CBAFUNC(removePerFrameHandler);
+    [GVAR(handle)] call CBAFUNC(removePerFrameHandler);
 };
 
 if(!isNil QGVAR(windTrans)) then { //should wind transition not be done just end it

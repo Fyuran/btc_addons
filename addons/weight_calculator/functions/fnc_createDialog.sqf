@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-	Function: btc_WGC_init
+	Function: btc_toolchain_weight_calculator_createDialog
 	
 	Description:
 	    Opens dialog and populates list
@@ -11,7 +11,7 @@
 	
 	Examples:
 	    (begin example)
-	        [] call btc_WGC_init;
+	        [] call btc_toolchain_weight_calculator_createDialog;
 	    (end)
 	
 	Author:
@@ -30,7 +30,7 @@
 
 disableSerialization;
 
-private _dialog = createDialog["btc_WGC"];
+private _dialog = createDialog["btc_toolchain_weight_calculator"];
 private _listNBox = _dialog displayCtrl 1500;
 private _kgCounter = _dialog displayCtrl 1002;
 

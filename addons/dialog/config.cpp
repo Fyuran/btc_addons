@@ -1,14 +1,14 @@
 #include "script_component.hpp"
 class CfgPatches {
 	class ADDON {
-		name = "=BTC= Conversation Dialogs";
+		name = "=BTC= Toolchain Dialog";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
 		units[] = {};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_main"};
+		requiredAddons[] = {"btc_toolchain_main"};
 		VERSION_CONFIG;
 	};
 };
@@ -17,10 +17,10 @@ class CfgPatches {
 
 class CfgMissions {
 	class Missions {
-		class btc_dialog_demo { // class name MUST match the name in the 'directory' path
+		class GVAR(demo) { // class name MUST match the name in the 'directory' path
             overviewPicture = "a3\missions_f_curator\data\img\showcase_curator_overview_ca.paa";
 			briefingName = "=BTC= Conversation Dialogs Demo";
-			directory = "z\btc\addons\dialog\missions\btc_dialog_demo.VR"; // <--- match
+			directory = QPATHTOF(missions\GVAR(demo).VR); // <--- match
             overviewText = "Overview conversation dialogs offered by =Black Templars Clan=";
 		};
 	};

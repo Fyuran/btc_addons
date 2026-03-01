@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_list_save
+Function: btc_toolchain_enemy_waves_fnc_list_save
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_list_save;
+        [] call btc_toolchain_enemy_waves_fnc_list_save;
     (end)
 
 Author:
@@ -19,7 +19,7 @@ Author:
 ---------------------------------------------------------------------------- */
 private _table = missionNamespace getVariable[QGVAR(table), []];
 #ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-[["%1: executing list save with _value: %2 as JSON: %3", __FILE_NAME__, _table, [_table] CBAFUNC(encodeJSON)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: executing list save with _value: %2 as JSON: %3", __FILE_NAME__, _table, [_table] call CBAFUNC(encodeJSON)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 str _table

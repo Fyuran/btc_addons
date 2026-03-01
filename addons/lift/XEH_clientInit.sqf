@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_shortcuts
+Function: btc_toolchain_lift_fnc_shortcuts
 
 Description:
     Create CBA keybinds for lift.
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_lift_fnc_shortcuts;
+        _result = [] call btc_toolchain_lift_fnc_shortcuts;
     (end)
 
 Author:
@@ -106,7 +106,7 @@ private _menuString = "BTC Toolchain Lift";
             };
         };
     },
-{}] CBAFUNC(addKeybind);
+{}] call CBAFUNC(addKeybind);
 
 [
     _menuString,
@@ -123,7 +123,7 @@ private _menuString = "BTC Toolchain Lift";
             };
         };
     },
-{}] CBAFUNC(addKeybind);
+{}] call CBAFUNC(addKeybind);
 
 [
     _menuString,
@@ -137,7 +137,7 @@ private _menuString = "BTC Toolchain Lift";
             };
         };
     },
-{}] CBAFUNC(addKeybind);
+{}] call CBAFUNC(addKeybind);
 
 
 [
@@ -152,4 +152,4 @@ private _menuString = "BTC Toolchain Lift";
             };
         };
     },
-{}] CBAFUNC(addKeybind);
+{}] call CBAFUNC(addKeybind);

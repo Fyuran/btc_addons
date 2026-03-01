@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_windSmoothTrans
+Function: btc_toolchain_snowstorm_fnc_windSmoothTrans
 
 Description:
     Handles wind vector interpolation between old position, setWind original syntax where you

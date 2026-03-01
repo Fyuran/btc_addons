@@ -1,0 +1,48 @@
+{
+    "conv_1": {
+        "radio_in": [],
+        "radio_out": [],
+        "speeches": {
+            "speech_1": {
+                "speaker": "s1",
+                "duration": 4,
+                "soundset": {
+                    "basic": "s1.ogg",
+                    "radio": "s1_radio.ogg"
+                },
+                "portrait": "s1.paa",
+                "text": "$STR_BTC_DIALOG_CONV_1_S_1"
+            },
+            "speech_2": {
+                "speaker": "s2",
+                "duration": 5,
+                "soundset": {
+                    "basic": "s2.ogg",
+                    "radio": "s2_radio.ogg"
+                },
+                "portrait": "s2.paa",
+                "text": "$STR_BTC_DIALOG_CONV_1_S_2"
+            },
+            "speech_3": {
+                "speaker": "#Dummy",
+                "duration": 12,
+                "soundset": {
+                    "basic": "s3.ogg",
+                    "radio": "s3_radio.ogg"
+                },
+                "portrait": "s3.paa",
+                "text": "$STR_BTC_DIALOG_CONV_1_S_3"
+            },
+            "speech_4": {
+                "speaker": "s4_player",
+                "duration": 3,
+                "soundset": {
+                    "basic": "player1.ogg",
+                    "radio": "player1_radio.ogg"
+                },
+                "portrait": "player.paa",
+                "text": "$STR_BTC_DIALOG_CONV_1_S_4"
+            }
+        }
+    }
+}

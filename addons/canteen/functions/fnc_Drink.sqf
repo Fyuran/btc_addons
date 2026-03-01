@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_canteen_fnc_Drink
+Function: btc_toolchain_canteen_fnc_Drink
 
 Description:
    Drinking unit will regain max ACE Stamina
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-		["ACE_Canteen"] call btc_canteen_fnc_Drink
+		["ACE_Canteen"] call btc_toolchain_canteen_fnc_Drink
     (end)
 
 Author:
@@ -27,7 +27,7 @@ if(!params[
 };
 
 private _targets = ACE_player nearEntities ["CAManBase", 20];
-["ace_medical_feedback_forceSay3D", [ACE_player, QGVAR(Drink_sound), 20], _targets] CBAFUNC(targetEvent);
+["ace_medical_feedback_forceSay3D", [ACE_player, QGVAR(Drink_sound), 20], _targets] call CBAFUNC(targetEvent);
 
 //animation
 private _config = configFile >> "CfgWeapons" >> _item >> "acex_field_rations_consumeAnims";

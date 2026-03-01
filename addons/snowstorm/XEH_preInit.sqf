@@ -1,4 +1,3 @@
-#include "script_component.hpp"
 #include "XEH_PREP.hpp"
 // CHECKBOX --- extra argument: default value 
 [QGVAR(enable_sounds), "CHECKBOX", ["Enable Ambient Sounds", "Enable or disable ambient sounds"], "=BTC= Snowstorm", true, 0, {
@@ -9,7 +8,7 @@
     } else {
         [] call FUNC(snowSounds_clients);
     };
-}] CBAFUNC(addSetting);
+}] call CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
 [QGVAR(show_breath), "CHECKBOX", ["Show Breath", "Enable or disable breath particles"], "=BTC= Snowstorm", true, 0, {
     params["_value"];
@@ -19,7 +18,7 @@
     } else {
         [] call FUNC(breath_clients);
     };
-}] CBAFUNC(addSetting);
+}] call CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
 [QGVAR(enable_snowdust), "CHECKBOX", ["Enable Snow dust", "Enable or disable snow dust"], "=BTC= Snowstorm", true, 0, {
     params["_value"];
@@ -29,7 +28,7 @@
     } else {
         [] call FUNC(snowDust_clients);
     };
-}] CBAFUNC(addSetting);
+}] call CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
 [QGVAR(enable_ppe), "CHECKBOX", ["Enable Post Process Effects", "Enable or disable post-process"], "=BTC= Snowstorm", true, 0, {
     params["_value"];
@@ -39,4 +38,4 @@
     } else {
         [] call FUNC(postprocess_clients);
     };
-}] CBAFUNC(addSetting);
+}] call CBAFUNC(addSetting);

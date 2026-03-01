@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_terminate_clients
+Function: btc_toolchain_snowstorm_fnc_terminate_clients
 
 Description:
     Stops snowfall on client side
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_terminate_clients;
+	[] call btc_toolchain_snowstorm_fnc_terminate_clients;
     (end)
 
 Author:
@@ -34,12 +34,12 @@ if(_disableSounds) then {
     };
 
     if(!isNil QGVAR(sound_loop_handle)) then { //sound loop
-        [GVAR(sound_loop_handle)] CBAFUNC(removePerFrameHandler);
+        [GVAR(sound_loop_handle)] call CBAFUNC(removePerFrameHandler);
         GVAR(sound_loop_handle) = nil;
     };
 
     if(!isNil QGVAR(indoor_handle)) then {
-        [GVAR(indoor_handle)] CBAFUNC(removePerFrameHandler);
+        [GVAR(indoor_handle)] call CBAFUNC(removePerFrameHandler);
         GVAR(indoor_handle) = nil; //reset to allow execution of client side function again
     };
 
@@ -47,7 +47,7 @@ if(_disableSounds) then {
 };
 
 if(_disableBreath) then {
-    [GVAR(breath_handle)] CBAFUNC(removePerFrameHandler);
+    [GVAR(breath_handle)] call CBAFUNC(removePerFrameHandler);
     GVAR(breath_handle) = nil;
 };
 

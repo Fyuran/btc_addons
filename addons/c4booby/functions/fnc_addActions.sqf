@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_c4booby_fnc_addActions
+Function: btc_toolchain_c4booby_fnc_addActions
 
 Description:
     Helper function that adds actions to a single barrel and its defuser for examination

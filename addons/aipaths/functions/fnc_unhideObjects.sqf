@@ -1,7 +1,7 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: 
-    btc_AIPaths_fnc_unhideObjects
+    btc_toolchain_aipaths_fnc_unhideObjects
 
 Description:
     Unhides textures ingame
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        call btc_AIPaths_fnc_unhideObjects;
+        call btc_toolchain_aipaths_fnc_unhideObjects;
     (end)
 
 Author:
@@ -26,7 +26,7 @@ if(!isServer) exitWith {
 };
 GVAR(objects) = missionNamespace getVariable [QGVAR(objects), []];
 if(GVAR(objects) isEqualTo []) exitWith {
-    [["%1: no btc_AIPaths objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: no objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _cfg = configFile >> "CfgVehicles";

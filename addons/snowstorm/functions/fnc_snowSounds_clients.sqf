@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_snowstorm_fnc_snowSounds_clients
+Function: btc_toolchain_snowstorm_fnc_snowSounds_clients
 
 Description:
     Handles sound for player
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-	[] call btc_snowstorm_fnc_snowSounds_clients;
+	[] call btc_toolchain_snowstorm_fnc_snowSounds_clients;
     (end)
 
 Author:
@@ -22,8 +22,8 @@ Author:
 if(!hasInterface) exitWith {};
 if(!isNil QGVAR(indoor_handle)) then {
     stopSound(GVAR(windSoundID));
-    [GVAR(indoor_handle)] CBAFUNC(removePerFrameHandler);
-    [GVAR(sound_loop_handle)] CBAFUNC(removePerFrameHandler);
+    [GVAR(indoor_handle)] call CBAFUNC(removePerFrameHandler);
+    [GVAR(sound_loop_handle)] call CBAFUNC(removePerFrameHandler);
 };
 
 GVAR(windSoundID) = -1;
@@ -53,25 +53,25 @@ GVAR(indoor_handle) = [{
     };
 
     if (!GVAR(isIndoors) && {_isHouse}) then { //indoor sound (it's a muffled version of the original one playing)
-        [GVAR(sound_loop_handle)] CBAFUNC(removePerFrameHandler);
+        [GVAR(sound_loop_handle)] call CBAFUNC(removePerFrameHandler);
         stopSound(GVAR(windSoundID));
         GVAR(isIndoors) = true;
 
         playSoundUI [QGVAR(wind_transition), 1, 1, true, 0];
         GVAR(sound_loop_handle) = [{
             GVAR(windSoundID) = playSoundUI [selectRandom GVAR(indoor_windSounds), 1, 1, true, 0];
-        }, 59, []] CBAFUNC(addPerFrameHandler);
+        }, 59, []] call CBAFUNC(addPerFrameHandler);
 
     } else {
         if(GVAR(isIndoors) && {!_isHouse}) then { //outdoor sound
-            [GVAR(sound_loop_handle)] CBAFUNC(removePerFrameHandler);
+            [GVAR(sound_loop_handle)] call CBAFUNC(removePerFrameHandler);
             stopSound(GVAR(windSoundID));
             GVAR(isIndoors) = false;
 
             playSoundUI [QGVAR(wind_transition), 1, 1, true, 0];
             GVAR(sound_loop_handle) = [{
                 GVAR(windSoundID) = playSoundUI [selectRandom GVAR(windSounds), 1, 1, true, 0];
-            }, 59, []] CBAFUNC(addPerFrameHandler);
+            }, 59, []] call CBAFUNC(addPerFrameHandler);
         };
     };
-}, 0.1, []] CBAFUNC(addPerFrameHandler);
+}, 0.1, []] call CBAFUNC(addPerFrameHandler);

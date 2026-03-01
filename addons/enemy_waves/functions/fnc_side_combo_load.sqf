@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_side_combo_load
+Function: btc_toolchain_enemy_waves_fnc_side_combo_load
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_side_combo_load;
+        [] call btc_toolchain_enemy_waves_fnc_side_combo_load;
     (end)
 
 Author:

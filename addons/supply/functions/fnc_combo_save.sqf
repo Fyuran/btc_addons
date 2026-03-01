@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_combo_save
+Function: btc_toolchain_supply_fnc_combo_save
 
 Description:
     Returns the currently selected air vehicle class name from a combo box.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _vehicleClass = [_vehicleCombo] call btc_supply_fnc_combo_save;
+        _vehicleClass = [_vehicleCombo] call btc_toolchain_supply_fnc_combo_save;
     (end)
 
 Author:

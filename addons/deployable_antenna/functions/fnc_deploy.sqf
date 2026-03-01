@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_deployable_antenna_fnc_deploy
+Function: btc_toolchain_deployable_antenna_fnc_deploy
 
 Description:
     Deploys a Land_SatelliteAntenna_01_F removing the item from the inventory
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-        [player] call btc_deployable_antenna_fnc_deploy;
+        [player] call btc_toolchain_deployable_antenna_fnc_deploy;
     (end)
 
 Author:

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_lift_fnc_hook
+Function: btc_toolchain_lift_fnc_hook
 
 Description:
     Hook a cargo in a diameter of 30m.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] spawn btc_lift_fnc_hook;
+        [] spawn btc_toolchain_lift_fnc_hook;
     (end)
 
 Author:
@@ -61,7 +61,7 @@ if ((_bbr isEqualTo []) OR (_ropes_check select {!isNull _x} isEqualTo [])) then
     private _support = _cargo;
     private _bbr_z = 0;
     if (!alive _cargo) then {
-        _support = [FUNC(hookFake), [_cargo, _chopper]] CBAFUNC(directCall);
+        _support = [FUNC(hookFake), [_cargo, _chopper]] call CBAFUNC(directCall);
         _bbr_z = _support distance _cargo;
         sleep 0.3;
     };

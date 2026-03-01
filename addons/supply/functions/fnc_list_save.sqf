@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_supply_fnc_list_save
+Function: btc_toolchain_supply_fnc_list_save
 
 Description:
     Encodes and returns the supply table data as JSON string for serialization.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _jsonData = [] call btc_supply_fnc_list_save;
+        _jsonData = [] call btc_toolchain_supply_fnc_list_save;
     (end)
 
 Author:
@@ -25,4 +25,4 @@ private _table = missionNamespace getVariable[QGVAR(table), createHashMap];
 [["%1: executing list save with _value: %2 as JSON: %3", __FILE_NAME__, _table, toJSON _table], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
-[_table] CBAFUNC(encodeJSON);
+[_table] call CBAFUNC(encodeJSON);

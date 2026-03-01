@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 //server
 PREP(init);
 PREP(moduleInit);

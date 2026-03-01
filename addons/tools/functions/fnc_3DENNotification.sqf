@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_tools_fnc_3DENNotification
+Function: btc_toolchain_tools_fnc_3DENNotification
 
 Description:
     Acts as a wrapper for Eden editor notifications, forwarding them to either standard error display or eden's notification popup
@@ -11,7 +11,7 @@ Returns:
 
 Examples:
     (begin example)
-		[] call btc_tools_fnc_3DENNotification;
+		[] call btc_toolchain_tools_fnc_3DENNotification;
     (end)
 
 Author:

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_tools_fnc_vectorLerp
+Function: btc_toolchain_tools_fnc_vectorLerp
 
 Description:
     Handles vector interpolation v = v1 + (v2 - v1) * t
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-	[[1,0], [0,1], 0.5] call btc_tools_fnc_vectorLerp;
+	[[1,0], [0,1], 0.5] call btc_toolchain_tools_fnc_vectorLerp;
     (end)
 
 Author:

@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_enemy_waves_fnc_curator_gui
+Function: btc_toolchain_enemy_waves_fnc_curator_gui
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_enemy_waves_fnc_curator_gui;
+        [] call btc_toolchain_enemy_waves_fnc_curator_gui;
     (end)
 
 Author:
@@ -106,4 +106,4 @@ if(isNull _display) exitWith {
 
         _display closeDisplay 2;
     }];
-}, [_display], 10] CBAFUNC(waitUntilAndExecute);
+}, [_display], 10] call CBAFUNC(waitUntilAndExecute);

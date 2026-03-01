@@ -1,6 +1,6 @@
 name = "=BTC= Toolchain"
 author = "=BTC= Fyuran"
-prefix = "btc"
+prefix = "btc_toolchain"
 mainprefix = "z"
 
 [properties]
