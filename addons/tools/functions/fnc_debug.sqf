@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_debug_fnc_message
+Function: btc_toolchain_tools_fnc_debug
 
 Description:
     Reports diagnostics information to rpt and user screen
@@ -30,7 +30,7 @@ params [
 ];
 if (_mode <= 0 || _mode > GLOBAL) exitWith {
     #ifdef BTC_DEBUG_DEBUG
-    [["%1: invalid _mode: %2 passed to btc_debug_fnc_message", __FILE_NAME__, _mode], REPORT, QCOMPONENT] call FUNC(debug);  
+    [["%1: invalid _mode: %2 passed to btc_toolchain_tools_fnc_debug", __FILE_NAME__, _mode], REPORT, QCOMPONENT] call FUNC(debug);  
     #endif
 };
 

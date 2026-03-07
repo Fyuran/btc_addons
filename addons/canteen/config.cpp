@@ -105,7 +105,7 @@ class CfgVehicles {
 					exceptions[] = {};
 					statement = "";
 					priority = 2.1;
-					icon = QPATHTOF(data\btc_ace_actions_icon.paa);
+					icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 					class GVAR(WaterBottle) {
 						displayName = "Refill Water Bottle (Half)";
 						condition = "'ACE_WaterBottle_Half' in items _player";
@@ -154,7 +154,7 @@ class CfgVehicles {
 				exceptions[] = {};
 				statement = "";
 				priority = 2.1;
-				icon = QPATHTOF(data\btc_ace_actions_icon.paa);
+				icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 				class GVAR(WaterBottle) {
 					displayName = "Drink Water Bottle (Full)";
 					condition = "'ACE_WaterBottle' in items _player";

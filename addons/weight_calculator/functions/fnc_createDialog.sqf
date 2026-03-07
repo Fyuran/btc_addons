@@ -30,7 +30,7 @@
 
 disableSerialization;
 
-private _dialog = createDialog["btc_toolchain_weight_calculator"];
+private _dialog = createDialog[QGVAR(calculator)];
 private _listNBox = _dialog displayCtrl 1500;
 private _kgCounter = _dialog displayCtrl 1002;
 

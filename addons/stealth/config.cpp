@@ -35,7 +35,7 @@ class CfgVehicles {
 		category = "Effects";
 		displayName = "Stealth Module";
 		function = QFUNC(moduleInit);
-		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
+		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {
 			description = "Sync group leaders to initiate a =BTC= stealth handle on the groups of the synched objects";

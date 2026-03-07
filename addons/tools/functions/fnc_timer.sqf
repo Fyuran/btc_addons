@@ -30,12 +30,12 @@ params[
 	["_guiPosSize", [0.275,0.96,0.425,0.06], [[]], 4]
 ];
 disableSerialization;
-if (!isNil "btc_toolchain_tools_ui_timer_handle") then {
-	terminate btc_toolchain_tools_ui_timer_handle;
+if (!isNil QGVAR(ui_timer_handle)) then {
+	terminate GVAR(ui_timer_handle);
 	ctrlDelete((findDisplay 46) displayCtrl 6001); 
 };
    
-btc_toolchain_tools_ui_timer_handle = [_duration, _clock, _predicate, _guiPosSize] spawn {
+GVAR(ui_timer_handle) = [_duration, _clock, _predicate, _guiPosSize] spawn {
 	params[
 		"_duration",
 		"_clock",

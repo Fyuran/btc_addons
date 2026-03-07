@@ -25,12 +25,12 @@ class CfgVehicles {
 				exceptions[] = {};
 				statement = "";
 				priority = 2.1;
-				icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
+				icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 				class GVAR(createDialog) {
 					displayName = "Examine Gear Weight";
 					condition = "true";
 					exceptions[] = {};
-					icon = "\z\btc_toolchain\addons\weight_calculator\data\gwc_open.paa";
+					icon = QPATHTOF(data\gwc_open.paa);
 					statement = QUOTE([] call FUNC(createDialog));
 				};
 			};

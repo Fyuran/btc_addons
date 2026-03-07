@@ -96,7 +96,7 @@ class CfgVehicles {
 		category = "Effects";
 		displayName = "Snowstorm Module";
 		function = QFUNC(moduleInit);
-		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
+		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {
 			description = "Initiates a =BTC= snowstorm with passed values";

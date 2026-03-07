@@ -47,7 +47,7 @@ class CfgVehicles {
 					exceptions[] = {};
 					statement = "";
 					priority = 2.1;
-					icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
+					icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 					class GVAR(Dismantle) {
 						displayName = "Dismantle Antenna";
 						condition = QUOTE(_player canAdd QQGVAR(DeployableAntenna));

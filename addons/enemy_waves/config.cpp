@@ -61,7 +61,7 @@ class CfgVehicles {
 		displayName = "Enemy Waves Module";
 		isGlobal = 0; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
 		function = QFUNC(curator_init);
-		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
+		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 		curatorInfoType = QGVAR(RscAttributeEWaves); // Menu displayed when the module is placed or double-clicked on by Zeus
 	};
 	//To be used only in 3DEN editor
@@ -74,7 +74,7 @@ class CfgVehicles {
 		category = "Effects";
 		displayName = "Enemy Waves Module";
 		function = QFUNC(spawn);
-		icon = QPATHTOEF(canteen,data\btc_ace_actions_icon.paa);
+		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {
 			description = "Sync a trigger and initiate a =BTC= enemy waves incursion against the closest player who activated the trigger, with passed values";

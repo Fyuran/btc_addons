@@ -78,6 +78,7 @@
 
 #ifdef BTC_DEBUG_FULL
     #define BTC_DEBUG_AIPATHS
+	#define BTC_DEBUG_BRIDGE
     #define BTC_DEBUG_C4BOOBY
     #define BTC_DEBUG_CANTEEN
     #define BTC_DEBUG_DEPLOYABLE_ANTENNA
@@ -87,6 +88,7 @@
     #define BTC_DEBUG_LIFT
     #define BTC_DEBUG_MAIN
     #define BTC_DEBUG_SNOWSTORM
+	#define BTC_DEBUG_STEALTH
     #define BTC_DEBUG_SUPPLY
     #define BTC_DEBUG_TOOLS
     #define BTC_DEBUG_WEIGHT_CALCULATOR
