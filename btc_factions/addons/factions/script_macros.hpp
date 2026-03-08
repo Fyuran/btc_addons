@@ -1,0 +1,81 @@
+#include "\x\cba\addons\main\script_macros_common.hpp"
+
+//REDEFINES
+#ifdef DISABLE_COMPILE_CACHE
+    #undef PREP
+    #define PREP(fncName) FUNC(fncName) = compileScript [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf)]
+#else
+    #undef PREP
+    #define PREP(fncName) [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call SLX_XEH_COMPILE_NEW
+#endif
+
+//MACRO HELPERS
+#define MAG_XX(a,b)   \
+    class _xx_##a      \
+    {                  \
+        magazine = #a; \
+        count = b;     \
+    }
+#define WEAP_XX(a,b) \
+    class _xx_##a     \
+    {                 \
+        weapon = #a;  \
+        count = b;    \
+    }
+#define ITEM_XX(a,b) \
+    class _xx_##a     \
+    {                 \
+        name = #a;    \
+        count = b;    \
+    }
+
+// ACE3 macros
+#define ACE_PREFIX ace
+
+#define ACE_ADDON(component)        DOUBLES(ACE_PREFIX,component)
+
+#define ACEGVAR(module,var)         TRIPLES(ACE_PREFIX,module,var)
+#define QACEGVAR(module,var)        QUOTE(ACEGVAR(module,var))
+#define QQACEGVAR(module,var)       QUOTE(QACEGVAR(module,var))
+
+#define ACEFUNC(module,function)    TRIPLES(DOUBLES(ACE_PREFIX,module),fnc,function)
+#define QACEFUNC(module,function)   QUOTE(ACEFUNC(module,function))
+
+#define ACELSTRING(module,string)   QUOTE(TRIPLES(STR,DOUBLES(ACE_PREFIX,module),string))
+#define ACELLSTRING(module,string)  localize ACELSTRING(module,string)
+#define ACECSTRING(module,string)   QUOTE(TRIPLES($STR,DOUBLES(ACE_PREFIX,module),string))
+
+#define ACEPATHTOF(component,path) \z\ace\addons\component\path
+#define QACEPATHTOF(component,path) QUOTE(ACEPATHTOF(component,path))
+
+// CBA macros
+#define CBA_PREFIX CBA
+
+#define CBA_ADDON(component)        DOUBLES(CBA_PREFIX,component)
+
+#define CBAGVAR(var)         DOUBLES(CBA_PREFIX,var)
+#define QCBAGVAR(var)        QUOTE(CBAGVAR(var))
+#define QQCBAGVAR(var)       QUOTE(QCBAGVAR(var))
+
+#define CBAFUNC(function)    TRIPLES(CBA_PREFIX,fnc,function)
+#define QCBAFUNC(function)   QUOTE(CBAFUNC(function))
+
+#define CBALSTRING(string)   QUOTE(TRIPLES(STR,CBA_PREFIX,string))
+#define CBALLSTRING(string)  localize CBALSTRING(string)
+#define CBACSTRING(string)   QUOTE(TRIPLES($STR,CBA_PREFIX,string))
+
+#define CBAPATHTOF(component,path) \x\cba\addons\component\path
+#define QCBAPATHTOF(component,path) QUOTE(CBAPATHTOF(component,path))
+
+//BTC MACROS
+#define QCOMPONENT QUOTE(COMPONENT)
+
+//debug
+#define CHAT 2
+#define LOGS 4
+#define REPORT 8
+#define GLOBAL 16
+
+#ifdef BTC_DEBUG_FULL
+    #define BTC_DEBUG_FACTIONS
+#endif

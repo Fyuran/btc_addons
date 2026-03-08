@@ -1,0 +1,24 @@
+name = "=BTC= Factions"
+author = "=BTC= Fyuran"
+prefix = "btc"
+mainprefix = "z"
+
+[properties]
+author = "Fyuran"
+url = "https://www.blacktemplars.it/"
+
+[files]
+include = [
+    "mod.cpp",
+    "LICENSE.md",
+    "logo_small.paa",
+    "logo.paa"
+]
+
+[version]
+git_hash = 0 # Disabled
+path = "addons/factions/script_version.hpp"
+
+[hemtt.release]
+sign = true
+archive = false
