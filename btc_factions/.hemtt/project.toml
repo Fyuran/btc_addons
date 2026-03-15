@@ -14,6 +14,13 @@ include = [
     "logo_small.paa",
     "logo.paa"
 ]
+exclude = [
+	"*.xcf",
+	"*.psd",
+	"*.max",
+	"*.3ds",
+	"*.png"
+]
 
 [version]
 git_hash = 0 # Disabled
