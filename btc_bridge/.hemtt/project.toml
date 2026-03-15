@@ -1,0 +1,31 @@
+name = "=BTC= Bridge"
+author = "=BTC= Fyuran"
+prefix = "btc"
+mainprefix = "z"
+
+[properties]
+author = "Fyuran"
+url = "https://www.blacktemplars.it/"
+
+[files]
+include = [
+    "mod.cpp",
+    "LICENSE.md",
+    "logo_small.paa",
+    "logo.paa"
+]
+exclude = [
+	"*.xcf",
+	"*.psd",
+	"*.max",
+	"*.3ds",
+	"*.png"
+]
+
+[version]
+git_hash = 0 # Disabled
+path = "addons/bridge/script_version.hpp"
+
+[hemtt.release]
+sign = true
+archive = false
