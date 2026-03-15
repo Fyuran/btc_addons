@@ -1,4 +1,5 @@
 #include "script_component.hpp"
 PREP(handle);
-PREP(moduleInit);
+PREP(init);
+PREP(removeEH);
 PREP(debug);

@@ -49,6 +49,8 @@ if(!_isError) then {
 } else { //it's an REPORT message
 	if(is3DEN) then {
 		[_message, 1] call BIS_fnc_3DENNotification;
+	} else {
+		[_message] call BIS_fnc_error;
 	};
     _title = format["%1 ERROR", _title];
     [_message, _title, [_useChat, _useLogs, _global]] call CBAFUNC(debug2);

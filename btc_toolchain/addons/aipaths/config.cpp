@@ -29,8 +29,6 @@ class CfgPatches {
 	};
 }; 
 
-#include "\z\btc_toolchain\addons\aipaths\models\models.hpp"
-
 class CfgMissions {
 	class Missions {
 		class GVAR(demo) { // class name MUST match the name in the 'directory' path
@@ -172,26 +170,16 @@ class Extended_PreInit_EventHandlers {
 
 
 class Extended_InitPost_EventHandlers {
-    class GVAR(2x2) {
+	class GVAR(floor_base) {
         class GVAR(InitPost) {
             serverInit = QUOTE(_this call FUNC(hideObject));
         };   
     };
-    class GVAR(2x4): GVAR(2x2) {};
-    class GVAR(4x4): GVAR(2x2) {};
-    class GVAR(4x6): GVAR(2x2) {};
-    class GVAR(6x6): GVAR(2x2) {};
-
-    class GVAR(2x2_45): GVAR(2x2) {};
-    class GVAR(2x4_45): GVAR(2x4) {};
-    class GVAR(4x2_45): GVAR(2x2) {};
-    class GVAR(4x4_45): GVAR(4x4) {};
-    class GVAR(4x8_45): GVAR(2x2) {};
-
-    class GVAR(Wall_4x1): GVAR(2x2) {};
-    class GVAR(Wall_4x2): GVAR(2x2) {};
-    class GVAR(Wall_6x1): GVAR(2x2) {};
-    class GVAR(Wall_6x2): GVAR(2x2) {};
+	class GVAR(wall_base) {
+        class GVAR(InitPost) {
+            serverInit = QUOTE(_this call FUNC(hideObject));
+        };   
+    };
 };
 
 class CfgEditorCategories {

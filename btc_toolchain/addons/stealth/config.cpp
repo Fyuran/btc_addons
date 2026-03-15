@@ -34,7 +34,7 @@ class CfgVehicles {
 		scopeCurator = 0;
 		category = "Effects";
 		displayName = "Stealth Module";
-		function = QFUNC(moduleInit);
+		function = QFUNC(init);
 		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {

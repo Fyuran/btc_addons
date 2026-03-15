@@ -24,14 +24,13 @@ Author:
     Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
-	["_groups", [], [[]]]
-];
-
+if(!isServer) exitWith {
+	[["%1: Should be run only on Server", __FILE_NAME__], GLOBAL + REPORT, QCOMPONENT] call EFUNC(tools,debug);
+};
 GVAR(PFH_handle) = [{
-private _groups = (_this#0);
+private _groups = missionNamespace getVariable[QGVAR(groups), []];
 if(_groups isEqualTo []) exitWith {
-	[_this#1] call CBAFUNC(removePerFrameHandler);
+	//[_this#1] call CBAFUNC(removePerFrameHandler);
 }; 
 _groups apply {
 	private _group = _x;
@@ -39,6 +38,8 @@ _groups apply {
 		_groups deleteAt (_groups find _group);
 		continue;
 	};
+	private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
+	private _debug = _group getVariable[QGVAR(debug), false];
 	(units _group) apply {
 		private _unit = _x;
 		private _unitStanceFactor = switch(stance _unit) do {
@@ -67,7 +68,7 @@ _groups apply {
 			private _dotProduct = ((vectorNormalized(vectorDir _unit)) vectorAdd [0, 0, _playerStanceFactor]) vectorDotProduct (vectorNormalized _unitToPlayer); 			
 			private _distance = vectorMagnitude _unitToPlayer;					
 					
-			if(_distance <= GVAR(threat_distance) && {_dotProduct > 0}) then {
+			if(_distance <= _threat_dis && {_dotProduct > 0}) then {
 				private _intersects = lineIntersectsSurfaces [
 					_unit modelToWorldWorld[0, 0, _unitStanceFactor], 
 					_player modelToWorldWorld[0, 0, _playerStanceFactor], 
@@ -83,7 +84,7 @@ _groups apply {
 					};
 					_threat = (_threat + (((THREAT_FACTOR * _playerStanceThreatFactor) / (_distance + 1)) * diag_deltaTime)) min 1;
 					_hasPlayerInSight = true;
-					_unit setVariable[QGVAR(threat), _threat, GVAR(debug)];
+					_unit setVariable[QGVAR(threat), _threat, _debug];
 				};  
 			};
 		};
@@ -92,13 +93,9 @@ _groups apply {
 		} else {
 			if(!_hasPlayerInSight) then {
 				_threat = (_threat - (0.1 * diag_deltaTime)) max 0;
-				_unit setVariable[QGVAR(threat), _threat, GVAR(debug)];
+				_unit setVariable[QGVAR(threat), _threat, _debug];
 			};
 		}; 
 	};
 };
-}, 0, _groups] call CBAFUNC(addPerFrameHandler);
-
-if(GVAR(debug)) then {
-	GVAR(debug_JIP) = [_groups] remoteExecCall [QFUNC(debug), [0, -2] select isDedicated, true];
-};
+}, 0] call CBAFUNC(addPerFrameHandler);

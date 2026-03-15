@@ -48,8 +48,6 @@ private _fnc_removeEh = {
 
 };
 
-GVAR(removeEH_clients_handle) = [QGVAR(debug_removeEHs), _fnc_removeEh] call CBAFUNC(addEventHandler);
-
 _groups apply {
     private _units = units _x;
     _units apply {
@@ -102,14 +100,23 @@ _groups apply {
     };
 };
 
+//Check if handles already exist
+private _handle = missionNamespace getVariable [QGVAR(removeEH_clients_handle), -1];
+if(_handle isNotEqualTo -1) exitWith {};
+GVAR(removeEH_clients_handle) = [QGVAR(debug_removeEHs), _fnc_removeEh] call CBAFUNC(addEventHandler);
+
+_handle = missionNamespace getVariable [QGVAR(debug_PFH_handle), -1];
+if(_handle isNotEqualTo -1) exitWith {};
+
 GVAR(debug_PFH_handle) = [{
-private _groups = (_this#0);
+private _groups = missionNamespace getVariable[QGVAR(groups), []];
+if(_groups isEqualTo []) exitWith {};
 _groups apply {
 	private _group = _x;
-	if(!(_group getVariable[QGVAR(isEnabled), false])) then {
-		_groups deleteAt (_groups find _group);
+	if(!(_group getVariable[QGVAR(debug), false])) then {
 		continue;
 	};
+	private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 	(units _group) apply {
 		private _unit = _x;
 		private _unitStanceFactor = switch(stance _unit) do {
@@ -141,7 +148,7 @@ _groups apply {
 			private _dotProduct = ((vectorNormalized(vectorDir _unit)) vectorAdd [0, 0, _playerStanceFactor]) vectorDotProduct (vectorNormalized _unitToPlayer); 			
 			private _distance = vectorMagnitude _unitToPlayer;					
 					
-			if(_distance <= GVAR(threat_distance) && {_dotProduct > 0}) then {
+			if(_distance <= _threat_dis && {_dotProduct > 0}) then {
 				private _intersects = lineIntersectsSurfaces [
 					_unit modelToWorldVisualWorld[0, 0, _unitStanceFactor], 
 					_player modelToWorldVisualWorld[0, 0, _playerStanceFactor], 
@@ -165,4 +172,4 @@ _groups apply {
 		};
 	};
 };
-}, 0, _groups] call CBAFUNC(addPerFrameHandler);
+}, 0] call CBAFUNC(addPerFrameHandler);
