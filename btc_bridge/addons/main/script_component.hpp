@@ -1,12 +1,20 @@
-#define COMPONENT bridge
-#include "script_mod.hpp"
+#define COMPONENT main
+#include "\z\btc_bridge\addons\main\script_mod.hpp"
 
 //#define BTC_DEBUG_BRIDGE
 //#define DISABLE_COMPILE_CACHE
 
-#include "script_macros.hpp"
+#include "\z\btc_bridge\addons\main\script_macros.hpp"
 
-//REDEFINES
+#ifdef GVAR
+	#undef GVAR
+	#define GVAR(name) DOUBLES(btc_bridge,name)
+#endif
+#ifdef FUNC
+	#undef FUNC
+	#define FUNC(fncName) DOUBLES(btc_bridge_fnc,fncName)
+#endif
+
 #define FUNC_S(fncName) DOUBLES(FUNC(fncName),server)
 #define FUNC_O(fncName) DOUBLES(FUNC(fncName),owner)
 #define FUNC_C(fncName) DOUBLES(FUNC(fncName),client)

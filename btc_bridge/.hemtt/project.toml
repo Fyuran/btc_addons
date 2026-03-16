@@ -1,6 +1,6 @@
 name = "=BTC= Bridge"
 author = "=BTC= Fyuran"
-prefix = "btc"
+prefix = "btc_bridge"
 mainprefix = "z"
 
 [properties]
@@ -12,19 +12,18 @@ include = [
     "mod.cpp",
     "LICENSE.md",
     "logo_small.paa",
-    "logo.paa"
+    "logo.paa",
 ]
 exclude = [
 	"*.xcf",
 	"*.psd",
 	"*.max",
 	"*.3ds",
-	"*.png"
+	"*.png",
 ]
 
 [version]
 git_hash = 0 # Disabled
-path = "addons/bridge/script_version.hpp"
 
 [hemtt.release]
 sign = true

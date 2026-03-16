@@ -3,6 +3,6 @@
 #define MAIN_AUTHOR "Black Templars Clan"
 #define AUTHORS "=BTC= Fyuran"
 #define MAINPREFIX z
-#define PREFIX btc
+#define PREFIX btc_bridge
 
 #include "script_version.hpp"

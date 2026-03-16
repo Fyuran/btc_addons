@@ -53,6 +53,10 @@ private _fnc_veh = {
 	}] remoteExecCall ["call", _vehicle];
 	[_vehicle, false] remoteExec [QFUNC_C(removeAll), [0, -2] select isDedicated];
 
+	if(_thisEvent isEqualTo "Killed" || (_thisEvent isEqualTo "Deleted")) then {
+		private _deco = _vehicle getVariable[QGVAR(deco), objNull];
+		deleteVehicle _deco;
+	};
 	private _player = _vehicle getVariable[QGVAR(player), objNull];
 	[_vehicle, _player] call FUNC_S(removeEH);
 };

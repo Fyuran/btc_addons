@@ -62,5 +62,11 @@ private _first_segment = _segments select 0;
 _first_segment setVariable[QGVAR(segments), _segments, owner _vehicle];
 [_first_segment] remoteExecCall [QFUNC_O(addAction), _player];
 
+private _last_segment = _segments select -1;
+if(_last_segment isNotEqualTo _first_segment) then {
+	_last_segment setVariable[QGVAR(segments), _segments, owner _vehicle];
+	[_last_segment] remoteExecCall [QFUNC_O(addAction), _player];
+};
+
 _vehicle setVariable [QGVAR(server_segments), _segments];
 [_vehicle, _player] call FUNC_S(removeEH);

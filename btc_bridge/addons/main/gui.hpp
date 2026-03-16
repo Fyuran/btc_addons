@@ -51,7 +51,7 @@ class GVAR(gui) {
 				};
 				class RscStructuredText_1002: RscStructuredText_1000 {
 					idc = 1002;
-					text = "<t color='#E06B1F' font='PuristaBold'>[Numpad Enter]</t> Finish Bridge"; //--- ToDo: Localize;
+					text = "<t color='#E06B1F' font='PuristaBold'>[Numpad Enter]</t> Deploy Bridge"; //--- ToDo: Localize;
 					y = "0.066 * safezoneH";
 				};
 				class RscStructuredText_1003: RscStructuredText_1000 {
@@ -66,7 +66,7 @@ class GVAR(gui) {
 				};
 				class RscStructuredText_1005: RscStructuredText_1000 {
 					idc = 1005;
-					text = "<t color='#E06B1F' font='PuristaBold'>[Escape]</t> Close off Bridge GUI"; //--- ToDo: Localize;
+					text = "<t color='#E06B1F' font='PuristaBold'>[Escape]</t> Abort Bridge"; //--- ToDo: Localize;
 					y = "0.165 * safezoneH";
 				};
 				class RscStructuredText_1006: RscStructuredText_1000 {

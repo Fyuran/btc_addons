@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 class CfgPatches {
-	class ADDON {
+	class btc_bridge {
 		name = "=BTC= Bridge";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
@@ -14,7 +14,7 @@ class CfgPatches {
 };
 
 class CfgMods {
-    class PREFIX {
+    class btc_bridge {
         dir = "@btc_bridge";
         name = "=BTC= Bridge";
         picture = "A3\Ui_f\data\Logos\arma3_expansion_alpha_ca.paa";
@@ -36,24 +36,24 @@ class RscControlsGroupNoScrollbars: RscControlsGroup {};
 
 class CfgVehicles {
 	class B_Truck_01_flatbed_F;
-	class GVAR(Bridge_Layer): B_Truck_01_flatbed_F {
+	class GVAR(bridge_layer): B_Truck_01_flatbed_F {
 		displayName = "HEMTT Flatbed (Bridge)";
 	};
 };
 class Extended_PreStart_EventHandlers {
-    class ADDON {
+    class btc_bridge {
         init = QUOTE(call COMPILE_FILE(XEH_preStart));
     };
 };
 
 class Extended_PreInit_EventHandlers {
-    class ADDON {
+    class btc_bridge {
         init = QUOTE(call COMPILE_FILE(XEH_preInit));
     };
 };
 
 class Extended_InitPost_EventHandlers {
-	class GVAR(Bridge_Layer) {
+	class GVAR(bridge_layer) {
 		class GVAR(initPost) {
 			init = "[_this select 0] call btc_bridge_fnc_initPost;";
 		};

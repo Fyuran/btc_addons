@@ -29,6 +29,7 @@ if(local _vehicle) then {
 	private _deco = createVehicle["rhs_pontoon_end_static", [0, 0, 0], [], 0, "CAN_COLLIDE"];
 	_deco animateSource ["fold_source", 1, true];
 	_deco attachTo[_vehicle, DECO_OFFSET];
+	_vehicle setVariable[QGVAR(deco), _deco];
 };
 
 #ifdef BTC_DEBUG_BRIDGE
