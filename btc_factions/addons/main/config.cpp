@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 class CfgPatches {
-	class ADDON {
+	class btc_factions {
 		name = "=BTC= Factions";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
@@ -14,7 +14,7 @@ class CfgPatches {
 };
 
 class CfgMods {
-    class PREFIX {
+    class btc_factions {
         dir = "@btc_factions";
         name = "=BTC= Factions";
         picture = "A3\Ui_f\data\Logos\arma3_expansion_alpha_ca.paa";
