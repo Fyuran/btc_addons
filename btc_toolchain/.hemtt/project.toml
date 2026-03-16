@@ -12,14 +12,14 @@ include = [
     "mod.cpp",
     "LICENSE.md",
     "logo_small.paa",
-    "logo.paa"
+    "logo.paa",
 ]
 exclude = [
 	"*.xcf",
 	"*.psd",
 	"*.max",
 	"*.3ds",
-	"*.png"
+	"*.png",
 ]
 
 [version]
