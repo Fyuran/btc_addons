@@ -76,5 +76,4 @@ GVAR(helper) setPosASL _front_start_posASL;
 //Global defines
 GVAR(vehicle) = _vehicle;
 _vehicle setVariable[QGVAR(JIPUID), [] call BTCFUNC(tools,uid)];
-private _display = [] call FUNC_O(init_gui);
-[_vehicle, player] remoteExecCall[QFUNC_S(addEH), [0, 2] select isMultiplayer];
+[] call FUNC_O(init_gui);

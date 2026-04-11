@@ -33,14 +33,7 @@ if(!isServer) exitWith {
 	[["%1: attempted to execute server only fnc", __FILE_NAME__], REPORT, QCOMPONENT] call BTCFUNC(tools,debug);
 };
 
-
-private _segments = _vehicle getVariable [QGVAR(server_segments), []];
-if(_segments isNotEqualTo []) then {
-	_segments apply {
-		deleteVehicle _x;
-	};
-	_segments = [];
-};
+private _segments = [];
 _segmentsData apply {
 	_x params[
 		["_class", "", [""]], 
@@ -67,6 +60,3 @@ if(_last_segment isNotEqualTo _first_segment) then {
 	_last_segment setVariable[QGVAR(segments), _segments, owner _vehicle];
 	[_last_segment] remoteExecCall [QFUNC_O(addAction), _player];
 };
-
-_vehicle setVariable [QGVAR(server_segments), _segments];
-[_vehicle, _player] call FUNC_S(removeEH);

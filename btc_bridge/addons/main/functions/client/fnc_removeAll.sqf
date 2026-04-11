@@ -46,6 +46,9 @@ if(_segments isEqualTo []) exitWith {
 
 for "_i" from 0 to (count _segments - 1) do {
 	private _segment = _segments deleteAt (count _segments - 1);
+	if(isNil "_segment") then {
+		break;
+	};
 	if(!local _segment) then {
 		#ifdef BTC_DEBUG_BRIDGE
 		[["%1: attempted to call removeAll animated on non local segments", __FILE_NAME__], REPORT, QCOMPONENT] call BTCFUNC(tools,debug);
@@ -65,3 +68,4 @@ if(local _vehicle) then {
 };
 _vehicle setVariable[QGVAR(segments), []];
 _vehicle setVariable[QGVAR(adjusted_height), 0];
+_vehicle setVariable[QGVAR(isAnimating), false];

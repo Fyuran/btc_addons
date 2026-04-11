@@ -45,6 +45,13 @@ if(_segments isEqualTo []) exitWith {
 [["%1: deleting segment n %2", __FILE_NAME__, count _segments], LOGS + CHAT, QCOMPONENT] call BTCFUNC(tools,debug);
 #endif
 private _segment = _segments deleteAt (count _segments - 1);
+if(isNull _segment) exitWith {
+	[["%1: _segment is null", __FILE_NAME__], REPORT, QCOMPONENT] call BTCFUNC(tools,debug);
+};
+
+if(isNil "_segment") then {
+	[["%1: _segment is nil", __FILE_NAME__], REPORT, QCOMPONENT] call BTCFUNC(tools,debug);
+};
 _vehicle setVariable[QGVAR(segments), _segments];
 
 private _previous = if(_segments isEqualTo []) then {
@@ -56,10 +63,6 @@ private _previous = if(_segments isEqualTo []) then {
 if(local _vehicle) then {
 	[_previous] call FUNC_O(setCameraPos);
 	[_segment] call FUNC_O(setHelperPos);
-};
-
-if(isNull _segment) exitWith {
-	[["%1: _segment is null", __FILE_NAME__], REPORT, QCOMPONENT] call BTCFUNC(tools,debug);
 };
 
 if(isRemoteExecutedJIP) exitWith {

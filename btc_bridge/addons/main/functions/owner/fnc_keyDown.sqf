@@ -43,7 +43,7 @@ if(_key isEqualTo DIK_ESCAPE) exitWith {
 
 
 	[GVAR(vehicle), true] remoteExec [QFUNC_C(removeAll), 0];
-	[GVAR(vehicle), player] remoteExecCall [QFUNC_S(removeEH), [0, 2] select isMultiplayer];
+	[GVAR(vehicle)] call FUNC_O(removeEH);
 	[GVAR(vehicle)] call FUNC_O(eraseJIP);
 };
 
@@ -62,6 +62,7 @@ if(_key isEqualTo DIK_NUMPADENTER) exitWith {
 	[GVAR(vehicle), true] remoteExec [QFUNC_C(addNext), 0]; //_isEnd will call for replace which will remove server EHs
 	_display closeDisplay 1;
 	[GVAR(vehicle)] call FUNC_O(eraseJIP);
+	[GVAR(vehicle)] call FUNC_O(removeEH);
 }; 
 
 private _adjusted_height = GVAR(vehicle) getVariable[QGVAR(adjusted_height), 0];

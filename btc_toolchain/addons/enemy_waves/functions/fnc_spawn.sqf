@@ -176,14 +176,14 @@ if(_groups isEqualTo []) exitWith {
 		_wp setWaypointFormation _formation; 
 		_wp setWaypointSpeed "FULL";
 		//Endless hunt
-		_wp setWaypointStatements ["true", "
+/* 		_wp setWaypointStatements ["true", "
 			_players = (allPlayers select {alive _x}) - (entities ""HeadlessClient_F"");
 			_players apply {_playerLeaders pushBackUnique leader _x;};
 			_playerLeaders = [_playerLeaders, [_logic], {_x distance _input0}, ""ASCEND""] call BIS_fnc_sortBy;
 			_leader = _playerLeaders select 0;
 
 			(group this) addWaypoint [getPosASL _leader, -1]; 
-		"];
+		"]; */
 	};
 
 	deleteVehicle _logic;

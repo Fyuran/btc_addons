@@ -1,7 +1,7 @@
 #define MAJOR 1
 #define MINOR 0
-#define PATCH 0// `#define PATCHLVL` can also be used
-#define BUILD 0// Optional
+#define PATCH 2// `#define PATCHLVL` can also be used
+#define BUILD 1// Optional
 #define VERSION MAJOR.MINOR
 #define VERSION_STR MAJOR.MINOR.PATCH
 #define VERSION_AR MAJOR, MINOR, PATCH
