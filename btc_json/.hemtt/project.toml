@@ -1,6 +1,6 @@
-name = "=BTC= Toolchain"
+name = "=BTC= JSON Extension"
 author = "=BTC= Fyuran"
-prefix = "btc_toolchain"
+prefix = "btc_json"
 mainprefix = "z"
 
 [properties]

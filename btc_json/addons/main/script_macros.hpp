@@ -1,5 +1,4 @@
-#include "\x\cba\addons\main\script_macros_common.hpp"
-
+#include "\z\btc_json\addons\main\script_macros_common.hpp"
 //REDEFINES
 #ifdef DISABLE_COMPILE_CACHE
     #undef PREP
@@ -67,8 +66,25 @@
 #define CBAPATHTOF(component,path) \x\cba\addons\component\path
 #define QCBAPATHTOF(component,path) QUOTE(CBAPATHTOF(component,path))
 
-//BTC MACROS
+//BTC TOOLCHAIN MACROS
 #define QCOMPONENT QUOTE(COMPONENT)
+#define BTC_PREFIX btc_toolchain
+
+#define BTC_ADDON(component)        DOUBLES(BTC_PREFIX,component)
+
+#define BTCGVAR(module,var)         TRIPLES(BTC_PREFIX,module,var)
+#define QBTCGVAR(module,var)        QUOTE(BTCGVAR(module,var))
+#define QQBTCGVAR(module,var)       QUOTE(QBTCGVAR(module,var))
+
+#define BTCFUNC(module,function)    TRIPLES(DOUBLES(BTC_PREFIX,module),fnc,function)
+#define QBTCFUNC(module,function)   QUOTE(BTCFUNC(module,function))
+
+#define BTCLSTRING(module,string)   QUOTE(TRIPLES(STR,DOUBLES(BTC_PREFIX,module),string))
+#define BTCLLSTRING(module,string)  localize BTCLSTRING(module,string)
+#define BTCCSTRING(module,string)   QUOTE(TRIPLES($STR,DOUBLES(BTC_PREFIX,module),string))
+
+#define BTCPATHTOF(component,path) \z\btc_toolchain\addons\component\path
+#define QBTCPATHTOF(component,path) QUOTE(BTCPATHTOF(component,path))
 
 //debug
 #define CHAT 2
@@ -77,20 +93,5 @@
 #define GLOBAL 16
 
 #ifdef BTC_DEBUG_FULL
-    #define BTC_DEBUG_AIPATHS
-	#define BTC_DEBUG_BRIDGE
-    #define BTC_DEBUG_C4BOOBY
-    #define BTC_DEBUG_CANTEEN
-    #define BTC_DEBUG_DEPLOYABLE_ANTENNA
-    #define BTC_DEBUG_DIALOG
-    #define BTC_DEBUG_ENEMY_WAVES
-    #define BTC_DEBUG_INSIGNIA
     #define BTC_DEBUG_JSON
-    #define BTC_DEBUG_LIFT
-    #define BTC_DEBUG_MAIN
-    #define BTC_DEBUG_SNOWSTORM
-	#define BTC_DEBUG_STEALTH
-    #define BTC_DEBUG_SUPPLY
-    #define BTC_DEBUG_TOOLS
-    #define BTC_DEBUG_WEIGHT_CALCULATOR
 #endif
