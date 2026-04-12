@@ -13,6 +13,23 @@ class CfgPatches {
 	};
 };
 
+class CfgFunctions {
+	class btc_json {
+		class functions {
+			file = QPATHTOF(functions);
+			class callExtension {}; // file path will be <ROOT>\functions\fn_myFunction.sqf";
+            class copyFile {};
+            class createFile {};
+            class deleteFile {};
+            class getChunk {};
+            class getFile {};
+            class renameFile {};
+            class retrieveList {};
+            class toJSON {};
+		};
+	};
+};
+
 class CfgMods {
     class btc_json {
         dir = "@btc_json";
@@ -26,14 +43,3 @@ class CfgMods {
     };
 };
 
-class Extended_PreStart_EventHandlers {
-    class btc_json {
-        init = QUOTE(call COMPILE_FILE(XEH_preStart));
-    };
-};
-
-class Extended_PreInit_EventHandlers {
-    class btc_json {
-        init = QUOTE(call COMPILE_FILE(XEH_preInit));
-    };
-};

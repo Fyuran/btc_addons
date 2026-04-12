@@ -18,9 +18,6 @@ Description:
     - TEAM_MEMBER
     - HASHMAP
     - Everything else will simply be stringified.
-
-    modified to support more than 2048 chars - Fyuran
-
 Parameters:
     _object - Object to serialize. <ARRAY, ...>
 
@@ -33,6 +30,8 @@ Examples:
     (end)
 
 Author:
+    modified to support more than 2048 chars - Fyuran
+    
     BaerMitUmlaut CBA team
 ---------------------------------------------------------------------------- */
 
