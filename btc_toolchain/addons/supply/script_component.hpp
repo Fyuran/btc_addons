@@ -42,3 +42,9 @@
 #define PRESETS_DELETE 66503
 #define PRESETS_SAVE 66504
 #define PRESETS_EDIT 66505
+
+//Drop
+#define PLANE_HEIGHT 800
+#define AIR_HEIGHT 500
+#define PLANE_SPEED 80
+#define AIR_SPEED 30

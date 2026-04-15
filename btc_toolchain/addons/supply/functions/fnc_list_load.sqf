@@ -82,4 +82,5 @@ if(GVAR(table) isNotEqualTo createHashMap) then {
         //_grp1_list lbSetPicture [_row, getText (_cfg >> "icon")];
         _grp1_list lbSetData [_row, _uid];
     };
+    lbSort _grp1_list;
 };

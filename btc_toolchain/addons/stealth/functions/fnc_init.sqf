@@ -88,7 +88,7 @@ _groups apply {
 	_isAlreadyIn = (GVAR(groups) pushBackUnique _group) isEqualTo -1;
 	if(_isAlreadyIn) then {
 		[["%1: %2 is already present in btc_toolchain_stealth_groups", __FILE_NAME__, _group], GLOBAL + REPORT, QCOMPONENT] call EFUNC(tools,debug);
-		break;
+		continue;
 	} else {
 		missionNamespace setVariable[QGVAR(groups), GVAR(groups), _group getVariable[QGVAR(debug), false]];
 	};

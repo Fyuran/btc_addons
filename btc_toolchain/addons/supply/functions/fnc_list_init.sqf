@@ -58,6 +58,7 @@ _grp1_add ctrlAddEventHandler ["ButtonClick", {
     };
 
     _row = _grp1_list lbAdd (getText (_cfg >> "displayName"));
+    lbSort _grp1_list;
     _grp1_list lbSetCurSel _row;
     //_grp1_list lbSetPicture [_row, getText (_cfg >> "icon")];
 
@@ -175,6 +176,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
         _grp2_list lnbSetData [[_row, 0], _class];
         _grp2_list lnbSetPicture [[_row, 0], _icon];
     };
+    _grp2_list lnbSort [0, true];
 
 	#ifdef BTC_DEBUG_SUPPLY_DIALOG
 	[["%1: building LIST_2 with inventory: %2", __FILE_NAME__, _inventory], LOGS, QCOMPONENT] call EFUNC(tools,debug);
@@ -276,6 +278,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
     //Add new entry
     _grp2_list = _grp2 controlsGroupCtrl LIST_2;
     private _row = _grp2_list lnbAddRow [_displayName, str _amount];
+    _grp2_list lnbSort [0, true];
     _grp2_list lnbSetData [[_row, 0], _class];
     _grp2_list lnbSetPicture [[_row, 0], _icon];
     _grp2_list lnbSetCurSelRow _row;

@@ -32,10 +32,9 @@ disableSerialization;
 if((ctrlIDC _combo) isNotEqualTo COMBO) exitWith {
 	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, COMBO], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-private _cfg = configFile >> "CfgVehicles" >> _value;
-if(!isClass _cfg) exitWith {};
 
-//Combo need to be cleared to know which row should be selected as there's no way to iterate over a lb list
+if(!isClass (configFile >> "CfgVehicles" >> _value)) exitWith {};
+
 lbClear _combo;
 private _loadedSel = 0;
 private _cfgVehicles = configFile >> "CfgVehicles";
@@ -45,8 +44,14 @@ _configs apply {
     private _row = _combo lbAdd (getText (_x >> "displayName"));
     _combo lbSetPicture [_row, getText (_x >> "icon")];
     _combo lbSetData [_row, configName _x];
-    if(_value isEqualTo (configName _x)) then {
-        _loadedSel = _row;
+};
+lbSort _combo;
+
+//Find out if we have a match
+for "_i" from 0 to (lbSize _combo) do {
+    if((_combo lbData _i) isEqualTo _value) then {
+        _loadedSel = _i;
+        break;
     };
 };
 

@@ -83,12 +83,15 @@ private _enableDamage = _logic getVariable [QGVAR(enableDamage), true];
 
 //Create Pilot and Vehicle
 private _randomAngle = random 360;
-private _vehPos = _logicPos vectorAdd [(cos _randomAngle) * 2000, (sin _randomAngle) * 2000, 500];
+private _isHelicopter = _vehicleClass isKindOf "Helicopter";
+private _height = [PLANE_HEIGHT, AIR_HEIGHT] select _isHelicopter;
+private _speed = [PLANE_SPEED, AIR_SPEED] select _isHelicopter;
+private _vehPos = _logicPos vectorAdd [(cos _randomAngle) * 2000, (sin _randomAngle) * 2000, _height];
 private _veh = createVehicle[_vehicleClass, _vehPos, [], 0, "FLY"];
 private _logicPosDirection = _logicPos vectorDiff _vehPos;
 _logicPosDirection = [_logicPosDirection#0, _logicPosDirection#1, 0];
 _veh setVectorDir _logicPosDirection;
-_veh setVelocityModelSpace [0, 30, 10]; //accelerate
+_veh setVelocityModelSpace [0, _speed, 10]; //accelerate
 _veh allowDamage _enableDamage;
 
 private _grp = createGroup [civilian, true];
@@ -102,9 +105,9 @@ allCurators apply {
 };
 
 //Assign waypoints
-private _wp1 = _grp addWaypoint [[_logicPos#0, _logicPos#1, 500], 0];
+private _wp1 = _grp addWaypoint [[_logicPos#0, _logicPos#1, _height], 0];
 _wp1 setWaypointBehaviour "CARELESS";
-private _wp2 = _grp addWaypoint [_logicPos vectorAdd [(_logicPosDirection#0) * 10, (_logicPosDirection#1) * 10, 500], 0];
+private _wp2 = _grp addWaypoint [_logicPos vectorAdd [(_logicPosDirection#0) * 10, (_logicPosDirection#1) * 10, _height], 0];
 _wp2 setWaypointBehaviour "CARELESS";
 
 private _paradropData = [];
@@ -191,7 +194,7 @@ deleteVehicle _logic;
 		_para setVectorDir(vectorDir _veh);
 		_para setVelocityModelSpace [0, 10, 0];
 		
-		//ground landing smoke and detach from parachute to avoid ground clipping						
+		//ground landing smoke and detach from parachute to avoid ground clipping				
 		[
 		{
 			(getPos(_this#0)#2) <= 1 || CBA_missionTime >= (_this#1)
@@ -205,7 +208,7 @@ deleteVehicle _logic;
 			private _smoke = "SmokeShellGreen" createVehicle _posATL;
 			_smoke attachTo [_supply, [0,0,0]]; 
 		},
-		[_supply, CBA_missionTime + 30]
+		[_supply, CBA_missionTime + 50]
 		] call CBAFUNC(waitUntilAndExecute);
 
 		sleep 0.5;	

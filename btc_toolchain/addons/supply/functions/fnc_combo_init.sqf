@@ -42,4 +42,5 @@ _configs apply {
     _combo lbSetPicture [_row, getText (_x >> "icon")];
     _combo lbSetData [_row, configName _x];
 };
+lbSort _combo;
 _combo lbSetCurSel 0;
