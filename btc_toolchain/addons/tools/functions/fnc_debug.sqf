@@ -53,6 +53,6 @@ if(!_isError) then {
 		[_message] call BIS_fnc_error;
 	};
     _title = format["%1 ERROR", _title];
-    [_message, _title, [_useChat, _useLogs, _global]] call CBAFUNC(debug2);
+    [_message, _title, [_useChat, true, _global]] call CBAFUNC(debug2);
 };
 

@@ -1,31 +1,8 @@
 #include "..\script_component.hpp"
-/* ----------------------------------------------------------------------------
-Function: 
-    btc_toolchain_stealth_fnc_debug_clients
-
-Description:
-    Provides debug visualization for stealth system on client. Displays 3D icons 
-    for all players, threat levels for stealth units, line-of-sight indicators, 
-    and event markers (suppressed, killed, hit, fired) with X-seconds duration.
-
-Parameters:
-    _groups - Array of stealth groups to monitor [Array, default: []]
-
-Returns:
-    None
-
-Examples:
-    (begin example)
-        [grp_1] call btc_toolchain_stealth_fnc_debug_clients;
-    (end)
-
-Author:
-    Fyuran
-
----------------------------------------------------------------------------- */
-params[
-	["_groups", [], [[]]]
-];
+#define _OPFOR_ 0
+#define _BLUFOR_ 1
+#define _INDEPENDENT_ 2
+#define _CIVILIAN_ 3
 
 private _fnc_removeEh = {
 	params[
@@ -48,12 +25,12 @@ private _fnc_removeEh = {
 
 };
 
-_groups apply {
-    private _units = units _x;
-    _units apply {
-        private _unit = _x;
-        private _suppressedEH = _unit addEventHandler ["Suppressed", { 
-            params ["_unit", "_distance", "_shooter", "_instigator", "_ammoObject", "_ammoClassName", "_ammoConfig"];
+(missionNamespace getVariable[QGVAR(groups), []]) apply {
+	private _units = units _x;
+	_units apply {
+		private _unit = _x;
+		private _suppressedEH = _unit addEventHandler ["Suppressed", { 
+			params ["_unit", "_distance", "_shooter", "_instigator", "_ammoObject", "_ammoClassName", "_ammoConfig"];
 			[getPos _ammoObject] spawn {
 				_time = CBA_missionTime + 5;
 				waitUntil {
@@ -61,7 +38,7 @@ _groups apply {
 					CBA_missionTime > _time;
 				};
 			};
-        }];
+		}];
 		private _killedEH = _unit addEventHandler ["Killed", {
 			params ["_unit", "_killer", "_instigator", "_useEffects"];
 			[_unit] spawn {
@@ -71,7 +48,7 @@ _groups apply {
 					CBA_missionTime > _time;
 				};
 			};
-			[QGVAR(debug_removeEHs), [_unit]] call CBAFUNC(localEvent);
+			[QGVAR(debug_removeEHs), [_unit]] call CBA_fnc_localEvent;
 		}];
 
 		private _hitEH = _unit addEventHandler ["Hit", {
@@ -97,79 +74,123 @@ _groups apply {
 		}];
 
 		_unit setVariable[QGVAR(client_EHs), [_suppressedEH, _killedEH, _hitEH, _fireEH]];
-    };
+	};
 };
 
 //Check if handles already exist
 private _handle = missionNamespace getVariable [QGVAR(removeEH_clients_handle), -1];
 if(_handle isNotEqualTo -1) exitWith {};
-GVAR(removeEH_clients_handle) = [QGVAR(debug_removeEHs), _fnc_removeEh] call CBAFUNC(addEventHandler);
+removeEH_clients_handle = [QGVAR(debug_removeEHs), _fnc_removeEh] call CBA_fnc_addEventHandler;
 
 _handle = missionNamespace getVariable [QGVAR(debug_PFH_handle), -1];
 if(_handle isNotEqualTo -1) exitWith {};
 
-GVAR(debug_PFH_handle) = [{
+debug_PFH_handle = [{
 private _groups = missionNamespace getVariable[QGVAR(groups), []];
 if(_groups isEqualTo []) exitWith {};
 _groups apply {
 	private _group = _x;
-	if(!(_group getVariable[QGVAR(debug), false])) then {
-		continue;
+	private _isGroupAlive = false;
+	if(isNull _group) then {continue};
+	(units _group) apply {
+		if(alive _x) then {
+			_isGroupAlive = true;
+			break;
+		};
 	};
-	private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
+	if(!_isGroupAlive) then {continue};
+
+	private _side = side _group;
+	private _group_icon = switch([_side] call BIS_fnc_sideID) do {
+		case _OPFOR_: {"\a3\ui_f\data\map\markers\nato\o_inf.paa"};
+		case _BLUFOR_: {"\a3\ui_f\data\map\markers\nato\b_inf.paa"};
+		case _INDEPENDENT_: {"\a3\ui_f\data\map\markers\nato\n_inf.paa"};
+		default {"\a3\ui_f\data\map\markers\nato\c_unknown.paa"};
+	};
+	private _enemyColor = switch([_side] call BIS_fnc_sideID) do {
+		case _OPFOR_ : {[
+			profileNamespace getVariable ['Map_OPFOR_R',0], 
+			profileNamespace getVariable ['Map_OPFOR_G',1], 
+			profileNamespace getVariable ['Map_OPFOR_B',1], 
+			profileNamespace getVariable ['Map_OPFOR_A',0.8]
+		]};
+		case _BLUFOR_ : {[
+			profileNamespace getVariable ['Map_BLUFOR_R',0], 
+			profileNamespace getVariable ['Map_BLUFOR_G',1], 
+			profileNamespace getVariable ['Map_BLUFOR_B',1], 
+			profileNamespace getVariable ['Map_BLUFOR_A',0.8]
+		]};
+		case _INDEPENDENT_ : {[
+			profileNamespace getVariable ['Map_Independent_R',0], 
+			profileNamespace getVariable ['Map_Independent_G',1], 
+			profileNamespace getVariable ['Map_Independent_B',1], 
+			profileNamespace getVariable ['Map_Independent_A',0.8]
+		]};
+		default {[
+			profileNamespace getVariable ['Map_Civilian_R',0], 
+			profileNamespace getVariable ['Map_Civilian_G',1], 
+			profileNamespace getVariable ['Map_Civilian_B',1], 
+			profileNamespace getVariable ['Map_Civilian_A',0.8]
+		]};
+	};
+
+	private _threat = _group getVariable[QGVAR(threat), 0];
+	private _body_threat = _group getVariable[QGVAR(body_threat), 0];
+
+	private _positions = [];
+	(units _group) apply { 
+		if(alive _x) then {
+			_positions pushBack (getPosVisual _x)
+		};
+	};
+	private _centroid = [0, 0, 0];
+	if(_positions isNotEqualTo []) then {
+		_centroid = ([_positions, true] call FUNC(getCentroid)) vectorAdd [0, 0, 4];
+
+		drawIcon3D [_group_icon, _enemyColor, _centroid, pixelW * pixelGrid * 100, pixelH * pixelGrid * 80, 0];
+		private _currentState = [_group, _group getVariable[QGVAR(FSM), locationNull]] call CBA_statemachine_fnc_getCurrentState;
+		drawIcon3D ["", [1,0,0,1], _centroid vectorAdd[0,0,0.4], 1, 1, 0, format["FSM:%1", _currentState]];
+		drawIcon3D ["", [0,1,1,1], _centroid vectorAdd[0,0,0.6], 1, 1, 0, format["%1:%2", ["THREAT", "BODY_THREAT"] select (_body_threat > _threat), _threat max _body_threat]];
+	};
+
+	private _lastKnownPos = _group getVariable[QGVAR(lastKnownPos), [0, 0, 0]];
+	if (_lastKnownPos isNotEqualTo [0, 0, 0]) then {
+		drawIcon3D ["", [1,0,0,1], _lastKnownPos, 1, 1, 0, "!"];
+	};
+
 	(units _group) apply {
 		private _unit = _x;
-		private _unitStanceFactor = switch(stance _unit) do {
-			case "PRONE": {0.5};
-			case "CROUCH": {1};
-			case "STAND": {1};
-			default {1.5}
-		};
-		private _unitPos = _unit modelToWorldVisual[0, 0, _unitStanceFactor];
-		private _threat = _unit getVariable[QGVAR(threat), 0];
-
-		drawIcon3D ["", [1,0,0,1], _unitPos, pixelW * pixelGrid * 1, pixelH * pixelGrid * 1, 0, "X"];
-		drawIcon3D ["", [0,1,1,1], _unitPos vectorAdd[0,0,2], pixelW * pixelGrid * 1, pixelH * pixelGrid * 1, 0, format["THREAT:%1", _threat]];
-
 		if(!alive _unit) then {continue};
-		allPlayers apply {
-			private _player = _x;
-			private _playerStance = stance _player;
-			private _playerStanceFactor = switch(_playerStance) do {
-				case "PRONE": {0.5};
-				case "CROUCH": {1};
-				case "STAND": {1};
-				default {1.5}
-			};
-			drawIcon3D ["", [0,0,1,1], _player modelToWorldVisual[0, 0, _playerStanceFactor], pixelW * pixelGrid * 1, pixelH * pixelGrid * 1, 0, "X"];
-			private _playerPos = _player modelToWorldVisual[0, 0, _playerStanceFactor];
-			private _unitToPlayer = _playerPos vectorDiff _unitPos;
-			//vectorDir is normalized to account for model scale
-			private _dotProduct = ((vectorNormalized(vectorDir _unit)) vectorAdd [0, 0, _playerStanceFactor]) vectorDotProduct (vectorNormalized _unitToPlayer); 			
-			private _distance = vectorMagnitude _unitToPlayer;					
-					
-			if(_distance <= _threat_dis && {_dotProduct > 0}) then {
-				private _intersects = lineIntersectsSurfaces [
-					_unit modelToWorldVisualWorld[0, 0, _unitStanceFactor], 
-					_player modelToWorldVisualWorld[0, 0, _playerStanceFactor], 
-					_unit, 
-					_player
-				];
-				if(_intersects isEqualTo []) then {
-					drawLine3D [
-						_unitPos, 
-						_playerPos,
-						switch(_playerStance) do {
-							case "PRONE": {[1 - _threat, 0, _threat, 1]};
-							case "CROUCH": {[0, _threat, 1 - _threat, 1]};
-							case "STAND": {[_threat, 1 - _threat, 0, 1]};
-							default {[_threat, 1 - _threat, 0, 1]}
-						}, 
-						6
-					];
-				};  
-			};
+		if(_unit getVariable ["ACE_isUnconscious", false]) then {continue};
+
+		private _unitPos = getPosVisual _unit;
+
+		
+		//drawIcon3D ["\a3\ui_f\data\map\vehicleicons\iconman_ca.paa", _enemyColor, _unitPos, pixelW * pixelGrid * 5, pixelH * pixelGrid * 5, 0];
+		if(_centroid isNotEqualTo [0, 0, 0]) then {
+			drawLine3D[_centroid, _unitPos, [0, 0, 1, 1], 6];
+		};
+
+		private _coverData = _unit getVariable[QGVAR(coverData), []];
+		if(_coverData isNotEqualTo []) then {
+			_coverData params["_coverObj", "_coverPos"];
+			drawIcon3D ["", [1,0.23,1,1], _unitPos vectorAdd[0,0,2.6], 1, 1, 0, format["Cover:%1", _unit getVariable[QGVAR(isInCover), false]]];
+			drawLine3D[_unitPos, _coverPos, [0, 1, 0, 1]];
+			[_coverObj] call FUNC(debugCover);
+		};
+
+		private _player = [_unit, allPlayers + ([side _unit] call FUNC(getAllSideCorpses))] call FUNC(unitDetectEntities);
+		if(!isNull _player) then {
+			drawLine3D[_unit modelToWorldVisual EYE_OFFSET, _player modelToWorldVisual EYE_OFFSET, [_threat max _body_threat, 1 - (_threat max _body_threat), 0, 1]];
+		};
+	};
+
+	allDeadMen apply {
+		if(_x getVariable[QGVAR(kia), false]) then {
+			drawIcon3D ["", [1,0,0,1], (getPos _x) vectorAdd[0,0,0.4], 1, 1, 0, "KIA"];
 		};
 	};
 };
-}, 0] call CBAFUNC(addPerFrameHandler);
+}, 0, []] call CBA_fnc_addPerFrameHandler;
+
+debug_PFH_handle
