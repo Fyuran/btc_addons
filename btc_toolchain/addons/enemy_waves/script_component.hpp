@@ -1,9 +1,9 @@
 #define COMPONENT enemy_waves
 #include "\z\btc_toolchain\addons\main\script_mod.hpp"
 
-//#define BTC_DEBUG_ENEMY_WAVES_DIALOG
-//#define BTC_DEBUG_ENEMY_WAVES
-//#define DISABLE_COMPILE_CACHE
+// #define BTC_DEBUG_ENEMY_WAVES_DIALOG
+// #define BTC_DEBUG_ENEMY_WAVES
+// #define DISABLE_COMPILE_CACHE
 
 #include "\z\btc_toolchain\addons\main\script_macros.hpp"
 
