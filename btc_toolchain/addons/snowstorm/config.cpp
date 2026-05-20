@@ -35,9 +35,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(Slider_0_to_1) : Slider {
-			attributeLoad = "[_this, _value] call btc_toolchain_snowstorm_fnc_initSlider";
+			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(initSlider));
 			attributeSave = "sliderPosition (_this controlsGroupCtrl 52)";
-			onLoad = "[_this, _value] call btc_toolchain_snowstorm_fnc_initSlider";
+			onLoad = QUOTE([ARR_2(_this,_value)] call FUNC(initSlider));
 			class Controls: Controls {
 				class Edit: Edit {
 					idc = 50;
@@ -54,9 +54,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(Slider_5000to5000) : Slider {
-			attributeLoad = "[_this, _value] call btc_toolchain_snowstorm_fnc_initSlider";
+			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(initSlider));
 			attributeSave = "sliderPosition (_this controlsGroupCtrl 52)";
-			onLoad = "[_this, _value] call btc_toolchain_snowstorm_fnc_initSlider";
+			onLoad = QUOTE([ARR_2(_this,_value)] call FUNC(initSlider));
 			class Controls: Controls {
 				class Edit: Edit {
 					idc = 50;
@@ -112,7 +112,7 @@ class CfgVehicles {
 				// Entity is passed as _this, value is passed as _value
 				// btc_toolchain_snowstorm_fogValue is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_toolchain_snowstorm_fogValue',_value];";
+				expression = QUOTE(_this setVariable[ARR_2(QQGVAR(fogValue),_value)]);
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -130,7 +130,7 @@ class CfgVehicles {
 				tooltip = "Change fog decay value";
 				property = QGVAR(fogDecay);
 				defaultValue = 0;
-				expression = "_this setVariable ['btc_toolchain_snowstorm_fogDecay',_value];";
+				expression = QUOTE(_this setVariable[ARR_2(QQGVAR(fogDecay),_value)]);
 			};
 			class GVAR(fogBase): GVAR(fogValue) {
 				displayName = "Fog Base";
@@ -138,14 +138,14 @@ class CfgVehicles {
 				control = QGVAR(Slider_5000to5000);
 				property = QGVAR(fogBase);
 				defaultValue = 0;
-				expression = "_this setVariable ['btc_toolchain_snowstorm_fogBase',_value];";
+				expression = QUOTE(_this setVariable[ARR_2(QQGVAR(fogBase),_value)]);
 			};
 			class GVAR(duration) {
 				displayName = "Snowstorm Duration";
 				tooltip = "Change snowstorm duration (-1 for infinite)";
 				property = QGVAR(duration);
 				control = "Edit";
-				expression = "_this setVariable ['btc_toolchain_snowstorm_duration',_value];";
+				expression = QUOTE(_this setVariable[ARR_2(QQGVAR(duration),_value)]);
 				defaultValue = -1;
 				typeName = "NUMBER";
 			};
@@ -154,7 +154,7 @@ class CfgVehicles {
 				tooltip = "Change snowstorm wind intensity minimum";
 				property = QGVAR(intensity_min);
 				control = "Edit";
-				expression = "_this setVariable ['btc_toolchain_snowstorm_wind_min',_value];";
+				expression = QUOTE(_this setVariable[ARR_2(QQGVAR(intensity_min),_value)]);
 				defaultValue = 20;
 				typeName = "NUMBER";
 			};
@@ -163,7 +163,7 @@ class CfgVehicles {
 				tooltip = "Change snowstorm wind intensity average";
 				property = QGVAR(intensity_avg);
 				control = "Edit";
-				expression = "_this setVariable ['btc_toolchain_snowstorm_wind_avg',_value];";
+				expression = QUOTE(_this setVariable[ARR_2(QQGVAR(intensity_avg),_value)]);
 				defaultValue = 30;
 				typeName = "NUMBER";
 			};
@@ -172,7 +172,7 @@ class CfgVehicles {
 				tooltip = "Change snowstorm wind intensity maximum";
 				property = QGVAR(intensity_max);
 				control = "Edit";
-				expression = "_this setVariable ['btc_toolchain_snowstorm_wind_max',_value];";
+				expression = QUOTE(_this setVariable[ARR_2(QQGVAR(intensity_max),_value)]);
 				defaultValue = 40;
 				typeName = "NUMBER";
 			};

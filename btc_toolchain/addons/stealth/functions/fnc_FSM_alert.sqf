@@ -5,7 +5,7 @@ _this,
 {
 	/*STATE*/
 	params[["_group", grpNull, [grpNull]]];
-	if(isNull _group) exitWith {
+	if((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -29,13 +29,18 @@ _this,
 {
 	/*ENTER*/
 	params[["_group", grpNull, [grpNull]]];
-
+	if((units _group) isEqualTo []) exitWith {
+		#ifdef BTC_DEBUG_STEALTH
+		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
+		#endif
+		[_stateMachine] call CBA_statemachine_fnc_delete;
+	};
+	
 	private _threat_limit = _group getVariable[QGVAR(threat_limit), 4];
 	[_group, _threat_limit] call FUNC(setThreat);
 
 	(units _group) apply {
-        _x enableAI "RADIOPROTOCOL";
-    	_x doFollow leader _group; //release units from doStop
+        _x enableAI "ALL";
 	};
 	_group setBehaviourStrong "COMBAT";
 	_group setCombatMode "RED";
@@ -50,5 +55,4 @@ _this,
 }, {/*EXIT*/
 	params[["_group", grpNull, [grpNull]]];
 	[leader _group] call FUNC(call_removeReinforcements);
-	_group setVariable[QGVAR(isReinforcement), false];
 }, "Alert"];

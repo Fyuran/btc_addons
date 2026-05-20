@@ -63,7 +63,7 @@ class CfgVehicles {
 				defaultValue = 10;
 				typeName = "NUMBER";
 			};
-			class GVAR(investigate_offset): Default {
+/* 			class GVAR(investigate_offset): Default {
 				displayName = "Investigation offset";
 				tooltip = "Change how much extra time does patrol to investigate take to be triggered";
 				property = QGVAR(investigate_offset);
@@ -89,7 +89,7 @@ class CfgVehicles {
 				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(alarm_offset),_value)]);
 				defaultValue = 0;
 				typeName = "NUMBER";
-			};
+			};*/
 			class GVAR(limit_offset): Default {
 				displayName = "Alarm duration offset";
 				tooltip = "Change how much extra time alarm phase is going to last";

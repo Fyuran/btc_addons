@@ -69,6 +69,7 @@
 
 //BTC MACROS
 #define QCOMPONENT QUOTE(COMPONENT)
+#define QQUOTE(var1) QUOTE(QUOTE(var1))
 
 //debug
 #define CHAT 2

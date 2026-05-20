@@ -53,7 +53,7 @@ class CfgVehicles {
 						condition = QUOTE(_player canAdd QQGVAR(DeployableAntenna));
 						exceptions[] = {};
 						icon = QPATHTOF(data\dish.paa);
-						statement = QUOTE([_player COMMA _target] call FUNC(dismantle));
+						statement = QUOTE([ARR_2(_player,_target)] call FUNC(dismantle));
 					};
 				};
 			};

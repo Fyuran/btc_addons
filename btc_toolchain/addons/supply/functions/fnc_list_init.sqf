@@ -341,6 +341,15 @@ if(isServer) then {
             copyToClipboard _class;
             false
         };
+        if(_shift) then {
+            GVAR(shift_modifier) = true;
+        };
+    }];
+    _grp2_list ctrlAddEventHandler["KeyUp", {
+        params ["_grp2_list", "_key", "_shift", "_ctrl", "_alt"];
+        if(_shift) then {
+            GVAR(shift_modifier) = false;
+        };
     }];
 };
 

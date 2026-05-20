@@ -5,7 +5,7 @@ _this,
 {
 	/*STATE*/
 	params[["_group", grpNull, [grpNull]]];
-	if(isNull _group) exitWith {
+	if((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -25,6 +25,12 @@ _this,
 }, {
     /*ENTER*/
     params[["_group", grpNull, [grpNull]]];
+	if((units _group) isEqualTo []) exitWith {
+		#ifdef BTC_DEBUG_STEALTH
+		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
+		#endif
+		[_stateMachine] call CBA_statemachine_fnc_delete;
+	};
 
 	_group setBehaviourStrong "AWARE";
 
@@ -37,4 +43,7 @@ _this,
 	[_group, [[0, _reinf_location, 25, "MOVE", "UNCHANGED", "UNCHANGED", 
 		"FULL", "NO CHANGE", ["true", ""], [0, 0, 0]]]] call FUNC(setWaypoints);
 
-}, {/*EXIT*/}, "Reinforcement"]
+}, {
+	/*EXIT*/
+	_group setVariable[QGVAR(isReinforcement), false];
+}, "Reinforcement"]

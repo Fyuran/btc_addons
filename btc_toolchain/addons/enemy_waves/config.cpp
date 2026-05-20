@@ -90,7 +90,7 @@ class CfgVehicles {
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_toolchain_enemy_waves_side', _value];";
+				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(side),_value)]);
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -112,7 +112,7 @@ class CfgVehicles {
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_toolchain_enemy_waves_timeout', _value];";
+				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(timeout),_value)]);
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -134,7 +134,7 @@ class CfgVehicles {
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_toolchain_enemy_waves_formation', _value];";
+				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(formation),_value)]);
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -162,7 +162,7 @@ class CfgVehicles {
 				// The expression is called twice - first for data validation, and second for actual saving
 				// Entity is passed as _this, value is passed as _value
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_toolchain_enemy_waves_list', _value];";
+				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(list),_value)]);
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this

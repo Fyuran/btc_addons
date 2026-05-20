@@ -12,6 +12,11 @@ params[
 
 if(!(_body in allDeadMen)) exitWith {
 	[["%1: attempted to dispatch non body", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    objNull
+};
+
+if(_body getVariable[QGVAR(kia), false]) exitWith {
+    _body
 };
 
 if(_remove) then {
@@ -24,12 +29,8 @@ if(_remove) then {
     #ifdef BTC_DEBUG_STEALTH
     [["%1: dispatching %2 at %3", __FILE_NAME__, _body, getPosASL _body], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
     #endif
-} else {
-    if(_body getVariable[QGVAR(kia), false]) exitWith {};
-    _body setVariable[QGVAR(kia), true];
-     #ifdef BTC_DEBUG_STEALTH
-    [["%1: setting %2 as KIA at %3", __FILE_NAME__, _body, getPosASL _body], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
-    #endif
 };
+
+_body setVariable[QGVAR(kia), true];
 
 _body

@@ -90,7 +90,7 @@ class CfgVehicles {
 				// Entity is passed as _this, value is passed as _value
 				// btc_toolchain_supply_class is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_toolchain_supply_vehicleClass', _value];";
+				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(vehicleClass),_value)]);
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -113,7 +113,7 @@ class CfgVehicles {
 				// Entity is passed as _this, value is passed as _value
 				// btc_toolchain_supply_enableDamage is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_toolchain_supply_enableDamage', _value];";
+				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(enableDamage),_value)]);
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this
@@ -159,7 +159,7 @@ class CfgVehicles {
 				// Entity is passed as _this, value is passed as _value
 				// btc_toolchain_supply_list_value is replaced by attribute config name. It can be used only once in the expression
 				// In MP scenario, the expression is called only on server.
-				expression = "_this setVariable ['btc_toolchain_supply_list_value', _value];";
+				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(list_value),_value)]);
 				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 				// Must be of type string
 				// Entity (unit, group, marker, comment etc.) is passed as _this

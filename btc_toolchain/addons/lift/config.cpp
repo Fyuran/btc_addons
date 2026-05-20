@@ -31,16 +31,16 @@ class CfgVehicles {
         class ACE_SelfActions {
             class GVAR(deploy_ropes) {
                 displayName = "$STR_ACE_Fastroping_Interaction_deployRopes";
-                condition = "!(missionNamespace getVariable[""btc_toolchain_lift_ropes_deployed"", false]) && {(driver vehicle player) isEqualTo player} && {(getPosATL player) select 2 > 4}";
+                condition = QUOTE(!(missionNamespace getVariable[ARR_2(QQGVAR(ropes_deployed),false)]) && {(driver vehicle player) isEqualTo player} && {(getPosATL player) select 2 > 4});
                 exceptions[] = {};
-                statement = "[] spawn btc_toolchain_lift_fnc_deployRopes;";
+                statement = QUOTE([] spawn FUNC(deployRopes));
                 icon = "\A3\ui_f\data\igui\cfg\simpleTasks\types\container_ca.paa";
             };
             class GVAR(destroy_ropes) {
                 displayName = "$STR_ACE_Fastroping_Interaction_cutRopes";
-                condition = "(missionNamespace getVariable[""btc_toolchain_lift_ropes_deployed"", false]) && {(driver vehicle player) isEqualTo player}";
+                condition = QUOTE((missionNamespace getVariable[ARR_2(QQGVAR(ropes_deployed),false)]) && {(driver vehicle player) isEqualTo player});
                 exceptions[] = {};
-                statement = "[] spawn btc_toolchain_lift_fnc_destroyRopes;";
+                statement = QUOTE([] spawn FUNC(destroyRopes));
                 icon = "\z\ace\addons\logistics_wirecutter\ui\wirecutter_ca.paa";
             };
         };

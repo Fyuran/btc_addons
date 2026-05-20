@@ -43,7 +43,7 @@ class GVAR(Timer_Attribute) {
 	// Entity is passed as _this, value is passed as _value
 	// c4booby_endtime is replaced by attribute config name. It can be used only once in the expression
 	// In MP scenario, the expression is called only on server.
-	expression = "_this setVariable ['c4booby_endtime',_value];";
+	expression = QUOTE(_this setVariable [ARR_2(QQGVAR(c4booby_endtime),_value)]);
 	// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
 	// Entity (unit, group, marker, comment etc.) is passed as _this
 	// Returned value is the default value

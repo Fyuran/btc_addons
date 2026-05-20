@@ -5,7 +5,7 @@ _this,
 {
 	/*State*/
 	params[["_group", grpNull, [grpNull]]];
-	if(isNull _group) exitWith {
+	if((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -25,6 +25,16 @@ _this,
 }, {
 	/*Enter*/
 	params[["_group", grpNull, [grpNull]]];
+	if((units _group) isEqualTo []) exitWith {
+		#ifdef BTC_DEBUG_STEALTH
+		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
+		#endif
+		[_stateMachine] call CBA_statemachine_fnc_delete;
+	};
+	
+	(units _group) apply {
+		_x enableAI "ALL";
+	};
 
 	private _lastKnownPos = _group getVariable[QGVAR(lastKnownPos), [0, 0, 0]];
     _group setSpeedMode "FULL";
@@ -40,9 +50,10 @@ _this,
 		params["_unit", "_pos"];
 		private _time = CBA_missionTime + 30; //timeout
 		waitUntil{((_unit distance _pos) <= 1) || (CBA_missionTime > _time)};
-
+		
 		[_unit, BODY] call FUNC(call_reinforcements);
 		if(!alive _unit) exitWith {};
+		if(CBA_missionTime > _time) exitWith {}; //abort body removal when timing out
 		private _threat_dis = (group _unit) getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 		(allDeadMen select {(_x distance _pos <= (_threat_dis / 2))}) apply {
 			[_x] call FUNC(dispatchBody);

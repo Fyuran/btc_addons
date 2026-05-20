@@ -72,10 +72,10 @@ private _debug = _logic getVariable[QGVAR(debug), false]; //used for logic
 if(_debug isEqualType 123) then { //handle some weird cases when even if typename is 'BOOL' when default it's handled as 'SCALAR'
     _debug = _debug isEqualTo 1;
 };
-private _investigate_offset = _logic getVariable[QGVAR(investigate_offset), 1];
-private _cover_offset = _logic getVariable[QGVAR(cover_offset), 1];
-private _alarm_offset = _logic getVariable[QGVAR(alarm_offset), 1];
-private _limit_offset = _logic getVariable[QGVAR(limit_offset), 1];
+private _investigate_offset = _logic getVariable[QGVAR(investigate_offset), 0];
+private _cover_offset = _logic getVariable[QGVAR(cover_offset), 0];
+private _alarm_offset = _logic getVariable[QGVAR(alarm_offset), 0];
+private _limit_offset = _logic getVariable[QGVAR(limit_offset), 0];
 private _threat_dis = _logic getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 private _alarm_dis = _logic getVariable[QGVAR(alarm_distance), ALARM_DISTANCE];
 private _radio_delay = _logic getVariable[QGVAR(radio_delay), 60];

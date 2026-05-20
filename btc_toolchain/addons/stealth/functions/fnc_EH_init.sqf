@@ -67,17 +67,17 @@ _groups apply {
             params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
             
             private _group = group _unit;
-            private _hasTriggeredEH = _group getVariable[QGVAR(hasTriggeredFired), false];
+            private _hasTriggeredEH = missionNamespace getVariable[QGVAR(hasTriggeredFired), false];
             if(_hasTriggeredEH) exitWith {};
 
-            _group setVariable[QGVAR(hasTriggeredFired), true];
+            missionNamespace setVariable[QGVAR(hasTriggeredFired), true];
 			//Do not allow multiple Suppressed to trigger, so add a delay
-			[{_this setVariable[QGVAR(hasTriggeredFired), false];}, _group, 0.5] call CBA_fnc_waitAndExecute;
+			[{missionNamespace setVariable[QGVAR(hasTriggeredFired), false];}, [], 2] call CBA_fnc_waitAndExecute;
 
             private _threat = _group getVariable[QGVAR(threat), 0];
             [_group, _threat + 1.5] call FUNC(setThreat);
             private _lastKnownPos = _group getVariable[QGVAR(lastKnownPos), [0, 0, 0]];
-            private _nearGrps = [_unit, _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE], [_lastKnownPos], {
+            private _nearGrps = [_unit, (_group getVariable[QGVAR(alarm_distance), ALARM_DISTANCE]) / 2, [_lastKnownPos], {
                 params[
                     ["_grp", grpNull, [grpNull]],
                     ["_args", [], [[]]]
@@ -85,13 +85,24 @@ _groups apply {
                 _args params[
                     ["_lastKnownPos", [0, 0, 0], [[]], 3]
                 ];
+                private _currentState = [_grp, _grp getVariable[QGVAR(FSM), locationNull]] call CBA_statemachine_fnc_getCurrentState;
+                if(_currentState isEqualTo "Alert") exitWith {
+                    [_grp, [[0, AGLToASL _lastKnownPos, -1, "MOVE", "UNCHANGED", "UNCHANGED", 
+		                "FULL", "NO CHANGE", ["true", ""], [0, 0, 0]]]] call FUNC(setWaypoints);
+                    private _threat_limit = _grp getVariable[QGVAR(threat_limit), 4];
+			        [_grp, _threat_limit] call FUNC(setThreat);
+                     #ifdef BTC_DEBUG_STEALTH
+                    [["%1: %2 heard shot, moving to %3", __FILE_NAME__, _grp, _lastKnownPos], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug); 
+                    #endif
+                };
                 if(_lastKnownPos isEqualTo [0, 0, 0]) exitWith {};
-                if(_grp getVariable[QGVAR(isReinforcement), false]) exitWith {};
+
                 #ifdef BTC_DEBUG_STEALTH
                 [["%1: %2 is reinforcing to %3", __FILE_NAME__, _grp, _lastKnownPos], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug); 
                 #endif
                 _grp setVariable[QGVAR(isReinforcement), true];
                 _grp setVariable[QGVAR(reinf_location), _lastKnownPos];
+                
             }] call FUNC(execNearbyGrps);
         }];
 

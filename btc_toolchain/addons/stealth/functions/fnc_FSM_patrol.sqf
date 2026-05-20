@@ -5,7 +5,7 @@ _this,
 {
 	/*STATE*/
 	params[["_group", grpNull, [grpNull]]];
-	if(isNull _group) exitWith {
+	if((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -39,7 +39,13 @@ _this,
 }, {
     /*ENTER*/
     params[["_group", grpNull, [grpNull]]];
-
+	if((units _group) isEqualTo []) exitWith {
+		#ifdef BTC_DEBUG_STEALTH
+		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
+		#endif
+		[_stateMachine] call CBA_statemachine_fnc_delete;
+	};
+	
 	private _original_WPS = _group getVariable[QGVAR(Original_WPS), []];
 	if(_original_WPS isEqualTo []) then {
 		_group setVariable [QGVAR(Original_WPS), [_group] call FUNC(getWaypoints)];
@@ -50,7 +56,10 @@ _this,
 	(units _group) apply {
 		_x disableAI "RADIOPROTOCOL";
 	};
-
+	allPlayers apply {
+		_group forgetTarget _x;
+	};
+	
 	_group setCombatMode "BLUE";
 	_group setBehaviourStrong "CARELESS";
     _group setSpeedMode "LIMITED";
@@ -59,9 +68,6 @@ _this,
 	/*EXIT*/
     params[["_group", grpNull, [grpNull]]];
 
-	allPlayers apply {
-		_group forgetTarget _x;
-	};
 	_group setVariable [QGVAR(Original_WPS), [_group] call FUNC(getWaypoints)];
 
 }, "Patrol"]

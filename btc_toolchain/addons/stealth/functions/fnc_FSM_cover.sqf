@@ -5,7 +5,7 @@ _this,
 {
 	/*STATE*/
 	params[["_group", grpNull, [grpNull]]];
-	if(isNull _group) exitWith {
+	if((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -27,14 +27,20 @@ _this,
 {
 	/*ENTER*/
 	params[["_group", grpNull, [grpNull]]];
-
+	if((units _group) isEqualTo []) exitWith {
+		#ifdef BTC_DEBUG_STEALTH
+		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
+		#endif
+		[_stateMachine] call CBA_statemachine_fnc_delete;
+	};
+    
 	_group setBehaviourStrong "AWARE";
 	_group setCombatMode "YELLOW";
     _group setSpeedMode "FULL";
     [_group, []] call FUNC(setWaypoints);
     
     (units _group) apply {
-        _x enableAI "RADIOPROTOCOL";
+        _x enableAI "ALL";
 
         _x spawn {
             sleep random 1;
@@ -62,10 +68,6 @@ _this,
             if(_this isEqualTo _leader) then {
                 [_leader] call FUNC(call_reinforcements);
                 _leader setVariable[QGVAR(isInCover), true];
-                (units group _leader) apply {
-                    _x enableAI "RADIOPROTOCOL";
-                };
-
             };
         };
     };
@@ -94,5 +96,6 @@ _this,
     (units _group) apply {
         _x setVariable[QGVAR(isInCover), false];
         _x setVariable[QGVAR(coverData), []];
+    	_x doFollow leader _group; //release units from doStop
     };
 }, "Cover"];
