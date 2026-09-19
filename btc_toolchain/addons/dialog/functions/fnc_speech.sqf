@@ -37,6 +37,9 @@ params[
 	["_conv_name", "", [""]]
 ];
 	private _speeches = ((fromJSON (loadFile "conv_table.json")) getOrDefault [_conv_name, createHashMap]) getOrDefault ["speeches", createHashMap];
+	if (isNil "_speeches") exitWith {
+		[["_speeches is nil and no conv found by that name: %1", _conv_name], 6] call EFUNC(tools,debug);
+	};
 	if (_speeches isEqualTo createHashMap) exitWith {
 		[["no conv found by that name: %1", _conv_name], 6] call EFUNC(tools,debug);
 	};
