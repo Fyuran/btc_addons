@@ -3,14 +3,16 @@
 Function: btc_json_json_fnc_retrieveList
 
 Description:
+    Retrieves the list of JSON files recursively starting from [PATH:STRING].
 
 Parameters:
+    _path: STRING
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_json_json_fnc_retrieveList;
+        ["."] call btc_json_json_fnc_retrieveList;
     (end)
 
 Author:

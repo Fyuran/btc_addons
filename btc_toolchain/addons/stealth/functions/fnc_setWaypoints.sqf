@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_setWaypoints
 
+Description:
+    Clears existing waypoints and restores a serialized array of waypoints and attributes onto a group.
+
+Parameters:
+    _group: GROUP/OBJECT
+    _waypointsArray: ARRAY
+
+Returns:
+
+Examples:
+    (begin example)
+        [_group, _savedWps] call btc_toolchain_stealth_fnc_setWaypoints;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params [
     ["_group", grpNull, [grpNull, objNull]],
     ["_waypointsArray", [], [[]]]

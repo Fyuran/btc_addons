@@ -3,21 +3,21 @@
 Function: btc_toolchain_lift_fnc_hudLoop
 
 Description:
-    Performs HUD functions such as crosshair adjustment, cargo icon etc.
+    Per-frame loop updating sling load HUD elements: alignment crosshair, cargo indicator, and distance.
 
 Parameters:
-    _ui - [Array]
-    _PFH_id - [Number]
+    _ui: ARRAY
+    _PFH_id: NUMBER
 
 Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_lift_fnc_hudLoop;
+        [_uiControls, 0] call btc_toolchain_lift_fnc_hudLoop;
     (end)
 
 Author:
-    Giallustio, Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

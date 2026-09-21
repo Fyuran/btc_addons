@@ -1,5 +1,27 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_setLastKnownPosition
 
+Description:
+    Sets and records the last known enemy position on an AI group with an optional randomized radius offset.
+
+Parameters:
+    _group: GROUP/OBJECT/LOCATION
+    _pos: ARRAY/OBJECT/GROUP
+    _radius: NUMBER
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        [_group, getPos player, 10] call btc_toolchain_stealth_fnc_setLastKnownPosition;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_group", objNull, [objNull, grpNull, locationNull]],
     ["_pos", [0, 0, 0], [[], objNull, grpNull]],

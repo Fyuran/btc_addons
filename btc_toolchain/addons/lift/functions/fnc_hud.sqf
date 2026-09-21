@@ -3,19 +3,20 @@
 Function: btc_toolchain_lift_fnc_hud
 
 Description:
-    Initializes HUD
+    Toggles the helicopter sling load alignment HUD on or off.
 
 Parameters:
+    NONE
 
 Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_lift_fnc_hud;
+        [] call btc_toolchain_lift_fnc_hud;
     (end)
 
 Author:
-    Giallustio, Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

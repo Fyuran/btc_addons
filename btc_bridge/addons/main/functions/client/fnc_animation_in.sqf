@@ -1,20 +1,23 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_bridge_animation_in_client
+Function: btc_bridge_fnc_animation_in_client
 
 Description:
+    Plays retract and fold animation for a bridge segment back into the vehicle and deletes the segment upon completion.
 
 Parameters:
+    _vehicle: OBJECT
+    _segment: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [] spawn btc_bridge_animation_in_client;
+        [_vehicle, _segment] spawn btc_bridge_fnc_animation_in_client;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

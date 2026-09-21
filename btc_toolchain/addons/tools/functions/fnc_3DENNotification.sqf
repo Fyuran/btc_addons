@@ -3,15 +3,20 @@
 Function: btc_toolchain_tools_fnc_3DENNotification
 
 Description:
-    Acts as a wrapper for Eden editor notifications, forwarding them to either standard error display or eden's notification popup
+    Displays Eden editor notification popups or standard error messages with appropriate sound cues.
 
 Parameters:
+    _class: STRING/NUMBER
+    _type: NUMBER/BOOLEAN
+    _duration: NUMBER
+    _animate: BOOLEAN
+    _volume: NUMBER
 
 Returns:
 
 Examples:
     (begin example)
-		[] call btc_toolchain_tools_fnc_3DENNotification;
+        ["Operation successful", 0, 5] call btc_toolchain_tools_fnc_3DENNotification;
     (end)
 
 Author:

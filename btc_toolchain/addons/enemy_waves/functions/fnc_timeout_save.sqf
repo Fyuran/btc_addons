@@ -1,16 +1,19 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_timeout_init
+Function: btc_toolchain_enemy_waves_fnc_timeout_save
 
 Description:
+    Parses and returns the numeric timeout value from the timeout edit box control.
 
 Parameters:
+    _edit: CONTROL
 
 Returns:
+    NUMBER
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_timeout_init;
+        private _timeoutSec = [_timeoutEditCtrl] call btc_toolchain_enemy_waves_fnc_timeout_save;
     (end)
 
 Author:

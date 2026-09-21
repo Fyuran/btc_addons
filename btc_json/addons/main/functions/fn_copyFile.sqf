@@ -3,14 +3,17 @@
 Function: btc_json_json_fnc_copyFile
 
 Description:
+    Copies JSON file in [PATH:STRING] to [NEWPATH:STRING].
 
 Parameters:
+    _path: STRING
+    _newPath: STRING
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_json_json_fnc_copyFile;
+        ["./armatojson/test.json", "./armatojson/test_copy.json"] call btc_json_json_fnc_copyFile;
     (end)
 
 Author:

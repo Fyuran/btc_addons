@@ -1,27 +1,22 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: 
-    btc_toolchain_stealth_fnc_init
+Function: btc_toolchain_stealth_fnc_init
 
 Description:
-    Initializes event handlers for stealth groups. Disables AI functionalities and adds event 
-    handlers to detect when stealth is compromised. 
-	When compromised, removeEh which removes 
-    handlers and sets affected units and nearby stealth groups to COMBAT behavior.
+    Initializes stealth system logic module on the server, creates FSMs for synchronized groups, and sets up detection handlers.
 
 Parameters:
-    _groups - Array of groups to initialize for stealth [Array, default: []]
+    _logic: OBJECT
 
 Returns:
-    None
 
 Examples:
     (begin example)
-        [grp_1] call btc_toolchain_stealth_fnc_init;
+        [_logic] call btc_toolchain_stealth_fnc_init;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

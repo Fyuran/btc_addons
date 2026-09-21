@@ -1,20 +1,23 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_bridge_fnc_init_post
+Function: btc_bridge_fnc_initPost
 
 Description:
+    Initializes bridge vehicle post-init, attaches decorative end pontoon on server, and adds the 'Bridge Mode' action for driver on clients.
 
 Parameters:
+    _vehicle: OBJECT
 
 Returns:
+    SCALAR
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_init_post;
+        [_vehicle] call btc_bridge_fnc_initPost;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

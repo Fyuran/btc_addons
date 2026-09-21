@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_getAllSideCorpses
 
+Description:
+    Returns an array of dead bodies belonging to a specified side.
+
+Parameters:
+    _side: SIDE
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        private _eastCorpses = [east] call btc_toolchain_stealth_fnc_getAllSideCorpses;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_side", east, [east]]
 ];

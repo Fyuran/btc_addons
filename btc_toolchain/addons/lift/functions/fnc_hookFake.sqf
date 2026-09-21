@@ -3,21 +3,22 @@
 Function: btc_toolchain_lift_fnc_hookFake
 
 Description:
-    Dummy Hook
+    Spawns a client-side simulation dummy object for visual feedback during sling load operations.
 
 Parameters:
-    _cargo - [Object]
-    _chopper - [Object]
+    _cargo: OBJECT
+    _chopper: OBJECT
 
 Returns:
+    OBJECT
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_lift_fnc_hookFake;
+        [cursorObject, vehicle player] call btc_toolchain_lift_fnc_hookFake;
     (end)
 
 Author:
-    Giallustio, Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

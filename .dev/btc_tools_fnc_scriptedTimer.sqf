@@ -1,17 +1,15 @@
 #include "script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: 
-    btc_tools_fnc_scriptedTimer
+Function: btc_tools_fnc_scriptedTimer
 
 Description:
-    Handles a timer, executing passed scripts each second
+    Handles a countdown timer, executing periodic interval events and broadcasting time updates.
 
 Parameters:
-    _duration - time in seconds. [Number]
-    _interval - When should timer trigger events. [Number]
+    _duration: NUMBER
+    _interval: NUMBER
 
 Returns:
-    None
 
 Examples:
     (begin example)
@@ -19,7 +17,7 @@ Examples:
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

@@ -3,19 +3,20 @@
 Function: btc_toolchain_snowstorm_fnc_snowDust_clients
 
 Description:
-    Spawns several particles simulating wind lifting snow
+    Creates local particle sources around the player simulating blowing snow dust.
 
 Parameters:
+    NONE
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_snowDust_clients;
+        [] call btc_toolchain_snowstorm_fnc_snowDust_clients;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

@@ -4,20 +4,23 @@
 Function: btc_toolchain_c4booby_fnc_objectInit
 
 Description:
-    Passed object is prepared for a bomb defusal situation
+    Initializes an object as an active IED/bomb with randomized wire combination and defusal setup.
 
 Parameters:
-    _obj : Object
+    _obj: OBJECT
+    _time: NUMBER
+    _defuser: OBJECT
 
 Returns:
+    OBJECT
 
 Examples:
     (begin example)
-        [this] call btc_toolchain_c4booby_fnc_objectInit;
+        [_barrel, 120, _phone] call btc_toolchain_c4booby_fnc_objectInit;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

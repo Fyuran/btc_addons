@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_FSM_investigate_body
 
+Description:
+    Defines the Investigate_Body state where a group moves to examine and secure a discovered casualty.
+
+Parameters:
+    _this: LOCATION
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        _fsm call btc_toolchain_stealth_fnc_FSM_investigate_body;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 [
 _this,
 {

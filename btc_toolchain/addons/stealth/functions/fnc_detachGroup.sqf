@@ -1,4 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_detachGroup
+
+Description:
+    Detaches a single unit from its current group into a new independent single-unit group, preserving original waypoints.
+
+Parameters:
+    _unit: OBJECT
+
+Returns:
+    GROUP
+
+Examples:
+    (begin example)
+        [_unit] call btc_toolchain_stealth_fnc_detachGroup;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_unit", objNull, [objNull]]
 ];

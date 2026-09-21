@@ -3,22 +3,21 @@
 Function: btc_toolchain_snowstorm_fnc_windSmoothTrans
 
 Description:
-    Handles wind vector interpolation between old position, setWind original syntax where you
-    define [x, y, forced] array does not allow you to transition smoothly, this function solves that with
-    a fixed update rate
+    Smoothly interpolates wind vector and intensity over duration to avoid abrupt weather transitions.
 
 Parameters:
-    _duration: how long will the transition last
-    _plannedIntensity: how strong will the wind be
+    _duration: NUMBER
+    _plannedIntensity: NUMBER
+
 Returns:
 
 Examples:
     (begin example)
-	[] call r4efu2s3qw;
+        [10, 20] spawn btc_toolchain_snowstorm_fnc_windSmoothTrans;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

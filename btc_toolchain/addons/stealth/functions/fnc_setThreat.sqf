@@ -1,5 +1,27 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_setThreat
 
+Description:
+    Sets the threat value on a group clamped between 0 and group's threat limit.
+
+Parameters:
+    _group: GROUP
+    _threat: NUMBER
+    _varName: STRING
+
+Returns:
+    NUMBER
+
+Examples:
+    (begin example)
+        [_group, 2] call btc_toolchain_stealth_fnc_setThreat;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_group", grpNull, [grpNull]],
     ["_threat", 0, [123]],

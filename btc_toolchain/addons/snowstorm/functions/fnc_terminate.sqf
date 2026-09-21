@@ -3,19 +3,20 @@
 Function: btc_toolchain_snowstorm_fnc_terminate
 
 Description:
-    Stops snowfall
+    Stops snowfall simulation on server and notifies all connected clients to terminate snow effects.
 
 Parameters:
+    NONE
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_terminate;
+        [] call btc_toolchain_snowstorm_fnc_terminate;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

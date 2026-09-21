@@ -3,14 +3,15 @@
 Function: btc_toolchain_json_fnc_renameFile
 
 Description:
-
+    Renames JSON file in [PATH:STRING] to [NEWPATH:STRING].
 Parameters:
-
+    _path: STRING
+    _newPath: STRING
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_json_fnc_renameFile;
+        ["./armatojson/test.json", "./armatojson/test_rename.json"] call btc_toolchain_json_fnc_renameFile
     (end)
 
 Author:

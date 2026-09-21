@@ -1,20 +1,24 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_bridge_animation_out_client
+Function: btc_bridge_fnc_animation_out_client
 
 Description:
+    Plays unfold and deployment animation for a newly spawned bridge segment into its target world position.
 
 Parameters:
+    _vehicle: OBJECT
+    _segment: OBJECT
+    _isEnd: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-        [] spawn btc_bridge_animation_out_client;
+        [_vehicle, _segment, false] spawn btc_bridge_fnc_animation_out_client;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

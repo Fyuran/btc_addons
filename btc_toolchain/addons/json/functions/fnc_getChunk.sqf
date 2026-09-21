@@ -3,14 +3,15 @@
 Function: btc_toolchain_json_fnc_getChunk
 
 Description:
-
+	Retrieves a chunk of JSON from inside extension's cache
 Parameters:
-
+	_id: STRING
+	_size: NUMBER
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_json_fnc_getChunk;
+        ["", 0] call btc_toolchain_json_fnc_getChunk;
     (end)
 
 Author:

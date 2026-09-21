@@ -3,20 +3,22 @@
 Function: btc_toolchain_c4booby_fnc_timer
 
 Description:
-    Timer function for bomb defusal
+    Starts per-frame countdown timer for bomb defusal, triggering detonation when time expires.
 
 Parameters:
-
+    _obj: OBJECT
+    _time: NUMBER
+    _max_colors: NUMBER
 
 Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_c4booby_fnc_timer;
+        [_bombObject, 60, 3] call btc_toolchain_c4booby_fnc_timer;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

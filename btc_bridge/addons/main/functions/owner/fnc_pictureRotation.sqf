@@ -3,18 +3,20 @@
 Function: btc_bridge_fnc_pictureRotation_owner
 
 Description:
+    Starts or stops a per-frame handler to animate the rotating loading icon on the bridge HUD while an operation is in progress.
 
 Parameters:
+    _isAnimating: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_pictureRotation_owner;
+        [true] call btc_bridge_fnc_pictureRotation_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

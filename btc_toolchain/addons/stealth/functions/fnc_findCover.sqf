@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_findCover
 
+Description:
+    Calculates the nearest available cover position hidden from player line-of-sight and assigns a cover holder for an AI unit.
+
+Parameters:
+    _unit: OBJECT
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        private _cover = [_unit] call btc_toolchain_stealth_fnc_findCover;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_unit", objNull, [objNull]]
 ];

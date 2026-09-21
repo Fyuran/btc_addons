@@ -3,20 +3,20 @@
 Function: btc_toolchain_lift_fnc_destroyRopes
 
 Description:
-    Destroys ropes
+    Cuts and destroys deployed sling load ropes from the helicopter and resets lift state.
 
 Parameters:
-    _heli - [Object]
+    _heli: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_lift_fnc_destroyRopes;
+        [vehicle player] call btc_toolchain_lift_fnc_destroyRopes;
     (end)
 
 Author:
-    Giallustio, Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

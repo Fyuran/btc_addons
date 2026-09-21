@@ -1,5 +1,24 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_EH_init
 
+Description:
+    Initializes event handlers (Suppressed, Killed, Hit, FiredNear) on all units of the given stealth groups.
+
+Parameters:
+    _groups: ARRAY
+
+Returns:
+
+Examples:
+    (begin example)
+        [_stealthGroups] call btc_toolchain_stealth_fnc_EH_init;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_groups", [], [[]]]
 ];

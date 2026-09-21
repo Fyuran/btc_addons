@@ -3,10 +3,13 @@
 Function: btc_bridge_fnc_init_gui_owner
 
 Description:
+    Creates and displays the bridge operator GUI dialog with keybind hints and status indicators.
 
 Parameters:
+    NONE
 
 Returns:
+    DISPLAY
 
 Examples:
     (begin example)
@@ -14,7 +17,7 @@ Examples:
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 disableSerialization;

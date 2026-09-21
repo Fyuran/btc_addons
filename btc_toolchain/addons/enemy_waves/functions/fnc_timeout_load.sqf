@@ -1,16 +1,19 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_timeout_init
+Function: btc_toolchain_enemy_waves_fnc_timeout_load
 
 Description:
+    Sets the timeout value into the edit box control.
 
 Parameters:
+    _edit: CONTROL
+    _value: NUMBER/STRING
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_timeout_init;
+        [_timeoutEditCtrl, 60] call btc_toolchain_enemy_waves_fnc_timeout_load;
     (end)
 
 Author:

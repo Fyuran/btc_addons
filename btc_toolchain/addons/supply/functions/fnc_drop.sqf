@@ -6,42 +6,19 @@ Description:
     Commands an air unit to spawn and drop supply items on a location with parachutes.
 
 Parameters:
-    _logic[OBJECT]: Module logic containing supply configuration
-    _units[ARRAY]: Array of affected units (unused for server-side execution)
-    _activated[BOOLEAN]: True when module is activated, false on deactivation
+    _logic: OBJECT
+    _units: ARRAY
+    _activated: BOOLEAN
 
 Returns:
-    NOTHING
 
 Examples:
     (begin example)
-[ 
-	plane,  
-	[
-		"Box_East_WpsSpecial_F", 
-		"ACE_medicalSupplyCrate_advanced", 
-		"rhs_mags_crate", 
-		"Box_NATO_AmmoOrd_F", 
-		"rhsusf_m1a1fep_d", 
-		"rhsusf_m1025_d_s_m2"
-	],  
-	[
-		[
-			["arifle_MX_F", 1], ["30Rnd_65x39_caseless_mag", 4], ["rhsusf_weap_MP7A2", 2], ["rhsusf_mag_40Rnd_46x30_FMJ", 3]
-		],
-		[],
-		[],
-		[],
-		[
-			["arifle_MX_GL_F", 2], ["rhs_mag_M441_HE", 10], ["30Rnd_65x39_caseless_mag", 10]
-		],
-		[]
-	] 
-] call btc_toolchain_supply_fnc_drop;
+        [_logic, [], true] call btc_toolchain_supply_fnc_drop;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

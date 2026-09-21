@@ -3,16 +3,21 @@
 Function: btc_toolchain_c4booby_fnc_addActions
 
 Description:
-    Helper function that adds actions to a single barrel and its defuser for examination
+    Adds ACE interaction examination and wire-cutting actions to a bomb object and its defuser.
 
 Parameters:
-    NONE
+    _defuser: OBJECT
+    _obj: OBJECT
 
 Returns:
-    NOTHING
+
+Examples:
+    (begin example)
+        [_defuser, _bombObject] call btc_toolchain_c4booby_fnc_addActions;
+    (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

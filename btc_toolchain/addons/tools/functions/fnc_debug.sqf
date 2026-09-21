@@ -3,19 +3,18 @@
 Function: btc_toolchain_tools_fnc_debug
 
 Description:
-    Reports diagnostics information to rpt and user screen
+    Logs diagnostic messages to arma.rpt and displays them in chat or screen overlay based on bitmask flags.
 
 Parameters:
-    _message - [String]
-    _mode - [Array]
-    _file - [String]
+    _message: STRING/ARRAY
+    _mode: NUMBER/ARRAY
+    _file: STRING
 
 Returns:
 
 Examples:
     (begin example)
-        [["%1: Hello World", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
-        [["%1: Hello World", __FILE_NAME__], CHAT, QCOMPONENT] call FUNC(debug);
+        [["%1: Hello World", __FILE_NAME__], CHAT, QCOMPONENT] call btc_toolchain_tools_fnc_debug;
     (end)
 
 Author:

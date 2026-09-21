@@ -3,19 +3,20 @@
 Function: btc_toolchain_snowstorm_fnc_snowSounds_clients
 
 Description:
-    Handles sound for player
+    Manages ambient winter wind and blizzard sound loops on the local client, accounting for indoor/outdoor occlusion.
 
 Parameters:
+    NONE
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_snowSounds_clients;
+        [] call btc_toolchain_snowstorm_fnc_snowSounds_clients;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

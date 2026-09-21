@@ -1,5 +1,27 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_nearestSortedObjects
 
+Description:
+    Finds and returns terrain and dynamic obstacle objects within distance from a source position, sorted by distance.
+
+Parameters:
+    _src: ARRAY/OBJECT
+    _direction: STRING
+    _distance: NUMBER
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        private _objs = [player, "ASCEND", 50] call btc_toolchain_stealth_fnc_nearestSortedObjects;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 //Includes both runtime and terrain objects
 params[
 	["_src", [0,0,0], [objNull, []]],

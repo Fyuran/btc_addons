@@ -3,18 +3,21 @@
 Function: btc_bridge_fnc_addAction_owner
 
 Description:
+    Adds an interaction action to a finalized bridge segment to allow players to pack up the bridge.
 
 Parameters:
+    _segment: OBJECT
 
 Returns:
+    SCALAR
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_addAction_owner;
+        [_segment] call btc_bridge_fnc_addAction_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

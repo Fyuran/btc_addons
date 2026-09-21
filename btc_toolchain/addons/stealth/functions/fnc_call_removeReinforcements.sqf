@@ -1,5 +1,24 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_call_removeReinforcements
 
+Description:
+    Plays radio animation to call all-clear / stand down, canceling reinforcement alerts and dispatching nearby dead bodies.
+
+Parameters:
+    _unit: OBJECT
+
+Returns:
+
+Examples:
+    (begin example)
+        [leader _group] spawn btc_toolchain_stealth_fnc_call_removeReinforcements;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_unit", objNull, [objNull]]
 ];

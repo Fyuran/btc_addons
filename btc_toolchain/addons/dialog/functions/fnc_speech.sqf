@@ -3,14 +3,18 @@
 Function: btc_toolchain_dialog_fnc_speech
 
 Description:
-    Initiates speech/conversation from JSON config.
+    Initiates interactive speech/dialog conversation loaded from a JSON configuration table.
 
 Parameters:
-    _conv_name[STRING]: Name of conversation
-    _path[STRING]: Path to conversation config file
+    _conv_name: STRING
+    _path: STRING
 
 Returns:
-    NOTHING
+
+Examples:
+    (begin example)
+        ["briefing_conversation"] call btc_toolchain_dialog_fnc_speech;
+    (end)
 
 Author:
     =BTC= Fyuran

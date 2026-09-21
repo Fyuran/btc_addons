@@ -1,15 +1,20 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_toolchain_enemy_waves_fnc_curator_init
+
 Description:
+    Initializes the enemy waves Zeus curator module logic and associates it with curator namespace.
 
 Parameters:
+    _logic: OBJECT
+    _units: ARRAY
+    _activated: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_curator_init;
+        [_logic, [], true] call btc_toolchain_enemy_waves_fnc_curator_init;
     (end)
 
 Author:

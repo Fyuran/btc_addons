@@ -3,14 +3,16 @@
 Function: btc_toolchain_enemy_waves_fnc_presets_init
 
 Description:
+    Initializes preset management controls, loading saved wave presets from profileNamespace.
 
 Parameters:
+    _parent: DISPLAY
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_presets_init;
+        [findDisplay 315] call btc_toolchain_enemy_waves_fnc_presets_init;
     (end)
 
 Author:

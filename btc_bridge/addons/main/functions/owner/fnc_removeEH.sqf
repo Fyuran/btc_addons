@@ -3,18 +3,20 @@
 Function: btc_bridge_fnc_removeEH_owner
 
 Description:
+    Removes event handlers previously attached to player and vehicle when exiting bridge mode.
 
 Parameters:
+    _vehicle: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_removeEH_owner;
+        [_vehicle] call btc_bridge_fnc_removeEH_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

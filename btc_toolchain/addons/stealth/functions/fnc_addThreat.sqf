@@ -1,5 +1,27 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_addThreat
 
+Description:
+    Adds threat points to a group's stealth alert level, clamped to the group's maximum threat limit.
+
+Parameters:
+    _group: GROUP
+    _amount: NUMBER
+    _varName: STRING
+
+Returns:
+    NUMBER
+
+Examples:
+    (begin example)
+        [_group, 1] call btc_toolchain_stealth_fnc_addThreat;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_group", grpNull, [grpNull]],
     ["_amount", 0, [123]],

@@ -3,27 +3,20 @@
 Function: btc_toolchain_canteen_fnc_Refill
 
 Description:
-	Will replenish unit's
-	ACE_WaterBottle_Half
-	ACE_WaterBottle_Nearly_Empty
-	ACE_WaterBottle_Empty
-	
-	ACE_Canteen_Half
-	ACE_Canteen_Nearly_Full
-	ACE_Canteen_Nearly_Empty
-	ACE_Canteen_Empty
+    Replenishes player's empty or partially empty canteen/bottle to full capacity at a water source.
+
 Parameters:
-	ACE_player: OBJECT
+    _item: STRING
 
 Returns:
 
 Examples:
     (begin example)
-		["ACE_Canteen"] call btc_toolchain_canteen_fnc_Refill
+        ["ACE_Canteen_Empty"] call btc_toolchain_canteen_fnc_Refill;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

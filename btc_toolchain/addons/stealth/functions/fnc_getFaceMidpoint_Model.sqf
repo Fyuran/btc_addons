@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_getFaceMidpoint_Model
 
+Description:
+    Computes the midpoint coordinate of a 4-vertex quadrilateral polygon face in model space.
+
+Parameters:
+    _face: ARRAY
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        private _mid = [_facePoints] call btc_toolchain_stealth_fnc_getFaceMidpoint_Model;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params [
     ["_face", [], [[]], 4]
 ];

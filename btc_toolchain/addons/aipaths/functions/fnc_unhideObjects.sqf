@@ -1,23 +1,22 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: 
-    btc_toolchain_aipaths_fnc_unhideObjects
+Function: btc_toolchain_aipaths_fnc_unhideObjects
 
 Description:
-    Unhides textures ingame
+    Restores original textures ingame for all tracked objects in the global objects pool.
 
 Parameters:
-    _object -
+    NONE
 
 Returns:
 
 Examples:
     (begin example)
-        call btc_toolchain_aipaths_fnc_unhideObjects;
+        [] call btc_toolchain_aipaths_fnc_unhideObjects;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

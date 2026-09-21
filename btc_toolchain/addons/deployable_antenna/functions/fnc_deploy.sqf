@@ -3,9 +3,10 @@
 Function: btc_toolchain_deployable_antenna_fnc_deploy
 
 Description:
-    Deploys a Land_SatelliteAntenna_01_F removing the item from the inventory
+    Deploys a satellite antenna / jammer object in front of the player, consuming the antenna inventory item.
 
 Parameters:
+    _player: OBJECT
 
 Returns:
 
@@ -15,7 +16,7 @@ Examples:
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

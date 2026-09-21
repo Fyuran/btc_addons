@@ -1,5 +1,27 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_unitDetectEntities
 
+Description:
+    Checks if an AI unit detects any entity in a list within range, considering unit consciousness, field of view, and awareness.
+
+Parameters:
+    _unit: OBJECT
+    _entities: ARRAY/OBJECT
+    _range: NUMBER
+
+Returns:
+    OBJECT
+
+Examples:
+    (begin example)
+        private _detected = [_guard, allPlayers, 50] call btc_toolchain_stealth_fnc_unitDetectEntities;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
 	["_unit", objNull, [objNull]],
 	["_entities", [], [objNull, []]],
