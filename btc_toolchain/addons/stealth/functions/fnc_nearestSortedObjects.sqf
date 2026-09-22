@@ -8,7 +8,9 @@ params[
 ];
 
 if((_direction isNotEqualTo "ASCEND") && (_direction isNotEqualTo "DESCEND")) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _direction should be either 'ASCEND' or 'DESCEND'", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
 };
 private _terrainObjects = nearestTerrainObjects[_src, ["WATERTOWER", "HOSPITAL", "FORTRESS", "VIEW-TOWER", "BUILDING", "BUNKER", "WALL", "FENCE", "HOUSE", "RUIN", "CHAPEL", "CHURCH"], _distance, true];
 private _objects = nearestObjects[_src, ["House"], _distance];

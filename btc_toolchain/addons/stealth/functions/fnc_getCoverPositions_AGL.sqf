@@ -9,16 +9,22 @@ params[
 ];
 
 if((_resolution < _MIN_) || (_resolution > _MAX_)) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _resolution is invalid should be between %2 and %3", __FILE_NAME__, _MIN_, _MAX_], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     []
 };
 if(isNull _object) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _object is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     []
 };
 private _isEvenlyDivisible = abs((_MAX_ / _resolution) - round(_MAX_ / _resolution)) < 0.0001;
 if(!_isEvenlyDivisible) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _resolution is not evenly divisible", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     []
 };
 

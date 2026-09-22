@@ -7,11 +7,15 @@ params[
 ];
 if(isGamePaused) exitWith {0};
 if(isNull _group) exitWith {
-	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#ifdef BTC_DEBUG_STEALTH
+    [["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     0
 };
 if(!local _group) exitWith {
+    #ifdef BTC_DEBUG_STEALTH
 	[["%1: _group is not local", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     0
 };
 

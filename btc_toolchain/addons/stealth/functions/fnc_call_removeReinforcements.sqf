@@ -17,7 +17,9 @@ if(!canSuspend) exitWith {
 };
 if(!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
 if(!local _unit) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _unit is not local", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     0
 };
 

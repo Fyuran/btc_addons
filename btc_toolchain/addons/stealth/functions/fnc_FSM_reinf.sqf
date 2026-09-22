@@ -36,7 +36,9 @@ _this,
 
 	private _reinf_location = _group getVariable[QGVAR(reinf_location), [0, 0, 0]];
 	if(_reinf_location isEqualTo [0, 0, 0]) exitWith {
+		#ifdef BTC_DEBUG_STEALTH
 		[["%1: %2 could not reinforce as reinf_location is invalid", __FILE_NAME__, _group], REPORT, QCOMPONENT] call EFUNC(tools,debug); 
+		#endif
 		_group setVariable[QGVAR(isReinforcement), false];
 	};
 	[_group, _group getVariable [QGVAR(investigate_threshold), 1]] call FUNC(setThreat);

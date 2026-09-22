@@ -113,7 +113,7 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
 		_landCfg = configFile >> "CfgVehicles" >> "Land";
 		_inherits = ([_classCfg, _manCfg] call CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] call CBAFUNC(inheritsFrom));
 		if(!_inherits) then {
-            [format["%1 class is not of type 'Land' or 'CAManBase'", _class], 1] call EFUNC(tools,3DENNotification);
+            [format["%1 class does not inherit from. 'Land'", _class], 1] call EFUNC(tools,3DENNotification);
 			continue;
 		};
         private _lnbNewRow = [

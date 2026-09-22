@@ -11,7 +11,9 @@ params[
 ];
 
 if(!(_body in allDeadMen)) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: attempted to dispatch non body", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     objNull
 };
 

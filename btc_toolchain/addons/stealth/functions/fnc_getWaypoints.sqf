@@ -5,7 +5,9 @@ params [
 ];
 
 if (isNull _group) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     []
 };
 if(_group isEqualType objNull) then {

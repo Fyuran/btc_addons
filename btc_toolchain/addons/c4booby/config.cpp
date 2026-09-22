@@ -147,7 +147,7 @@ class CfgSounds {
 
 class GVAR(InitPost_Base) {
 	class GVAR(InitPost) {
-		serverInit = QUOTE(_this call FUNC(objectInit));
+		serverInit = QUOTE([_this] call FUNC(objectInit));
 	};
 };
 
@@ -180,7 +180,7 @@ class Extended_InitPost_EventHandlers {
 
 class GVAR(Deleted_Base) {
 	class GVAR(Deleted) {
-		deleted = QUOTE(_this call FUNC(deleteObject));
+		deleted = QUOTE([_this] call FUNC(deleteObject));
 	};
 };
 class Extended_Deleted_EventHandlers {

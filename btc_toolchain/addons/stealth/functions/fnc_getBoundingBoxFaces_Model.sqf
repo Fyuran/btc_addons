@@ -5,7 +5,9 @@ params[
 ];
 
 if(isNull _object) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _object is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     []
 };
 

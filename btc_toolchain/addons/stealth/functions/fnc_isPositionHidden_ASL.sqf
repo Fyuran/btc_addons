@@ -5,27 +5,37 @@ params[
 ];
 
 if((_pos distance _threat) > 5000) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: distance above engine limitation of 5000m", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     true
 }; //Hardcoded max distance: 5000m.
 if((_pos isEqualType objNull) && {isNull _pos}) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _pos as an object is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     false
 };
 if(_pos isEqualType objNull) then {
     _pos = getPosASL _pos;
 };
 if(_pos isEqualTo [0, 0, 0]) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _pos is invalid", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     false
 };
 
 if((_threat isEqualType objNull) && {isNull _threat}) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _threat as an object is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     false
 };
 if((_threat isEqualType []) && {_threat isEqualTo [0, 0, 0]}) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _threat as an array is invalid", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     false
 };
 

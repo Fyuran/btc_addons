@@ -8,11 +8,15 @@ params[
 ];
 
 if(isNull _src) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _src is invalid", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     []
 };
 if(_range <= 0) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _range is zero or neg", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     []
 };
 

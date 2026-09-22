@@ -10,7 +10,9 @@ private _return = objNull;
 if(_unit getVariable ["ACE_isUnconscious", false]) exitWith {_return};
 if(!alive _unit) exitWith {_return};
 if(_range <= 0) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _range is zero or neg", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
 	_return
 };
 
@@ -18,7 +20,9 @@ if(!(_entities isEqualType [])) then {
 	_entities = [_entities];
 };
 /* if(!(_entities isEqualTypeAll objNull)) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _entities should be all of type objNull", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
 }; */
 
 private _unitPosASL = eyePos _unit;

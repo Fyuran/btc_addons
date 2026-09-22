@@ -10,7 +10,9 @@ if(!alive _unit) exitWith {
     []
 };
 if(!local _unit) exitWith {
+	#ifdef BTC_DEBUG_STEALTH
 	[["%1: unit group is not local", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
     0
 };
 
