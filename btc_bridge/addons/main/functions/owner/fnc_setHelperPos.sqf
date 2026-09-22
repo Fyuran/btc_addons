@@ -3,18 +3,20 @@
 Function: btc_bridge_fnc_setHelperPos_owner
 
 Description:
+    Updates the world position of the visual placement helper object for the next pontoon segment.
 
 Parameters:
+    _posASL: ARRAY
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_setHelperPos_owner;
+        [_posASL] call btc_bridge_fnc_setHelperPos_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

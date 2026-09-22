@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_json_fnc_toJSON
+Function: btc_toolchain_json_fnc_toJSON
 
 Description:
     Serializes input to a JSON string. Can handle
@@ -19,7 +19,7 @@ Description:
     - HASHMAP
     - Everything else will simply be stringified.
 
-    modified to support more than 2048 chars - Fyuran
+    modified to support more than 2048 chars - =BTC= Fyuran
 
 Parameters:
     _object - Object to serialize. <ARRAY, ...>
@@ -29,11 +29,11 @@ Returns:
 
 Examples:
     (begin example)
-        private _json = [createHashMap] call btc_json_fnc_toJSON;
+        private _json = [createHashMap] call btc_toolchain_json_fnc_toJSON;
     (end)
 
 Author:
-    BaerMitUmlaut CBA team
+    BaerMitUmlaut (CBA team), =BTC= Fyuran
 ---------------------------------------------------------------------------- */
 
 params [

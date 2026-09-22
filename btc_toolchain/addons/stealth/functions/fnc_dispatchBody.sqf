@@ -1,5 +1,26 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_dispatchBody
 
+Description:
+    Conceals or flags a discovered casualty body with a bodybag or hides it to prevent repeated stealth alerts.
+
+Parameters:
+    _body: OBJECT
+    _remove: BOOLEAN
+
+Returns:
+    OBJECT
+
+Examples:
+    (begin example)
+        [_deadBody, true] call btc_toolchain_stealth_fnc_dispatchBody;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 /*
 Land_Bodybag_01_black_F
 Land_Bodybag_01_blue_F

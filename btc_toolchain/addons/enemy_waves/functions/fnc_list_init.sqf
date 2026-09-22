@@ -3,14 +3,16 @@
 Function: btc_toolchain_enemy_waves_fnc_list_init
 
 Description:
+    Initializes the wave configuration lists and UI event handlers for group and unit composition.
 
 Parameters:
+    _main_grp: CONTROL
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_list_init;
+        [_mainGroupControl] call btc_toolchain_enemy_waves_fnc_list_init;
     (end)
 
 Author:

@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_FSM_cover
 
+Description:
+    Defines the Cover state in the stealth state machine where units take positions behind protective obstacles.
+
+Parameters:
+    _this: LOCATION
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        _fsm call btc_toolchain_stealth_fnc_FSM_cover;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 [
 _this, 
 {

@@ -3,19 +3,21 @@
 Function: btc_toolchain_deployable_antenna_fnc_dismantle
 
 Description:
-    Dismantles a 'Land_SatelliteAntenna_01_F' object into a 'Deployable_antenna_Item'
+    Dismantles a deployed antenna object, removing it from the world and returning the item to player inventory.
 
 Parameters:
+    _player: OBJECT
+    _object: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [cursorObject] call btc_toolchain_deployable_antenna_fnc_dismantle;
+        [player, cursorObject] call btc_toolchain_deployable_antenna_fnc_dismantle;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

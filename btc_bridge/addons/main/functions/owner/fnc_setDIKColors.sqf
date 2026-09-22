@@ -3,18 +3,20 @@
 Function: btc_bridge_fnc_setDIKColors_owner
 
 Description:
+    Updates HUD control colors and text formatting depending on whether bridge deployment animation is active.
 
 Parameters:
+    _isAnimating: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_setDIKColors_owner;
+        [false] call btc_bridge_fnc_setDIKColors_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

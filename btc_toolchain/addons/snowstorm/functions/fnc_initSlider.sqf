@@ -3,15 +3,17 @@
 Function: btc_toolchain_snowstorm_fnc_initSlider
 
 Description:
-    Initiates snowfall.
+    Initializes a slider UI control and synchronizes its value with an edit control for snowstorm module settings.
 
 Parameters:
+    _args: ARRAY/CONTROL
+    _value: NUMBER
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_initSlider;
+        [[_ctrlGroup, _cfg], 50] call btc_toolchain_snowstorm_fnc_initSlider;
     (end)
 
 Author:

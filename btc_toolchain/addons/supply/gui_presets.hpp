@@ -39,7 +39,7 @@ class GVAR(RscPresets) {
 			onButtonClick = "(ctrlParent (_this#0)) closeDisplay 2;";
 			//onButtonClick = "CloseDialog 1;";
 		};
-        class List: ctrlListBox {
+        class List: ctrlListbox {
             idc = PRESETS_LIST;
 			x = "((safezoneX + (safezoneW - ((safezoneW / safezoneH) min 1.2))/2)) +  (2.5 * pixelW * pixelGrid)";
             y = "2 * pixelH * pixelGrid";

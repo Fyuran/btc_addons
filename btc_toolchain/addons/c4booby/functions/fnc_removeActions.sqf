@@ -3,19 +3,21 @@
 Function: btc_toolchain_c4booby_fnc_removeActions
 
 Description:
-    Helper function that removes actions from a single barrel and its phone
+    Removes ACE interaction actions previously registered on the defuser object.
 
 Parameters:
-
+    _defuser: OBJECT
 
 Returns:
+    BOOLEAN
 
 Examples:
     (begin example)
+        [_defuser] call btc_toolchain_c4booby_fnc_removeActions;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

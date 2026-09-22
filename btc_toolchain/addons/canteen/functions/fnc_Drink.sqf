@@ -3,20 +3,20 @@
 Function: btc_toolchain_canteen_fnc_Drink
 
 Description:
-   Drinking unit will regain max ACE Stamina
+    Player drinks from a canteen or water bottle, restoring ACE stamina and advancing item fill state.
 
 Parameters:
-	ACE_player: OBJECT
+    _item: STRING
 
 Returns:
 
 Examples:
     (begin example)
-		["ACE_Canteen"] call btc_toolchain_canteen_fnc_Drink
+        ["ACE_Canteen"] call btc_toolchain_canteen_fnc_Drink;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

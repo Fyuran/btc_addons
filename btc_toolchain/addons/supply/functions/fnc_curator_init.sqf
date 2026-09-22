@@ -3,19 +3,18 @@
 Function: btc_toolchain_supply_fnc_curator_init
 
 Description:
-    Initializes the supply module when synced with a curator.
+    Initializes the supply module when synced with a Zeus curator.
 
 Parameters:
-    _logic[OBJECT]: Module logic object
-    _units[ARRAY]: Array of affected units
-    _activated[BOOLEAN]: True when activated, false when deactivated
+    _logic: OBJECT
+    _units: ARRAY
+    _activated: BOOLEAN
 
 Returns:
-    NOTHING
 
 Examples:
     (begin example)
-        [] call btc_toolchain_supply_fnc_curator_init;
+        [_logic, [], true] call btc_toolchain_supply_fnc_curator_init;
     (end)
 
 Author:

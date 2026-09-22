@@ -3,15 +3,16 @@
 Function: btc_toolchain_snowstorm_fnc_breath_clients
 
 Description:
-    Check when should the breath particle be spawned, also handles if it should be spawned if object is either in sight or not.
+    Spawns periodic condensed breath particle effects from visible units' mouths in cold weather.
 
 Parameters:
+    NONE
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_breath_clients;
+        [] call btc_toolchain_snowstorm_fnc_breath_clients;
     (end)
 
 Author:

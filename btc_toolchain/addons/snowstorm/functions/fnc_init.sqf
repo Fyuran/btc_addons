@@ -3,15 +3,20 @@
 Function: btc_toolchain_snowstorm_fnc_init
 
 Description:
-    Initiates snowfall.
+    Initiates snowfall simulation on the server with fog, wind, and optional duration parameters.
 
 Parameters:
+    _fogValue: NUMBER
+    _fogDecay: NUMBER
+    _fogBase: NUMBER
+    _duration: NUMBER
+    _windIntensity: ARRAY
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_init;
+        [0.5, 0, 0, 300, [20, 30, 40]] call btc_toolchain_snowstorm_fnc_init;
     (end)
 
 Author:

@@ -3,14 +3,16 @@
 Function: btc_toolchain_json_fnc_createFile
 
 Description:
-
+    Generate a file by passing [PATH:STRING, DATA:ANY] as arguments, 
+    will save whatever is in data, provided it's a json compatible format or a hashmap, to path
 Parameters:
-
+    _path: STRING
+    _data: STRING
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_json_fnc_createFile;
+        ["./armatojson/test.json", createHashMap] call btc_toolchain_json_fnc_createFile;
     (end)
 
 Author:

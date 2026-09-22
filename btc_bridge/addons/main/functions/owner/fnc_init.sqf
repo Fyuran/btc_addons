@@ -1,20 +1,22 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_bridge_fnc_init_owner
+Function: btc_bridge_fnc_init_owner
 
 Description:
+    Initializes the bridge deployment session for the vehicle operator, creates camera, and opens HUD.
 
 Parameters:
+    _vehicle: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_bridge_fnc_init_owner;
+        [_vehicle] call btc_bridge_fnc_init_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[ 

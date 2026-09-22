@@ -1,5 +1,24 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_FSM_init
 
+Description:
+    Registers all states (Patrol, Investigate, Investigate_Body, Alert, Cover, Reinforcement) and transitions into the CBA state machine.
+
+Parameters:
+    _FSM: LOCATION
+
+Returns:
+
+Examples:
+    (begin example)
+        [_groupFSM] call btc_toolchain_stealth_fnc_FSM_init;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
 	["_FSM", locationNull, [locationNull]]
 ];

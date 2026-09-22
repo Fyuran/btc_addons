@@ -3,18 +3,21 @@
 Function: btc_bridge_fnc_removeLast_client
 
 Description:
+    Removes the last deployed bridge segment from the vehicle, either animating retraction or deleting immediately.
 
 Parameters:
+    _vehicle: OBJECT
+    _animated: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_removeLast_client;
+        [_vehicle, true] call btc_bridge_fnc_removeLast_client;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

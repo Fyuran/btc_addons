@@ -1,20 +1,22 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_bridge_fnc_pictureRotate_owner
+Function: btc_bridge_fnc_setCameraPos_owner
 
 Description:
+    Moves and refocuses the bridge operator camera to target a specified position or bridge segment.
 
 Parameters:
+    _pos: ARRAY/OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_pictureRotate_owner;
+        [_segment] call btc_bridge_fnc_setCameraPos_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_getWaypoints
 
+Description:
+    Serializes all waypoints and their properties (type, speed, combatMode, formation, statements, timeout) from a group.
+
+Parameters:
+    _group: GROUP/OBJECT
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        private _savedWPs = [_group] call btc_toolchain_stealth_fnc_getWaypoints;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params [
     ["_group", grpNull, [grpNull, objNull]]
 ];

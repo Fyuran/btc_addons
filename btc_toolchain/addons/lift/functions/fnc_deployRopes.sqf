@@ -3,20 +3,20 @@
 Function: btc_toolchain_lift_fnc_deployRopes
 
 Description:
-    Deploys ropes
+    Deploys sling load ropes from helicopter and adds interaction actions for hooking cargo.
 
 Parameters:
-    _heli - [Object]
+    _heli: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_lift_fnc_deployRopes;
+        [vehicle player] spawn btc_toolchain_lift_fnc_deployRopes;
     (end)
 
 Author:
-    Giallustio, Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

@@ -3,18 +3,22 @@
 Function: btc_bridge_fnc_addNext_client
 
 Description:
+    Creates and deploys the next pontoon bridge segment from the bridge vehicle, playing deployment animation and positioning camera.
 
 Parameters:
+    _vehicle: OBJECT
+    _isEnd: BOOLEAN
 
 Returns:
+    OBJECT
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_addNext_client;
+        [_vehicle, false] call btc_bridge_fnc_addNext_client;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

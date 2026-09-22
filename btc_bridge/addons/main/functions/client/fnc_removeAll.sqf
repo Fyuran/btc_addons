@@ -1,20 +1,23 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_bridge_fnc_removeAll
+Function: btc_bridge_fnc_removeAll_client
 
 Description:
+    Removes all deployed bridge segments, optionally animating their retraction or deleting them immediately, and resets bridge state.
 
 Parameters:
+    _vehicle: OBJECT
+    _animated: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_removeAll;
+        [_vehicle, false] call btc_bridge_fnc_removeAll_client;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

@@ -1,17 +1,18 @@
 #include "script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_lift_fnc_shortcuts
+Function: btc_toolchain_lift_XEH_clientInit
 
 Description:
-    Create CBA keybinds for lift.
+    Initializes client-side liftable class definitions and registers CBA keybinds for helicopter lift operations.
 
 Parameters:
+    NONE
 
 Returns:
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_lift_fnc_shortcuts;
+        [] call btc_toolchain_lift_XEH_clientInit;
     (end)
 
 Author:

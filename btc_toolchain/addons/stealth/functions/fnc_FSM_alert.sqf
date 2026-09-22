@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_FSM_alert
 
+Description:
+    Defines the Alert state in the stealth state machine where units enter combat behavior and call in reinforcements.
+
+Parameters:
+    _this: LOCATION
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        _fsm call btc_toolchain_stealth_fnc_FSM_alert;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 [
 _this, 
 {

@@ -3,14 +3,17 @@
 Function: btc_toolchain_enemy_waves_fnc_list_save
 
 Description:
+    Serializes the current wave composition table to a string for saving or module execution.
 
 Parameters:
+    NONE
 
 Returns:
+    STRING
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_list_save;
+        private _tableStr = [] call btc_toolchain_enemy_waves_fnc_list_save;
     (end)
 
 Author:

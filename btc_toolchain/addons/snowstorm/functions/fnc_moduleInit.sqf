@@ -3,15 +3,18 @@
 Function: btc_toolchain_snowstorm_fnc_moduleInit
 
 Description:
-    Initiates snowfall, executed from a module.
+    Initializes snowstorm parameters when triggered from an Eden/Zeus module logic.
 
 Parameters:
+    _logic: OBJECT
+    _units: ARRAY
+    _activated: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_moduleInit;
+        [_logic, [], true] call btc_toolchain_snowstorm_fnc_moduleInit;
     (end)
 
 Author:

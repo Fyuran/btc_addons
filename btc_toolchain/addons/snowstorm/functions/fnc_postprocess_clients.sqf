@@ -3,15 +3,16 @@
 Function: btc_toolchain_snowstorm_fnc_postprocess_clients
 
 Description:
-    Handles color correction.
+    Applies winter post-processing color correction and atmospheric effects on client.
 
 Parameters:
+    NONE
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_postprocess_clients;
+        [] call btc_toolchain_snowstorm_fnc_postprocess_clients;
     (end)
 
 Author:

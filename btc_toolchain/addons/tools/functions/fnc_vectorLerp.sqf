@@ -3,21 +3,23 @@
 Function: btc_toolchain_tools_fnc_vectorLerp
 
 Description:
-    Handles vector interpolation v = v1 + (v2 - v1) * t
+    Performs linear interpolation between two 3D vectors by factor t (0 to 1).
 
 Parameters:
-    _vec1: From
-    _vec2: To
-    _t: time interval 0 to 1
+    _vec1: ARRAY
+    _vec2: ARRAY
+    _t: NUMBER
+
 Returns:
+    ARRAY
 
 Examples:
     (begin example)
-	[[1,0], [0,1], 0.5] call btc_toolchain_tools_fnc_vectorLerp;
+        private _mid = [[0,0,0], [10,10,10], 0.5] call btc_toolchain_tools_fnc_vectorLerp;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

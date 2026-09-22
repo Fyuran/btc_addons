@@ -3,14 +3,17 @@
 Function: btc_toolchain_enemy_waves_fnc_side_combo_save
 
 Description:
+    Returns the numeric index of the selected side from the side combo box control.
 
 Parameters:
+    _combo: CONTROL
 
 Returns:
+    NUMBER
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_side_combo_save;
+        private _sideIndex = [_sideCombo] call btc_toolchain_enemy_waves_fnc_side_combo_save;
     (end)
 
 Author:

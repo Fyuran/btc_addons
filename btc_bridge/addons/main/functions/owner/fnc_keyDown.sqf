@@ -4,18 +4,25 @@
 Function: btc_bridge_fnc_keyDown_owner
 
 Description:
+    Handles keyboard input events for bridge deployment operations (deploy, retract, height adjust, exit).
 
 Parameters:
+    _display: DISPLAY
+    _dikCode: NUMBER
+    _shift: BOOLEAN
+    _ctrl: BOOLEAN
+    _alt: BOOLEAN
 
 Returns:
+    BOOLEAN
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_keyDown_owner;
+        [_display, 57, false, false, false] call btc_bridge_fnc_keyDown_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 disableSerialization;

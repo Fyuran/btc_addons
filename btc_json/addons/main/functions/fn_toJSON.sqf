@@ -30,9 +30,7 @@ Examples:
     (end)
 
 Author:
-    modified to support more than 2048 chars - Fyuran
-    
-    BaerMitUmlaut CBA team
+    BaerMitUmlaut (CBA team), =BTC= Fyuran
 ---------------------------------------------------------------------------- */
 
 params [

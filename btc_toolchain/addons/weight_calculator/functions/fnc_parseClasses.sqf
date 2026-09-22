@@ -1,21 +1,24 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-	Function: btc_toolchain_weight_calculator_parseClasses
-	
-	Description:
-	    Retrieves list of JSON files and allow saving, deleting or copying
-	
-	Parameters:
-	
-	Returns:
-	
-	Examples:
-	    (begin example)
-	        [] call btc_toolchain_weight_calculator_parseClasses;
-	    (end)
-	
-	Author:
-	    Fyuran
+Function: btc_toolchain_weight_calculator_fnc_parseClasses
+
+Description:
+    Recursively parses inventory loadout array and extracts non-empty classnames into a target array.
+
+Parameters:
+    _loadout: ARRAY/STRING
+    _arr: ARRAY
+
+Returns:
+
+Examples:
+    (begin example)
+        private _classes = [];
+        [getUnitLoadout player, _classes] call btc_toolchain_weight_calculator_fnc_parseClasses;
+    (end)
+
+Author:
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

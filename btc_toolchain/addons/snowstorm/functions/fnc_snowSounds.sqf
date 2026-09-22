@@ -3,19 +3,20 @@
 Function: btc_toolchain_snowstorm_fnc_snowSounds
 
 Description:
-    Handles sounds on client
+    Plays ambient snowstorm sound effects on client based on wind intensity.
 
 Parameters:
-    _intensity: Based on wind strength have different options
+    _intensity: NUMBER
+
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_snowSounds;
+        [20] call btc_toolchain_snowstorm_fnc_snowSounds;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

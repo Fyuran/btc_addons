@@ -3,16 +3,21 @@
 Function: btc_toolchain_lift_fnc_getCornerPoints
 
 Description:
-    Calculates where in the object geometry reside the farthest corners
+    Calculates the four extreme bounding corner points in model space for a vehicle to attach sling ropes.
 
 Parameters:
-    _vehicle[OBJECT]: Vehicle to calculate corner points for
+    _vehicle: OBJECT
 
 Returns:
-    NOTHING
+    ARRAY
+
+Examples:
+    (begin example)
+        [cursorObject] call btc_toolchain_lift_fnc_getCornerPoints;
+    (end)
 
 Author:
-    Giallustio
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

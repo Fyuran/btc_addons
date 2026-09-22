@@ -3,20 +3,21 @@
 Function: btc_toolchain_lift_fnc_check
 
 Description:
-    Performs check if cargo can be lifted
+    Checks if valid cargo is positioned within lift radius and altitude limits below the helicopter.
 
 Parameters:
-    _chopper - [Object]
+    _chopper: OBJECT
 
 Returns:
+    BOOLEAN
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_lift_fnc_check;
+        [vehicle player] call btc_toolchain_lift_fnc_check;
     (end)
 
 Author:
-    Giallustio, Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

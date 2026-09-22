@@ -3,14 +3,17 @@
 Function: btc_toolchain_enemy_waves_fnc_formation_combo_save
 
 Description:
+    Retrieves the currently selected formation name from the formation combo box control.
 
 Parameters:
+    _combo: CONTROL
 
 Returns:
+    STRING
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_formation_combo_save;
+        private _formation = [_formationCombo] call btc_toolchain_enemy_waves_fnc_formation_combo_save;
     (end)
 
 Author:

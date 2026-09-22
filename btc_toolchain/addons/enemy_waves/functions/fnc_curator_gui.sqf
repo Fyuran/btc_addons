@@ -3,14 +3,16 @@
 Function: btc_toolchain_enemy_waves_fnc_curator_gui
 
 Description:
+    Initializes the curator GUI dialog for configuring and triggering enemy wave spawns.
 
 Parameters:
+    _display: DISPLAY
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_curator_gui;
+        [findDisplay 315] call btc_toolchain_enemy_waves_fnc_curator_gui;
     (end)
 
 Author:

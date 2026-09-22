@@ -1,4 +1,26 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_getCoverPositions_AGL
+
+Description:
+    Generates potential cover positions around an obstacle object in AGL coordinates.
+
+Parameters:
+    _object: OBJECT
+    _resolution: NUMBER
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        private _positions = [cursorObject, 0.25] call btc_toolchain_stealth_fnc_getCoverPositions_AGL;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 #define _MIN_ 0.25
 #define _MAX_ 0.75
 #define _MULTIPLIER_ 1.5

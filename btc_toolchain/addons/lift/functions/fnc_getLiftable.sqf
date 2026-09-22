@@ -3,20 +3,21 @@
 Function: btc_toolchain_lift_fnc_getLiftable
 
 Description:
-    Retrieves Liftable config classes
+    Returns an array of vehicle and object class names that can be sling loaded by the helicopter.
 
 Parameters:
-    _heli - [Object]
+    _heli: OBJECT
 
 Returns:
+    ARRAY
 
 Examples:
     (begin example)
-        _result = [] call btc_toolchain_lift_fnc_getLiftable;
+        [vehicle player] call btc_toolchain_lift_fnc_getLiftable;
     (end)
 
 Author:
-    Giallustio, Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

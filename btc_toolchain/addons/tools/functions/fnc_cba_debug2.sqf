@@ -27,7 +27,7 @@ Edit:
     Removed the timestamp
 
 Author:
-    Sickboy, commy2, Fyuran
+    Sickboy, commy2, =BTC= Fyuran
 ---------------------------------------------------------------------------- */
 
 // function to split lines into multiple lines with a maxium length

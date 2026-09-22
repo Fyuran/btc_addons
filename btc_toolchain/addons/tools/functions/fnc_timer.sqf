@@ -3,19 +3,19 @@
 Function: btc_toolchain_tools_fnc_timer
 
 Description:
-    Shows a timer that can be stopped by either timeout or a predicate
+    Displays a countdown timer UI overlay on screen that terminates upon timeout or when predicate code returns true.
 
 Parameters:
-    _duration - How long will the timer last [Number]
-    _clock - either 24 or 12 hour format. [Number]
-	_predicate - Evaluted every iteration, a true will stop the timer. [Code]
-    _guiPosSize - Position of the gui asset [Array]
+    _duration: NUMBER
+    _clock: NUMBER
+    _predicate: CODE
+    _guiPosSize: ARRAY
 
 Returns:
 
 Examples:
     (begin example)
-	[60] call btc_toolchain_tools_fnc_timer;
+        [60] call btc_toolchain_tools_fnc_timer;
     (end)
 
 Author:

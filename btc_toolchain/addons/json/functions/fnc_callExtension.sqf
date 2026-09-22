@@ -3,14 +3,17 @@
 Function: btc_toolchain_json_fnc_callExtension
 
 Description:
+    Calls the btc_ArmaToJSON extension with a formatted request HashMap and retrieves the response.
 
 Parameters:
+    _request: HASHMAP
 
 Returns:
+    HASHMAP
 
 Examples:
     (begin example)
-        [] call btc_toolchain_json_fnc_callExtension;
+        [createHashMapFromArray [["function", "retrieveList"], ["path", "."]]] call btc_toolchain_json_fnc_callExtension;
     (end)
 
 Author:

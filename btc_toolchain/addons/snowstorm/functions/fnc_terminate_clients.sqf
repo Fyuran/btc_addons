@@ -3,15 +3,16 @@
 Function: btc_toolchain_snowstorm_fnc_terminate_clients
 
 Description:
-    Stops snowfall on client side
+    Stops snowstorm particle effects, sound loops, and post-processing on the client according to bitflags.
 
 Parameters:
+    _flag: NUMBER
 
 Returns:
 
 Examples:
     (begin example)
-	[] call btc_toolchain_snowstorm_fnc_terminate_clients;
+        [14] call btc_toolchain_snowstorm_fnc_terminate_clients;
     (end)
 
 Author:

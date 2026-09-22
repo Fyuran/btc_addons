@@ -3,18 +3,20 @@
 Function: btc_bridge_fnc_eraseJIP_owner
 
 Description:
+    Clears JIP (Join In Progress) network messages registered for bridge segments and height updates.
 
 Parameters:
+    _vehicle: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_eraseJIP_owner;
+        [_vehicle] call btc_bridge_fnc_eraseJIP_owner;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[ 

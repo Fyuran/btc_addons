@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_FSM_reinf
 
+Description:
+    Defines the Reinforcement state where a neighboring group rushes to assist an alerted stealth group.
+
+Parameters:
+    _this: LOCATION
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        _fsm call btc_toolchain_stealth_fnc_FSM_reinf;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 [
 _this, 
 {

@@ -1,22 +1,23 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-	Function: btc_toolchain_weight_calculator_createDialog
-	
-	Description:
-	    Opens dialog and populates list
-	
-	Parameters:
-	
-	Returns:
-	
-	Examples:
-	    (begin example)
-	        [] call btc_toolchain_weight_calculator_createDialog;
-	    (end)
-	
-	Author:
-	    Fyuran
-	
+Function: btc_toolchain_weight_calculator_fnc_createDialog
+
+Description:
+    Opens the weight calculator dialog, parses the player's full inventory, and displays individual and total gear weights in kilograms.
+
+Parameters:
+    NONE
+
+Returns:
+
+Examples:
+    (begin example)
+        [] call btc_toolchain_weight_calculator_fnc_createDialog;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
 ---------------------------------------------------------------------------- */
 
 #define _WEAPONCFG (_cfg >> 'CfgWeapons' >> _class)

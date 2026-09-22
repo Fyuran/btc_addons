@@ -3,20 +3,20 @@
 Function: btc_toolchain_c4booby_fnc_deleteObject
 
 Description:
-    Passed object is stripped of its attached objects, timer is halted and conditions are evaluated
+    Halts countdown timer and deletes all attached objects/parts from a defused or triggered bomb.
 
 Parameters:
-    _obj : Object
+    _obj: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [this] call btc_toolchain_c4booby_fnc_deleteObject;
+        [_bombObject] call btc_toolchain_c4booby_fnc_deleteObject;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

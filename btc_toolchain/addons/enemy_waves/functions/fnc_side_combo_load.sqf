@@ -3,14 +3,17 @@
 Function: btc_toolchain_enemy_waves_fnc_side_combo_load
 
 Description:
+    Populates the side combo control with faction options (OPFOR, BLUFOR, INDEPENDENT, CIVILIAN) and sets current selection.
 
 Parameters:
+    _combo: CONTROL
+    _value: NUMBER/STRING
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_side_combo_load;
+        [_sideCombo, 0] call btc_toolchain_enemy_waves_fnc_side_combo_load;
     (end)
 
 Author:

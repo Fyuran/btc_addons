@@ -24,7 +24,7 @@ class CfgPatches {
 160: UAV Terminal
 315: 3DEN
 */
-class ctrlListBox;
+class ctrlListbox;
 class ctrlListNBox;
 class ctrlStatic;
 class ctrlButton;

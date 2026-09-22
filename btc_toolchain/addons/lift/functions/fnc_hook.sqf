@@ -3,20 +3,20 @@
 Function: btc_toolchain_lift_fnc_hook
 
 Description:
-    Hook a cargo in a diameter of 30m.
+    Attaches sling load ropes to nearby cargo vehicle and manages mass and flight physics during transport.
 
 Parameters:
-    _chopper - Chopper lifting. [Object]
+    _chopper: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [] spawn btc_toolchain_lift_fnc_hook;
+        [vehicle player] spawn btc_toolchain_lift_fnc_hook;
     (end)
 
 Author:
-    Giallustio, Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

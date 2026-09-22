@@ -3,39 +3,16 @@
 Function: btc_toolchain_enemy_waves_fnc_spawn
 
 Description:
-    Handles AI units spawn with a set or random timer
+    Spawns configured waves of enemy groups at module position according to timeout intervals and assigned formation.
 
 Parameters:
-    _logic - [Object]
-    _side - [Side]
-	_timeout - [Number]
-	_formation - [String]
-    _groups - [Array]:
-    [
-        WaveN:
-        [
-            GrpN:
-            [
-                [Class1, Quantity1], [Class2, Quantity2]
-            ]
-        ]
-    ]
+    _logic: OBJECT
+
 Returns:
 
 Examples:
     (begin example)
-    [waves_spawn, east, 120, [
-        [
-            [
-                ["O_Soldier_A_F", 3],["O_soldierU_AT_F", 2]
-            ]
-        ],
-        [
-            [
-                ["O_Soldier_A_F", 1],["O_soldierU_AT_F", 1]
-            ]
-        ]
-    ]] call btc_toolchain_enemy_waves_fnc_spawn;
+        [_logic] call btc_toolchain_enemy_waves_fnc_spawn;
     (end)
 
 Author:

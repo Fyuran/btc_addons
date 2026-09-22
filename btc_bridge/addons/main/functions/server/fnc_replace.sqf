@@ -1,20 +1,23 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_bridge_fnc_cleanUp_server
+Function: btc_bridge_fnc_replace_server
 
 Description:
+    Replaces local pontoon segments with server-synchronized static objects upon bridge completion, enabling vehicle crossing.
 
 Parameters:
+    _vehicle: OBJECT
+    _player: OBJECT
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_cleanUp_server;
+        [_vehicle, player] remoteExecCall ["btc_bridge_fnc_replace_server", 2];
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

@@ -3,13 +3,12 @@
 Function: btc_toolchain_lift_fnc_shortcuts
 
 Description:
-    Registers CBA keybinds for helicopter lift operations (deploy and cut ropes).
+    Registers CBA keybinds for helicopter lift operations (deploy ropes, cut ropes, toggle HUD, hook).
 
 Parameters:
     NONE
 
 Returns:
-    NOTHING
 
 Examples:
     (begin example)
@@ -17,7 +16,7 @@ Examples:
     (end)
 
 Author:
-    Vdauphin
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 

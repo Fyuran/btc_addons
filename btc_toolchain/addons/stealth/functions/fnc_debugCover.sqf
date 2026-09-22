@@ -1,5 +1,24 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_debugCover
 
+Description:
+    Draws 3D debug visualizations for object geometry faces, corner vertices, and line-of-sight safety to potential covers.
+
+Parameters:
+    _object: OBJECT
+
+Returns:
+
+Examples:
+    (begin example)
+        [cursorObject] call btc_toolchain_stealth_fnc_debugCover;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 //Should be used only with getBoundingBoxFaces_Model's return
 params[
     ["_object", objNull, [objNull]]

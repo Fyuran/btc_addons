@@ -3,14 +3,14 @@
 Function: btc_toolchain_json_fnc_getFile
 
 Description:
-
+    Retrieves JSON file in [PATH:STRING].
 Parameters:
-
+    _path: STRING
 Returns:
-
+    STRING
 Examples:
     (begin example)
-        [] call btc_toolchain_json_fnc_getFile;
+        ["./armatojson/test.json"] call btc_toolchain_json_fnc_getFile;
     (end)
 
 Author:

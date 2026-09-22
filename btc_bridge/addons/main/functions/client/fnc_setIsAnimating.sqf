@@ -3,18 +3,21 @@
 Function: btc_bridge_fnc_setIsAnimating_client
 
 Description:
+    Sets the animation state flag on the bridge vehicle and updates HUD/control states accordingly.
 
 Parameters:
+    _vehicle: OBJECT
+    _isAnimating: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_setIsAnimating_client;
+        [_vehicle, true] call btc_bridge_fnc_setIsAnimating_client;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

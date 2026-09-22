@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_call_reinforcements
 
+Description:
+    Plays radio animation and sound on a unit to call in nearby stealth reinforcements when an intruder or body is discovered.
+
+Parameters:
+    _unit: OBJECT
+    _flag: NUMBER
+
+Returns:
+
+Examples:
+    (begin example)
+        [leader _group, 1] spawn btc_toolchain_stealth_fnc_call_reinforcements;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 params[
     ["_unit", objNull, [objNull]],
     ["_flag", INTRUDER, [123]]

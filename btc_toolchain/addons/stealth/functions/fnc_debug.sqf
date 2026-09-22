@@ -1,4 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_debug
+
+Description:
+    Spawns a client-side 3D debug HUD drawing group states, threat levels, detection cones, and cover points in real time.
+
+Parameters:
+    NONE
+
+Returns:
+    NUMBER
+
+Examples:
+    (begin example)
+        [] call btc_toolchain_stealth_fnc_debug;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 #define _OPFOR_ 0
 #define _BLUFOR_ 1
 #define _INDEPENDENT_ 2

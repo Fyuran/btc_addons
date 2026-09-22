@@ -1,23 +1,22 @@
 #include "script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: 
-    btc_tools_fnc_scriptedTimer_clients
+Function: btc_tools_fnc_scriptedTimer_clients
 
 Description:
-    Handles timer events
+    Registers client-side event handlers and animations for the scripted timer UI overlay.
 
 Parameters:
+    NONE
 
 Returns:
-    None
 
 Examples:
     (begin example)
-        [60] call btc_tools_fnc_scriptedTimer_clients;
+        [] call btc_tools_fnc_scriptedTimer_clients;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 disableSerialization;

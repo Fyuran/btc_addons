@@ -26,7 +26,7 @@ class GVAR(ctrlGrp): ctrlControlsGroupNoScrollbars {
 			w = "20 * (pixelW * pixelGrid * 0.50)";
 			h = "5 * (pixelH * pixelGrid * 0.50)";
 		};
-		class List: ctrlListBox {
+		class List: ctrlListbox {
 			y = "15 * (pixelH * pixelGrid * 0.50)";
 			w = "40 * (pixelW * pixelGrid * 0.50)";
 			h = "40 * (pixelH * pixelGrid * 0.50)";

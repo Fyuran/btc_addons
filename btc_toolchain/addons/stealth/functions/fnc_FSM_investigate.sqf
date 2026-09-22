@@ -1,5 +1,25 @@
 #include "..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_stealth_fnc_FSM_investigate
 
+Description:
+    Defines the Investigate state in the stealth state machine where units search around the last known enemy position.
+
+Parameters:
+    _this: LOCATION
+
+Returns:
+    ARRAY
+
+Examples:
+    (begin example)
+        _fsm call btc_toolchain_stealth_fnc_FSM_investigate;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
 [
 _this,
 {

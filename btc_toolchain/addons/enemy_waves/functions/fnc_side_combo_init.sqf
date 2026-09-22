@@ -3,14 +3,16 @@
 Function: btc_toolchain_enemy_waves_fnc_side_combo_init
 
 Description:
+    Initializes the side selection combo control in UI namespace with default side.
 
 Parameters:
+    _combo: CONTROL
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_side_combo_init;
+        [_sideCombo] call btc_toolchain_enemy_waves_fnc_side_combo_init;
     (end)
 
 Author:

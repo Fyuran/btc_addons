@@ -1,20 +1,23 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_bridge_fnc_setHeight_owner
+Function: btc_bridge_fnc_setHeight_client
 
 Description:
+    Adjusts the vertical height of all deployed bridge segments up or down by a step with smooth interpolation.
 
 Parameters:
+    _vehicle: OBJECT
+    _isUp: BOOLEAN
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_bridge_fnc_setHeight_owner;
+        [_vehicle, true] spawn btc_bridge_fnc_setHeight_client;
     (end)
 
 Author:
-    Fyuran
+    =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
 params[

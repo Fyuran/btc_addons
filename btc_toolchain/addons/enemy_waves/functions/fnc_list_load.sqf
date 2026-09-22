@@ -3,14 +3,17 @@
 Function: btc_toolchain_enemy_waves_fnc_list_load
 
 Description:
+    Loads wave composition data into the dialog controls and populates group list entries.
 
 Parameters:
+    _main_grp: CONTROL
+    _value: ARRAY/STRING
 
 Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_enemy_waves_fnc_list_load;
+        [_mainGroupControl, _savedData] call btc_toolchain_enemy_waves_fnc_list_load;
     (end)
 
 Author:

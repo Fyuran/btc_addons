@@ -3,16 +3,17 @@
 Function: btc_toolchain_tools_fnc_uid
 
 Description:
-    Generates a random UID
+    Generates a unique random alphanumeric identifier string based on tickTime and random characters.
 
 Parameters:
-    _seed: a random seed to be used for the UID
+    _seed: NUMBER
 
 Returns:
+    STRING
 
 Examples:
     (begin example)
-	[] call btc_toolchain_tools_fnc_uid;
+        private _uid = [12345] call btc_toolchain_tools_fnc_uid;
     (end)
 
 Author:
