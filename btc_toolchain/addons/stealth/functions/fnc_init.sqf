@@ -39,38 +39,35 @@ if(!(_logic isKindOf "Module_F")) exitWith {
 	#endif
 };
 
-private _units = synchronizedObjects _logic;
+private _synchedObjs = synchronizedObjects _logic;
 
-if(_units isEqualTo []) exitWith {
+if(_synchedObjs isEqualTo []) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
-	[["%1: No linked units found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	[["%1: No linked objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 //Check if Synched objects are correct, only 'CAManBase' should be used, 
-//if multiple units of the same group are synched just filter to unique groups
-if(!(_units isEqualTypeAll objNull)) exitWith {
+//if multiple objects of the same group are synched just filter to unique groups
+if(!(_synchedObjs isEqualTypeAll objNull)) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: Linked types aren't of type objNull", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
-};
-private _filter = _units apply {typeOf _x};
-private _hasWrongClasses = (_filter findIf {!(_x isKindOf "CAManBase")}) isNotEqualTo -1;
-if(_hasWrongClasses) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
-	[["%1: Linked objects do not inherit from 'CAManBase", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 
 //Perform unique filter
 private _groups = [];
-_units apply {
-	_groups pushBackUnique (group _x);
+_synchedObjs apply {
+    private _group = group _x;
+    if (!isNull _group) then {
+	    _groups pushBackUnique _group;
+    };
 };
 if(_groups isEqualTo []) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: No groups were found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
+_logic setVariable [QGVAR(groups), _groups];
 
 //used to restrict communications
 GVAR(radioInProgress) = false;

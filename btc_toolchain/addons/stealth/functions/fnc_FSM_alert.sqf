@@ -64,6 +64,7 @@ _this,
 	};
 	_group setBehaviourStrong "COMBAT";
 	_group setCombatMode "RED";
+	_group setSpeedMode "FULL";
 
 	private _lastKnownPos = _group getVariable[QGVAR(lastKnownPos), [0, 0, 0]];
 	if (_lastKnownPos isNotEqualTo [0, 0, 0]) then {

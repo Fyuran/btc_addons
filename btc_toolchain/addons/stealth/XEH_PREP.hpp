@@ -26,6 +26,7 @@ PREP(getCoverPositions_AGL);
 PREP(getFaceMidpoint_Model);
 PREP(getWaypoints);
 PREP(isPositionHidden_ASL);
+PREP(manualTransition);
 PREP(nearestSortedObjects);
 PREP(setLastKnownPosition);
 PREP(setThreat);

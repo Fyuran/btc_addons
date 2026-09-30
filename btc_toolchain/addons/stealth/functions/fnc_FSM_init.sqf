@@ -24,6 +24,7 @@ params[
 ];
 if(isNull _FSM) exitWith {};
 
+GVAR(allowed_states) = ["Patrol", "Investigate", "Investigate_Body", "Cover", "Reinforcement", "Alert"];
 private _patrol = (_FSM call FUNC(FSM_patrol)) call CBA_statemachine_fnc_addState;
 private _investigate = (_FSM call FUNC(FSM_investigate)) call CBA_statemachine_fnc_addState;
 private _investigate_body = (_FSM call FUNC(FSM_investigate_body)) call CBA_statemachine_fnc_addState;
