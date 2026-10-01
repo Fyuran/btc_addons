@@ -62,28 +62,28 @@ if(isNull _display) exitWith {
     private _footerOK = _footerGrp controlsGroupCtrl FOOTER_OK;
     _footerOK ctrlAddEventHandler["ButtonClick", {
         params ["_footerOK"];
-        _display = uiNamespace getVariable[QGVAR(display), displayNull];
+        private _display = uiNamespace getVariable[QGVAR(display), displayNull];
         if(isNull _display) exitWith {};
 
-        _logic = missionNamespace getVariable[QGVAR(logic), objNull];
+        private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
         if(isNull _logic) exitWith {
             #ifdef BTC_DEBUG_SUPPLY
             [["%1: _logic of _footerOK onButtonClick is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
             #endif
         };
 
-        _comboGrp = _display displayCtrl CLASS;
-        _combo = _comboGrp controlsGroupCtrl COMBO;
-        _comboCurSel = lbCurSel _combo;
+        private _comboGrp = _display displayCtrl CLASS;
+        private _combo = _comboGrp controlsGroupCtrl COMBO;
+        private _comboCurSel = lbCurSel _combo;
         if(_comboCurSel < 0) exitWith {
             [["No vehicle class selected"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         };
-        _vehicleClass = _combo lbData _comboCurSel;
+        private _vehicleClass = _combo lbData _comboCurSel;
 
-        _checkboxGrp = _display displayCtrl ALLOW_DAMAGE;
-        _checkbox = _checkboxGrp controlsGroupCtrl CHECKBOX;
+        private _checkboxGrp = _display displayCtrl ALLOW_DAMAGE;
+        private _checkbox = _checkboxGrp controlsGroupCtrl CHECKBOX;
 
-        _clientID = [0, 2] select isMultiplayer;
+        private _clientID = [0, 2] select isMultiplayer;
         _logic setVariable[QGVAR(vehicleClass), _vehicleClass, _clientID];
         _logic setVariable[QGVAR(list_value), toJSON GVAR(table), _clientID];
         _logic setVariable[QGVAR(enableDamage), cbChecked _checkbox, _clientID];
@@ -95,8 +95,8 @@ if(isNull _display) exitWith {
     private _footerAbort = _footerGrp controlsGroupCtrl FOOTER_ABORT;
     _footerAbort ctrlAddEventHandler["ButtonClick", {
         params ["_footerAbort"];
-        _display = uiNamespace getVariable[QGVAR(display), displayNull];
-        _logic = missionNamespace getVariable[QGVAR(logic), objNull];
+        private _display = uiNamespace getVariable[QGVAR(display), displayNull];
+        private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
         deleteVehicle _logic;
 
         _display closeDisplay 2;

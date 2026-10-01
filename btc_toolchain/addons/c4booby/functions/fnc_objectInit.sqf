@@ -86,8 +86,8 @@ if (_deco_pos isEqualTo []) exitWith {
 
 private _exp_pos = _deco_pos select 0;
 for "_i" from 0 to (count _exp_pos - 1) do {
-	_exp = createSimpleObject ["DemoCharge_F",[0,0,0]];
-	_attachPoint = _exp_pos select _i;
+	private _exp = createSimpleObject ["DemoCharge_F",[0,0,0]];
+	private _attachPoint = _exp_pos select _i;
 	_exp attachTo [_obj,_attachPoint];
 	_exp setVectorDirAndUp [[random[-1,0,1], random[-1,0,1], 0],[0, 0, 1]];
 };

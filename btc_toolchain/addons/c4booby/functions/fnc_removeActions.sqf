@@ -27,7 +27,7 @@ if(!params[
     [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-_actionIDS = _defuser getVariable [QGVAR(actionids),[]];
+private _actionIDS = _defuser getVariable [QGVAR(actionids),[]];
 if(_actionIDS isEqualTo []) exitWith {
     [["%1: bad action ids: %2", __FILE_NAME__, _actionIDS], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };

@@ -31,7 +31,7 @@ if(!params[
 {
 	_args params ["_item"];
 	ACE_player removeItem _item;
-	_new_item = call {
+	private _new_item = call {
 		if(_item in ["ACE_WaterBottle_Half", "ACE_WaterBottle_Nearly_Empty", "ACE_WaterBottle_Empty"]) exitWith {"ACE_WaterBottle"};
 		if(_item in ["ACE_Canteen_Half", "ACE_Canteen_Nearly_Full", "ACE_Canteen_Nearly_Empty", "ACE_Canteen_Empty"]) exitWith {"ACE_Canteen"};
 		""

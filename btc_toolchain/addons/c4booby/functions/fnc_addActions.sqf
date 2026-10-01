@@ -51,7 +51,7 @@ private _action_ids = [];
 //Examine action that will add colors actions upon examination
 private _action = [QGVAR(examine), "Examine", "",
 {
-	_delay = [10, 1] select ("ACE_DefusalKit" in ((vestItems player) + (uniformItems player) + (backpackItems player)));
+	private _delay = [10, 1] select ("ACE_DefusalKit" in ((vestItems player) + (uniformItems player) + (backpackItems player)));
 	[_delay, _this,
 	{
 		_args params ["_target","_caller","_params"];

@@ -31,7 +31,7 @@ private _fnc_removeEh = {
 	];
 
 	if(!alive _unit) exitWith {};
-	_EHs = _unit getVariable[QGVAR(client_EHs), []];
+	private _EHs = _unit getVariable[QGVAR(client_EHs), []];
 
 	_EHs params [
 		["_suppressedEH", -1, [123]],
@@ -53,7 +53,7 @@ private _fnc_removeEh = {
 		private _suppressedEH = _unit addEventHandler ["Suppressed", { 
 			params ["_unit", "_distance", "_shooter", "_instigator", "_ammoObject", "_ammoClassName", "_ammoConfig"];
 			[getPos _ammoObject] spawn {
-				_time = CBA_missionTime + 5;
+				private _time = CBA_missionTime + 5;
 				waitUntil {
 					drawIcon3D ["", [1,0,0,1], _this#0, pixelW * pixelGrid * 1, pixelH * pixelGrid * 1, 0, "SUPPRESSED"];
 					CBA_missionTime > _time;
@@ -63,7 +63,7 @@ private _fnc_removeEh = {
 		private _killedEH = _unit addEventHandler ["Killed", {
 			params ["_unit", "_killer", "_instigator", "_useEffects"];
 			[_unit] spawn {
-				_time = CBA_missionTime + 5;
+				private _time = CBA_missionTime + 5;
 				waitUntil {
 					drawIcon3D ["", [1,0,0,1], (_this#0) modelToWorldVisual [0,0,0.5], pixelW * pixelGrid * 1, pixelH * pixelGrid * 1, 0, "KILLED"];
 					CBA_missionTime > _time;
@@ -75,7 +75,7 @@ private _fnc_removeEh = {
 		private _hitEH = _unit addEventHandler ["Hit", {
 			params ["_unit", "_source", "_damage", "_instigator"];
 			[_unit] spawn {
-				_time = CBA_missionTime + 5;
+				private _time = CBA_missionTime + 5;
 				waitUntil {
 					drawIcon3D ["", [1,0,0,1], (_this#0) modelToWorldVisual [0,0,0.5], pixelW * pixelGrid * 1, pixelH * pixelGrid * 1, 0, "HIT"];
 					CBA_missionTime > _time;
@@ -86,7 +86,7 @@ private _fnc_removeEh = {
 		private _fireEH = _unit addEventHandler ["FiredMan", {
 			params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_vehicle"];
 			[_unit, random[0.5, 1, 1.7], random[0,0.5,1]] spawn {
-				_time = CBA_missionTime + 1;
+				private _time = CBA_missionTime + 1;
 				waitUntil {
 					drawIcon3D ["", [_this#2, 0, 0, 1], (_this#0) modelToWorldVisual [0, 0, _this#1], pixelW * pixelGrid * 1, pixelH * pixelGrid * 1, 0, "FIRED"];
 					CBA_missionTime > _time;

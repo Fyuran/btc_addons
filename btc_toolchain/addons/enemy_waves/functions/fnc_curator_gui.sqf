@@ -41,20 +41,20 @@ if(isNull _display) exitWith {
 
     uiNamespace setVariable[QGVAR(display), _display];
 
-	_sideComboGrp = _display displayCtrl SIDE_GROUP;
-    _side_combo = _sideComboGrp controlsGroupCtrl SIDE_COMBO;
+	private _sideComboGrp = _display displayCtrl SIDE_GROUP;
+    private _side_combo = _sideComboGrp controlsGroupCtrl SIDE_COMBO;
 	[_side_combo] call FUNC(side_combo_init);
 
-	_timeoutGrp = _display displayCtrl TIMEOUT_GROUP;
-	_timeout = _timeoutGrp controlsGroupCtrl TIMEOUT_EDIT;
+	private _timeoutGrp = _display displayCtrl TIMEOUT_GROUP;
+	private _timeout = _timeoutGrp controlsGroupCtrl TIMEOUT_EDIT;
 	[_timeout] call FUNC(timeout_init);
 
-	_formationGrp = _display displayCtrl FORMATION_GROUP;
-    _formation_combo = _formationGrp controlsGroupCtrl FORMATION_COMBO;
+	private _formationGrp = _display displayCtrl FORMATION_GROUP;
+    private _formation_combo = _formationGrp controlsGroupCtrl FORMATION_COMBO;
 	[_formation_combo] call FUNC(formation_combo_init);
 
 
-    _list_grp = _display displayCtrl MAIN_GROUP;
+    private _list_grp = _display displayCtrl MAIN_GROUP;
 	[_list_grp] call FUNC(list_init);
 
     if(isNull _formation_combo || isNull _side_combo || isNull _timeout || isNull _list_grp) exitWith {
@@ -65,10 +65,10 @@ if(isNull _display) exitWith {
     private _footerOK = _footerGrp controlsGroupCtrl FOOTER_OK;
     _footerOK ctrlAddEventHandler["ButtonClick", {
         params ["_footerOK"];
-        _display = uiNamespace getVariable[QGVAR(display), displayNull];
+        private _display = uiNamespace getVariable[QGVAR(display), displayNull];
         if(isNull _display) exitWith {};
 
-        _logic = missionNamespace getVariable[QGVAR(logic), objNull];
+        private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
         if(isNull _logic) exitWith {
             #ifdef BTC_DEBUG_ENEMY_WAVES
             [["%1: _logic of _footerOK onButtonClick is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -79,18 +79,18 @@ if(isNull _display) exitWith {
             ["Class table is empty", 1] call EFUNC(tools,3DENNotification);
 		};
 
-		_sideComboGrp = _display displayCtrl SIDE_GROUP;
-		_side_combo = _sideComboGrp controlsGroupCtrl SIDE_COMBO;
+		private _sideComboGrp = _display displayCtrl SIDE_GROUP;
+		private _side_combo = _sideComboGrp controlsGroupCtrl SIDE_COMBO;
 
-		_timeoutGrp = _display displayCtrl TIMEOUT_GROUP;
-		_timeout = _timeoutGrp controlsGroupCtrl TIMEOUT_EDIT;
+		private _timeoutGrp = _display displayCtrl TIMEOUT_GROUP;
+		private _timeout = _timeoutGrp controlsGroupCtrl TIMEOUT_EDIT;
 
-		_formationGrp = _display displayCtrl FORMATION_GROUP;
-		_formation_combo = _formationGrp controlsGroupCtrl FORMATION_COMBO;
+		private _formationGrp = _display displayCtrl FORMATION_GROUP;
+		private _formation_combo = _formationGrp controlsGroupCtrl FORMATION_COMBO;
 
-		_list_grp = _display displayCtrl MAIN_GROUP;
+		private _list_grp = _display displayCtrl MAIN_GROUP;
 
-        _clientID = [0, 2] select isMultiplayer;
+        private _clientID = [0, 2] select isMultiplayer;
         _logic setVariable[QGVAR(side), _side_combo lbValue (lbCurSel _side_combo), _clientID];
         _logic setVariable[QGVAR(timeout), parseNumber (ctrlText _timeout), _clientID];
         _logic setVariable[QGVAR(formation), _formation_combo lbText (lbCurSel _formation_combo), _clientID];
@@ -103,8 +103,8 @@ if(isNull _display) exitWith {
     private _footerAbort = _footerGrp controlsGroupCtrl FOOTER_ABORT;
     _footerAbort ctrlAddEventHandler["ButtonClick", {
         params ["_footerAbort"];
-        _display = uiNamespace getVariable[QGVAR(display), displayNull];
-        _logic = missionNamespace getVariable[QGVAR(logic), objNull];
+        private _display = uiNamespace getVariable[QGVAR(display), displayNull];
+        private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
         deleteVehicle _logic;
 
         _display closeDisplay 2;

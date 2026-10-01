@@ -36,17 +36,17 @@ private _start_time = CBA_missionTime;
 private _handle = [{
     (_this#0) params["_start_time","_end_time","_max_colors","_obj"];
     _end_time = _obj getVariable [QGVAR(endtime), _end_time]; //in case _end_time is changed
-    _elapsed_time = CBA_missionTime - _start_time;
-    _countdown = _end_time - _elapsed_time;
+    private _elapsed_time = CBA_missionTime - _start_time;
+    private _countdown = _end_time - _elapsed_time;
     if(_countdown <= 0) exitWith {
 		[_this#1] call CBAFUNC(removePerFrameHandler);
-		_inputed_colors = _obj getVariable [QGVAR(input_wire_colors),[]];
-		_missing_colors = _max_colors - (count _inputed_colors);
+		private _inputed_colors = _obj getVariable [QGVAR(input_wire_colors),[]];
+		private _missing_colors = _max_colors - (count _inputed_colors);
 		for "_i" from 1 to _missing_colors do {_inputed_colors pushBack ""};
 		_obj setVariable [QGVAR(input_wire_colors), _inputed_colors];
 	};
-    _sound_interval = _obj getVariable [QGVAR(sound_interval), 2];
-    _sound = _obj getVariable [QGVAR(sound), QGVAR(timerClick)];
+    private _sound_interval = _obj getVariable [QGVAR(sound_interval), 2];
+    private _sound = _obj getVariable [QGVAR(sound), QGVAR(timerClick)];
     private _targets = _obj nearEntities ["CAManBase", 50];
     if(_sound_interval > 0) then { //clusterfuck of if statements to get 3 intervals of different sounds
         if(round(_countdown) % _sound_interval == 0) then {

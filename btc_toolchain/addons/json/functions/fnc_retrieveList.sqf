@@ -24,7 +24,7 @@ if(_path isEqualTo "") exitWith {
     [["%1: path property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-_request = createHashMapFromArray[
+private _request = createHashMapFromArray[
 	["function", "retrieveList"],
 	["path", _path]
 ];

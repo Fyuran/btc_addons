@@ -48,26 +48,26 @@ private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 _grp1_add ctrlAddEventHandler ["ButtonClick", {
     params ["_add"];
 
-    _grp1 = ctrlParentControlsGroup _add;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
-    _edit = _grp1 controlsGroupCtrl EDIT_1;
+    private _grp1 = ctrlParentControlsGroup _add;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _edit = _grp1 controlsGroupCtrl EDIT_1;
     
-    _class = trim(ctrlText _edit);
-    _cfg = configFile >> "CfgVehicles" >> _class;
+    private _class = trim(ctrlText _edit);
+    private _cfg = configFile >> "CfgVehicles" >> _class;
     if(!isClass _cfg) exitWith {
         [format["%1 invalid ammo box or vehicle class", _class], 1] call EFUNC(tools,3DENNotification);
     };
 
-    _row = _grp1_list lbAdd (getText (_cfg >> "displayName"));
+    private _row = _grp1_list lbAdd (getText (_cfg >> "displayName"));
     lbSort _grp1_list;
     _grp1_list lbSetCurSel _row;
     //_grp1_list lbSetPicture [_row, getText (_cfg >> "icon")];
 
-    _uid = format["%1-%2", _class, ([] call EFUNC(tools,uid))];
+    private _uid = format["%1-%2", _class, ([] call EFUNC(tools,uid))];
     _grp1_list lbSetData [_row, _uid];
 
     //table inits
-    _inner = GVAR(table) getOrDefault [_uid, createHashMap, true];
+    private _inner = GVAR(table) getOrDefault [_uid, createHashMap, true];
     _inner set ["class", _class];
     _inner set ["inventory", createHashMap];
 
@@ -82,15 +82,15 @@ _grp1_add ctrlAddEventHandler ["ButtonClick", {
 _grp1_remove ctrlAddEventHandler ["ButtonClick", {
     params ["_remove"];
 
-    _grp1 = ctrlParentControlsGroup _remove;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp1 = ctrlParentControlsGroup _remove;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
-    _lbCurSel = lbCurSel _grp1_list;
+    private _lbCurSel = lbCurSel _grp1_list;
     if(_lbCurSel < 0) exitWith {
         ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
 
-    _uid = _grp1_list lbData (lbCurSel _grp1_list);
+    private _uid = _grp1_list lbData (lbCurSel _grp1_list);
     GVAR(table) deleteAt _uid;
 
     _grp1_list lbDelete _lbCurSel;
@@ -107,18 +107,18 @@ _grp1_remove ctrlAddEventHandler ["ButtonClick", {
 _grp1_list ctrlAddEventHandler ["LBSelChanged", {
     params ["_grp1_list", "_lbCurSel"];
 
-    _grp1 = ctrlParentControlsGroup _grp1_list;
-    _main = ctrlParentControlsGroup _grp1;
-    _grp2 = _main controlsGroupCtrl GROUP_2;
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _grp1 = ctrlParentControlsGroup _grp1_list;
+    private _main = ctrlParentControlsGroup _grp1;
+    private _grp2 = _main controlsGroupCtrl GROUP_2;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
 
     if(_lbCurSel < 0) exitWith {
         lnbClear _grp2_list;
     };
 
     //retrieve LIST_1 lbCurSel's data from the HashMap
-    _uid = _grp1_list lbData _lbCurSel;
-    _inventory = (GVAR(table) get _uid) get "inventory";
+    private _uid = _grp1_list lbData _lbCurSel;
+    private _inventory = (GVAR(table) get _uid) get "inventory";
 
     lnbClear _grp2_list;
 	if(_inventory isEqualTo createHashMap) exitWith {
@@ -193,8 +193,8 @@ if(isServer) then {
         params ["_grp1_list", "_key", "_shift", "_ctrl", "_alt"];
         if(_key isEqualTo 0x2E && {_ctrl}) then {
             //retrieve LIST_1 lbCurSel's data from the HashMap
-            _uid = _grp1_list lbData (lbCurSel _grp1_list);
-			_class = (GVAR(table) get _uid) get "class";
+            private _uid = _grp1_list lbData (lbCurSel _grp1_list);
+			private _class = (GVAR(table) get _uid) get "class";
 			if(_class isEqualTo "") exitWith {
 				["Could not copy to clipboard selected class"] call EFUNC(tools,3DENNotification);
 			};
@@ -223,20 +223,20 @@ private _grp2_list2_buttonRight = _grp2 controlsGroupCtrl ARROWRIGHT;
 _grp2_add ctrlAddEventHandler ["ButtonClick", {
     params ["_add"];
 
-    _grp2 = ctrlParentControlsGroup _add;
-    _edit = _grp2 controlsGroupCtrl EDIT_2;
-    _main = ctrlParentControlsGroup _grp2;
-    _grp1 = _main controlsGroupCtrl GROUP_1;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp2 = ctrlParentControlsGroup _add;
+    private _edit = _grp2 controlsGroupCtrl EDIT_2;
+    private _main = ctrlParentControlsGroup _grp2;
+    private _grp1 = _main controlsGroupCtrl GROUP_1;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
     if((lbCurSel _grp1_list) < 0) exitWith {
         ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
 
-    _class = trim(ctrlText _edit);
+    private _class = trim(ctrlText _edit);
     //Update HashMap
-    _uid = _grp1_list lbData (lbCurSel _grp1_list);
-	_inventory = (GVAR(table) get _uid) get "inventory";
+    private _uid = _grp1_list lbData (lbCurSel _grp1_list);
+	private _inventory = (GVAR(table) get _uid) get "inventory";
 
     if(_class in _inventory) exitWith {
         [format["%1 already exists inside this object's inventory", _class], 1] call EFUNC(tools,3DENNotification);
@@ -277,7 +277,7 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
     _inventory set [_class, 1];
 
     //Add new entry
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
     private _row = _grp2_list lnbAddRow [_displayName, str _amount];
     _grp2_list lnbSort [0, true];
     _grp2_list lnbSetData [[_row, 0], _class];
@@ -295,13 +295,13 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
 _grp2_remove ctrlAddEventHandler ["ButtonClick", {
     params ["_remove"];
 
-    _grp2 = ctrlParentControlsGroup _remove;
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
-    _main = ctrlParentControlsGroup _grp2;
-    _grp1 = _main controlsGroupCtrl GROUP_1;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp2 = ctrlParentControlsGroup _remove;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _main = ctrlParentControlsGroup _grp2;
+    private _grp1 = _main controlsGroupCtrl GROUP_1;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
-    _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
+    private _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
     if((lbCurSel _grp1_list) < 0) exitWith {
         ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
@@ -310,14 +310,14 @@ _grp2_remove ctrlAddEventHandler ["ButtonClick", {
     };
 
     //Update HashMap
-    _uid = _grp1_list lbData (lbCurSel _grp1_list);
-	_inventory = (GVAR(table) get _uid) get "inventory";
+    private _uid = _grp1_list lbData (lbCurSel _grp1_list);
+	private _inventory = (GVAR(table) get _uid) get "inventory";
 	if(_inventory isEqualTo createHashMap) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 REMOVE _inventory is empty", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
-    _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
+    private _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
     _inventory deleteAt _class;
 
     _grp2_list lnbDeleteRow _grp2_list_lnbCurSelRow;
@@ -337,7 +337,7 @@ if(isServer) then {
         params ["_grp2_list", "_key", "_shift", "_ctrl", "_alt"];
         if(_key isEqualTo 0x2E && {_ctrl}) then {
             //retrieve LIST_1 lbCurSel's data from the HashMap
-            _class = _grp2_list lnbData[(lnbCurSelRow _grp2_list), 0];
+            private _class = _grp2_list lnbData[(lnbCurSelRow _grp2_list), 0];
             [format["%1 class saved into clipboard", _class]] call EFUNC(tools,3DENNotification);
             copyToClipboard _class;
             false
@@ -360,13 +360,13 @@ if(isServer) then {
 _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
     params ["_btn"];
 
-    _grp2 = ctrlParentControlsGroup _btn;
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
-    _main = ctrlParentControlsGroup _grp2;
-    _grp1 = _main controlsGroupCtrl GROUP_1;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp2 = ctrlParentControlsGroup _btn;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _main = ctrlParentControlsGroup _grp2;
+    private _grp1 = _main controlsGroupCtrl GROUP_1;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
-    _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
+    private _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
     if((lbCurSel _grp1_list) < 0) exitWith {
         ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
@@ -376,15 +376,15 @@ _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
 
 
     //Update HashMap
-    _uid = _grp1_list lbData (lbCurSel _grp1_list);
-	_inventory = (GVAR(table) get _uid) get "inventory";
+    private _uid = _grp1_list lbData (lbCurSel _grp1_list);
+	private _inventory = (GVAR(table) get _uid) get "inventory";
 	if(_inventory isEqualTo createHashMap) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 buttonLeft _inventory is empty", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
-    _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
-    _amount = _inventory get _class;
+    private _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
+    private _amount = _inventory get _class;
     _inventory set [_class, (_amount - 1) max 1];
 
     //Update UI
@@ -396,13 +396,13 @@ _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
 _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
     params ["_btn"];
 
-    _grp2 = ctrlParentControlsGroup _btn;
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
-    _main = ctrlParentControlsGroup _grp2;
-    _grp1 = _main controlsGroupCtrl GROUP_1;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp2 = ctrlParentControlsGroup _btn;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _main = ctrlParentControlsGroup _grp2;
+    private _grp1 = _main controlsGroupCtrl GROUP_1;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
-    _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
+    private _grp2_list_lnbCurSelRow = lnbCurSelRow _grp2_list;
     if((lbCurSel _grp1_list) < 0) exitWith {
         ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
@@ -412,15 +412,15 @@ _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
 
 
     //Update HashMap
-    _uid = _grp1_list lbData (lbCurSel _grp1_list);
-	_inventory = (GVAR(table) get _uid) get "inventory";
+    private _uid = _grp1_list lbData (lbCurSel _grp1_list);
+	private _inventory = (GVAR(table) get _uid) get "inventory";
 	if(_inventory isEqualTo createHashMap) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 ButtonRight _inventory is empty", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
-    _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
-    _amount = _inventory get _class;
+    private _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
+    private _amount = _inventory get _class;
     _inventory set [_class, _amount + 1];
 
     //Update UI

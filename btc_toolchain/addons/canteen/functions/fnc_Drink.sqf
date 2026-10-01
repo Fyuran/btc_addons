@@ -47,7 +47,7 @@ private _consumeAnim = getArray (_config) param [_stanceIndex, "", [""]];
 	ACEGVAR(advanced_fatigue,anreserve) = 2300; //GVAR of ace_advanced_fatigue
 	[format["You took a sip of %1.", getText(configFile >> "CfgWeapons" >> _item >> "DisplayName")], 2.5, ACE_player] call ACEFUNC(common,displayTextStructured);
 	ACE_player removeItem _item;
-	_new_item = call {
+	private _new_item = call {
 		if(_item isEqualTo "ACE_WaterBottle") exitWith {"ACE_WaterBottle_Half"};
 		if(_item isEqualTo "ACE_WaterBottle_Half") exitWith {"ACE_WaterBottle_Empty"};
 		

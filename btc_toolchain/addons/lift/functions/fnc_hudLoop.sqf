@@ -48,9 +48,9 @@ _cargo_array params [["_cargo", objNull]];
 private _can_lift = _array findIf {_cargo isKindOf _x} != -1;
 
 if (!isNull _cargo) then {
-    _cargo_pos = getPosATL _cargo;
+    private _cargo_pos = getPosATL _cargo;
     (_chopper worldToModel _cargo_pos) params ["_cargo_x", "_cargo_y"];
-    _cargo_z = ((getPosATL _chopper) select 2) - (_cargo_pos select 2);
+    private _cargo_z = ((getPosATL _chopper) select 2) - (_cargo_pos select 2);
     _crosshair ctrlShow true;
     private _hud_x = _cargo_x / 100;
     private _hud_y = - _cargo_y / 100;

@@ -46,15 +46,15 @@ private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 _grp1_add ctrlAddEventHandler ["ButtonClick", {
     params ["_add"];
 
-    _grp1 = ctrlParentControlsGroup _add;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp1 = ctrlParentControlsGroup _add;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 	
 
     //row inits
-	_groupsCount = count GVAR(table); //new item
+	private _groupsCount = count GVAR(table); //new item
     GVAR(table) pushBack [];
 
-    _row = _grp1_list lbAdd (format["Group %1", _groupsCount + 1]);
+    private _row = _grp1_list lbAdd (format["Group %1", _groupsCount + 1]);
     _grp1_list lbSetCurSel _row;
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
@@ -68,10 +68,10 @@ _grp1_add ctrlAddEventHandler ["ButtonClick", {
 _grp1_remove ctrlAddEventHandler ["ButtonClick", {
     params ["_remove"];
 
-    _grp1 = ctrlParentControlsGroup _remove;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp1 = ctrlParentControlsGroup _remove;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
-    _groupIndex = lbCurSel _grp1_list;
+    private _groupIndex = lbCurSel _grp1_list;
     if(_groupIndex < 0) exitWith {
         ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
@@ -91,14 +91,14 @@ _grp1_remove ctrlAddEventHandler ["ButtonClick", {
 _grp1_list ctrlAddEventHandler ["LBSelChanged", {
     params ["_grp1_list", "_groupIndex"];
 
-    _grp1 = ctrlParentControlsGroup _grp1_list;
-    _main = ctrlParentControlsGroup _grp1;
-    _grp2 = _main controlsGroupCtrl GROUP_2;
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _grp1 = ctrlParentControlsGroup _grp1_list;
+    private _main = ctrlParentControlsGroup _grp1;
+    private _grp2 = _main controlsGroupCtrl GROUP_2;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
     lnbClear _grp2_list;
 
     if(_groupIndex < 0) exitWith {};
-    _groupClasses = GVAR(table) select _groupIndex;
+    private _groupClasses = GVAR(table) select _groupIndex;
 
 	if(_groupClasses isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
@@ -111,12 +111,14 @@ _grp1_list ctrlAddEventHandler ["LBSelChanged", {
             ["_class", "", [""]],
             ["_amount", 1, [123]]
         ];
-		_classCfg = configFile >> "CfgVehicles" >> _class;
-		_manCfg = configFile >> "CfgVehicles" >> "CAManBase";
-		_landCfg = configFile >> "CfgVehicles" >> "Land";
-		_inherits = ([_classCfg, _manCfg] call CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] call CBAFUNC(inheritsFrom));
+
+        private _cfgRoot = configFile >> "CfgVehicles" ;
+        private _classCfg = _cfgRoot >> _class;
+        private _landCfg = _cfgRoot >> "Land";
+        private _airCfg = _cfgRoot >> "Air";
+        private _inherits = ([_classCfg, _landCfg] call CBAFUNC(inheritsFrom)) ||  ([_classCfg, _airCfg] call CBAFUNC(inheritsFrom));
 		if(!_inherits) then {
-            [format["%1 class does not inherit from. 'Land'", _class], 1] call EFUNC(tools,3DENNotification);
+            [format["%1 class does not inherit from. 'Land' or 'Air'", _class], 1] call EFUNC(tools,3DENNotification);
 			continue;
 		};
         private _lnbNewRow = [
@@ -158,26 +160,26 @@ private _grp2_list2_buttonRight = _grp2 controlsGroupCtrl ARROWRIGHT;
 _grp2_add ctrlAddEventHandler ["ButtonClick", {
     params ["_add"];
 
-    _grp2 = ctrlParentControlsGroup _add;
-	_grp2_list = _grp2 controlsGroupCtrl LIST_2;
-    _edit = _grp2 controlsGroupCtrl EDIT_2;
-    _main = ctrlParentControlsGroup _grp2;
-    _grp1 = _main controlsGroupCtrl GROUP_1;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
-	_groupIndex = lbCurSel _grp1_list;
+    private _grp2 = ctrlParentControlsGroup _add;
+	private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _edit = _grp2 controlsGroupCtrl EDIT_2;
+    private _main = ctrlParentControlsGroup _grp2;
+    private _grp1 = _main controlsGroupCtrl GROUP_1;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+	private _groupIndex = lbCurSel _grp1_list;
 
 	//Update UI
     if(_groupIndex < 0) exitWith {
         ["Nothing is selected in Groups List", 1] call EFUNC(tools,3DENNotification);
 	};
-    _groupClasses = GVAR(table) select _groupIndex;
+    private _groupClasses = GVAR(table) select _groupIndex;
 
-    _class = trim(ctrlText _edit);
+    private _class = trim(ctrlText _edit);
 	if(_class isEqualTo "") exitWith {
 		["Empty class passed", 1] call EFUNC(tools,3DENNotification);
 	};
 
-	_classExists = (_groupClasses findIf {
+	private _classExists = (_groupClasses findIf {
 		_x params["_c", "_amount"];
 		_c isEqualTo _class;
 	}) isNotEqualTo -1;
@@ -185,17 +187,18 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
 		[format["%1 class already exists", _class], 1] call EFUNC(tools,3DENNotification);
 	};
 
-	_classCfg = configFile >> "CfgVehicles" >> _class;
-	_manCfg = configFile >> "CfgVehicles" >> "CAManBase";
-	_landCfg = configFile >> "CfgVehicles" >> "Land";
-	_inherits = ([_classCfg, _manCfg] call CBAFUNC(inheritsFrom)) || ([_classCfg, _landCfg] call CBAFUNC(inheritsFrom));
-	if(!_inherits) exitWith {
-		[format["%1 class is not of type 'Land' or 'CAManBase'", _class], 1] call EFUNC(tools,3DENNotification);
-	};
-
-	_sideCombo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
-	_selectedSide = (_sideCombo lbValue (lbCurSel _sideCombo)) call BIS_fnc_sideType;
-	_classFaction = (getNumber(configFile >> "CfgFactionClasses" >> (getText(_classCfg >> "faction")) >> "side")) call BIS_fnc_sideType;
+    private _cfgRoot = configFile >> "CfgVehicles" ;
+    private _classCfg = _cfgRoot >> _class;
+    private _landCfg = _cfgRoot >> "Land";
+    private _airCfg = _cfgRoot >> "Air";
+    private _inherits = ([_classCfg, _landCfg] call CBAFUNC(inheritsFrom)) ||  ([_classCfg, _airCfg] call CBAFUNC(inheritsFrom));
+    if(!_inherits) then {
+        [format["%1 class does not inherit from. 'Land' or 'Air'", _class], 1] call EFUNC(tools,3DENNotification);
+    };
+    
+	private _sideCombo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
+	private _selectedSide = (_sideCombo lbValue (lbCurSel _sideCombo)) call BIS_fnc_sideType;
+	private _classFaction = (getNumber(configFile >> "CfgFactionClasses" >> (getText(_classCfg >> "faction")) >> "side")) call BIS_fnc_sideType;
 
 	if(_selectedSide isNotEqualTo _classFaction) exitWith {
 		[format["%1's faction(%2) does not belong to %3", _class, str _classFaction, str _selectedSide], 1] call EFUNC(tools,3DENNotification);
@@ -232,13 +235,13 @@ _grp2_add ctrlAddEventHandler ["ButtonClick", {
 _grp2_remove ctrlAddEventHandler ["ButtonClick", {
     params ["_remove"];
 
-    _grp2 = ctrlParentControlsGroup _remove;
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
-    _main = ctrlParentControlsGroup _grp2;
-    _grp1 = _main controlsGroupCtrl GROUP_1;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp2 = ctrlParentControlsGroup _remove;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _main = ctrlParentControlsGroup _grp2;
+    private _grp1 = _main controlsGroupCtrl GROUP_1;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
-    _enemyClassIndex = lnbCurSelRow _grp2_list;
+    private _enemyClassIndex = lnbCurSelRow _grp2_list;
     if((lbCurSel _grp1_list) < 0) exitWith {
         ["Nothing is selected in Groups List", 1] call EFUNC(tools,3DENNotification);
     };
@@ -247,18 +250,18 @@ _grp2_remove ctrlAddEventHandler ["ButtonClick", {
     };
 
     //Update HashMap
-    _groupIndex = lbCurSel _grp1_list;
+    private _groupIndex = lbCurSel _grp1_list;
 	if(_groupIndex < 0) exitWith {
         ["Nothing is selected in Groups List", 1] call EFUNC(tools,3DENNotification);
 	};
-    _groupClasses = GVAR(table) select _groupIndex;
+    private _groupClasses = GVAR(table) select _groupIndex;
 	if(_groupClasses isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 REMOVE's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
 
-    _class = _groupClasses deleteAt _enemyClassIndex;
+    private _class = _groupClasses deleteAt _enemyClassIndex;
     _grp2_list lnbDeleteRow _enemyClassIndex;
     _grp2_list lnbSetCurSelRow -1;
 
@@ -276,7 +279,7 @@ if(isServer) then {
         params ["_grp2_list", "_key", "_shift", "_ctrl", "_alt"];
         if(_key isEqualTo 0x2E && {_ctrl}) then {
             //retrieve LIST_1 lbCurSel's data from the HashMap
-            _class = _grp2_list lnbData[(lnbCurSelRow _grp2_list), 0];
+            private _class = _grp2_list lnbData[(lnbCurSelRow _grp2_list), 0];
             [format["%1 class saved into clipboard", _class]] call EFUNC(tools,3DENNotification);
             copyToClipboard _class;
             false
@@ -290,30 +293,30 @@ if(isServer) then {
 _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
     params ["_btn"];
 
-    _grp2 = ctrlParentControlsGroup _btn;
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
-    _main = ctrlParentControlsGroup _grp2;
-    _grp1 = _main controlsGroupCtrl GROUP_1;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp2 = ctrlParentControlsGroup _btn;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _main = ctrlParentControlsGroup _grp2;
+    private _grp1 = _main controlsGroupCtrl GROUP_1;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
-	_groupIndex = lbCurSel _grp1_list;
+	private _groupIndex = lbCurSel _grp1_list;
     if(_groupIndex < 0) exitWith {
         ["Nothing is selected in Groups List", 1] call EFUNC(tools,3DENNotification);
 	};
 
-    _enemyClassIndex = lnbCurSelRow _grp2_list;
+    private _enemyClassIndex = lnbCurSelRow _grp2_list;
     if(_enemyClassIndex < 0) exitWith {
         ["Nothing is selected in Enemy Classes List", 1] call EFUNC(tools,3DENNotification);
     };
 
     //Update HashMap
-	_groupClasses = GVAR(table) select _groupIndex;
+	private _groupClasses = GVAR(table) select _groupIndex;
 	if(_groupClasses isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 buttonLeft's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
-    _group = _groupClasses select _enemyClassIndex;
+    private _group = _groupClasses select _enemyClassIndex;
 	_group params ["_class", "_amount"];
     _group set [1, (_amount - 1) max 1];
 
@@ -327,30 +330,30 @@ _grp2_list2_buttonLeft ctrlAddEventHandler ["ButtonClick", {
 _grp2_list2_buttonRight ctrlAddEventHandler ["ButtonClick", {
     params ["_btn"];
 
-    _grp2 = ctrlParentControlsGroup _btn;
-    _grp2_list = _grp2 controlsGroupCtrl LIST_2;
-    _main = ctrlParentControlsGroup _grp2;
-    _grp1 = _main controlsGroupCtrl GROUP_1;
-    _grp1_list = _grp1 controlsGroupCtrl LIST_1;
+    private _grp2 = ctrlParentControlsGroup _btn;
+    private _grp2_list = _grp2 controlsGroupCtrl LIST_2;
+    private _main = ctrlParentControlsGroup _grp2;
+    private _grp1 = _main controlsGroupCtrl GROUP_1;
+    private _grp1_list = _grp1 controlsGroupCtrl LIST_1;
 
-	_groupIndex = lbCurSel _grp1_list;
+	private _groupIndex = lbCurSel _grp1_list;
     if(_groupIndex < 0) exitWith {
         ["Nothing is selected in Groups List", 1] call EFUNC(tools,3DENNotification);
 	};
 
-    _enemyClassIndex = lnbCurSelRow _grp2_list;
+    private _enemyClassIndex = lnbCurSelRow _grp2_list;
     if(_enemyClassIndex < 0) exitWith {
         ["Nothing is selected in Enemy Classes List", 1] call EFUNC(tools,3DENNotification);
     };
 
     //Update HashMap
-	_groupClasses = GVAR(table) select _groupIndex;
+	private _groupClasses = GVAR(table) select _groupIndex;
 	if(_groupClasses isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
 		[["%1: LIST_2 buttonLeft's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 		#endif
 	};
-    _group = _groupClasses select _enemyClassIndex;
+    private _group = _groupClasses select _enemyClassIndex;
 	_group params ["_class", "_amount"];
     _group set [1, _amount + 1];
 

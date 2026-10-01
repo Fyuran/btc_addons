@@ -43,8 +43,8 @@ _ctrlSlider sliderSetPosition _value;
 
 _ctrlSlider ctrlAddEventHandler ["SliderPosChanged", {
     params ["_ctrlSlider", "_newValue"];
-    _ctrlGroup = ctrlParentControlsGroup _ctrlSlider;
-    _ctrlEdit = _ctrlGroup controlsGroupCtrl 50;
+    private _ctrlGroup = ctrlParentControlsGroup _ctrlSlider;
+    private _ctrlEdit = _ctrlGroup controlsGroupCtrl 50;
     _ctrlEdit ctrlSetText (str _newValue);
 
 }];

@@ -46,7 +46,7 @@ if(_savedPresets isNotEqualTo createHashMap) then {
             "_savename",
             "_inner"
         ];
-        _row = _list lbAdd _savename;
+        private _row = _list lbAdd _savename;
         _list lbSetData[_row, toJSON _inner];
     };
 };
@@ -54,29 +54,29 @@ if(_savedPresets isNotEqualTo createHashMap) then {
 private _load = _display displayCtrl PRESETS_LOAD;
 _load ctrlAddEventHandler["ButtonClick", {
     params ["_load"];
-    _display = ctrlParent _load;
+    private _display = ctrlParent _load;
 
-    _list = _display displayCtrl PRESETS_LIST;
-    _lbCurSel = lbCurSel _list;
+    private _list = _display displayCtrl PRESETS_LIST;
+    private _lbCurSel = lbCurSel _list;
     if(_lbCurSel < 0) exitWith {
 	    [["No preset is selected"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
-    _side_combo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
-	_timeout = uiNamespace getVariable[QGVAR(timeout), controlNull];
-    _formation_combo = uiNamespace getVariable[QGVAR(formation_combo), controlNull];
-    _list_grp = uiNamespace getVariable[QGVAR(list_grp), controlNull];
+    private _side_combo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
+	private _timeout = uiNamespace getVariable[QGVAR(timeout), controlNull];
+    private _formation_combo = uiNamespace getVariable[QGVAR(formation_combo), controlNull];
+    private _list_grp = uiNamespace getVariable[QGVAR(list_grp), controlNull];
 
     if(isNull _formation_combo || isNull _side_combo || isNull _timeout || isNull _list_grp) exitWith {
 	    [["Enemy Waves gui malfunctioned, one control is null: _formation_combo %1, _side_combo: %2, _timeout: %3, _list_grp: %4", _formation_combo, _side_combo, _timeout, _list_grp], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
-    _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
+    private _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
     if(_savedPresets isEqualTo createHashMap) exitWith {
 	    [["No presets found in profileNamespace"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
-    _savename = _list lbText _lbCurSel;
-    _preset = _savedPresets getOrDefault[_savename, createHashMap];
+    private _savename = _list lbText _lbCurSel;
+    private _preset = _savedPresets getOrDefault[_savename, createHashMap];
     if(_preset isEqualTo createHashMap) exitWith {
 	    [["No preset found in profileNamespace by %1 name", _savename], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
@@ -93,21 +93,21 @@ _load ctrlAddEventHandler["ButtonClick", {
 private _save = _display displayCtrl PRESETS_SAVE;
 _save ctrlAddEventHandler["ButtonClick", {
     params ["_save"];
-    _display = ctrlParent _save;
-    _edit = _display displayCtrl PRESETS_EDIT;
-    _list = _display displayCtrl PRESETS_LIST;
+    private _display = ctrlParent _save;
+    private _edit = _display displayCtrl PRESETS_EDIT;
+    private _list = _display displayCtrl PRESETS_LIST;
 
-    _side_combo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
-	_timeout = uiNamespace getVariable[QGVAR(timeout), controlNull];
-    _formation_combo = uiNamespace getVariable[QGVAR(formation_combo), controlNull];
+    private _side_combo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
+	private _timeout = uiNamespace getVariable[QGVAR(timeout), controlNull];
+    private _formation_combo = uiNamespace getVariable[QGVAR(formation_combo), controlNull];
 
-    _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
+    private _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
 
-    _side = _side_combo lbValue (lbCurSel _side_combo);
+    private _side = _side_combo lbValue (lbCurSel _side_combo);
     _timeout = parseNumber (ctrlText _timeout);
-    _formation = _formation_combo lbText (lbCurSel _formation_combo);
+    private _formation = _formation_combo lbText (lbCurSel _formation_combo);
 
-    _classes = missionNamespace getVariable[QGVAR(table), createHashMap];
+    private _classes = missionNamespace getVariable[QGVAR(table), createHashMap];
     if(_classes isEqualTo createHashMap) exitWith {
 	    [["No inventory has been set yet"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         #ifdef BTC_ENEMY_WAVES_DEBUG
@@ -115,12 +115,12 @@ _save ctrlAddEventHandler["ButtonClick", {
         #endif
     };
 
-    _savename = trim(ctrlText _edit);
+    private _savename = trim(ctrlText _edit);
     if(_savename isEqualTo "") then {
         _savename = [] call EFUNC(tools,uid);
     };
 
-    _inner = createHashMapFromArray[
+    private _inner = createHashMapFromArray[
         [QGVAR(side), _side],
         [QGVAR(timeout), _timeout],
         [QGVAR(formation), _formation],
@@ -140,7 +140,7 @@ _save ctrlAddEventHandler["ButtonClick", {
             "_savename",
             "_inner"
         ];
-        _row = _list lbAdd _savename;
+        private _row = _list lbAdd _savename;
         _list lbSetData[_row, toJSON _inner];
     };
 
@@ -153,8 +153,8 @@ _save ctrlAddEventHandler["ButtonClick", {
 
 _list ctrlAddEventHandler["LBSelChanged", {
     params ["_list", "_lbCurSel"];
-    _display = ctrlParent _list;
-    _edit = _display displayCtrl PRESETS_EDIT;
+    private _display = ctrlParent _list;
+    private _edit = _display displayCtrl PRESETS_EDIT;
 
     _edit ctrlSetText (_list lbText _lbCurSel);
 }];
@@ -169,7 +169,7 @@ _delete ctrlAddEventHandler["ButtonClick", {
 	if(_lbCurSel < 0) exitWith {
 		[["Nothing is selected", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	};
-	_savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
+	private _savedPresets = profileNamespace getVariable[QGVAR(savedPresets), createHashMap];
 	_savedPresets deleteAt (_list lbText _lbCurSel);
 	#ifdef BTC_ENEMY_WAVES_DEBUG
 	[["%1: removing save: %2", __FILE_NAME__, _list lbText _lbCurSel], CHAT, QCOMPONENT] call EFUNC(tools,debug);
