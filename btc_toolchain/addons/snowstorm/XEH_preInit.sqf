@@ -1,4 +1,15 @@
 #include "XEH_PREP.hpp"
+// SLIDER --- extra arguments: [_min, _max, _default, _trailingDecimals, _isPercentage]
+[QGVAR(volume), "SLIDER", ["Snowstorm volume", "Set your own volume for the snow storm effects"], "=BTC= Snowstorm", [0, 1, 1, 1, true], 0, {
+    params["_value"];
+    if(not (missionNamespace getVariable[QGVAR(snowfall), false])) exitWith {};
+    if(_value isEqualTo 0) then {
+        [] call FUNC(terminate_clients);
+    } else {
+        [2] call FUNC(terminate_clients);
+        [] call FUNC(snowSounds_clients);
+    };
+}] call CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
 [QGVAR(enable_sounds), "CHECKBOX", ["Enable Ambient Sounds", "Enable or disable ambient sounds"], "=BTC= Snowstorm", true, 0, {
     params["_value"];

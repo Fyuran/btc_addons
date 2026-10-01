@@ -63,9 +63,9 @@ GVAR(indoor_handle) = [{
         stopSound(GVAR(windSoundID));
         GVAR(isIndoors) = true;
 
-        playSoundUI [QGVAR(wind_transition), 1, 1, true, 0];
+        playSoundUI [QGVAR(wind_transition), GVAR(volume), 1, true, 0];
         GVAR(sound_loop_handle) = [{
-            GVAR(windSoundID) = playSoundUI [selectRandom GVAR(indoor_windSounds), 1, 1, true, 0];
+            GVAR(windSoundID) = playSoundUI [selectRandom GVAR(indoor_windSounds), GVAR(volume), 1, true, 0];
         }, 59, []] call CBAFUNC(addPerFrameHandler);
 
     } else {
@@ -74,9 +74,9 @@ GVAR(indoor_handle) = [{
             stopSound(GVAR(windSoundID));
             GVAR(isIndoors) = false;
 
-            playSoundUI [QGVAR(wind_transition), 1, 1, true, 0];
+            playSoundUI [QGVAR(wind_transition), GVAR(volume), 1, true, 0];
             GVAR(sound_loop_handle) = [{
-                GVAR(windSoundID) = playSoundUI [selectRandom GVAR(windSounds), 1, 1, true, 0];
+                GVAR(windSoundID) = playSoundUI [selectRandom GVAR(windSounds), GVAR(volume), 1, true, 0];
             }, 59, []] call CBAFUNC(addPerFrameHandler);
         };
     };

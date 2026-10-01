@@ -39,6 +39,6 @@ if(_allPlayers isNotEqualTo []) then {
     private _randomPlayer = selectRandom _allPlayers;
     private _randomPosASL = [getPosASL _randomPlayer, 1] call CBAFUNC(randPos);
 	if(GVAR(enable_sounds)) then {
-    	GVAR(ambientSound) = playSound3D[selectRandom[QPATHTOF(sounds\Wolf1.ogg), QPATHTOF(sounds\Wolf2.ogg)], objNull, false, _randomPosASL, 1, 1, 0, 0, false];
+    	GVAR(ambientSound) = playSound3D[selectRandom[QPATHTOF(sounds\Wolf1.ogg), QPATHTOF(sounds\Wolf2.ogg)], objNull, false, _randomPosASL, GVAR(volume), 1, 0, 0, false];
 	};
 };
