@@ -43,8 +43,8 @@ private _action_ids = [];
 			_inputed_colors pushBack _color;
 			_obj setVariable [QGVAR(input_wire_colors),_inputed_colors,true];
 
-		}, {hint "Aborted"}, "Cutting"] call ace_common_fnc_progressBar;
-	}, {true}, {}, [_obj,_x]] call ace_interact_menu_fnc_createAction;
+		}, {hint "Aborted"}, "Cutting"] call ACEFUNC(common,progressBar);
+	}, {true}, {}, [_obj,_x]] call ACEFUNC(interact_menu,createAction);
 	_color_actions pushBack _action;
 };
 
@@ -60,14 +60,14 @@ private _action = [QGVAR(examine), "Examine", "",
 		if !(_target getVariable ["obj_hasActions",false]) then {
 			_target setVariable ["obj_hasActions",true];
 			_color_actions apply {
-				private _action = [_target, 0, ["ACE_MainActions"], _x] call ace_interact_menu_fnc_addActionToObject;
+				private _action = [_target, 0, ["ACE_MainActions"], _x] call ACEFUNC(interact_menu,addActionToObject);
 				_action_ids pushBack _action;
 			};
 		};
 
-	}, {hint "Aborted"}, "Examining"] call ace_common_fnc_progressBar;
-}, {true}, {}, [_color_actions,_action_ids]] call ace_interact_menu_fnc_createAction;
-_action = [_defuser, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+	}, {hint "Aborted"}, "Examining"] call ACEFUNC(common,progressBar);
+}, {true}, {}, [_color_actions,_action_ids]] call ACEFUNC(interact_menu,createAction);
+_action = [_defuser, 0, ["ACE_MainActions"], _action] call ACEFUNC(interact_menu,addActionToObject);
 _action_ids pushBack _action;
 
 _defuser setVariable [QGVAR(actionids), _action_ids];

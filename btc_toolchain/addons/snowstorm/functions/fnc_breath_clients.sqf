@@ -45,9 +45,9 @@ private _fnc_getBreathEntitiesData = {
         if(
 			//only render if unit is in sight
 			worldToScreen _mouthPos isNotEqualTo [] &&
-			{[_x] call ace_common_fnc_isAwake}
+			{[_x] call ACEFUNC(common,isAwake)}
 		) then {
-            private _heartRate = _x getVariable ["ace_medical_heartRate", 80]; 
+            private _heartRate = _x getVariable [QACEGVAR(medical,heartRate), 80]; 
             private _breathsPerMinute = _heartRate / 4;
             private _maxTime = 60 / _breathsPerMinute;  
             _data pushBack [_x, _mouthPos, _maxTime];
