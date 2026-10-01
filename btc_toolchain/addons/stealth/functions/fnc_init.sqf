@@ -24,34 +24,24 @@ params[
 ];
 
 if(isNull _logic) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
 };
 if(!isServer) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
 	[["%1: Should be run only on Server", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
 };
 if(!(_logic isKindOf "Module_F")) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _logic is not a Module_F", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
 };
 
 private _synchedObjs = synchronizedObjects _logic;
 
 if(_synchedObjs isEqualTo []) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
 	[["%1: No linked objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
 };
 //Check if Synched objects are correct, only 'CAManBase' should be used, 
 //if multiple objects of the same group are synched just filter to unique groups
 if(!(_synchedObjs isEqualTypeAll objNull)) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
 	[["%1: Linked types aren't of type objNull", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
 };
 
 //Perform unique filter
@@ -63,9 +53,7 @@ _synchedObjs apply {
     };
 };
 if(_groups isEqualTo []) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
 	[["%1: No groups were found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
 };
 _logic setVariable [QGVAR(groups), _groups];
 
