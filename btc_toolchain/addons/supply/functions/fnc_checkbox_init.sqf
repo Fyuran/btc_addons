@@ -21,8 +21,14 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_checkbox", controlNull, [controlNull]]
+    ["_ctrl", controlNull, [controlNull, []], [1, 2]]
 ];
+private _ctrlGroup = if (_ctrl isEqualType []) then {_ctrl select 0} else {_ctrl};
+private _checkbox = if (ctrlIDC _ctrlGroup isEqualTo CHECKBOX) then {
+    _ctrlGroup
+} else {
+    _ctrlGroup controlsGroupCtrl CHECKBOX
+};
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
 [["%1: executing checkbox init", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif

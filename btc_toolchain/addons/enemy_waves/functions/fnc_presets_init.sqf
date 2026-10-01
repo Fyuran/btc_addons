@@ -20,8 +20,14 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_parent", findDisplay 315, [displayNull]]
+    ["_parent", findDisplay 315, [displayNull, controlNull, []], [1, 2]]
 ];
+_parent = if (_parent isEqualType []) then {
+    if (_parent isNotEqualTo []) then {_parent select 0} else {findDisplay 315};
+} else {_parent};
+if (_parent isEqualType controlNull) then {
+    _parent = ctrlParent _parent;
+};
 disableSerialization;
 
 if(isNull _parent) exitWith {

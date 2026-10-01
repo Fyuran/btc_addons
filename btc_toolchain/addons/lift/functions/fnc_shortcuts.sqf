@@ -23,64 +23,68 @@ Author:
 private _menuString = "BTC Toolchain Lift";
 [
     _menuString,
-    "btc_toolchain_lift_deployRopes",
+    QGVAR(deployRopes),
     [localize "STR_ACE_Fastroping_Interaction_deployRopes", "deploy ropes from helicopter"],
     {
         if (
-            !btc_toolchain_lift_ropes_deployed &&
+            !GVAR(ropes_deployed) &&
             {(driver vehicle player) isEqualTo player} &&
             {(getPosATL player) select 2 > 4}
         ) then {
-            [] spawn btc_toolchain_lift_fnc_deployRopes;
+            [] spawn FUNC(deployRopes);
             if (BTC_LIFT_PLAY_FBSOUND) then {
                 playSound BTC_LIFT_FBSOUND;
             };
         };
     },
-{}] call CBAFUNC(addKeybind);
+    {}
+] call CBAFUNC(addKeybind);
 
 [
     _menuString,
-    "btc_toolchain_lift_cutRopes",
+    QGVAR(cutRopes),
     [localize "STR_ACE_Fastroping_Interaction_cutRopes", "Cut ropes from helicopter"],
     {
         if (
-            btc_toolchain_lift_ropes_deployed &&
+            GVAR(ropes_deployed) &&
             {(driver vehicle player) isEqualTo player}
         ) then {
-            [] call btc_toolchain_lift_fnc_destroyRopes;
+            [] call FUNC(destroyRopes);
             if (BTC_LIFT_PLAY_FBSOUND) then {
                 playSound BTC_LIFT_FBSOUND;
             };
         };
     },
-{}] call CBAFUNC(addKeybind);
+    {}
+] call CBAFUNC(addKeybind);
 
 [
     _menuString,
-    "btc_toolchain_lift_HUD",
+    QGVAR(HUD),
     [localize "STR_BTC_TOOLCHAIN_LIFT_LDR_ACTIONHUD", "On / Off HUD"],
     {
-        if (btc_toolchain_lift_ropes_deployed) then {
-            [] call btc_toolchain_lift_fnc_hud;
+        if (GVAR(ropes_deployed)) then {
+            [] call FUNC(hud);
             if (BTC_LIFT_PLAY_FBSOUND) then {
                 playSound BTC_LIFT_FBSOUND;
             };
         };
     },
-{}] call CBAFUNC(addKeybind);
+    {}
+] call CBAFUNC(addKeybind);
 
 
 [
     _menuString,
-    "btc_toolchain_lift_hook",
+    QGVAR(hook),
     [localize "STR_BTC_TOOLCHAIN_LIFT_HOOK", "Hook a vehicle"],
     {
-        if ([] call btc_toolchain_lift_fnc_check) then {
-            [] spawn btc_toolchain_lift_fnc_hook;
+        if ([] call FUNC(check)) then {
+            [] spawn FUNC(hook);
             if (BTC_LIFT_PLAY_FBSOUND) then {
                 playSound BTC_LIFT_FBSOUND;
             };
         };
     },
-{}] call CBAFUNC(addKeybind);
+    {}
+] call CBAFUNC(addKeybind);

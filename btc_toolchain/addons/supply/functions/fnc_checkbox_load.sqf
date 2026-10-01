@@ -23,9 +23,15 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_checkbox", controlNull, [controlNull]],
+    ["_ctrl", controlNull, [controlNull, []], [1, 2]],
     ["_value", true, [false, 123]]
 ];
+private _ctrlGroup = if (_ctrl isEqualType []) then {_ctrl select 0} else {_ctrl};
+private _checkbox = if (ctrlIDC _ctrlGroup isEqualTo CHECKBOX) then {
+    _ctrlGroup
+} else {
+    _ctrlGroup controlsGroupCtrl CHECKBOX
+};
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
 [["%1: executing checkbox load with _value %2", __FILE_NAME__, _value], LOGS, QCOMPONENT] call EFUNC(tools,debug);

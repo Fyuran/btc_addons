@@ -22,9 +22,15 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_combo", controlNull, [controlNull]],
+    ["_ctrl", controlNull, [controlNull, []], [1, 2]],
     ["_value", "", []]
 ];
+private _ctrlGroup = if (_ctrl isEqualType []) then {_ctrl select 0} else {_ctrl};
+private _combo = if (ctrlIDC _ctrlGroup isEqualTo COMBO) then {
+    _ctrlGroup
+} else {
+    _ctrlGroup controlsGroupCtrl COMBO
+};
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY_DIALOG
 [["%1: executing combo load with _value %2", __FILE_NAME__, _value], LOGS, QCOMPONENT] call EFUNC(tools,debug);

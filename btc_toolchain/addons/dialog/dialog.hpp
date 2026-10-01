@@ -17,8 +17,8 @@ class RscTitles {
 		fadeIn = "true";
 		fadeOut = "true";
 		duration = 1e+11;
-		onload = "uiNamespace setVariable ['btc_toolchain_dialog_RscDialogBox', _this select 0]";
-		onunload = "uiNamespace setVariable ['btc_toolchain_dialog_RscDialogBox', displayNull]";
+		onload = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(RscDialogBox),_this select 0)]);
+		onunload = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(RscDialogBox),displayNull)]);
 		class ControlsBackground {
 			class RscPicture_1200: RscPicture
 			{

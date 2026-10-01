@@ -20,8 +20,9 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_display", displayNull, [displayNull]]
+    ["_display", displayNull, [displayNull, []], [1, 2]]
 ];
+_display = if (_display isEqualType []) then {_display select 0} else {_display};
 disableSerialization;
 
 if(isNull _display) exitWith {

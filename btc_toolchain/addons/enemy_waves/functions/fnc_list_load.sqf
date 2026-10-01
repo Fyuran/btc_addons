@@ -21,9 +21,10 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_main_grp", controlNull, [controlNull]],
+    ["_main_grp", controlNull, [controlNull, []], [1, 2]],
     ["_value", [], ["", []]]
 ];
+_main_grp = if (_main_grp isEqualType []) then {_main_grp select 0} else {_main_grp};
 disableSerialization;
 
 #ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG

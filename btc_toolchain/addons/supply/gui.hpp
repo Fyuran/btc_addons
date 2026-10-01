@@ -112,9 +112,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(class): Combo {
-			onLoad = QUOTE(params[QQUOTE(_grp)]; _combo = _grp controlsGroupCtrl 66650; [_combo] call FUNC(combo_init));
-			attributeLoad = QUOTE(params[QQUOTE(_grp)];  _combo = _grp controlsGroupCtrl 66650; [ARR_2(_combo,_value)] call FUNC(combo_load));
-			attributeSave = QUOTE(params[QQUOTE(_grp)];  _combo = _grp controlsGroupCtrl 66650; [_combo] call FUNC(combo_save));
+			onLoad = QUOTE(_this call FUNC(combo_init));
+			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(combo_load));
+			attributeSave = QUOTE(_this call FUNC(combo_save));
 			class Controls: Controls {
 				class Title: Title {
 					idc = -1;
@@ -125,9 +125,9 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(enableDamage): Checkbox {
-			onLoad = QUOTE(params[QQUOTE(_grp)]; _combo = _grp controlsGroupCtrl 66651; [_combo] call FUNC(checkbox_init));
-			attributeLoad = QUOTE(params[QQUOTE(_grp)];  _combo = _grp controlsGroupCtrl 66651; [ARR_2(_combo,_value)] call FUNC(checkbox_load));
-			attributeSave = QUOTE(params[QQUOTE(_grp)];  _combo = _grp controlsGroupCtrl 66651; [_combo] call FUNC(checkbox_save));
+			onLoad = QUOTE(_this call FUNC(checkbox_init));
+			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(checkbox_load));
+			attributeSave = QUOTE(_this call FUNC(checkbox_save));
 			class Controls: Controls {
 				class Title: Title {
 					idc = -1;
@@ -153,8 +153,8 @@ class Cfg3DEN {
 			};
 		};
 		class GVAR(list): Title {
-			onLoad = QUOTE(params[QQUOTE(_grp)]; [_grp] call FUNC(list_init));
-			attributeLoad = QUOTE(params[QQUOTE(_grp)]; [ARR_2(_grp,_value)] call FUNC(list_load));
+			onLoad = QUOTE(_this call FUNC(list_init));
+			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(list_load));
 			attributeSave = QUOTE([] call FUNC(list_save));
 			x = "5 * (pixelW * pixelGrid * 0.50)";
 			w = "((40 + 80) + 15) * (pixelW * pixelGrid * 0.50)";

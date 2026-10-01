@@ -20,8 +20,9 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_main_grp", controlNull, [controlNull]]
+    ["_main_grp", controlNull, [controlNull, []], [1, 2]]
 ];
+_main_grp = if (_main_grp isEqualType []) then {_main_grp select 0} else {_main_grp};
 disableSerialization;
 
 #ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
@@ -75,7 +76,7 @@ _grp1_remove ctrlAddEventHandler ["ButtonClick", {
         ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
     };
     GVAR(table) deleteAt _groupIndex;
-	[ctrlParentControlsGroup _grp1, GVAR(table)] call btc_toolchain_enemy_waves_fnc_list_load;
+	[ctrlParentControlsGroup _grp1, GVAR(table)] call FUNC(list_load);
     _grp1_list lbSetCurSel -1; //Triggers LBSelChanged exitWith lbClear
 
 	#ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
