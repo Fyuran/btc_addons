@@ -1,4 +1,4 @@
-#include "..\script_component.hpp"
+#include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_toolchain_supply_fnc_combo_load
 

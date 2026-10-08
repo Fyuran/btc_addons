@@ -1,19 +1,19 @@
-#include "..\script_component.hpp"
+#include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_supply_fnc_checkbox_init
+Function: btc_toolchain_supply_fnc_checkbox_save
 
 Description:
-    Initializes a checkbox control and stores a reference to it in UI namespace for later access.
+    Returns the current checked status of a checkbox control.
 
 Parameters:
-    _checkbox[CONTROL]: Checkbox control to initialize
+    _checkbox[CONTROL]: Checkbox control to query
 
 Returns:
-    NOTHING
+    BOOLEAN: True if checkbox is checked, false otherwise
 
 Examples:
     (begin example)
-        [_damageCheckbox] call btc_toolchain_supply_fnc_checkbox_init;
+        _isDamageAllowed = [_damageCheckbox] call btc_toolchain_supply_fnc_checkbox_save;
     (end)
 
 Author:
@@ -29,9 +29,8 @@ private _checkbox = if (ctrlIDC _ctrlGroup isEqualTo CHECKBOX) then {
 } else {
     _ctrlGroup controlsGroupCtrl CHECKBOX
 };
-#ifdef BTC_DEBUG_SUPPLY_DIALOG
-[["%1: executing checkbox init", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-#endif
 disableSerialization;
-
-uiNamespace setVariable[QGVAR(checkbox), _checkbox];
+#ifdef BTC_DEBUG_SUPPLY_DIALOG
+[["%1: executing checkbox save", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+#endif
+cbChecked _checkbox
