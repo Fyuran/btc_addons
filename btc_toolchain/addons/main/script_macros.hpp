@@ -4,9 +4,11 @@
 #ifdef DISABLE_COMPILE_CACHE
     #undef PREP
     #define PREP(fncName) FUNC(fncName) = compileScript [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf)]
+    #define PREP_FOLDER(folder,fncName) FUNC(fncName) = compileScript [QPATHTOF(functions\folder\DOUBLES(fnc,fncName).sqf)]
 #else
     #undef PREP
     #define PREP(fncName) [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call SLX_XEH_COMPILE_NEW
+    #define PREP_FOLDER(folder,fncName) [QPATHTOF(functions\folder\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call SLX_XEH_COMPILE_NEW
 #endif
 
 //MACRO HELPERS
