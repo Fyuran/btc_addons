@@ -1,4 +1,4 @@
-#include "..\script_component.hpp"
+#include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_toolchain_enemy_waves_fnc_side_combo_load
 

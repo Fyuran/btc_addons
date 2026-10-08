@@ -1,4 +1,4 @@
-#include "..\script_component.hpp"
+#include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: btc_toolchain_enemy_waves_fnc_spawn
 
@@ -24,8 +24,11 @@ params[
 	["_logic", objNull, [objNull]]
 ]; 
  
-if(isNull _logic) exitWith { 
+if(isNull _logic) exitWith {
 	[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+};
+if(!isServer) exitWith {
+	[["%1: Should be run only on Server", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _side = (_logic getVariable[QGVAR(side), east]) call BIS_fnc_sideType;
@@ -95,7 +98,20 @@ if(_groups isEqualTo []) exitWith {
 			}; 
 			
 			for "_i" from 1 to _quantity do { 
-				private _unit = _grp createUnit [_class, [_logic, 1] call CBAFUNC(randPos), [], 0, "NONE"]; 
+				private _unit = objNull;
+				private _randSpawnPos = [_logic, _class] call EFUNC(tools,findSafePos);
+				if ([_class, "CAManBase"] call EFUNC(tools,inheritsFromAny)) then {
+					_unit = _grp createUnit [_class, _randSpawnPos, [], 0, "NONE"]; 
+				} else {
+					if ([_class, ["LandVehicle", "Air"]] call EFUNC(tools,inheritsFromAny)) then {
+						_unit = ([_randSpawnPos, 0, _class, _grp] call BIS_fnc_spawnVehicle) select 0; //returns Array [createdVehicle, crew, group]:
+					};
+				};
+				
+				if (isNull _unit) then {
+					continue;
+				};
+
 				_units pushBack _unit;
 				_unit setVariable[QGVAR(wave_spawn), _logic]; 
 

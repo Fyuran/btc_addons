@@ -45,6 +45,7 @@ class CfgVehicles {
 		class AttributesBase
 		{
 			class Default;
+			class Combo : Default {};
 			class ModuleDescription;	// Module description
 		};
 
@@ -64,6 +65,7 @@ class CfgVehicles {
 		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 		curatorInfoType = QGVAR(RscAttributeEWaves); // Menu displayed when the module is placed or double-clicked on by Zeus
 	};
+
 	//To be used only in 3DEN editor
 	class GVAR(module) : Module_F {
 		author = "=BTC= Fyuran";
@@ -77,7 +79,7 @@ class CfgVehicles {
 		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
 		isGlobal = 0;
 		class ModuleDescription: ModuleDescription {
-			description = "Sync a trigger and initiate a =BTC= enemy waves incursion against the closest player who activated the trigger, with passed values";
+			description = "Sync a trigger and initiate a =BTC= enemy waves incursion against the closest player who activated the trigger, with passed values, you can also sync =BTC= enemy waves waypoints modules to lead the waves before approaching a enemy character";
 			sync[] = { "EmptyDetector" };	
 		};
 		class Attributes : AttributesBase {
@@ -104,7 +106,7 @@ class CfgVehicles {
 				typeName = "NUMBER"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
 			};
 			class GVAR(timeout): Default {
-				displayName = "Timeout"; // Name assigned to UI control class Title
+				displayName = "Delay"; // Name assigned to UI control class Title
 				tooltip = "How long module will wait to spawn next wave"; // Tooltip assigned to UI control class Title
 				property = QGVAR(timeout); // Unique config property name saved in SQM
 				control = QGVAR(timeout); // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
@@ -175,6 +177,23 @@ class CfgVehicles {
 				//validate = "number"; // Validate the value before saving. Can be "none", "expression", "condition", "number" or "variable"
 				typeName = "STRING"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
 			};
+			class ModuleDescription : ModuleDescription {};
+		};
+	};
+
+	class GVAR(waypoint_module) : Module_F {
+		author = "=BTC= Fyuran";
+		scope = 2;
+		scopeCurator = 0;
+		category = "Effects";
+		displayName = "Enemy Waves Waypoint Module";
+		function = QFUNC(wp_init);
+		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
+		isGlobal = 0;
+		class ModuleDescription: ModuleDescription {
+			description = "Waypoints for the =BTC= Enemy waves module";
+		};
+		class Attributes : AttributesBase {
 			class ModuleDescription : ModuleDescription {};
 		};
 	};

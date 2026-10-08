@@ -1,18 +1,19 @@
-#include "..\script_component.hpp"
+#include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_formation_combo_init
+Function: btc_toolchain_enemy_waves_fnc_formation_combo_save
 
 Description:
-    Initializes formation combo control in enemy waves dialog and loads default COLUMN formation.
+    Retrieves the currently selected formation name from the formation combo box control.
 
 Parameters:
     _combo: CONTROL
 
 Returns:
+    STRING
 
 Examples:
     (begin example)
-        [_formationCombo] call btc_toolchain_enemy_waves_fnc_formation_combo_init;
+        private _formation = [_formationCombo] call btc_toolchain_enemy_waves_fnc_formation_combo_save;
     (end)
 
 Author:
@@ -30,8 +31,10 @@ private _combo = if (ctrlIDC _ctrlGroup isEqualTo FORMATION_COMBO) then {
 };
 disableSerialization;
 #ifdef BTC_DEBUG_ENEMY_WAVES_DIALOG
-[["%1: executing combo init", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: executing combo save", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
-uiNamespace setVariable[QGVAR(formation_combo), _combo];
+if((ctrlIDC _combo) isNotEqualTo FORMATION_COMBO) exitWith {
+	[["%1: invalid idc: %2 should be %3", __FILE_NAME__, ctrlIDC _combo, FORMATION_COMBO], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+};
 
-[_combo, "COLUMN"] call FUNC(formation_combo_load);
+_combo lbText (lbCurSel _combo)

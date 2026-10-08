@@ -1,23 +1,40 @@
 #include "script_component.hpp"
 
-PREP(side_combo_init);
-PREP(side_combo_load);
-PREP(side_combo_save);
+//Combo
+PREP_FOLDER(combo,side_combo_init);
+PREP_FOLDER(combo,side_combo_load);
+PREP_FOLDER(combo,side_combo_save);
+PREP_FOLDER(combo,formation_combo_init);
+PREP_FOLDER(combo,formation_combo_load);
+PREP_FOLDER(combo,formation_combo_save);
 
-PREP(timeout_init);
-PREP(timeout_load);
-PREP(timeout_save);
+//Timeout
+PREP_FOLDER(timeout,timeout_init);
+PREP_FOLDER(timeout,timeout_load);
+PREP_FOLDER(timeout,timeout_save);
 
-PREP(formation_combo_init);
-PREP(formation_combo_load);
-PREP(formation_combo_save);
+//List
+PREP_FOLDER(list,list_init);
+PREP_FOLDER(list,list_load);
+PREP_FOLDER(list,list_save);
+PREP_FOLDER(list,list_grp1_add);
+PREP_FOLDER(list,list_grp1_remove);
+PREP_FOLDER(list,list_grp1_lbSelChanged);
+PREP_FOLDER(list,list_grp2_add);
+PREP_FOLDER(list,list_grp2_remove);
+PREP_FOLDER(list,list_grp2_keyDown);
+PREP_FOLDER(list,list_grp2_buttonLeft);
+PREP_FOLDER(list,list_grp2_buttonRight);
 
-PREP(list_init);
-PREP(list_load);
-PREP(list_save);
+//Curator
+PREP_FOLDER(curator,curator_init);
+PREP_FOLDER(curator,curator_gui);
 
-PREP(curator_init);
-PREP(curator_gui);
-PREP(presets_init);
+//Presets
+PREP_FOLDER(presets,presets_init);
 
-PREP(spawn);
+//Spawn
+PREP_FOLDER(spawn,spawn);
+
+//Waypoints module
+PREP_FOLDER(wp,wp_init);
