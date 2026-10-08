@@ -37,8 +37,18 @@ class GVAR(module) : Module_F
             defaultValue = "OPFOR";
             //--- Optional properties
             //unique = 0; // When 1, only one entity of the type can have the value in the mission (used for example for variable names or player control)
-            //validate = "number"; // Validate the value before saving. Can be "none", "expression", "condition", "number" or "variable"
-            //typeName = "NUMBER"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
+            validate = "number"; // Validate the value before saving. Can be "none", "expression", "condition", "number" or "variable"
+            typeName = "NUMBER"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
+        };
+         class GVAR(debug): Default
+        {
+            displayName = "Debug";
+            tooltip = "Show debug";
+            property = QGVAR(debug);
+            control = "Checkbox";
+            expression = QUOTE(_this setVariable [ARR_2(QQGVAR(debug),_value)]);
+            defaultValue = "false";
+            typeName = "BOOL";
         };
         class GVAR(timeout): Default
         {
@@ -49,6 +59,15 @@ class GVAR(module) : Module_F
             expression = QUOTE(_this setVariable [ARR_2(QQGVAR(timeout),_value)]);
             defaultValue = "60";
             typeName = "NUMBER";
+        };
+        class GVAR(formation): Default
+        {
+            displayName = "Formation";
+            tooltip = "Starting formation";
+            property = QGVAR(formation);
+            control = QGVAR(FormationWaypoint);
+            expression = QUOTE(_this setVariable [ARR_2(QQGVAR(formation),_value)]);
+            defaultValue = "'no change'";
         };
         class GVAR(seek_end): Default
         {
@@ -64,7 +83,7 @@ class GVAR(module) : Module_F
         {
             property = QGVAR(presets);
             control = QGVAR(presets);
-            expression = QUOTE(_data = [GVAR(table)] call EFUNC(gui,list_attributeSave); _this setVariable[ARR_2(QQGVAR(list_value),_data)]);
+            expression = QUOTE(_this setVariable[ARR_2(QQGVAR(list_value),_value)]);
             defaultValue = "''";
             typeName = "STRING"; 
         };
@@ -88,7 +107,7 @@ class GVAR(waypoint_module) : Module_F
     category = "BTC_Modules";
     displayName = "Enemy Waves Waypoint";
     //function = QFUNC(wp_moduleInit);
-    icon = QPATHTOEF(main,data\iconBtcA.paa);
+    icon = QPATHTOF(data\waypoint_icon.paa);
     isGlobal = 0;
     class ModuleDescription: ModuleDescription
     {
@@ -102,8 +121,8 @@ class GVAR(waypoint_module) : Module_F
             tooltip = "Type of waypoint";
             property = QGVAR(type_data);
             control = QGVAR(wp_type);
-            expression = QUOTE(_this setVariable [ARR_2(QQGVAR(type_data),_value)]);
-            defaultValue = "[[], 'MOVE']";
+            expression = QUOTE(_this setVariable [ARR_2(QQGVAR(wp_cfg),_value)]);
+            defaultValue = "''";
         };
         class GVAR(combat_mode): Default
         {

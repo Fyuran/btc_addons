@@ -43,7 +43,7 @@ GVAR(radioInProgress) = true;
 private _group = group _unit;
 [{
     GVAR(radioInProgress) = false;
-}, [], _group getVariable[QGVAR(radio_delay), 10]] call CBA_fnc_waitAndExecute;
+}, [], _group getVariable[QGVAR(radio_delay), 10]] call CBAFUNC(waitAndExecute);
 
 doStop _unit;
 _unit disableAI "ANIM";

@@ -20,20 +20,31 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params [
-    ["_add", controlNull, [controlNull]]
+    ["_add", controlNull, [controlNull]],
+    ["_uid", "", [""]]
 ];
 
 private _grp1 = ctrlParentControlsGroup _add;
 private _grp1_list = _grp1 controlsGroupCtrl VALUE_1;
 
 //row inits
-private _groupsCount = count GVAR(table); //new item
-GVAR(table) set[_groupsCount, []];
+private _groupsCount = lbSize _grp1_list;
 
-private _row = _grp1_list lbAdd (format["Group %1", _groupsCount + 1]);
+private _lbRowText = format["Wave %1", _groupsCount + 1];
+private _row = _grp1_list lbAdd _lbRowText;
+
+if (_uid isEqualTo "") then {
+    _uid = format["%1-%2", _lbRowText, ([] call EFUNC(tools,uid))];
+    GVAR(table) set[_uid, []];
+};
+
+_grp1_list lbSetData [_row, _uid];
 _grp1_list lbSetCurSel _row;
 
 #ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: adding new row: Group %2", __FILE_NAME__, _groupsCount + 1], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: adding new row: Wave %2", __FILE_NAME__, _lbRowText], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
+//lbSort _grp1_list;
+
+_row

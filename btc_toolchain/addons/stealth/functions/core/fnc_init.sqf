@@ -70,7 +70,7 @@ private _investigate_offset = _logic getVariable[QGVAR(investigate_offset), 0];
 private _cover_offset = _logic getVariable[QGVAR(cover_offset), 0];
 private _alarm_offset = _logic getVariable[QGVAR(alarm_offset), 0];
 private _limit_offset = _logic getVariable[QGVAR(limit_offset), 0];
-private _threat_dis = _logic getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
+private _threat_dis = (_logic getVariable[QGVAR(threat_distance), THREAT_DISTANCE]) max 0.00001; //do not allow zero or sub zero distances
 private _alarm_dis = _logic getVariable[QGVAR(alarm_distance), ALARM_DISTANCE];
 private _radio_delay = _logic getVariable[QGVAR(radio_delay), 60];
 

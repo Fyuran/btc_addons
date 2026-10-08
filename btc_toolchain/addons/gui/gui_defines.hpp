@@ -3,6 +3,7 @@
 
 #include "includes\definecommoncolors.inc"
 #include "includes\definecommongrids.inc"
+#include "includes\definedikcodes.inc"
 #include "includes\defineresincldesign.inc"
 #include "includes\resincl.inc"
 

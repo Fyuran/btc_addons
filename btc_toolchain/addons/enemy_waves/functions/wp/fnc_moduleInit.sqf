@@ -46,21 +46,26 @@ if (_synchedObjs isNotEqualTo [] && {(_wpModules isEqualTo [])}) then {
 };
 
 _wpModules apply {
-    private _type_data = _x getVariable[QGVAR(type_data), [[], "MOVE"]]; //Tree saves as Attribute in .sqm as [TREEPATH, TREEPATH_TEXT]
-    [_group, 
+    [
+        _group,
+        getPosASL _x,
+        _x getVariable[QGVAR(wp_cfg), configNull],
+        _x getVariable[QGVAR(completion_radius), 0],
+        _x getVariable[QGVAR(file), ""],
         [
-            getPosASL _x,
-            _type_data#1, 
-            _x getVariable[QGVAR(combat_mode), "YELLOW"],
-            _x getVariable[QGVAR(behavior), "AWARE"],
+
+            _x getVariable[QGVAR(combat_mode), "NO CHANGE"],
+            _x getVariable[QGVAR(behavior), "UNCHANGED"],
             _x getVariable[QGVAR(formation), "NO CHANGE"],
-            _x getVariable[QGVAR(speed), "UNCHANGED"],
-            _x getVariable[QGVAR(completion_radius), 0]
+            _x getVariable[QGVAR(speed), "UNCHANGED"]
         ]
     ] call FUNC(wp_add);
 };
 
 //Last one to seek a player
 if (_logic getVariable[QGVAR(seek_end), true]) then {
-    [_logic, _group] call FUNC(wp_toPlayer);
+    #ifdef BTC_DEBUG_ENEMY_WAVES
+	[["%1: %2 is on the lookout for player", __FILE_NAME__, _group], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
+    [_group] call FUNC(wp_toPlayer);
 };

@@ -52,6 +52,16 @@ class GVAR(module) : Module_F
             defaultValue = "true";
             typeName = "BOOL";
         };
+         class GVAR(debug): Default
+        {
+            displayName = "Debug";
+            tooltip = "Show debug";
+            property = QGVAR(debug);
+            control = "Checkbox";
+            expression = QUOTE(_this setVariable [ARR_2(QQGVAR(debug),_value)]);
+            defaultValue = "false";
+            typeName = "BOOL";
+        };
         class GVAR(presets): Default
         {
             property = QGVAR(presets);

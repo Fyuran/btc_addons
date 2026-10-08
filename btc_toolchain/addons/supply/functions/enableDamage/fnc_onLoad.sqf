@@ -1,9 +1,9 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_supply_fnc_enableDamage_init
+Function: btc_toolchain_supply_fnc_enableDamage_onLoad
 
 Description:
-    Initializes a checkbox with enable damage.
+    Initializes a checkbox with enable damage on dialog load.
 
 Parameters:
     _checkboxGrp: CONTROL - Checkbox control group
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_enableDamage] call btc_toolchain_supply_fnc_enableDamage_init;
+        [_checkboxGrp] call btc_toolchain_supply_fnc_enableDamage_onLoad;
     (end)
 
 Author:
@@ -32,3 +32,4 @@ if (isNull _checkbox) exitWith {
 };
 
 uiNamespace setVariable[QGVAR(enableDamage), _checkbox];
+

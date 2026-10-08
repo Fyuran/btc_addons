@@ -1,9 +1,9 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_supply_fnc_combo_init
+Function: btc_toolchain_supply_fnc_combo_onLoad
 
 Description:
-    Initializes a combo box with available air vehicle classes from config and stores reference.
+    Initializes a combo box with available air vehicle classes from config and stores reference on dialog load.
 
 Parameters:
     _comboGrp: CONTROL - Combo box control group to populate with aircraft
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_vehicleCombo] call btc_toolchain_supply_fnc_combo_init;
+        [_comboGrp] call btc_toolchain_supply_fnc_combo_onLoad;
     (end)
 
 Author:
@@ -27,7 +27,7 @@ params[
 ];
 disableSerialization;
 #ifdef BTC_DEBUG_SUPPLY
-[["%1: executing combo init", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: executing combo onLoad", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 private _combo = _comboGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
@@ -50,3 +50,4 @@ _configs apply {
 
 lbSort _combo;
 _combo lbSetCurSel 0;
+

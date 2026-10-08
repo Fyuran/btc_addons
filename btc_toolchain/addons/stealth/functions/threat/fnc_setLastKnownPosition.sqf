@@ -55,7 +55,7 @@ if(_pos isEqualTo [0, 0, 0]) exitWith { //unsetting the last known position
 };
 
 private _debug = (_group getVariable[QGVAR(logic), objNull]) getVariable[QGVAR(debug), false];
-_pos = [_pos, _radius] call CBA_fnc_randPos;
+_pos = [_pos, _radius] call CBAFUNC(randPos);
 _group setVariable[QGVAR(lastKnownPos), _pos, _debug];
 
 _pos

@@ -39,12 +39,12 @@ disableSerialization;
 
 if(_value isEqualTo "") exitWith {
     #ifdef BTC_DEBUG_SUPPLY
-    [["%1: empty _value as STRING", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: empty _value as STRING", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
 if(_value isEqualTo createHashMap) exitWith {
     #ifdef BTC_DEBUG_SUPPLY
-    [["%1: empty _value as HASHMAP", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: empty _value as HASHMAP", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
 if(_value isEqualType "") then {
@@ -54,7 +54,7 @@ if(_value isEqualType "") then {
 };
 if(GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
 	#ifdef BTC_DEBUG_SUPPLY
-	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 
@@ -81,21 +81,5 @@ lnbClear _grp2_list;
 */
 
 GVAR(table) apply {
-    [_x, _y] params [
-        ["_uid", "", [""]],
-        ["_inner", createHashMap, [createHashMap]]
-    ];
-
-    private _class = _inner get "class";
-    private _cfg = configFile >> "CfgVehicles" >> _class;
-    if(!isClass _cfg) then {
-        [["%1: invalid ammo box or vehicle class", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-        continue;
-    };
-
-    private _row = _grp1_list lbAdd (getText (_cfg >> "displayName"));
-    //_grp1_list lbSetPicture [_row, getText (_cfg >> "icon")];
-    _grp1_list lbSetData [_row, _uid];
+    [_grp1_list, _x] call FUNC(list_grp1_add);
 };
-lbSort _grp1_list;
-

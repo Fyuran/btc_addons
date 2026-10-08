@@ -24,7 +24,7 @@ params[
     ["_main_grp", controlNull, [controlNull]]
 ];
 
-#ifdef BTC_DEBUG_SUPPLY
+#ifdef BTC_DEBUG_ENEMY_WAVES
 [["%1: executing list_grp attributeSave with %2", __FILE_NAME__, GVAR(table)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 

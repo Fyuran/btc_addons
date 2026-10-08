@@ -68,9 +68,9 @@ _this,
 
 	private _lastKnownPos = _group getVariable[QGVAR(lastKnownPos), [0, 0, 0]];
 	if (_lastKnownPos isNotEqualTo [0, 0, 0]) then {
-		[_group, _lastKnownPos, 50, true] call CBA_fnc_taskAttack;
+		[_group, _lastKnownPos, 50, true] call CBAFUNC(taskAttack);
 	} else {
-		[_group, getPos(leader _group), 50, true] call CBA_fnc_taskAttack;
+		[_group, getPos(leader _group), 50, true] call CBAFUNC(taskAttack);
 	};
 
 }, {/*EXIT*/

@@ -38,12 +38,12 @@ disableSerialization;
 
 if(_value isEqualTo "") exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
-    [["%1: empty _value as STRING", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: empty _value as STRING", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
 if(_value isEqualTo createHashMap) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
-    [["%1: empty _value as HASHMAP", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: empty _value as HASHMAP", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
 if(_value isEqualType "") then {
@@ -52,8 +52,8 @@ if(_value isEqualType "") then {
     GVAR(table) = +_value;
 };
 if(GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
-	#ifdef BTC_DEBUG_SUPPLY
-	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#ifdef BTC_DEBUG_ENEMY_WAVES
+	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 
@@ -70,7 +70,7 @@ if(GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
     LIST_2 entries will be created onlbSelChanged at runtime by hashmap lookup
 */
 
-//Group 1
+//Wave 1
 private _grp1 = _main_grp controlsGroupCtrl LIST_1;
 private _grp1_list = _grp1 controlsGroupCtrl VALUE_1;
 lbClear _grp1_list;
@@ -79,7 +79,7 @@ private _grp2 = _main_grp controlsGroupCtrl LIST_2;
 private _grp2_list = _grp2 controlsGroupCtrl VALUE_2;
 lnbClear _grp2_list;
 
-for "_i" from 1 to (count GVAR(table)) do {
-	_grp1_list lbAdd (format["Group %1", _i]);
+GVAR(table) apply {
+    [_grp1_list, _x] call FUNC(list_grp1_add);
 };
 

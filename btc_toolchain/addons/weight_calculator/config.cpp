@@ -22,6 +22,8 @@ class RscFrame;
 
 #include "gui.hpp"
 
+class btc_ace_Actions;
+
 class CfgVehicles
 {
 	class Man;
@@ -29,7 +31,7 @@ class CfgVehicles
 	{
 		class ACE_SelfActions
 		{
-			class btc_ace_Actions
+			class btc_ace_Actions: btc_ace_Actions
 			{
 				class GVAR(createDialog)
 				{

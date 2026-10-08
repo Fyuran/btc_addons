@@ -69,7 +69,7 @@ private _fnc_removeEh = {
 					CBA_missionTime > _time;
 				};
 			};
-			[QGVAR(debug_removeEHs), [_unit]] call CBA_fnc_localEvent;
+			[QGVAR(debug_removeEHs), [_unit]] call CBAFUNC(localEvent);
 		}];
 
 		private _hitEH = _unit addEventHandler ["Hit", {
@@ -101,7 +101,7 @@ private _fnc_removeEh = {
 //Check if handles already exist
 private _handle = missionNamespace getVariable [QGVAR(removeEH_clients_handle), -1];
 if(_handle isNotEqualTo -1) exitWith {};
-removeEH_clients_handle = [QGVAR(debug_removeEHs), _fnc_removeEh] call CBA_fnc_addEventHandler;
+removeEH_clients_handle = [QGVAR(debug_removeEHs), _fnc_removeEh] call CBAFUNC(addEventHandler);
 
 _handle = missionNamespace getVariable [QGVAR(debug_PFH_handle), -1];
 if(_handle isNotEqualTo -1) exitWith {};
@@ -204,6 +204,6 @@ _groups apply {
 		};
 	};
 };
-}, 0, []] call CBA_fnc_addPerFrameHandler;
+}, 0, []] call CBAFUNC(addPerFrameHandler);
 
 debug_PFH_handle

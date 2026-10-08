@@ -15,6 +15,8 @@ class CfgPatches
 	};
 };
 
+class btc_ace_Actions;
+
 class CfgVehicles
 {
 	class Man;
@@ -22,14 +24,8 @@ class CfgVehicles
 	{
 		class ACE_SelfActions
 		{
-			class btc_ace_Actions
+			class btc_ace_Actions: btc_ace_Actions
 			{
-				displayName = "BTC Menu";
-				condition = "";
-				exceptions[] = {};
-				statement = "";
-				priority = 2.1;
-				icon = QPATHTOEF(main,data\iconBtcA.paa);
 				class GVAR(menu)
 				{
 					displayName = "Manual Triggers";
@@ -37,7 +33,7 @@ class CfgVehicles
 					exceptions[] = {};
 					statement = "";
 					priority = 3;
-					icon = QPATHTOF(data\manual_trigger_icon.paa);
+					icon = QPATHTOF(data\icon.paa);
 				};
 			};
 		};

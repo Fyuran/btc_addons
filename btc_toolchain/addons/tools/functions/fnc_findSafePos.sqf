@@ -30,8 +30,8 @@ Author:
 params [
     ["_pos", [0, 0, 0], [[], objNull, "", locationNull], [2, 3]],
     ["_type", "", ["", objNull]],
-    ["_maxDist", 100, [0]],
-    ["_minDist", 0, [0]],
+    ["_maxDist", 50, [0]],
+    ["_minDist", 1, [0]],
     ["_preferRoads", true, [true]]
 ];
 

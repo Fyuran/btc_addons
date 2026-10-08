@@ -20,24 +20,38 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params [
-    ["_remove", controlNull, [controlNull]]
+    ["_remove", controlNull, [controlNull]],
+    ["_uid", "", [""]]
 ];
 
 private _grp1 = ctrlParentControlsGroup _remove;
 private _grp1_list = _grp1 controlsGroupCtrl VALUE_1;
 
-private _groupIndex = lbCurSel _grp1_list;
-if (_groupIndex < 0) exitWith {
+private _lbCurSel = lbCurSel _grp1_list;
+if (_lbCurSel < 0) exitWith {
     ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
 };
-GVAR(table) deleteAt _groupIndex;
-_grp1_list lbSetCurSel -1; //Triggers LBSelChanged exitWith lbClear
-lbClear _grp1_list;
-for "_i" from 1 to (count GVAR(table)) do { //Groups are malformed after delete in middle of list, so remake them from scratch to be back in numeric order
-	_grp1_list lbAdd (format["Group %1", _i]);
+
+if (_uid isEqualTo "") then { //first check if uid has been passed
+    _uid = _grp1_list lbData _lbCurSel;
+};
+if (_uid isEqualTo "") exitWith { //invalid uid, time to fuck off
+    #ifdef BTC_DEBUG_ENEMY_WAVES
+    [["%1: invalid _uid: %2", __FILE_NAME__, _uid], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
+    
 };
 
-#ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: removing _row %2 with Group %3", __FILE_NAME__, _groupIndex, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-#endif
+GVAR(table) deleteAt _uid;
+_grp1_list lbDelete _lbCurSel;
+_grp1_list lbSetCurSel -1; //Triggers lbSelChanged exitWith lnbClear
 
+private _tableCount = count GVAR(table);
+for "_i" from 0 to (_tableCount - 1) do { //Groups' names are malformed when removing middle, rename them correctly
+    _grp1_list lbSetText [_i, format["Wave %1", _i + 1]];
+};
+
+
+#ifdef BTC_DEBUG_ENEMY_WAVES
+[["%1: removing Wave %2", __FILE_NAME__, _uid], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+#endif

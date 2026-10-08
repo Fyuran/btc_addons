@@ -34,7 +34,8 @@ class CfgWeapons
 	};
 };
 
-#define COMMA ,
+class btc_ace_Actions;
+
 class CfgVehicles
 {
 	class Items_Base_F; //ThingX
@@ -45,7 +46,7 @@ class CfgVehicles
 		{
 			class ACE_MainActions
 			{
-				class btc_ace_Actions
+				class btc_ace_Actions: btc_ace_Actions
 				{
 					class GVAR(Dismantle)
 					{
@@ -84,7 +85,7 @@ class CfgVehicles
 	{
 		class ACE_SelfActions
 		{
-			class btc_ace_Actions
+			class btc_ace_Actions: btc_ace_Actions
 			{
 				class GVAR(Deploy)
 				{

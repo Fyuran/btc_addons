@@ -7,7 +7,7 @@ Description:
 
 Parameters:
     _grp1_list: CONTROL - The group listbox control
-    _groupIndex: NUMBER - The selected group index
+    _lbCurSel: NUMBER - The selected group index
 
 Returns:
     NOTHING
@@ -23,7 +23,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params [
     ["_grp1_list", controlNull, [controlNull]],
-    ["_groupIndex", -1, [0]]
+    ["_lbCurSel", -1, [0]]
 ];
 
 private _grp1 = ctrlParentControlsGroup _grp1_list;
@@ -32,14 +32,12 @@ private _grp2 = _main controlsGroupCtrl LIST_2;
 private _grp2_list = _grp2 controlsGroupCtrl VALUE_2;
 lnbClear _grp2_list;
 
-if (_groupIndex < 0) exitWith {};
-private _groupClasses = GVAR(table) getOrDefault[_groupIndex, []];
+if (_lbCurSel < 0) exitWith {};
 
-if (_groupClasses isEqualTo []) exitWith {
-    #ifdef BTC_DEBUG_ENEMY_WAVES
-    [["%1: LIST_1 LBSelChanged's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-    #endif
-};
+private _uid = _grp1_list lbData _lbCurSel;
+private _groupClasses = GVAR(table) getOrDefault[_uid, []];
+
+if (_groupClasses isEqualTo []) exitWith {}; //Empty
 
 _groupClasses apply {
     _x params [
@@ -61,5 +59,5 @@ _groupClasses apply {
     _grp2_list lnbSetPicture [[_row, 0], _icon];
 };
 #ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: filling VALUE_2 with %2", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: filling VALUE_2's %2 with %3", __FILE_NAME__, _uid, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif

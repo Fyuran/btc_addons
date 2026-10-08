@@ -1,3 +1,4 @@
+#include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
 Function: CBA_fnc_debug2
 
@@ -64,12 +65,12 @@ _type params [
 
 
 if (_global) then {
-	["cba_diagnostic_debug", [_message, _title, [_useChat, _useLog, false]]] call CBA_fnc_remoteEvent;
+	["cba_diagnostic_debug", [_message, _title, [_useChat, _useLog, false]]] call CBAFUNC(remoteEvent);
 };
 
 
 if (_message isEqualType "") then {
-	_message = [_message, "\n"] call CBA_fnc_split;
+	_message = [_message, "\n"] call CBAFUNC(split);
 };
 
 // format the first line to include title

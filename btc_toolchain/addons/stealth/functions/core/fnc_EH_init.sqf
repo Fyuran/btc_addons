@@ -42,7 +42,7 @@ _groups apply {
 
             _group setVariable[QGVAR(hasTriggeredSuppression), true];
 			//Do not allow multiple Suppressed to trigger, so add a delay
-			[{_this setVariable[QGVAR(hasTriggeredSuppression), false];}, _group, 0.1] call CBA_fnc_waitAndExecute;
+			[{_this setVariable[QGVAR(hasTriggeredSuppression), false];}, _group, 0.1] call CBAFUNC(waitAndExecute);
 
             [_group, getPos _instigator, 5] call FUNC(threat_setLastKnownPosition);
             private _threat = _group getVariable[QGVAR(threat), 0];
@@ -93,7 +93,7 @@ _groups apply {
 
             missionNamespace setVariable[QGVAR(hasTriggeredFired), true];
 			//Do not allow multiple Suppressed to trigger, so add a delay
-			[{missionNamespace setVariable[QGVAR(hasTriggeredFired), false];}, [], 2] call CBA_fnc_waitAndExecute;
+			[{missionNamespace setVariable[QGVAR(hasTriggeredFired), false];}, [], 2] call CBAFUNC(waitAndExecute);
 
             private _threat = _group getVariable[QGVAR(threat), 0];
             [_group, _threat + 1.5] call FUNC(threat_setThreat);

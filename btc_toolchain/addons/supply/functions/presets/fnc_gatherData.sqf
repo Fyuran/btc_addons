@@ -26,8 +26,8 @@ private _enableDamageCb = uiNamespace getVariable [QGVAR(enableDamage), controlN
 private _vehicleClass = _vehicleClassCombo lbData (lbCurSel _vehicleClassCombo);
 private _enableDamage = [false, true] select (cbChecked _enableDamageCb);
 
-private _inventory = missionNamespace getVariable [QGVAR(table), createHashMap];
-if (_inventory isEqualTo createHashMap) exitWith {
+private _table = +(missionNamespace getVariable [QGVAR(table), createHashMap]);
+if (_table isEqualTo createHashMap) exitWith {
     [["No inventory has been set yet"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     createHashMap
 };
@@ -36,13 +36,13 @@ if (_inventory isEqualTo createHashMap) exitWith {
 [["%1: saving preset %2", __FILE_NAME__, createHashMapFromArray [
     [QGVAR(table_vehicle), _vehicleClass],
     [QGVAR(table_enableDamage), _enableDamage],
-    [QGVAR(table), _inventory]
+    [QGVAR(table), _table]
 ]], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 createHashMapFromArray [
     [QGVAR(table_vehicle), _vehicleClass],
     [QGVAR(table_enableDamage), _enableDamage],
-    [QGVAR(table), _inventory]
+    [QGVAR(table), _table]
 ]
 

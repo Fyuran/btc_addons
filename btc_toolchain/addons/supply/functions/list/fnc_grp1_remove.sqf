@@ -20,7 +20,10 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params ["_remove"];
+params [
+    ["_remove", controlNull, [controlNull]],
+    ["_uid", "", [""]]
+];
 
 private _grp1 = ctrlParentControlsGroup _remove;
 private _grp1_list = _grp1 controlsGroupCtrl VALUE_1;
@@ -30,7 +33,16 @@ if (_lbCurSel < 0) exitWith {
     ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
 };
 
-private _uid = _grp1_list lbData _lbCurSel;
+if (_uid isEqualTo "") then { //first check if uid has been passed
+    _uid = _grp1_list lbData _lbCurSel;
+};
+if (_uid isEqualTo "") exitWith { //invalid uid, time to fuck off
+    #ifdef BTC_DEBUG_ENEMY_WAVES
+    [["%1: invalid _uid", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
+    _grp1_list lbDelete _lbCurSel;
+};
+
 GVAR(table) deleteAt _uid;
 
 _grp1_list lbDelete _lbCurSel;

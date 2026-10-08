@@ -6,7 +6,7 @@ Description:
     Callback invoked by GUI list arrow adjust to update wave group unit count.
 
 Parameters:
-    _grp1_key: STRING - Group key or unused
+    _grp1_key: STRING - Wave key or unused
     _grp2_class: STRING - Class name
     _newAmount: NUMBER - New unit quantity
     _grp1_curSel: NUMBER - Selected group index
@@ -17,16 +17,15 @@ Returns:
 
 Examples:
     (begin example)
-        ["", "B_Soldier_F", 3, 0, 1] call btc_toolchain_enemy_waves_fnc_list_grp2_onAdjust;
+        ["Wave-1", "", 2] call btc_toolchain_enemy_waves_fnc_list_grp2_onAdjust;
     (end)
 
 Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params ["", "", "_newAmount", "_grp1_curSel", "_grp2_curSelRow"];
+params ["_uid", "", "_newAmount", "", "_grp2_curSelRow"];
 
-private _groupClasses = GVAR(table) getOrDefault [_grp1_curSel, []];
+private _groupClasses = GVAR(table) getOrDefault [_uid, []];
 private _group = _groupClasses select _grp2_curSelRow;
-_group set [1, _newAmount];
-
+_group set [1, _newAmount]; //Class, Amount

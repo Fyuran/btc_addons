@@ -15,14 +15,24 @@ class Cfg3DEN
 		class GVAR(wp_type): Type 
 		{
 			idc = WP_TYPE;
-			onLoad = QUOTE(_this call FUNC(wp_gui_init));
-			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(wp_gui_load));
-			attributeSave = QUOTE(_this call FUNC(wp_gui_save));
+			onLoad = QUOTE(_this call FUNC(type_onLoad));
+			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(type_attributeLoad));
+			attributeSave = QUOTE(_this call FUNC(type_attributeSave));
+			class Controls: Controls
+			{
+				class Title: Title {};
+				class Search: Search {};
+				class SearchButton: SearchButton {};
+				class Value: Value 
+				{
+					onTreeSelChanged = QUOTE(_this call FUNC(type_onTreeSelChanged));
+				};
+			};
 		};
 		class GVAR(side): Combo
 		{
 			idc = SIDE_GRP;
-			onLoad = QUOTE(_this call FUNC(side_combo_init));
+			onLoad = QUOTE(_this call FUNC(side_combo_onLoad));
 			class Controls: Controls
 			{
 				class Title: Title {};
@@ -32,7 +42,7 @@ class Cfg3DEN
 		class GVAR(timeout): Edit
 		{
 			idc = TIMEOUT;
-			onLoad = QUOTE(_this call FUNC(timeout_init));
+			onLoad = QUOTE(_this call FUNC(timeout_onLoad));
 			class Controls: Controls
 			{
 				class Title: Title {};
@@ -45,7 +55,7 @@ class Cfg3DEN
 		class GVAR(seek_end): Checkbox
 		{
 			idc = SEEK_END;
-			onLoad = QUOTE(_this call FUNC(seek_checkbox_init));
+			onLoad = QUOTE(_this call FUNC(seek_checkbox_onLoad));
 			class Controls: Controls
 			{
 				class Title: Title {};
@@ -59,14 +69,46 @@ class Cfg3DEN
 		class GVAR(BehaviourWaypoint): BehaviourWaypoint
 		{
 			idc = BEHAVIOR;
+			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(behavior_attributeLoad));
+			//attributeSave = QUOTE(_ctrl = _this controlsGroupCtrl 100; _value = _ctrl lbValue (lbCurSel _ctrl));
+			class Controls: Controls
+			{
+				class Title: Title {};
+				class Value: Value {};
+			};
 		};
 		class GVAR(FormationWaypoint): FormationWaypoint
 		{
 			idc = FORMATION_WP;
+			attributeLoad = "(_this controlsGroupCtrl 100) lbSetCurSel (['no change','wedge','vee','line','column','file','stag_column','ech_left','ech_right','diamond'] find _value);";
+			attributeSave = "_ctrl = _this controlsGroupCtrl 100; _value = _ctrl lbValue (lbCurSel _ctrl); ['no change','wedge','vee','line','column','file','stag_column','ech_left','ech_right','diamond'] select _value;";
+			onLoad = QUOTE(_ctrl = (_this#0) controlsGroupCtrl 100; uiNamespace setVariable[ARR_2(QQGVAR(formation),_ctrl)]);
+			class Controls: Controls
+			{
+				class Title: Title {};
+				class Value: Value
+				{
+
+					values[]={0,1,2,3,4,5,6,7,8,9};
+					onToolboxSelChanged="";
+				};
+			};
 		};
 		class GVAR(SpeedModeWaypoint): SpeedModeWaypoint
 		{
 			idc = SPEED;
+			//onLoad = QUOTE(_this call FUNC(speed_onLoad));
+			attributeLoad = QUOTE((_this controlsGroupCtrl 100) lbSetCurSel ([ARR_4('unchanged','limited','normal','full')] find _value));
+			attributeSave = QUOTE(_ctrl = _this controlsGroupCtrl 100; _value = _ctrl lbValue (lbCurSel _ctrl); [ARR_4('unchanged','limited','normal','full')] select _value);
+			class Controls: Controls
+			{
+				class Title: Title {};
+				class Value: Value
+				{
+					onToolboxSelChanged = "";
+					values[]={0, 1, 2, 3};
+				};
+			};
 		};
 		class GVAR(File): Edit
 		{
@@ -79,7 +121,7 @@ class Cfg3DEN
 		class GVAR(presets): ctrlControlsGroupNoScrollbars
 		{
 			idc = LIST_MAIN;
-			onLoad = QUOTE(_this call FUNC(list_init)); //_this is already an array
+			onLoad = QUOTE(_this call FUNC(list_onLoad)); //_this is already an array
 			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(list_attributeLoad));
 			attributeSave = QUOTE([_this] call FUNC(list_attributeSave));
 			x = QUOTE(5 * h_PIXELW);
@@ -100,7 +142,7 @@ class Cfg3DEN
 						class Title: Title
 						{
 							idc = TITLE_1;
-							text = "Groups";
+							text = "Waves";
 						};
 						class Button_1: Button_1
 						{

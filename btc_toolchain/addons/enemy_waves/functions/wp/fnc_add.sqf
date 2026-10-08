@@ -22,6 +22,10 @@ Author:
 ---------------------------------------------------------------------------- */
 params[
 	["_group", grpNull, [grpNull]],
+    ["_position", [0, 0, 0], [[]], 3],
+    ["_wp_cfg", DEFAULT_CFG, [configNull, ""]],
+    ["_completion_radius", 0, [123]],
+    ["_script", "", ["", {}]],
     ["_wpAttributes", [], [[]]]
 ]; 
 
@@ -29,15 +33,11 @@ _wpAttributes = _wpAttributes apply {
     [_x] call FUNC(wp_processAttribute);
 };
 
-_wpAttributes params [
-    ["_position", [0, 0, 0], [[]], 3],
-    ["_type_data", [[], "MOVE"], [[]], 2],
+_wpAttributes params [ //parse cfg properties
 	["_combat_mode", "NO CHANGE", [""]],
-	["_behavior", "AWARE", [""]],
+	["_behavior", "UNCHANGED", [""]],
 	["_formation", "NO CHANGE", [""]],
-	["_speed", "UNCHANGED", [""]],
-    ["_completion_radius", 0, [123]],
-    ["_script", "", ["", {}]]
+	["_speed", "UNCHANGED", [""]]
 ];
 
 if(isNull _group) exitWith {
@@ -48,16 +48,22 @@ if (_position isEqualTo [0, 0, 0]) exitWith {
 	[["%1: found _position at [0, 0, 0]", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-//Prevent empty
-private _type = _type_data param[1, "MOVE", [""]];
+private _type = "MOVE"; //Prevent empty
+if (_wp_cfg isEqualType "") then {
+    _wp_cfg = [_wp_cfg] call EFUNC(tools,strToCfg);
+};
+if (!(isNull _wp_cfg) && {isClass _wp_cfg}) then {
+    _type = getText (_wp_cfg >> "type");
+    _script = getText (_wp_cfg >> "file");
+};
 if (_type isEqualTo "") then {
     _type = "MOVE";
 };
 if (_combat_mode isEqualTo "") then {
-    _combat_mode = "YELLOW";
+    _combat_mode = "NO CHANGE";
 };
 if (_behavior isEqualTo "") then {
-    _behavior = "AWARE";
+    _behavior = "UNCHANGED";
 };
 if (_formation isEqualTo "") then {
     _formation = "NO CHANGE";
@@ -67,7 +73,7 @@ if (_speed isEqualTo "") then {
 };
 
 //setWaypointScript only accepts STRING, so convert CODE
-if (!(_script isEqualType {})) then {
+if (_script isEqualType {}) then {
     _script = str _script;
 };
 //Force type to 'SCRIPTED' if script is passed
@@ -75,7 +81,12 @@ if (_script isNotEqualTo "") then {
     _type = "SCRIPTED";
 };
 
-private _wp = _group addWaypoint [_position, -1];
+#ifdef BTC_DEBUG_ENEMY_WAVES
+[["%1: adding _wp with data: %2", __FILE_NAME__, [_group, _type, _position, _wp_cfg, 
+    _completion_radius, _script, _combat_mode, _behavior, _formation, _speed]], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+#endif
+
+private _wp = _group addWaypoint [_position, -1]; 
 _wp setWaypointType _type;
 _wp setWaypointCombatMode _combat_mode; 
 _wp setWaypointBehaviour _behavior; 

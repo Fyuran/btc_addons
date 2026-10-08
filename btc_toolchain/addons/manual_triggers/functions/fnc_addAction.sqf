@@ -90,10 +90,10 @@ if (player getVariable [QGVAR(isSpecialBoy), false]) then {
             [player, 1, ["ACE_SelfActions", "btc_ace_Actions", QGVAR(menu), _thisActionName]] call ACEFUNC(interact_menu,removeActionFromObject);
         }
         else {
-            [{ //flip it back on a delay, as it won't evaluate in time
+            [{ //flip it back on a delay, as it won't evaluate in time on Repeatable
                 params["_trigger"];
-                _trigger setVariable[QGVAR(cond), false, 0]; //flip it back to 0 to allow rexecution
-            }, [_trigger], 1] call CBA_fnc_waitAndExecute;     
+                _trigger setVariable[QGVAR(cond), false, 0]; //allow rexecution
+            }, [_trigger], 1] call CBAFUNC(waitAndExecute);     
         }
 
     }, {

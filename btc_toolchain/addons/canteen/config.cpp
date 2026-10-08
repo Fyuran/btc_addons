@@ -91,6 +91,8 @@ class CfgWeapons
 	};
 };
 
+class btc_ace_Actions;
+
 class CfgVehicles
 {
 	class ACE_Canteen_Item;
@@ -118,7 +120,7 @@ class CfgVehicles
 		{
 			class ACE_MainActions
 			{
-				class btc_ace_Actions
+				class btc_ace_Actions: btc_ace_Actions
 				{
 					class GVAR(WaterBottle)
 					{
@@ -170,14 +172,8 @@ class CfgVehicles
 	{
 		class ACE_SelfActions
 		{
-			class btc_ace_Actions
+			class btc_ace_Actions: btc_ace_Actions
 			{
-				displayName = "BTC Menu";
-				condition = "";
-				exceptions[] = {};
-				statement = "";
-				priority = 2.1;
-				icon = QPATHTOEF(main,data\iconBtcA.paa);
 				class GVAR(WaterBottle)
 				{
 					displayName = "Drink Water Bottle (Full)";

@@ -34,14 +34,10 @@ if (_lbCurSel < 0) exitWith {
 
 //retrieve LIST_1 lbCurSel's data from the HashMap
 private _uid = _grp1_list lbData _lbCurSel;
-private _inventory = (GVAR(table) get _uid) get "inventory";
+private _inventory = (GVAR(table) getOrDefault [_uid, createHashMap]) getOrDefault ["inventory", createHashMap];
 
 lnbClear _grp2_list;
-if (_inventory isEqualTo createHashMap) exitWith {
-    #ifdef BTC_DEBUG_SUPPLY
-    [["%1: LIST_1 LBSelChanged's _inventory is empty", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-    #endif
-};
+if (_inventory isEqualTo createHashMap) exitWith {}; //empty
 
 _inventory apply {
     [_x, _y] params [

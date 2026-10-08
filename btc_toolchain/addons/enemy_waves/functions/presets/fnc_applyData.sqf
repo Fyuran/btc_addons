@@ -26,6 +26,7 @@ params [
 
 private _side_combo = uiNamespace getVariable [QGVAR(side_combo), controlNull];
 private _timeout = uiNamespace getVariable [QGVAR(timeout), controlNull];
+private _formation_ctrl = uiNamespace getVariable [QGVAR(formation), controlNull];
 private _seekEnd_cb = uiNamespace getVariable [QGVAR(seek_end), controlNull];
 private _list_grps = uiNamespace getVariable [QGVAR(list_grps), controlNull];
 
@@ -39,6 +40,9 @@ if (isNull _side_combo || isNull _timeout || isNull _seekEnd_cb || isNull _list_
 
 [_side_combo, _preset getOrDefault [QGVAR(side), east]] call FUNC(side_combo_attributeLoad);
 [_timeout, _preset getOrDefault [QGVAR(timeout), 60]] call FUNC(timeout_attributeLoad);
+
+
+_formation_ctrl lbSetCurSel (_preset getOrDefault [QGVAR(formation), 0]);
 
 private _seek_end = _preset getOrDefault [QGVAR(seek_end), true];
 _seekEnd_cb cbSetChecked _seek_end;

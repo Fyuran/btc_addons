@@ -26,7 +26,7 @@ disableSerialization;
 
 private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
 if (isNull _logic) exitWith {
-    #ifdef BTC_DEBUG_SUPPLY
+    #ifdef BTC_DEBUG_ENEMY_WAVES
     [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
@@ -34,7 +34,7 @@ if (isNull _logic) exitWith {
 private _serverId = [0, 2] select isMultiplayer;
 private _editDisplay = ctrlParent _OKButton;
 if (isNull _editDisplay) exitWith {
-    #ifdef BTC_DEBUG_SUPPLY
+    #ifdef BTC_DEBUG_ENEMY_WAVES
     [["%1: _editDisplay is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
@@ -49,8 +49,9 @@ private _side_combo = _sideComboGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBU
 private _timeoutGrp = _editDisplay displayCtrl TIMEOUT;
 private _timeout = _timeoutGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
 
-private _formationGrp = _editDisplay displayCtrl FORMATION_GRP;
-private _formation_combo = _formationGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
+private _formationGrp = _editDisplay displayCtrl FORMATION_WP;
+private _formationToolboxCtrl = _formationGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
+private _formation = ['no change','wedge','vee','line','column','file','stag_column','ech_left','ech_right','diamond'] select (_formationToolboxCtrl lbValue (lbCurSel _formationToolboxCtrl));
 
 private _seekCbGrp = _editDisplay displayCtrl SEEK_END;
 private _seek_cb= _seekCbGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
@@ -59,7 +60,7 @@ private _clientID = [0, 2] select isMultiplayer;
 _logic setVariable [QGVAR(side), _side_combo lbValue (lbCurSel _side_combo), _clientID];
 _logic setVariable [QGVAR(timeout), parseNumber (ctrlText _timeout), _clientID];
 _logic setVariable [QGVAR(seek_end), cbChecked _seek_cb, _clientID];
-_logic setVariable [QGVAR(formation), _formation_combo lbText (lbCurSel _formation_combo), _clientID];
+_logic setVariable [QGVAR(formation), _formation, _clientID];
 _logic setVariable [QGVAR(list_value), GVAR(table), _clientID];
 
 _editDisplay closeDisplay 1;

@@ -42,7 +42,9 @@ private _groupIndex = lbCurSel _grp1_list;
 if (_groupIndex < 0) exitWith {
     ["Nothing is selected in Groups List", 1] call EFUNC(tools,3DENNotification);
 };
-private _groupClasses = GVAR(table) getOrDefault[_groupIndex, []];
+
+private _uid = _grp1_list lbData _groupIndex;
+private _groupClasses = GVAR(table) getOrDefault [_uid, []];
 if (_groupClasses isEqualTo []) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
     [["%1: VALUE_2 REMOVE's _groupClasses is empty", __FILE_NAME__, _groupClasses], LOGS, QCOMPONENT] call EFUNC(tools,debug);
@@ -54,6 +56,6 @@ _grp2_list lnbDeleteRow _enemyClassIndex;
 _grp2_list lnbSetCurSelRow -1;
 
 #ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: Removing %2 from Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: Removing %2 from Wave %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 

@@ -29,6 +29,13 @@ if(isNull _group) exitWith {
     #endif
 };
 
+//There is a bug that will make enemies such as helicopters spawn endStatement like 100 times
+private _previousWp = _group getVariable[QGVAR(player_wp), []];
+if (_previousWp isNotEqualTo []) then {
+    deleteWaypoint _previousWp;
+    _group setVariable[QGVAR(player_wp), []];
+};
+
 //find group leaders
 private _hostileSides = [side _group] call BIS_fnc_enemySides;
 if (_hostileSides isEqualTo []) exitWith {};
@@ -37,7 +44,9 @@ private _players = (allPlayers select {
     (alive _x ) && {(side _x) in _hostileSides}
 }) - entities "HeadlessClient_F";
 
-if (_players isEqualTo []) exitWith {};
+if (_players isEqualTo []) exitWith {
+    [FUNC(wp_toPlayer), [_group], 5] call CBAFUNC(waitAndExecute);
+};
 
 private _playerLeaders = [];
 _players apply {
@@ -55,7 +64,7 @@ if (isNull _leader) exitWith {
     #endif
 };
 
-private _wp = [_group, [getPosASL _leader]] call FUNC(wp_add); //keeping other params as default should suffice
-
+private _wp = [_group, getPosASL _leader] call FUNC(wp_add);
+_group setVariable[QGVAR(player_wp), _wp];
 //Endless hunt
 _wp setWaypointStatements ["true", QUOTE([group this] call FUNC(wp_toPlayer))];

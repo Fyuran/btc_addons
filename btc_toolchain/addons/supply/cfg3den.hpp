@@ -15,7 +15,7 @@ class Cfg3DEN
 		class GVAR(vehicleClass): Combo
 		{
 			idc = VEHICLE_CLASS;
-			onLoad = QUOTE(_this call FUNC(combo_init));
+			onLoad = QUOTE(_this call FUNC(combo_onLoad));
 			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(combo_attributeLoad));
 			attributeSave = QUOTE([_this] call FUNC(combo_attributeSave));
 			class Controls: Controls
@@ -27,7 +27,7 @@ class Cfg3DEN
 		class GVAR(enableDamage): Checkbox 
 		{
 			idc = ALLOW_DAMAGE;
-			onLoad = QUOTE(_this call FUNC(enableDamage_init));
+			onLoad = QUOTE(_this call FUNC(enableDamage_onLoad));
 			class Controls: Controls
 			{
 				class Title: Title {};
@@ -37,7 +37,7 @@ class Cfg3DEN
 		class GVAR(presets): ctrlControlsGroupNoScrollbars
 		{
 			idc = LIST_MAIN;
-			onLoad = QUOTE(_this call FUNC(list_init)); //_this is already an array
+			onLoad = QUOTE(_this call FUNC(list_onLoad)); //_this is already an array
 			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(list_attributeLoad));
 			attributeSave = QUOTE([_this] call FUNC(list_attributeSave));
 			x = QUOTE(5 * h_PIXELW);

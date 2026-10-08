@@ -35,7 +35,7 @@ if ((lbCurSel _grp1_list) < 0) exitWith {
 private _class = trim (ctrlText _edit);
 //Update HashMap
 private _uid = _grp1_list lbData (lbCurSel _grp1_list);
-private _inventory = (GVAR(table) get _uid) get "inventory";
+private _inventory = (GVAR(table) getOrDefault [_uid, createHashMap]) getOrDefault ["inventory", createHashMap];
 
 if (_class in _inventory) exitWith {
     [format ["%1 already exists inside this object's inventory", _class], 1] call EFUNC(tools,3DENNotification);

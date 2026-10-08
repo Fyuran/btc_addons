@@ -1,19 +1,20 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_side_combo_init
+Function: btc_toolchain_enemy_waves_fnc_side_combo_onLoad
 
 Description:
-    Initializes the side selection combo control in UI namespace with default side.
+    Initializes the side selection combo control in UI namespace with default side on dialog load.
 
 Parameters:
     _comboGrp: CONTROL - Side combo box control group
     _config: CONFIG - Attribute config (optional, default: configNull)
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [_sideComboGrp] call btc_toolchain_enemy_waves_fnc_side_combo_init;
+        [_sideComboGrp] call btc_toolchain_enemy_waves_fnc_side_combo_onLoad;
     (end)
 
 Author:
@@ -27,7 +28,7 @@ params[
 
 disableSerialization;
 #ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: executing combo init", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: executing combo onLoad", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 private _combo = _comboGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
@@ -56,3 +57,4 @@ _combo lbSetValue[_civ_row, 3];
 _combo lbSetPicture[_civ_row, "\a3\Data_f\cfgFactionClasses_CIV_ca.paa"];
 
 _combo lbSetCurSel 0;
+

@@ -1,8 +1,8 @@
 #define COMPONENT enemy_waves
 #include "\z\btc_toolchain\addons\main\script_mod.hpp"
 
-#define BTC_DEBUG_ENEMY_WAVES
-#define DISABLE_COMPILE_CACHE
+// #define BTC_DEBUG_ENEMY_WAVES
+// #define DISABLE_COMPILE_CACHE
 
 #include "\z\btc_toolchain\addons\main\script_macros.hpp"
 #include "\z\btc_toolchain\addons\gui\gui_defines.hpp"
@@ -19,4 +19,5 @@
 #define SIDE_GRP 996
 #define TIMEOUT 997
 #define SEEK_END 998
-#define FORMATION_GRP 999
+
+#define DEFAULT_CFG configFile >> "cfgWaypoints" >> "Default" >> "Move"

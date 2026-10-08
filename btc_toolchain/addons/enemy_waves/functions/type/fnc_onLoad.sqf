@@ -1,18 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_wp_gui_init
+Function: btc_toolchain_enemy_waves_fnc_type_onLoad
 
 Description:
-    Initializes WP Type list
+    Initializes WP Type list on dialog load.
 
 Parameters:
-    _ctrlGrp: CONTROL
+    _ctrlGrp: CONTROL - The control group
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [_this] call btc_toolchain_enemy_waves_fnc_wp_gui_init;
+        [_this] call btc_toolchain_enemy_waves_fnc_type_onLoad;
     (end)
 
 Author:
@@ -40,6 +41,8 @@ _categories apply {
         private _childCfg = _x;
         private _childIndex = _treeCtrl tvAdd [[_parentIndex], getText (_childCfg >> "displayName")];
         _treeCtrl tvSetPicture [[_parentIndex, _childIndex], getText (_childCfg >> "icon")];
-        _treeCtrl tvSetData [[_parentIndex, _childIndex], getText (_childCfg >> "type")];
+
+        _treeCtrl tvSetData [[_parentIndex, _childIndex], str _childCfg];
     };
 };
+

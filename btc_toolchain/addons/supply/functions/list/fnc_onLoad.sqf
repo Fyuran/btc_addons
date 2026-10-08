@@ -1,12 +1,12 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_list_init
+Function: btc_toolchain_supply_fnc_list_onLoad
 
 Description:
-    Initializes the wave configuration lists and UI event handlers for group and unit composition.
+    Initializes supply list controls with event handlers for adding, removing, and managing items on dialog load.
 
 Parameters:
-    _main_grp: CONTROL - Main controls group
+    _main_grp: CONTROL - Main control group containing the supply list interface
     _config: CONFIG - Attribute config (optional, default: configNull)
 
 Returns:
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_mainGroupControl] call btc_toolchain_enemy_waves_fnc_list_init;
+        [_mainGroup] call btc_toolchain_supply_fnc_list_onLoad;
     (end)
 
 Author:
@@ -27,8 +27,8 @@ params [
 ];
 disableSerialization;
 
-#ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: executing list init", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+#ifdef BTC_DEBUG_SUPPLY
+[["%1: executing groups onLoad", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 GVAR(table) = createHashMap;
@@ -45,3 +45,4 @@ private _grp2_list = _grp2 controlsGroupCtrl VALUE_2;
 _grp1_list ctrlAddEventHandler ["KeyDown", EFUNC(gui,list_keyDown)];
 _grp2_list ctrlAddEventHandler ["KeyDown", EFUNC(gui,list_keyDown)];
 _grp2_list ctrlAddEventHandler ["KeyUp", EFUNC(gui,list_keyUp)];
+

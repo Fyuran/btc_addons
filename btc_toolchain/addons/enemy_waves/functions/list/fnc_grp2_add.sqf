@@ -35,7 +35,9 @@ private _groupIndex = lbCurSel _grp1_list;
 if (_groupIndex < 0) exitWith {
     ["Nothing is selected in Groups List", 1] call EFUNC(tools,3DENNotification);
 };
-private _groupClasses = GVAR(table) getOrDefault [_groupIndex, []];
+
+private _uid = _grp1_list lbData _groupIndex;
+private _groupClasses = GVAR(table) getOrDefault [_uid, []];
 
 private _class = trim(ctrlText _edit);
 if (_class isEqualTo "") exitWith {
@@ -73,11 +75,12 @@ private _row = _grp2_list lnbAddRow [_displayName, "1"];
 _grp2_list lnbSetData [[_row, 0], _class];
 _grp2_list lnbSetPicture [[_row, 0], _icon];
 _grp2_list lnbSetCurSelRow _row;
+_grp2_list lnbSort [0, true];
 
 //Update HashMap
 _groupClasses pushBack [_class, 1];
 
 #ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: Adding %2 to Group %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: Adding %2 to Wave %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 

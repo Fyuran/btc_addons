@@ -18,7 +18,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_listControl, 0x2E, false, true, false] call btc_toolchain_gui_fnc_list_keyDown;
+        [_listControl, DIK_C, false, true, false] call btc_toolchain_gui_fnc_list_keyDown;
     (end)
 
 Author:
@@ -27,9 +27,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_ctrlList", "_key", "_shift", "_ctrl", "_alt"];
 
-if (_key isEqualTo 0x2E && {_ctrl}) then {
+if (_key isEqualTo DIK_C && {_ctrl}) then {
     private _text = "";
-    if (ctrlType _ctrlList isEqualTo 102) then {
+    if (ctrlType _ctrlList isEqualTo CT_LISTNBOX) then {
         private _row = lnbCurSelRow _ctrlList;
         if (_row >= 0) then {
             _text = _ctrlList lnbData [_row, 0];
@@ -48,7 +48,7 @@ if (_key isEqualTo 0x2E && {_ctrl}) then {
     };
 
     if (_text isNotEqualTo "") then {
-        [format ["%1 class saved into clipboard", _text]] call EFUNC(tools,3DENNotification);
+        [format ["%1 saved into clipboard", _text]] call EFUNC(tools,3DENNotification);
         copyToClipboard _text;
     };
     false

@@ -50,7 +50,7 @@ switch (typeName _object) do {
 
     case "STRING": {
         {
-            _object = [_object, _x#0, _x#1] call CBA_fnc_replace;
+            _object = [_object, _x#0, _x#1] call CBAFUNC(replace);
         } forEach [
             ["\", "\\"],
             ["""", "\"""],
@@ -66,10 +66,10 @@ switch (typeName _object) do {
     };
 
     case "ARRAY": {
-        if ([_object] call CBA_fnc_isHash) then {
-            private _json = (([_object] call CBA_fnc_hashKeys) apply {
+        if ([_object] call CBAFUNC(isHash)) then {
+            private _json = (([_object] call CBAFUNC(hashKeys)) apply {
                 private _name = _x;
-                private _value = [_object, _name] call CBA_fnc_hashGet;
+                private _value = [_object, _name] call CBAFUNC(hashGet);
 
                 str formatText ["%1: %2", [_name] call FUNC(toJSON), [_value] call FUNC(toJSON)]
             }) joinString ", ";

@@ -25,6 +25,16 @@ class CfgFactionClasses
     };
 };
 
+class btc_ace_Actions
+{
+    displayName = "BTC Menu";
+    condition = "";
+    exceptions[] = {};
+    statement = "";
+    priority = 2.1;
+    icon = QPATHTOEF(main,data\iconBtcA.paa);
+};
+
 class CfgVehicles
 {
 	class Man;
@@ -32,15 +42,7 @@ class CfgVehicles
 	{
 		class ACE_SelfActions
 		{
-			class btc_ace_Actions
-			{
-				displayName = "BTC Menu";
-				condition = "";
-				exceptions[] = {};
-				statement = "";
-				priority = 2.1;
-				icon = QPATHTOEF(main,data\iconBtcA.paa);
-			};
+			class btc_ace_Actions: btc_ace_Actions {};
 		};
 	};
 };

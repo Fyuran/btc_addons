@@ -1,19 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_wp_gui_save
+Function: btc_toolchain_enemy_waves_fnc_type_attributeSave
 
 Description:
     Retrieves waypoint type value
 
 Parameters:
-    _ctrlGrp: CONTROL or ARRAY - Control group or controls to retrieve selected waypoint type from
+    _ctrlGrp: CONTROL - Control group
 
 Returns:
-    ARRAY
+    STRING
 
 Examples:
     (begin example)
-        [_ctrlGrp] call btc_toolchain_enemy_waves_fnc_wp_gui_save;
+        [_ctrlGrp] call btc_toolchain_enemy_waves_fnc_type_attributeSave;
     (end)
 
 Author:
@@ -21,7 +21,7 @@ Author:
 
 ---------------------------------------------------------------------------- */
 params[
-    ["_ctrlGrp", controlNull, [controlNull, []], [1, 2]]
+    ["_ctrlGrp", controlNull, [controlNull]]
 ];
 
 private _treeCtrl = _ctrlGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_TYPE_VALUE;
@@ -29,14 +29,8 @@ if (isNull _treeCtrl) exitWith {
     [["%1: _treeCtrl is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-private _data = _treeCtrl tvData (tvCurSel _treeCtrl);
-_data params [
-    ["_path", [], [[]]],
-    ["_text", "MOVE", [""]]
-];
+#ifdef BTC_DEBUG_ENEMY_WAVES
+[["%1: executing wp attributeSave with tvData: %2", __FILE_NAME__, _treeCtrl tvData (tvCurSel _treeCtrl)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+#endif
 
-if (_text isEqualTo "") then {
-    _text = "MOVE";
-};
-
-[tvCurSel _treeCtrl, [_path, _text]]
+_treeCtrl tvData (tvCurSel _treeCtrl) 
