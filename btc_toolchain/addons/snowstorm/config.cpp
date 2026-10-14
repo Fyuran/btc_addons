@@ -93,7 +93,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		scope = 2;
 		scopeCurator = 1;
-		category = "Effects";
+		category = "BTC_Modules";
 		displayName = "Snowstorm Module";
 		function = QFUNC(moduleInit);
 		icon = QPATHTOEF(main,data\ace_actions_icon.paa);

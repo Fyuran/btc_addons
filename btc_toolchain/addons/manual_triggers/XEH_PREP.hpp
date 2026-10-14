@@ -1,4 +1,5 @@
 #include "script_component.hpp"
 
-PREP(init);
 PREP(addAction);
+PREP(canShow);
+PREP(init);

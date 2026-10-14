@@ -57,7 +57,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		scope = 1;
 		scopeCurator = 2;
-		category = "Effects";
+		category = "BTC_Modules";
 		displayName = "Enemy Waves Module";
 		isGlobal = 0; // 0 for server only execution, 1 for global execution, 2 for persistent global execution
 		function = QFUNC(curator_init);
@@ -71,7 +71,7 @@ class CfgVehicles {
 		scopeCurator = 0;
 		isTriggerActivated = 1;				// 1 for module waiting until all synced triggers are activated
 		isDisposable = 1;					// 1 if modules is to be disabled once it is activated (i.e. repeated trigger activation will not work)
-		category = "Effects";
+		category = "BTC_Modules";
 		displayName = "Enemy Waves Module";
 		function = QFUNC(spawn);
 		icon = QPATHTOEF(main,data\ace_actions_icon.paa);

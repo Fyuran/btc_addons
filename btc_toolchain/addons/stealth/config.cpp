@@ -34,7 +34,7 @@ class CfgVehicles {
 		author = "=BTC= Fyuran";
 		scope = 2;
 		scopeCurator = 0;
-		category = "Effects";
+		category = "BTC_Modules";
 		displayName = "Stealth Module";
 		function = QFUNC(init);
 		icon = QPATHTOEF(main,data\ace_actions_icon.paa);
