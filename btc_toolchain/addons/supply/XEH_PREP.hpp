@@ -1,36 +1,32 @@
 #include "script_component.hpp"
 
 // drop
-PREP_FOLDER(drop,drop);
+PREP(drop);
 
 // list
-PREP_FOLDER(list,list_init);
-PREP_FOLDER(list,list_save);
-PREP_FOLDER(list,list_load);
-PREP_FOLDER(list,list_grp1_add);
-PREP_FOLDER(list,list_grp1_remove);
-PREP_FOLDER(list,list_grp1_lbSelChanged);
-PREP_FOLDER(list,list_grp1_keyDown);
-PREP_FOLDER(list,list_grp2_add);
-PREP_FOLDER(list,list_grp2_remove);
-PREP_FOLDER(list,list_grp2_keyDown);
-PREP_FOLDER(list,list_grp2_keyUp);
-PREP_FOLDER(list,list_grp2_buttonLeft);
-PREP_FOLDER(list,list_grp2_buttonRight);
+PREP_FOLDER(list,attributeLoad);
+PREP_FOLDER(list,attributeSave);
+PREP_FOLDER(list,init);
+PREP_FOLDER(list,grp1_add);
+PREP_FOLDER(list,grp1_remove);
+PREP_FOLDER(list,grp1_LBSelChanged);
+PREP_FOLDER(list,grp2_add);
+PREP_FOLDER(list,grp2_remove);
+PREP_FOLDER(list,grp2_onAdjust);
 
 // combo
-PREP_FOLDER(combo,combo_init);
-PREP_FOLDER(combo,combo_save);
-PREP_FOLDER(combo,combo_load);
+PREP_FOLDER(combo,init);
+PREP_FOLDER(combo,attributeLoad);
+PREP_FOLDER(combo,attributeSave);
 
-// checkbox
-PREP_FOLDER(checkbox,checkbox_init);
-PREP_FOLDER(checkbox,checkbox_save);
-PREP_FOLDER(checkbox,checkbox_load);
+// enableDamage
+PREP_FOLDER(enableDamage,init);
 
 // curator
-PREP_FOLDER(curator,curator_init);
-PREP_FOLDER(curator,curator_gui);
+PREP_FOLDER(curator,init);
+PREP_FOLDER(curator,OKCode);
 
 // presets
-PREP_FOLDER(presets,presets_init);
+PREP_FOLDER(presets,applyData);
+PREP_FOLDER(presets,gatherData);
+PREP_FOLDER(presets,open);

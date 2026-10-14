@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_call_reinforcements
+Function: btc_toolchain_stealth_fnc_reinforcements_call_reinforcements
 
 Description:
     Plays radio animation and sound on a unit to call in nearby stealth reinforcements when an intruder or body is discovered.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [leader _group, 1] spawn btc_toolchain_stealth_fnc_call_reinforcements;
+        [leader _group, 1] spawn btc_toolchain_stealth_fnc_reinforcements_call_reinforcements;
     (end)
 
 Author:
@@ -28,7 +28,7 @@ params[
 if(GVAR(radioInProgress)) exitWith {};
 
 if(!canSuspend) exitWith {
-    _this spawn FUNC(call_reinforcements);
+    _this spawn FUNC(reinforcements_call_reinforcements);
 };
 
 if(!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
@@ -94,7 +94,7 @@ private _nearGrps = [_unit, _alarm_dis, [_lastKnownPos], {
     #endif
     _grp setVariable[QGVAR(isReinforcement), true];
     _grp setVariable[QGVAR(reinf_location), _lastKnownPos];
-}] call FUNC(execNearbyGrps);
+}] call FUNC(waypoints_execNearbyGrps);
 
 if(!alive _unit) exitWith {
     _soundName = format[QGVAR(hq_mia_%1), selectRandom [3, 4, 5]];

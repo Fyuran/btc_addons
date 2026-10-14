@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_FSM_init
+Function: btc_toolchain_stealth_fnc_fsm_FSM_init
 
 Description:
     Registers all states (Patrol, Investigate, Investigate_Body, Alert, Cover, Reinforcement) and transitions into the CBA state machine.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_groupFSM] call btc_toolchain_stealth_fnc_FSM_init;
+        [_groupFSM] call btc_toolchain_stealth_fnc_fsm_FSM_init;
     (end)
 
 Author:
@@ -25,12 +25,12 @@ params[
 if(isNull _FSM) exitWith {};
 
 GVAR(allowed_states) = ["Patrol", "Investigate", "Investigate_Body", "Cover", "Reinforcement", "Alert"];
-private _patrol = (_FSM call FUNC(FSM_patrol)) call CBA_statemachine_fnc_addState;
-private _investigate = (_FSM call FUNC(FSM_investigate)) call CBA_statemachine_fnc_addState;
-private _investigate_body = (_FSM call FUNC(FSM_investigate_body)) call CBA_statemachine_fnc_addState;
-private _alert = (_FSM call FUNC(FSM_alert)) call CBA_statemachine_fnc_addState;
-private _cover = (_FSM call FUNC(FSM_cover)) call CBA_statemachine_fnc_addState;
-private _reinforcement = (_FSM call FUNC(FSM_reinf)) call CBA_statemachine_fnc_addState;
+private _patrol = (_FSM call FUNC(fsm_FSM_patrol)) call CBA_statemachine_fnc_addState;
+private _investigate = (_FSM call FUNC(fsm_FSM_investigate)) call CBA_statemachine_fnc_addState;
+private _investigate_body = (_FSM call FUNC(fsm_FSM_investigate_body)) call CBA_statemachine_fnc_addState;
+private _alert = (_FSM call FUNC(fsm_FSM_alert)) call CBA_statemachine_fnc_addState;
+private _cover = (_FSM call FUNC(fsm_FSM_cover)) call CBA_statemachine_fnc_addState;
+private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_fnc_addState;
 
 [_FSM, _patrol, _investigate, {
 	params[
@@ -241,7 +241,7 @@ private _reinforcement = (_FSM call FUNC(FSM_reinf)) call CBA_statemachine_fnc_a
 	params[
 		["_group", grpNull, [grpNull]]
 	];
-	[_group, 0] call FUNC(setThreat);
+	[_group, 0] call FUNC(threat_setThreat);
 
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: %2 transitioned from %3 to %4 with threat: %5", __FILE_NAME__,

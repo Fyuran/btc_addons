@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_snowstorm_fnc_initSlider
+Function: btc_toolchain_snowstorm_fnc_clients_initSlider
 
 Description:
     Initializes a slider UI control and synchronizes its value with an edit control for snowstorm module settings.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [[_ctrlGroup, _cfg], 50] call btc_toolchain_snowstorm_fnc_initSlider;
+        [[_ctrlGroup, _cfg], 50] call btc_toolchain_snowstorm_fnc_clients_initSlider;
     (end)
 
 Author:

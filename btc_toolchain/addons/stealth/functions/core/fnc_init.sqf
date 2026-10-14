@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_init
+Function: btc_toolchain_stealth_fnc_core_init
 
 Description:
     Initializes stealth system logic module on the server, creates FSMs for synchronized groups, and sets up detection handlers.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_logic] call btc_toolchain_stealth_fnc_init;
+        [_logic] call btc_toolchain_stealth_fnc_core_init;
     (end)
 
 Author:
@@ -63,7 +63,7 @@ GVAR(groups) = []; //hold ref to groups
 
 //retrieved from logic namespace
 private _debug = _logic getVariable[QGVAR(debug), false]; //used for logic
-if(_debug isEqualType 123) then { //handle some weird cases when even if typename is 'BOOL' when default it's handled as 'SCALAR'
+if(_debug isEqualType 123) then { //handle some weird cases when even if typeName is 'BOOL' when default it's handled as 'SCALAR'
     _debug = _debug isEqualTo 1;
 };
 private _investigate_offset = _logic getVariable[QGVAR(investigate_offset), 0];
@@ -93,7 +93,7 @@ _groups apply {
     _group setVariable[QGVAR(threat_limit), _threat_limit];
     _group setVariable[QGVAR(radio_delay), _radio_delay];
 
-    [_FSM] call FUNC(FSM_init);
+    [_FSM] call FUNC(fsm_FSM_init);
     
     GVAR(groups) pushBack _group;
     allCurators apply {
@@ -102,11 +102,11 @@ _groups apply {
     };
 };
 
-[_groups] call FUNC(EH_init);
+[_groups] call FUNC(core_EH_init);
 
 if(_debug && {!isDedicated}) then {
     publicVariable QGVAR(groups);
-	GVAR(debug_JIP) = [] remoteExecCall [QFUNC(debug), [0, -2] select isDedicated, true];
+	GVAR(debug_JIP) = [] remoteExecCall [QFUNC(core_debug), [0, -2] select isDedicated, true];
 } else {
     _logic setVariable[QGVAR(debug), false];
 };

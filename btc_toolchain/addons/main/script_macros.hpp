@@ -1,14 +1,17 @@
+#ifndef SCRIPT_MACROS_HPP
+#define SCRIPT_MACROS_HPP
+
 #include "\x\cba\addons\main\script_macros_common.hpp"
 
 //REDEFINES
 #ifdef DISABLE_COMPILE_CACHE
     #undef PREP
     #define PREP(fncName) FUNC(fncName) = compileScript [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf)]
-    #define PREP_FOLDER(folder,fncName) FUNC(fncName) = compileScript [QPATHTOF(functions\folder\DOUBLES(fnc,fncName).sqf)]
+    #define PREP_FOLDER(folder,fncName) FUNC(DOUBLES(folder,fncName)) = compileScript [QPATHTOF(functions\folder\DOUBLES(fnc,fncName).sqf)]
 #else
     #undef PREP
     #define PREP(fncName) [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call SLX_XEH_COMPILE_NEW
-    #define PREP_FOLDER(folder,fncName) [QPATHTOF(functions\folder\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call SLX_XEH_COMPILE_NEW
+    #define PREP_FOLDER(folder,fncName) [QPATHTOF(functions\folder\DOUBLES(fnc,fncName).sqf), QFUNC(DOUBLES(folder,fncName))] call SLX_XEH_COMPILE_NEW
 #endif
 
 //MACRO HELPERS
@@ -71,7 +74,7 @@
 
 //BTC MACROS
 #define QCOMPONENT QUOTE(COMPONENT)
-#define QQUOTE(var1) QUOTE(QUOTE(var1))
+#define QQUOTE(var1) QUOTE(QCOMPONENT(var1))
 
 //debug
 #define CHAT 2
@@ -97,3 +100,6 @@
     #define BTC_DEBUG_TOOLS
     #define BTC_DEBUG_WEIGHT_CALCULATOR
 #endif
+
+#endif
+

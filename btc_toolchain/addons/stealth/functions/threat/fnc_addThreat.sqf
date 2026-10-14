@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_addThreat
+Function: btc_toolchain_stealth_fnc_threat_addThreat
 
 Description:
     Adds threat points to a group's stealth alert level, clamped to the group's maximum threat limit.
@@ -15,7 +15,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_group, 1] call btc_toolchain_stealth_fnc_addThreat;
+        [_group, 1] call btc_toolchain_stealth_fnc_threat_addThreat;
     (end)
 
 Author:

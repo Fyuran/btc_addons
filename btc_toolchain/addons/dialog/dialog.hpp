@@ -1,17 +1,13 @@
 #define CENTER (0.5 * safeZoneW + safeZoneX)
-#define GUI_GRID_WAbs ((safezoneW / safezoneH) min 1.2)
-#define GUI_GRID_HAbs (GUI_GRID_WAbs / 1.2)
-#define GUI_GRID_X safezoneX
-#define GUI_GRID_Y (safezoneY + safezoneH - GUI_GRID_HAbs)
-#define GUI_GRID_H (GUI_GRID_HAbs / 25)
-#define GUI_GRID_W (GUI_GRID_WAbs / 40)
 
 class RscPicture;
 class RscFrame;
 class RscTextMulti;
 
-class RscTitles {
-	class GVAR(RscDialogBox) {
+class RscTitles
+{
+	class GVAR(RscDialogBox)
+	{
 		idd = 6661;
 		movingEnable = 1;
 		fadeIn = "true";
@@ -19,7 +15,8 @@ class RscTitles {
 		duration = 1e+11;
 		onload = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(RscDialogBox),_this select 0)]);
 		onunload = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(RscDialogBox),displayNull)]);
-		class ControlsBackground {
+		class ControlsBackground
+		{
 			class RscPicture_1200: RscPicture
 			{
 				idc = 1200;

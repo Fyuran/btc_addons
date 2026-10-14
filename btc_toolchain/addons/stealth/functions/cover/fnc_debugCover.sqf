@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_debugCover
+Function: btc_toolchain_stealth_fnc_cover_debugCover
 
 Description:
     Draws 3D debug visualizations for object geometry faces, corner vertices, and line-of-sight safety to potential covers.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [cursorObject] call btc_toolchain_stealth_fnc_debugCover;
+        [cursorObject] call btc_toolchain_stealth_fnc_cover_debugCover;
     (end)
 
 Author:
@@ -27,8 +27,8 @@ if(isNull _object) exitWith {
 	[["%1: _obj is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };	
  
-private _coverPositions = [_object] call FUNC(getCoverPositions_AGL);
-private _faces = [_object] call FUNC(getBoundingBoxFaces_Model);
+private _coverPositions = [_object] call FUNC(cover_getCoverPositions_AGL);
+private _faces = [_object] call FUNC(cover_getBoundingBoxFaces_Model);
 private _bottomPoints = _faces get "Bottom";
 private _topPoints = _faces get "Top";
 
@@ -53,7 +53,7 @@ _coverPositions apply {
     private _position = _x;
     private _isSafe = true;
     allPlayers apply {
-        if(!([AGLToASL _position, _x] call FUNC(isPositionHidden_ASL))) then {
+        if(!([AGLToASL _position, _x] call FUNC(cover_isPositionHidden_ASL))) then {
             _isSafe = false;
             break;
         };

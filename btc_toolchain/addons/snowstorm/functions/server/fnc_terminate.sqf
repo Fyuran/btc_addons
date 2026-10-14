@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_snowstorm_fnc_terminate
+Function: btc_toolchain_snowstorm_fnc_server_terminate
 
 Description:
     Stops snowfall simulation on server and notifies all connected clients to terminate snow effects.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_snowstorm_fnc_terminate;
+        [] call btc_toolchain_snowstorm_fnc_server_terminate;
     (end)
 
 Author:
@@ -55,4 +55,4 @@ GVAR(timedSnowstorm) = false;
 GVAR(snowfall) = false;
 publicVariable QGVAR(snowfall);
 //Clients
-[] remoteExecCall [QFUNC(terminate_clients), [0, -2] select isDedicated];
+[] remoteExecCall [QFUNC(clients_terminate), [0, -2] select isDedicated];

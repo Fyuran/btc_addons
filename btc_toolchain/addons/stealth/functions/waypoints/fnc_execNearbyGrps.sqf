@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_execNearbyGrps
+Function: btc_toolchain_stealth_fnc_waypoints_execNearbyGrps
 
 Description:
     Finds nearby stealth AI groups within a given range of a source and executes a callback function on each.
@@ -16,7 +16,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_unit, 300, [], { params ['_grp']; [_grp, 2] call btc_toolchain_stealth_fnc_addThreat; }] call btc_toolchain_stealth_fnc_execNearbyGrps;
+        [_unit, 300, [], { params ['_grp']; [_grp, 2] call btc_toolchain_stealth_fnc_addThreat; }] call btc_toolchain_stealth_fnc_waypoints_execNearbyGrps;
     (end)
 
 Author:

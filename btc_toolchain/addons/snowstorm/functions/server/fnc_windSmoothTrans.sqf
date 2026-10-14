@@ -1,19 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_snowstorm_fnc_windSmoothTrans
+Function: btc_toolchain_snowstorm_fnc_server_windSmoothTrans
 
 Description:
     Smoothly interpolates wind vector and intensity over duration to avoid abrupt weather transitions.
 
 Parameters:
-    _duration: NUMBER
-    _plannedIntensity: NUMBER
+    _duration: NUMBER - Duration in seconds (optional, default: 10)
+    _plannedIntesity: NUMBER - Planned wind intensity (optional, default: 20)
 
 Returns:
 
 Examples:
     (begin example)
-        [10, 20] spawn btc_toolchain_snowstorm_fnc_windSmoothTrans;
+        [10, 20] spawn btc_toolchain_snowstorm_fnc_server_windSmoothTrans;
     (end)
 
 Author:

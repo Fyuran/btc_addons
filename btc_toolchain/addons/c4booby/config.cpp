@@ -1,6 +1,8 @@
 #include "script_component.hpp"
-class CfgPatches {
-	class ADDON {
+class CfgPatches
+{
+	class ADDON
+	{
 		name = "=BTC= Toolchain C4 Booby trap";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
@@ -22,9 +24,12 @@ class CfgPatches {
 	};
 };
 
-class CfgMissions {
-	class Missions {
-		class GVAR(demo) { // class name MUST match the name in the 'directory' path
+class CfgMissions
+{
+	class Missions
+	{
+		class GVAR(demo) // class name MUST match the name in the 'directory' path
+		{
             overviewPicture = "a3\missions_f_curator\data\img\showcase_curator_overview_ca.paa";
 			briefingName = "=BTC= C4Booby Testing Grounds";
 			directory = QPATHTOF(missions\GVAR(demo).VR); // <--- match
@@ -33,7 +38,8 @@ class CfgMissions {
 	};
 };
 
-class GVAR(Timer_Attribute) {
+class GVAR(Timer_Attribute)
+{
 	displayName = "Edit timer"; // Name assigned to UI control class Title
 	tooltip = "Change timeout before detonation"; // Tooltip assigned to UI control class Title
 	property = QGVAR(EndTime); // Unique config property name saved in SQM
@@ -56,168 +62,216 @@ class GVAR(Timer_Attribute) {
 	typeName = "NUMBER"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
 };
 
-class CfgVehicles {
+class CfgVehicles
+{
 	class Land_MetalBarrel_F;
-	class GVAR(Land_MetalBarrel_F): Land_MetalBarrel_F {
-		author = "=BTC= Fyuran";
+	class GVAR(Land_MetalBarrel_F): Land_MetalBarrel_F
+	{
+		author = MAIN_AUTHOR;
 		displayName = "Metal Barrel (C4)";
-		class Attributes {
+		class Attributes
+		{
 			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class CargoNet_01_barrels_F;
-	class GVAR(CargoNet_01_barrels_F): CargoNet_01_barrels_F {
-		author = "=BTC= Fyuran";
+	class GVAR(CargoNet_01_barrels_F): CargoNet_01_barrels_F
+	{
+		author = MAIN_AUTHOR;
 		displayName = "Cargo Net (C4-Barrels)";
-		class Attributes {
+		class Attributes
+		{
 			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class CargoNet_01_box_F;
-	class GVAR(CargoNet_01_box_F): CargoNet_01_box_F {
-		author = "=BTC= Fyuran";
+	class GVAR(CargoNet_01_box_F): CargoNet_01_box_F
+	{
+		author = MAIN_AUTHOR;
 		displayName = "Cargo Net (C4-Box)";
-		class Attributes {
+		class Attributes
+		{
 			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class B_CargoNet_01_ammo_F;
-	class GVAR(B_CargoNet_01_ammo_F): B_CargoNet_01_ammo_F {
-		author = "=BTC= Fyuran";
+	class GVAR(B_CargoNet_01_ammo_F): B_CargoNet_01_ammo_F
+	{
+		author = MAIN_AUTHOR;
 		displayName = "Cargo Net [C4-NATO]";
-		class Attributes {
+		class Attributes
+		{
 			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class I_CargoNet_01_ammo_F;
-	class GVAR(I_CargoNet_01_ammo_F): I_CargoNet_01_ammo_F {
-		author = "=BTC= Fyuran";
+	class GVAR(I_CargoNet_01_ammo_F): I_CargoNet_01_ammo_F
+	{
+		author = MAIN_AUTHOR;
 		displayName = "Cargo Net [C4-AAF]";
-		class Attributes {
+		class Attributes
+		{
 			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class O_CargoNet_01_ammo_F;
-	class GVAR(O_CargoNet_01_ammo_F): O_CargoNet_01_ammo_F {
-		author = "=BTC= Fyuran";
+	class GVAR(O_CargoNet_01_ammo_F): O_CargoNet_01_ammo_F
+	{
+		author = MAIN_AUTHOR;
 		displayName = "Cargo Net [C4-CSAT]";
-		class Attributes {
+		class Attributes
+		{
 			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class I_E_CargoNet_01_ammo_F;
-	class GVAR(I_E_CargoNet_01_ammo_F): I_E_CargoNet_01_ammo_F {
-		author = "=BTC= Fyuran";
+	class GVAR(I_E_CargoNet_01_ammo_F): I_E_CargoNet_01_ammo_F
+	{
+		author = MAIN_AUTHOR;
 		displayName = "Cargo Net [C4-LDF]";
-		class Attributes {
+		class Attributes
+		{
 			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 	class C_IDAP_CargoNet_01_supplies_F;
-	class GVAR(C_IDAP_CargoNet_01_supplies_F): C_IDAP_CargoNet_01_supplies_F {
-		author = "=BTC= Fyuran";
+	class GVAR(C_IDAP_CargoNet_01_supplies_F): C_IDAP_CargoNet_01_supplies_F
+	{
+		author = MAIN_AUTHOR;
 		displayName = "Cargo Net [C4-IDAP]";
-		class Attributes {
+		class Attributes
+		{
 			class GVAR(EndTime): GVAR(Timer_Attribute) {};
 		};
 	};
 };
-class CfgSounds {
-	class GVAR(defused) {
+class CfgSounds
+{
+	class GVAR(defused)
+	{
 		name = QGVAR(defused);
 		sound[] = {QPATHTOF(sounds\defused.ogg),2,1,15};
 		titles[] = {};
 	};
-	class GVAR(timerClick) {
+	class GVAR(timerClick)
+	{
 		name = QGVAR(timerClick);
 		sound[] = {QPATHTOF(sounds\timerClick.ogg),2,1,15};
 		titles[] = {};
 	};
-	class GVAR(timerClickShort) {
+	class GVAR(timerClickShort)
+	{
 		name = QGVAR(timerClickShort);
 		sound[] = {QPATHTOF(sounds\timerClickShort.ogg),2,1,15};
 		titles[] = {};
 	};
-	class GVAR(timerEnd) {
+	class GVAR(timerEnd)
+	{
 		name = QGVAR(timerEnd);
 		sound[] = {QPATHTOF(sounds\timerEnd.ogg),2,1,15};
 		titles[] = {};
 	};
 };
 
-class GVAR(InitPost_Base) {
-	class GVAR(InitPost) {
+class GVAR(InitPost_Base)
+{
+	class GVAR(InitPost)
+	{
 		serverInit = QUOTE([_this] call FUNC(objectInit));
 	};
 };
 
-class Extended_InitPost_EventHandlers {
-	class GVAR(Land_MetalBarrel_F) {
+class Extended_InitPost_EventHandlers
+{
+	class GVAR(Land_MetalBarrel_F)
+	{
 		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
-	class GVAR(CargoNet_01_barrels_F) {
+	class GVAR(CargoNet_01_barrels_F)
+	{
 		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
-	class GVAR(CargoNet_01_box_F) {
+	class GVAR(CargoNet_01_box_F)
+	{
 		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
-	class GVAR(B_CargoNet_01_ammo_F) {
+	class GVAR(B_CargoNet_01_ammo_F)
+	{
 		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
-	class GVAR(I_CargoNet_01_ammo_F) {
+	class GVAR(I_CargoNet_01_ammo_F)
+	{
 		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
-	class GVAR(O_CargoNet_01_ammo_F) {
+	class GVAR(O_CargoNet_01_ammo_F)
+	{
 		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
-	class GVAR(I_E_CargoNet_01_ammo_F) {
+	class GVAR(I_E_CargoNet_01_ammo_F)
+	{
 		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
-	class GVAR(C_IDAP_CargoNet_01_supplies_F) {
+	class GVAR(C_IDAP_CargoNet_01_supplies_F)
+	{
 		class GVAR(InitPost): GVAR(InitPost_Base) {};
 	};
 };
 
-class GVAR(Deleted_Base) {
-	class GVAR(Deleted) {
+class GVAR(Deleted_Base)
+{
+	class GVAR(Deleted)
+	{
 		deleted = QUOTE([_this] call FUNC(deleteObject));
 	};
 };
-class Extended_Deleted_EventHandlers {
-	class GVAR(Land_MetalBarrel_F) {
+class Extended_Deleted_EventHandlers
+{
+	class GVAR(Land_MetalBarrel_F)
+	{
 		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
-	class GVAR(CargoNet_01_barrels_F) {
+	class GVAR(CargoNet_01_barrels_F)
+	{
 		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
-	class GVAR(CargoNet_01_box_F) {
+	class GVAR(CargoNet_01_box_F)
+	{
 		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
-	class GVAR(B_CargoNet_01_ammo_F) {
+	class GVAR(B_CargoNet_01_ammo_F)
+	{
 		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
-	class GVAR(I_CargoNet_01_ammo_F) {
+	class GVAR(I_CargoNet_01_ammo_F)
+	{
 		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
-	class GVAR(O_CargoNet_01_ammo_F) {
+	class GVAR(O_CargoNet_01_ammo_F)
+	{
 		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
-	class GVAR(I_E_CargoNet_01_ammo_F) {
+	class GVAR(I_E_CargoNet_01_ammo_F)
+	{
 		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
-	class GVAR(C_IDAP_CargoNet_01_supplies_F) {
+	class GVAR(C_IDAP_CargoNet_01_supplies_F)
+	{
 		class GVAR(Deleted): GVAR(Deleted_Base) {};
 	};
 };
 
-class Extended_PreStart_EventHandlers {
-    class ADDON {
+class Extended_PreStart_EventHandlers
+{
+    class ADDON
+    {
         init = QUOTE(call COMPILE_FILE(XEH_preStart));
     };
 };
 
-class Extended_PreInit_EventHandlers {
-    class ADDON {
+class Extended_PreInit_EventHandlers
+{
+    class ADDON
+    {
         init = QUOTE(call COMPILE_FILE(XEH_preInit));
     };
 };

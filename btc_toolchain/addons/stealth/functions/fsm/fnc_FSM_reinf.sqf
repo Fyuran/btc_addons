@@ -1,19 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_FSM_reinf
+Function: btc_toolchain_stealth_fnc_fsm_FSM_reinf
 
 Description:
     Defines the Reinforcement state where a neighboring group rushes to assist an alerted stealth group.
 
 Parameters:
-    _this: LOCATION
+    _FSM: LOCATION - CBA State Machine
 
 Returns:
     ARRAY
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_FSM_reinf;
+        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_reinf;
     (end)
 
 Author:
@@ -33,13 +33,13 @@ _this,
 	};
 
 	(units _group) apply {
-		private _player = [_x, allPlayers] call FUNC(unitDetectEntities);
+		private _player = [_x, allPlayers] call FUNC(threat_unitDetectEntities);
 		if(!isNull _player) then {
 			private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 
 			private _rate = 1/5 + (1/8 - 1/5) * (((_x distance _entity) - MIN_DIS) / (_threat_dis - MIN_DIS));
-			[_group, _rate] call FUNC(addThreat);
-			[_group, _player, 5] call FUNC(setLastKnownPosition);
+			[_group, _rate] call FUNC(threat_addThreat);
+			[_group, _player, 5] call FUNC(threat_setLastKnownPosition);
 		};
 	};
 }, {
@@ -61,9 +61,9 @@ _this,
 		#endif
 		_group setVariable[QGVAR(isReinforcement), false];
 	};
-	[_group, _group getVariable [QGVAR(investigate_threshold), 1]] call FUNC(setThreat);
+	[_group, _group getVariable [QGVAR(investigate_threshold), 1]] call FUNC(threat_setThreat);
 	[_group, [[0, _reinf_location, 25, "MOVE", "UNCHANGED", "UNCHANGED", 
-		"FULL", "NO CHANGE", ["true", ""], [0, 0, 0]]]] call FUNC(setWaypoints);
+		"FULL", "NO CHANGE", ["true", ""], [0, 0, 0]]]] call FUNC(waypoints_setWaypoints);
 
 }, {
 	/*EXIT*/

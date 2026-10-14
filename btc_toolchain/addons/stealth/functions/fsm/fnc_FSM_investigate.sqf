@@ -1,19 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_FSM_investigate
+Function: btc_toolchain_stealth_fnc_fsm_FSM_investigate
 
 Description:
     Defines the Investigate state in the stealth state machine where units search around the last known enemy position.
 
 Parameters:
-    _this: LOCATION
+    _FSM: LOCATION - CBA State Machine
 
 Returns:
     ARRAY
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_FSM_investigate;
+        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_investigate;
     (end)
 
 Author:
@@ -34,17 +34,17 @@ _this,
 
 	private _hasFound = false;
 	(units _group) apply {
-		private _player = [_x, allPlayers] call FUNC(unitDetectEntities);
+		private _player = [_x, allPlayers] call FUNC(threat_unitDetectEntities);
 		if(!isNull _player) then {
 			private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 			private _rate = 1/5 + (1/8 - 1/5) * (((_x distance _player) - MIN_DIS) / (_threat_dis - MIN_DIS));
-			[_group, _rate] call FUNC(addThreat);
-			[_group, _player, 0] call FUNC(setLastKnownPosition);
+			[_group, _rate] call FUNC(threat_addThreat);
+			[_group, _player, 0] call FUNC(threat_setLastKnownPosition);
 			_hasFound = true;
 		};
 	};
 	if(!_hasFound) then {
-		[_group, -1/80] call FUNC(addThreat);
+		[_group, -1/80] call FUNC(threat_addThreat);
 	};
 }, {
 	/*Enter*/
@@ -65,7 +65,7 @@ _this,
 	_group setCombatMode "GREEN";
 
 	if (_lastKnownPos isNotEqualTo [0, 0, 0]) then {
-		[_group, [[0, _lastKnownPos, 5]]] call FUNC(setWaypoints);
+		[_group, [[0, _lastKnownPos, 5]]] call FUNC(waypoints_setWaypoints);
 	};
 
 }, {/*Exit*/}, "Investigate"]

@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_dispatchBody
+Function: btc_toolchain_stealth_fnc_threat_dispatchBody
 
 Description:
     Conceals or flags a discovered casualty body with a bodybag or hides it to prevent repeated stealth alerts.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_deadBody, true] call btc_toolchain_stealth_fnc_dispatchBody;
+        [_deadBody, true] call btc_toolchain_stealth_fnc_threat_dispatchBody;
     (end)
 
 Author:

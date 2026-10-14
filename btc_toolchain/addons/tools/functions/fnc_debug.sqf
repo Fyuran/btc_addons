@@ -6,9 +6,9 @@ Description:
     Logs diagnostic messages to arma.rpt and displays them in chat or screen overlay based on bitmask flags.
 
 Parameters:
-    _message: STRING/ARRAY
-    _mode: NUMBER/ARRAY
-    _file: STRING
+    _message: STRING or ARRAY - Message text or format array
+    _mode: NUMBER - Output bitmask flags
+    _title: STRING - Module or component name for message prefix (optional, default: "DEBUG")
 
 Returns:
 

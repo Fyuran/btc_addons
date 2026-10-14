@@ -7,16 +7,16 @@ Description:
     Initializes an object as an active IED/bomb with randomized wire combination and defusal setup.
 
 Parameters:
-    _obj: OBJECT
-    _time: NUMBER
-    _defuser: OBJECT
+    _obj: OBJECT - Object to arm as a bomb
+    _end_time: NUMBER - Countdown timer duration in seconds (optional, default: 60)
+    _max_colors: NUMBER - Maximum wire colors (optional, default: 1)
 
 Returns:
     OBJECT
 
 Examples:
     (begin example)
-        [_barrel, 120, _phone] call btc_toolchain_c4booby_fnc_objectInit;
+        [_barrel, 120, 1] call btc_toolchain_c4booby_fnc_objectInit;
     (end)
 
 Author:

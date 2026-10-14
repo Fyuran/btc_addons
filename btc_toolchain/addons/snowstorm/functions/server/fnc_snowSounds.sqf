@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_snowstorm_fnc_snowSounds
+Function: btc_toolchain_snowstorm_fnc_server_snowSounds
 
 Description:
     Plays ambient snowstorm sound effects on client based on wind intensity.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [20] call btc_toolchain_snowstorm_fnc_snowSounds;
+        [20] call btc_toolchain_snowstorm_fnc_server_snowSounds;
     (end)
 
 Author:

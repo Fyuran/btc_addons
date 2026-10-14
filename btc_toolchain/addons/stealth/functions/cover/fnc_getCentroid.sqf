@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_getCentroid
+Function: btc_toolchain_stealth_fnc_cover_getCentroid
 
 Description:
     Calculates the geometric centroid (arithmetic mean) of an array of 3D positions.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        private _center = [_posArray, false] call btc_toolchain_stealth_fnc_getCentroid;
+        private _center = [_posArray, false] call btc_toolchain_stealth_fnc_cover_getCentroid;
     (end)
 
 Author:

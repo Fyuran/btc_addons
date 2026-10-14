@@ -1,18 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_manualTransition
+Function: btc_toolchain_stealth_fnc_core_manualTransition
 
 Description:
     Applies manual transition to a stealth FSM
 
 Parameters:
-    _state: STRING
+    _state: STRING - Target state name (optional, default: "Alert")
+    _obj: OBJECT - Trigger or synchronized object
 
 Returns:
 
 Examples:
     (begin example)
-        ["Alert", thisTrigger] call btc_toolchain_stealth_fnc_manualTransition;
+        ["Alert", thisTrigger] call btc_toolchain_stealth_fnc_core_manualTransition;
     (end)
 
 Author:
@@ -78,6 +79,6 @@ _groups apply {
             _this, _thisOrigin, _thisTarget], LOGS, QCOMPONENT] call EFUNC(tools,debug);
         #endif
 
-    }, QFUNC(manualTransition)] call CBA_statemachine_fnc_manualTransition;
+    }, QFUNC(core_manualTransition)] call CBA_statemachine_fnc_manualTransition;
 };
 

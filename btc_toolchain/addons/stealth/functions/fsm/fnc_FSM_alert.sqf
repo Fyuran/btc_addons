@@ -1,19 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_FSM_alert
+Function: btc_toolchain_stealth_fnc_fsm_FSM_alert
 
 Description:
     Defines the Alert state in the stealth state machine where units enter combat behavior and call in reinforcements.
 
 Parameters:
-    _this: LOCATION
+    _FSM: LOCATION - CBA State Machine
 
 Returns:
     ARRAY
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_FSM_alert;
+        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_alert;
     (end)
 
 Author:
@@ -34,16 +34,16 @@ _this,
 
 	private _hasFound = false;
 	(units _group) apply {
-		private _player = [_x, allPlayers, 300] call FUNC(unitDetectEntities);
+		private _player = [_x, allPlayers, 300] call FUNC(threat_unitDetectEntities);
 		if(!isNull _player) then {
-			[_group, _player, 0] call FUNC(setLastKnownPosition);
+			[_group, _player, 0] call FUNC(threat_setLastKnownPosition);
 			private _threat_limit = _group getVariable[QGVAR(threat_limit), 4];
-			[_group, _threat_limit] call FUNC(setThreat);
+			[_group, _threat_limit] call FUNC(threat_setThreat);
 			_hasFound = true;
 		};
 	};
 	if(!_hasFound) then {
-		[_group, -1/150] call FUNC(addThreat);
+		[_group, -1/150] call FUNC(threat_addThreat);
 	};
 }, 
 {
@@ -57,7 +57,7 @@ _this,
 	};
 	
 	private _threat_limit = _group getVariable[QGVAR(threat_limit), 4];
-	[_group, _threat_limit] call FUNC(setThreat);
+	[_group, _threat_limit] call FUNC(threat_setThreat);
 
 	(units _group) apply {
         _x enableAI "ALL";
@@ -75,5 +75,5 @@ _this,
 
 }, {/*EXIT*/
 	params[["_group", grpNull, [grpNull]]];
-	[leader _group] call FUNC(call_removeReinforcements);
+	[leader _group] call FUNC(reinforcements_call_removeReinforcements);
 }, "Alert"];

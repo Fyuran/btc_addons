@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_getCoverPositions_AGL
+Function: btc_toolchain_stealth_fnc_cover_getCoverPositions_AGL
 
 Description:
     Generates potential cover positions around an obstacle object in AGL coordinates.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        private _positions = [cursorObject, 0.25] call btc_toolchain_stealth_fnc_getCoverPositions_AGL;
+        private _positions = [cursorObject, 0.25] call btc_toolchain_stealth_fnc_cover_getCoverPositions_AGL;
     (end)
 
 Author:

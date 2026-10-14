@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_snowstorm_fnc_init
+Function: btc_toolchain_snowstorm_fnc_server_init
 
 Description:
     Initiates snowfall simulation on the server with fog, wind, and optional duration parameters.
@@ -16,7 +16,7 @@ Returns:
 
 Examples:
     (begin example)
-        [0.5, 0, 0, 300, [20, 30, 40]] call btc_toolchain_snowstorm_fnc_init;
+        [0.5, 0, 0, 300, [20, 30, 40]] call btc_toolchain_snowstorm_fnc_server_init;
     (end)
 
 Author:
@@ -43,7 +43,7 @@ if(_duration > 0) then {
 };
 
 if(!isNil QGVAR(handle)) then { //make sure the previous handler is removed
-	[] remoteExecCall [QFUNC(terminate), 0];
+	[] remoteExecCall [QFUNC(server_terminate), 0];
 };
 
 0 setRainbow 0;
@@ -72,11 +72,11 @@ forceWeatherChange;
 
 TRANS_DELAY setFog [_fogValue, _fogDecay, _fogBase];
 TRANS_DELAY setRain 1;
-GVAR(windTrans) = [TRANS_DELAY, 40] spawn FUNC(windSmoothTrans);
+GVAR(windTrans) = [TRANS_DELAY, 40] spawn FUNC(server_windSmoothTrans);
 [
 {
 	
-	[] remoteExecCall [QFUNC(snowDust_clients), [0, -2] select isDedicated];
+	[] remoteExecCall [QFUNC(clients_snowDust), [0, -2] select isDedicated];
 	GVAR(handle) = [{
 		0 setOvercast 1;
 		private _randMag = random [10, 15, 20];
@@ -99,21 +99,21 @@ GVAR(windTrans) = [TRANS_DELAY, 40] spawn FUNC(windSmoothTrans);
 			true, // rain is snow, will be used in "snow" env sound controller (optional, default is false)
 			false // when true, the dropColor is preserved and not affected by eye accommodation (optional, default is false)
 		] call BIS_fnc_setRain;
-		[_randMag] call FUNC(snowSounds);
+		[_randMag] call FUNC(server_snowSounds);
 		0 setRain 1;
 
-		GVAR(windTrans) = [TRANS_DELAY, random (_this#0)] spawn FUNC(windSmoothTrans);
+		GVAR(windTrans) = [TRANS_DELAY, random (_this#0)] spawn FUNC(server_windSmoothTrans);
 
 		if(GVAR(timedSnowstorm)) then {
 			GVAR(duration) = GVAR(duration) - CBA_missionTime;
 			if(GVAR(duration) <= 0) then {
-				[] remoteExecCall [QFUNC(terminate), 0];
+				[] remoteExecCall [QFUNC(server_terminate), 0];
 			};
 		};
 	}, TRANS_DELAY, _this] call CBAFUNC(addPerFrameHandler);
 }, _windIntensity, TRANS_DELAY] call CBAFUNC(waitAndExecute);
 
 //Clients
-GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(snowSounds_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
-GVAR(JIP_Breath) = [] remoteExecCall [QFUNC(breath_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
-GVAR(JIP_PPE) = [] remoteExecCall [QFUNC(postprocess_clients), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
+GVAR(JIP_CSounds) = [] remoteExecCall [QFUNC(clients_snowSounds), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
+GVAR(JIP_Breath) = [] remoteExecCall [QFUNC(clients_breath), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc
+GVAR(JIP_PPE) = [] remoteExecCall [QFUNC(clients_postprocess), [0, -2] select isDedicated, true]; //jip id removal is handled in terminate fnc

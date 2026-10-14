@@ -1,6 +1,8 @@
 #include "script_component.hpp"
-class CfgPatches {
-	class ADDON {
+class CfgPatches
+{
+	class ADDON
+	{
 		name = "=BTC= Toolchain Deployable Antennas";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
@@ -13,42 +15,40 @@ class CfgPatches {
 	};
 };
 
-class CfgWeapons {
+class CfgWeapons
+{
     class CBA_MiscItem_ItemInfo;
 	class CBA_MiscItem;
 
-	class GVAR(DeployableAntenna) : CBA_MiscItem {
+	class GVAR(DeployableAntenna) : CBA_MiscItem
+	{
 		scope = 2;
 		scopeArsenal = 2;
 		displayName = "Folded Deployable Antenna";
 		model = "\a3\weapons_f\Ammoboxes\bags\Backpack_Tortila.p3d";
 		picture = QPATHTOF(data\dish_pic.paa);
-        class ItemInfo: CBA_MiscItem_ItemInfo {
+        class ItemInfo: CBA_MiscItem_ItemInfo
+        {
             mass = 55;
         };
 	};
 };
 
 #define COMMA ,
-class CfgVehicles {
+class CfgVehicles
+{
 	class Items_Base_F; //ThingX
 	class Item_Base_F; //WeaponHolder
-	class Land_SatelliteAntenna_01_F: Items_Base_F {
-		class ACE_Actions {
-			class ACE_MainActions {
-				condition = "true";
-				displayName = ACECSTRING(interaction,MainAction);
-                position[] = {{0,0,0}};
-                selection = "";
-                distance = 4;
-				class btc_ace_Actions {
-					displayName = "BTC Menu";
-					condition = "true";
-					exceptions[] = {};
-					statement = "";
-					priority = 2.1;
-					icon = QPATHTOEF(main,data\ace_actions_icon.paa);
-					class GVAR(Dismantle) {
+	class Land_SatelliteAntenna_01_F: Items_Base_F
+	{
+		class ACE_Actions
+		{
+			class ACE_MainActions
+			{
+				class btc_ace_Actions
+				{
+					class GVAR(Dismantle)
+					{
 						displayName = "Dismantle Antenna";
 						condition = QUOTE(_player canAdd QQGVAR(DeployableAntenna));
 						exceptions[] = {};
@@ -60,8 +60,9 @@ class CfgVehicles {
 		};
 	};
 
-	class GVAR(DeployableAntenna_Item): Item_Base_F {
-        author = "=BTC= Fyuran";
+	class GVAR(DeployableAntenna_Item): Item_Base_F
+	{
+        author = MAIN_AUTHOR;
 		icon = "iconObject_5x4";
         displayName = "Folded Deployable Antenna"; 
         model = "\a3\Weapons_F\DummyItem.p3d"; 
@@ -72,16 +73,21 @@ class CfgVehicles {
 		editorSubcategory = "EdSubcat_InventoryItems";
 		vehicleClass = "Items";	
 		scopeCurator = 2;
-		class TransportItems {
+		class TransportItems
+		{
 			ITEM_XX(GVAR(DeployableAntenna),1);
 		};
 	};
 	
 	class Man;
-	class CAManBase: Man {
-		class ACE_SelfActions {
-			class btc_ace_Actions {
-				class GVAR(Deploy) {
+	class CAManBase: Man
+	{
+		class ACE_SelfActions
+		{
+			class btc_ace_Actions
+			{
+				class GVAR(Deploy)
+				{
 					displayName = "Deploy Antenna";
 					condition = QUOTE(QQGVAR(DeployableAntenna) in items _player);
 					exceptions[] = {};
@@ -93,22 +99,28 @@ class CfgVehicles {
 	};
 };
 
-class CfgSounds {
-	class GVAR(Jammer_Sound) {
+class CfgSounds
+{
+	class GVAR(Jammer_Sound)
+	{
 		name = QGVAR(Jammer_Sound);
 		sound[] = {QPATHTOF(data\jammer.ogg), 1, 1, 50};
 		titles[] = {};
 	};
 };
 
-class Extended_PreStart_EventHandlers {
-    class ADDON {
+class Extended_PreStart_EventHandlers
+{
+    class ADDON
+    {
         init = QUOTE(call COMPILE_FILE(XEH_preStart));
     };
 };
 
-class Extended_PreInit_EventHandlers {
-    class ADDON {
+class Extended_PreInit_EventHandlers
+{
+    class ADDON
+    {
         init = QUOTE(call COMPILE_FILE(XEH_preInit));
     };
 };

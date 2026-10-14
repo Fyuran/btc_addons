@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_debug
+Function: btc_toolchain_stealth_fnc_core_debug
 
 Description:
     Spawns a client-side 3D debug HUD drawing group states, threat levels, detection cones, and cover points in real time.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [] call btc_toolchain_stealth_fnc_debug;
+        [] call btc_toolchain_stealth_fnc_core_debug;
     (end)
 
 Author:
@@ -130,28 +130,20 @@ _groups apply {
 	};
 	private _enemyColor = switch([_side] call BIS_fnc_sideID) do {
 		case _OPFOR_ : {[
-			profileNamespace getVariable ['Map_OPFOR_R',0], 
-			profileNamespace getVariable ['Map_OPFOR_G',1], 
-			profileNamespace getVariable ['Map_OPFOR_B',1], 
-			profileNamespace getVariable ['Map_OPFOR_A',0.8]
+			Map_OPFOR_RGB,
+			Map_OPFOR_A
 		]};
 		case _BLUFOR_ : {[
-			profileNamespace getVariable ['Map_BLUFOR_R',0], 
-			profileNamespace getVariable ['Map_BLUFOR_G',1], 
-			profileNamespace getVariable ['Map_BLUFOR_B',1], 
-			profileNamespace getVariable ['Map_BLUFOR_A',0.8]
+			Map_BLUFOR_RGB,
+			Map_BLUFOR_A
 		]};
 		case _INDEPENDENT_ : {[
-			profileNamespace getVariable ['Map_Independent_R',0], 
-			profileNamespace getVariable ['Map_Independent_G',1], 
-			profileNamespace getVariable ['Map_Independent_B',1], 
-			profileNamespace getVariable ['Map_Independent_A',0.8]
+			Map_Independent_RGB,
+			Map_Independent_A
 		]};
 		default {[
-			profileNamespace getVariable ['Map_Civilian_R',0], 
-			profileNamespace getVariable ['Map_Civilian_G',1], 
-			profileNamespace getVariable ['Map_Civilian_B',1], 
-			profileNamespace getVariable ['Map_Civilian_A',0.8]
+			Map_Civilian_RGB,
+			Map_Civilian_A
 		]};
 	};
 
@@ -166,7 +158,7 @@ _groups apply {
 	};
 	private _centroid = [0, 0, 0];
 	if(_positions isNotEqualTo []) then {
-		_centroid = ([_positions, true] call FUNC(getCentroid)) vectorAdd [0, 0, 4];
+		_centroid = ([_positions, true] call FUNC(cover_getCentroid)) vectorAdd [0, 0, 4];
 
 		drawIcon3D [_group_icon, _enemyColor, _centroid, pixelW * pixelGrid * 100, pixelH * pixelGrid * 80, 0];
 		private _currentState = [_group, _group getVariable[QGVAR(FSM), locationNull]] call CBA_statemachine_fnc_getCurrentState;
@@ -197,10 +189,10 @@ _groups apply {
 			_coverData params["_coverObj", "_coverPos"];
 			drawIcon3D ["", [1,0.23,1,1], _unitPos vectorAdd[0,0,2.6], 1, 1, 0, format["Cover:%1", _unit getVariable[QGVAR(isInCover), false]]];
 			drawLine3D[_unitPos, _coverPos, [0, 1, 0, 1]];
-			[_coverObj] call FUNC(debugCover);
+			[_coverObj] call FUNC(cover_debugCover);
 		};
 
-		private _player = [_unit, allPlayers + ([side _unit] call FUNC(getAllSideCorpses))] call FUNC(unitDetectEntities);
+		private _player = [_unit, allPlayers + ([side _unit] call FUNC(threat_getAllSideCorpses))] call FUNC(threat_unitDetectEntities);
 		if(!isNull _player) then {
 			drawLine3D[_unit modelToWorldVisual EYE_OFFSET, _player modelToWorldVisual EYE_OFFSET, [_threat max _body_threat, 1 - (_threat max _body_threat), 0, 1]];
 		};

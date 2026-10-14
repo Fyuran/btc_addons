@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_manual_triggers_init
+Function: btc_toolchain_manual_triggers_fnc_init
 
 Description:
     Used by module to parse triggers, extract their vehicleVarNames(Editor names basically), 
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        this] call btc_toolchain_manual_triggers_init;
+        this] call btc_toolchain_manual_triggers_fnc_init;
     (end)
 
 Author:

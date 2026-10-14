@@ -4,10 +4,10 @@
     params["_value"];
     if(not (missionNamespace getVariable[QGVAR(snowfall), false])) exitWith {};
     if(_value isEqualTo 0) then {
-        [] call FUNC(terminate_clients);
+        [] call FUNC(clients_terminate);
     } else {
-        [2] call FUNC(terminate_clients);
-        [] call FUNC(snowSounds_clients);
+        [2] call FUNC(clients_terminate);
+        [] call FUNC(clients_snowSounds);
     };
 }] call CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
@@ -15,9 +15,9 @@
     params["_value"];
     if(not (missionNamespace getVariable[QGVAR(snowfall), false])) exitWith {};
     if(_value isEqualTo false) then {
-        [2] call FUNC(terminate_clients);
+        [2] call FUNC(clients_terminate);
     } else {
-        [] call FUNC(snowSounds_clients);
+        [] call FUNC(clients_snowSounds);
     };
 }] call CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
@@ -25,9 +25,9 @@
     params["_value"];
     if(not (missionNamespace getVariable[QGVAR(snowfall), false])) exitWith {};
     if(_value isEqualTo false) then {
-        [4] call FUNC(terminate_clients);
+        [4] call FUNC(clients_terminate);
     } else {
-        [] call FUNC(breath_clients);
+        [] call FUNC(clients_breath);
     };
 }] call CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
@@ -35,9 +35,9 @@
     params["_value"];
     if(not (missionNamespace getVariable[QGVAR(snowfall), false])) exitWith {};
     if(_value isEqualTo false) then {
-        [6] call FUNC(terminate_clients);
+        [6] call FUNC(clients_terminate);
     } else {
-        [] call FUNC(snowDust_clients);
+        [] call FUNC(clients_snowDust);
     };
 }] call CBAFUNC(addSetting);
 // CHECKBOX --- extra argument: default value 
@@ -45,8 +45,8 @@
     params["_value"];
     if(not (missionNamespace getVariable[QGVAR(snowfall), false])) exitWith {};
     if(_value isEqualTo false) then {
-        [8] call FUNC(terminate_clients);
+        [8] call FUNC(clients_terminate);
     } else {
-        [] call FUNC(postprocess_clients);
+        [] call FUNC(clients_postprocess);
     };
 }] call CBAFUNC(addSetting);

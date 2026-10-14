@@ -6,9 +6,9 @@ Description:
     Starts per-frame countdown timer for bomb defusal, triggering detonation when time expires.
 
 Parameters:
-    _obj: OBJECT
-    _time: NUMBER
-    _max_colors: NUMBER
+    _obj: OBJECT - Bomb object
+    _end_time: NUMBER - Countdown timer duration in seconds (optional, default: 60)
+    _max_colors: NUMBER - Maximum wire colors (optional, default: 1)
 
 Returns:
 

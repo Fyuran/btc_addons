@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_call_removeReinforcements
+Function: btc_toolchain_stealth_fnc_reinforcements_call_removeReinforcements
 
 Description:
     Plays radio animation to call all-clear / stand down, canceling reinforcement alerts and dispatching nearby dead bodies.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [leader _group] spawn btc_toolchain_stealth_fnc_call_removeReinforcements;
+        [leader _group] spawn btc_toolchain_stealth_fnc_reinforcements_call_removeReinforcements;
     (end)
 
 Author:
@@ -26,13 +26,13 @@ params[
 private _group = group _unit;
 private _alarm_dis = _group getVariable[QGVAR(alarm_distance), ALARM_DISTANCE];
 (allDeadMen select {(_x distance (getPos _unit) <= _alarm_dis)}) apply {
-    [_x, false] call FUNC(dispatchBody);
+    [_x, false] call FUNC(threat_dispatchBody);
 };
 
 if(GVAR(radioInProgress)) exitWith {};
 
 if(!canSuspend) exitWith {
-    _this spawn FUNC(call_removeReinforcements);
+    _this spawn FUNC(reinforcements_call_removeReinforcements);
 };
 if(!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
 if(!local _unit) exitWith {
@@ -71,14 +71,14 @@ private _nearGrps = [_unit, _alarm_dis, [], {
         ["_grp", grpNull, [grpNull]]
     ];
 
-    [_grp, 0] call FUNC(setThreat);
-	[_grp, 0, "body_threat"] call FUNC(setThreat);
+    [_grp, 0] call FUNC(threat_setThreat);
+	[_grp, 0, "body_threat"] call FUNC(threat_setThreat);
     _grp setVariable[QGVAR(isReinforcement), false];
 
     #ifdef BTC_DEBUG_STEALTH
     [["%1: %2 has been called off", __FILE_NAME__, _grp], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug); 
     #endif
-}] call FUNC(execNearbyGrps);
+}] call FUNC(waypoints_execNearbyGrps);
 
 _unit enableAI "ANIM";
 _unit doFollow leader _group;

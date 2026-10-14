@@ -1,40 +1,48 @@
 #include "script_component.hpp"
 
-//Combo
-PREP_FOLDER(combo,side_combo_init);
-PREP_FOLDER(combo,side_combo_load);
-PREP_FOLDER(combo,side_combo_save);
-PREP_FOLDER(combo,formation_combo_init);
-PREP_FOLDER(combo,formation_combo_load);
-PREP_FOLDER(combo,formation_combo_save);
+//Seek end Checkbox
+PREP_FOLDER(seek_checkbox,init);
+
+//Side Combo
+PREP_FOLDER(side_combo,init);
+PREP_FOLDER(side_combo,attributeLoad);
 
 //Timeout
-PREP_FOLDER(timeout,timeout_init);
-PREP_FOLDER(timeout,timeout_load);
-PREP_FOLDER(timeout,timeout_save);
+PREP_FOLDER(timeout,init);
+PREP_FOLDER(timeout,attributeLoad);
 
 //List
-PREP_FOLDER(list,list_init);
-PREP_FOLDER(list,list_load);
-PREP_FOLDER(list,list_save);
-PREP_FOLDER(list,list_grp1_add);
-PREP_FOLDER(list,list_grp1_remove);
-PREP_FOLDER(list,list_grp1_lbSelChanged);
-PREP_FOLDER(list,list_grp2_add);
-PREP_FOLDER(list,list_grp2_remove);
-PREP_FOLDER(list,list_grp2_keyDown);
-PREP_FOLDER(list,list_grp2_buttonLeft);
-PREP_FOLDER(list,list_grp2_buttonRight);
+PREP_FOLDER(list,attributeLoad);
+PREP_FOLDER(list,attributeSave);
+PREP_FOLDER(list,init);
+PREP_FOLDER(list,grp1_add);
+PREP_FOLDER(list,grp1_remove);
+PREP_FOLDER(list,grp1_lbSelChanged);
+PREP_FOLDER(list,grp2_add);
+PREP_FOLDER(list,grp2_remove);
+PREP_FOLDER(list,grp2_onAdjust);
 
 //Curator
-PREP_FOLDER(curator,curator_init);
-PREP_FOLDER(curator,curator_gui);
+PREP_FOLDER(curator,init);
+PREP_FOLDER(curator,OKCode);
 
 //Presets
-PREP_FOLDER(presets,presets_init);
+PREP_FOLDER(presets,applyData);
+PREP_FOLDER(presets,gatherData);
+PREP_FOLDER(presets,open);
 
 //Spawn
-PREP_FOLDER(spawn,spawn);
+PREP_FOLDER(spawn,addEH);
+PREP_FOLDER(spawn,begin);
 
 //Waypoints module
-PREP_FOLDER(wp,wp_init);
+PREP_FOLDER(wp,add);
+PREP_FOLDER(wp,getNextModule);
+PREP_FOLDER(wp,moduleInit);
+PREP_FOLDER(wp,toPlayer);
+PREP_FOLDER(wp,processAttribute);
+
+//Waypoints Type GUI
+PREP_FOLDER(wp,gui_init);
+PREP_FOLDER(wp,gui_load);
+PREP_FOLDER(wp,gui_save);

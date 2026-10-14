@@ -1,6 +1,8 @@
 #include "script_component.hpp"
-class CfgPatches {
-	class ADDON {
+class CfgPatches
+{
+	class ADDON
+	{
 		name = "=BTC= Toolchain Gear Weight Calculator";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
@@ -13,20 +15,24 @@ class CfgPatches {
 	};
 };
 
-#include "rsc.hpp"
+class RscButton;
+class RscText;
+class RscListNBox;
+class RscFrame;
 
-class CfgVehicles {
+#include "gui.hpp"
+
+class CfgVehicles
+{
 	class Man;
-	class CAManBase: Man {
-		class ACE_SelfActions {
-			class btc_ace_Actions {
-				displayName = "BTC Menu";
-				condition = "";
-				exceptions[] = {};
-				statement = "";
-				priority = 2.1;
-				icon = QPATHTOEF(main,data\ace_actions_icon.paa);
-				class GVAR(createDialog) {
+	class CAManBase: Man
+	{
+		class ACE_SelfActions
+		{
+			class btc_ace_Actions
+			{
+				class GVAR(createDialog)
+				{
 					displayName = "Examine Gear Weight";
 					condition = "true";
 					exceptions[] = {};
@@ -38,14 +44,18 @@ class CfgVehicles {
 	};
 };
 
-class Extended_PreStart_EventHandlers {
-    class ADDON {
+class Extended_PreStart_EventHandlers
+{
+    class ADDON
+    {
         init = QUOTE(call COMPILE_FILE(XEH_preStart));
     };
 };
 
-class Extended_PreInit_EventHandlers {
-    class ADDON {
+class Extended_PreInit_EventHandlers
+{
+    class ADDON
+    {
         init = QUOTE(call COMPILE_FILE(XEH_preInit));
     };
 };

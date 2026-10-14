@@ -1,6 +1,8 @@
 #include "script_component.hpp"
-class CfgPatches {
-	class ADDON {
+class CfgPatches
+{
+	class ADDON
+	{
 		name = "=BTC= JSON Extension";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
@@ -13,14 +15,18 @@ class CfgPatches {
 	};
 };
 
-class Extended_PreStart_EventHandlers {
-    class ADDON {
+class Extended_PreStart_EventHandlers
+{
+    class ADDON
+    {
         init = QUOTE(call COMPILE_FILE(XEH_preStart));
     };
 };
 
-class Extended_PreInit_EventHandlers {
-    class ADDON {
+class Extended_PreInit_EventHandlers
+{
+    class ADDON
+    {
         init = QUOTE(call COMPILE_FILE(XEH_preInit));
     };
 };

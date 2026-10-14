@@ -9,8 +9,8 @@ PREP_FOLDER(server,windSmoothTrans);
 
 // clients
 PREP_FOLDER(clients,initSlider);
-PREP_FOLDER(clients,snowDust_clients);
-PREP_FOLDER(clients,postprocess_clients);
-PREP_FOLDER(clients,terminate_clients);
-PREP_FOLDER(clients,breath_clients);
-PREP_FOLDER(clients,snowSounds_clients);
+PREP_FOLDER(clients,snowDust);
+PREP_FOLDER(clients,postprocess);
+PREP_FOLDER(clients,terminate);
+PREP_FOLDER(clients,breath);
+PREP_FOLDER(clients,snowSounds);

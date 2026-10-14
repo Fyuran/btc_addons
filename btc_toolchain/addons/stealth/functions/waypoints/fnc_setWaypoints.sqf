@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_setWaypoints
+Function: btc_toolchain_stealth_fnc_waypoints_setWaypoints
 
 Description:
     Clears existing waypoints and restores a serialized array of waypoints and attributes onto a group.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_group, _savedWps] call btc_toolchain_stealth_fnc_setWaypoints;
+        [_group, _savedWps] call btc_toolchain_stealth_fnc_waypoints_setWaypoints;
     (end)
 
 Author:
@@ -34,7 +34,7 @@ if(_group isEqualType objNull) then {
     _group = group _group;
 };
 
-[_group] call FUNC(clearWaypoints);
+[_group] call FUNC(waypoints_clearWaypoints);
 if (_waypointsArray isEqualTo []) exitWith {}; //clear wps only
 
 {

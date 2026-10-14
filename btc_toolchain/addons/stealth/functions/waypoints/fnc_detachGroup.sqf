@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_detachGroup
+Function: btc_toolchain_stealth_fnc_waypoints_detachGroup
 
 Description:
     Detaches a single unit from its current group into a new independent single-unit group, preserving original waypoints.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_unit] call btc_toolchain_stealth_fnc_detachGroup;
+        [_unit] call btc_toolchain_stealth_fnc_waypoints_detachGroup;
     (end)
 
 Author:
@@ -25,7 +25,7 @@ params[
 ];
 
 private _originalGroup = group _unit;
-private _wps = [_originalGroup] call FUNC(getWaypoints);
+private _wps = [_originalGroup] call FUNC(waypoints_getWaypoints);
 
 private _side = (getNumber(configOf _unit >> "side")) call BIS_fnc_sideType;
 private _group = createGroup [_side, true];
@@ -34,6 +34,6 @@ _groups pushBack _group;
 missionNamespace setVariable[QGVAR(groups), _groups];
 
 [_unit] joinSilent _group;
-[_group, _wps] call FUNC(setWaypoints);
+[_group, _wps] call FUNC(waypoints_setWaypoints);
 
 _group

@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_getBoundingBoxFaces_Model
+Function: btc_toolchain_stealth_fnc_cover_getBoundingBoxFaces_Model
 
 Description:
     Calculates the model-space coordinates of the 6 bounding box faces (Front, Back, Left, Right, Top, Bottom) of an object.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        private _faces = [cursorObject] call btc_toolchain_stealth_fnc_getBoundingBoxFaces_Model;
+        private _faces = [cursorObject] call btc_toolchain_stealth_fnc_cover_getBoundingBoxFaces_Model;
     (end)
 
 Author:

@@ -1,19 +1,19 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_manual_triggers_addAction
+Function: btc_toolchain_manual_triggers_fnc_addAction
 
 Description:
     Will add ACE action to player
 
 Parameters:
-    _actionNames: ARRAY of STRING or STRING
-    _triggers: ARRAY of OBJECT or OBJECT
+    _logic: OBJECT - Logic module
+    _actionData: ARRAY - Action data array [_triggerName, _varName, _trigger]
 
 Returns:
 
 Examples:
     (begin example)
-        ["TEST 1", thisTrigger] call btc_toolchain_manual_triggers_addAction;
+        [_logic, ["TEST 1", "varName", thisTrigger]] call btc_toolchain_manual_triggers_fnc_addAction;
     (end)
 
 Author:
@@ -50,17 +50,6 @@ if (player getVariable [QGVAR(isSpecialBoy), false]) then {
 };
 #endif
 
-//Parent action
-private _parentAction = [QGVAR(menu), "Manual Triggers", QPATHTOEF(main,data\ace_actions_icon.paa), {}, 
-{ 
-    (([] call BIS_fnc_admin) > 0) || 
-    {isServer} || //used for editor mostly
-    {player getVariable [QGVAR(isSpecialBoy), false]} || //for synched player
-    {!isNull (getAssignedCuratorLogic player)} //Is player curator
-}, {}, []] call ACEFUNC(interact_menu,createAction);
-
-[player, 1, ["ACE_SelfActions", "btc_ace_Actions"], _parentAction] call ACEFUNC(interact_menu,addActionToObject);
-
 //Children actions
 private _isServerExec = _logic getVariable [QGVAR(isServer), false];
 {
@@ -90,8 +79,10 @@ private _isServerExec = _logic getVariable [QGVAR(isServer), false];
         if (isNull _trigger) exitWith {};
 
         _trigger setVariable[QGVAR(cond), true, [0, 2] select _isServerExec];
-
-        //hint format ["%1 has been manually activated", _thisActionName];
+        
+        #ifdef BTC_DEBUG_MANUAL_TRIGGERS
+        [["%1: %2 has been manually activated", __FILE_NAME__, _thisActionName], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug);
+        #endif
 
         (triggerActivation _trigger) params ["_by", "_type", "_repeating", "_persistent"];
         if (!_repeating) then {

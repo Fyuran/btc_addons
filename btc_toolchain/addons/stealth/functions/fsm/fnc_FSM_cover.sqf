@@ -1,19 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_FSM_cover
+Function: btc_toolchain_stealth_fnc_fsm_FSM_cover
 
 Description:
     Defines the Cover state in the stealth state machine where units take positions behind protective obstacles.
 
 Parameters:
-    _this: LOCATION
+    _FSM: LOCATION - CBA State Machine
 
 Returns:
     ARRAY
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_FSM_cover;
+        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_cover;
     (end)
 
 Author:
@@ -41,7 +41,7 @@ _this,
 	};
 
     if(_groupInCover) then {
-		[_group, 1/3] call FUNC(addThreat);
+		[_group, 1/3] call FUNC(threat_addThreat);
     };
 }, 
 {
@@ -57,7 +57,7 @@ _this,
 	_group setBehaviourStrong "AWARE";
 	_group setCombatMode "YELLOW";
     _group setSpeedMode "FULL";
-    [_group, []] call FUNC(setWaypoints);
+    [_group, []] call FUNC(waypoints_setWaypoints);
     
     (units _group) apply {
         _x enableAI "ALL";
@@ -67,7 +67,7 @@ _this,
             private _soundName = format[QGVAR(alarm_cry_%1), selectRandom [1, 2, 3, 4, 5]];
             [_this, _soundName] remoteExecCall["say3D", [0, -2] select isDedicated];
 
-            private _coverData = [_this] call FUNC(findCover);
+            private _coverData = [_this] call FUNC(cover_findCover);
             if(_coverData isEqualTo []) exitWith {
                 _this setUnitPos "DOWN";
             };
@@ -86,7 +86,7 @@ _this,
             };
             //delay leader reactivation
             if(_this isEqualTo _leader) then {
-                [_leader] call FUNC(call_reinforcements);
+                [_leader] call FUNC(reinforcements_call_reinforcements);
                 _leader setVariable[QGVAR(isInCover), true];
             };
         };
@@ -101,7 +101,7 @@ _this,
         #ifdef BTC_DEBUG_STEALTH
         [["%1: %2 is reinforcing to %3", __FILE_NAME__, _grp, _lastKnownPos], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug); 
         #endif
-    }] call FUNC(execNearbyGrps);
+    }] call FUNC(waypoints_execNearbyGrps);
 
 }, {
     /*EXIT*/

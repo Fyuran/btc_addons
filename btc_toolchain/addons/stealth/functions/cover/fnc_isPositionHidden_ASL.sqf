@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_isPositionHidden_ASL
+Function: btc_toolchain_stealth_fnc_cover_isPositionHidden_ASL
 
 Description:
     Tests whether a position in ASL is occluded by terrain or objects from a threat unit or location using line-of-sight checks.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        private _isHidden = [getPosASL _cover, player] call btc_toolchain_stealth_fnc_isPositionHidden_ASL;
+        private _isHidden = [getPosASL _cover, player] call btc_toolchain_stealth_fnc_cover_isPositionHidden_ASL;
     (end)
 
 Author:

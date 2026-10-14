@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_setLastKnownPosition
+Function: btc_toolchain_stealth_fnc_threat_setLastKnownPosition
 
 Description:
     Sets and records the last known enemy position on an AI group with an optional randomized radius offset.
@@ -15,7 +15,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_group, getPos player, 10] call btc_toolchain_stealth_fnc_setLastKnownPosition;
+        [_group, getPos player, 10] call btc_toolchain_stealth_fnc_threat_setLastKnownPosition;
     (end)
 
 Author:

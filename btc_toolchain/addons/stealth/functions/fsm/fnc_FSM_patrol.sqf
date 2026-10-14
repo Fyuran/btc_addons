@@ -1,19 +1,19 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_FSM_patrol
+Function: btc_toolchain_stealth_fnc_fsm_FSM_patrol
 
 Description:
     Defines the default Patrol state in the stealth state machine where units follow their original waypoints calmly.
 
 Parameters:
-    _this: LOCATION
+    _FSM: LOCATION - CBA State Machine
 
 Returns:
     ARRAY
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_FSM_patrol;
+        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_patrol;
     (end)
 
 Author:
@@ -34,26 +34,26 @@ _this,
 
 	private _hasFound = false;
 	(units _group) apply {
-		private _bodies = [side _group] call FUNC(getAllSideCorpses);
-		private _entity = [_x, allPlayers + _bodies] call FUNC(unitDetectEntities);
+		private _bodies = [side _group] call FUNC(threat_getAllSideCorpses);
+		private _entity = [_x, allPlayers + _bodies] call FUNC(threat_unitDetectEntities);
 		if(!isNull _entity) then {
 			private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 			
 			private _rate = 1/5 + (1/8 - 1/5) * (((_x distance _entity) - MIN_DIS) / (_threat_dis - MIN_DIS));
 			private _varName = ["threat", "body_threat"] select (_entity in _bodies);
 			if(_entity in _bodies) then {
-				[_group, 0.5, _varName] call FUNC(addThreat);
-				[_group, _entity, 0] call FUNC(setLastKnownPosition);
+				[_group, 0.5, _varName] call FUNC(threat_addThreat);
+				[_group, _entity, 0] call FUNC(threat_setLastKnownPosition);
 			} else {
-				[_group, _rate, _varName] call FUNC(addThreat);
-				[_group, _entity, 2] call FUNC(setLastKnownPosition);
+				[_group, _rate, _varName] call FUNC(threat_addThreat);
+				[_group, _entity, 2] call FUNC(threat_setLastKnownPosition);
 			};
 			_hasFound = true;
 		};
 	};
 
 	if(!_hasFound) then {
-		[_group, -1/80] call FUNC(addThreat);
+		[_group, -1/80] call FUNC(threat_addThreat);
 	};
 
 }, {
@@ -68,9 +68,9 @@ _this,
 	
 	private _original_WPS = _group getVariable[QGVAR(Original_WPS), []];
 	if(_original_WPS isEqualTo []) then {
-		_group setVariable [QGVAR(Original_WPS), [_group] call FUNC(getWaypoints)];
+		_group setVariable [QGVAR(Original_WPS), [_group] call FUNC(waypoints_getWaypoints)];
 	} else {
-		[_group, _original_WPS] call FUNC(setWaypoints);
+		[_group, _original_WPS] call FUNC(waypoints_setWaypoints);
 	};
 
 	(units _group) apply {
@@ -88,6 +88,6 @@ _this,
 	/*EXIT*/
     params[["_group", grpNull, [grpNull]]];
 
-	_group setVariable [QGVAR(Original_WPS), [_group] call FUNC(getWaypoints)];
+	_group setVariable [QGVAR(Original_WPS), [_group] call FUNC(waypoints_getWaypoints)];
 
 }, "Patrol"]

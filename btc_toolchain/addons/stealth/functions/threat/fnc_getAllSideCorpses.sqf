@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_getAllSideCorpses
+Function: btc_toolchain_stealth_fnc_threat_getAllSideCorpses
 
 Description:
     Returns an array of dead bodies belonging to a specified side.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        private _eastCorpses = [east] call btc_toolchain_stealth_fnc_getAllSideCorpses;
+        private _eastCorpses = [east] call btc_toolchain_stealth_fnc_threat_getAllSideCorpses;
     (end)
 
 Author:

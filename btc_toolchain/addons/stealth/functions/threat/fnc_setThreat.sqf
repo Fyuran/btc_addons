@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_setThreat
+Function: btc_toolchain_stealth_fnc_threat_setThreat
 
 Description:
     Sets the threat value on a group clamped between 0 and group's threat limit.
@@ -15,7 +15,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_group, 2] call btc_toolchain_stealth_fnc_setThreat;
+        [_group, 2] call btc_toolchain_stealth_fnc_threat_setThreat;
     (end)
 
 Author:

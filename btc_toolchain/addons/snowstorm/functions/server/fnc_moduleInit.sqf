@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_snowstorm_fnc_moduleInit
+Function: btc_toolchain_snowstorm_fnc_server_moduleInit
 
 Description:
     Initializes snowstorm parameters when triggered from an Eden/Zeus module logic.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_logic, [], true] call btc_toolchain_snowstorm_fnc_moduleInit;
+        [_logic, [], true] call btc_toolchain_snowstorm_fnc_server_moduleInit;
     (end)
 
 Author:
@@ -52,12 +52,12 @@ if(_activated) then {
 	private _wind_min = _logic getVariable [QGVAR(intensity_min), 20];
 	private _wind_avg = _logic getVariable [QGVAR(intensity_avg), 30];
 	private _wind_max = _logic getVariable [QGVAR(intensity_max), 40];
-    [_fogValue, _fogDecay, _fogBase, _duration, [_wind_min, _wind_avg, _wind_max]] call FUNC(init);
+    [_fogValue, _fogDecay, _fogBase, _duration, [_wind_min, _wind_avg, _wind_max]] call FUNC(server_init);
 } else {
     if(_handle isEqualTo -1) then { //make sure the previous handler is removed
         #ifdef BTC_DEBUG_SNOWSTORM
         [["%1: deactivating snowstorm by module: %2", __FILE_NAME__, _logic], 3, QCOMPONENT] call EFUNC(tools,debug);
         #endif
-        [] remoteExecCall [QFUNC(terminate), 0];
+        [] remoteExecCall [QFUNC(server_terminate), 0];
     };
 };

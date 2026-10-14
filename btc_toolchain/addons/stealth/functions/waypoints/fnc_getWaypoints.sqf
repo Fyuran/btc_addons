@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_getWaypoints
+Function: btc_toolchain_stealth_fnc_waypoints_getWaypoints
 
 Description:
     Serializes all waypoints and their properties (type, speed, combatMode, formation, statements, timeout) from a group.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        private _savedWPs = [_group] call btc_toolchain_stealth_fnc_getWaypoints;
+        private _savedWPs = [_group] call btc_toolchain_stealth_fnc_waypoints_getWaypoints;
     (end)
 
 Author:

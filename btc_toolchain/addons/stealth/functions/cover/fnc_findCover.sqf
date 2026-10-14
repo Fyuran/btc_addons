@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_findCover
+Function: btc_toolchain_stealth_fnc_cover_findCover
 
 Description:
     Calculates the nearest available cover position hidden from player line-of-sight and assigns a cover holder for an AI unit.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        private _cover = [_unit] call btc_toolchain_stealth_fnc_findCover;
+        private _cover = [_unit] call btc_toolchain_stealth_fnc_cover_findCover;
     (end)
 
 Author:
@@ -36,7 +36,7 @@ if(!local _unit) exitWith {
     0
 };
 
-private _objects = [_unit] call FUNC(nearestSortedObjects);
+private _objects = [_unit] call FUNC(cover_nearestSortedObjects);
 if(_objects isEqualTo []) exitWith {
     #ifdef BTC_DEBUG_STEALTH
 	[["%1: _objects is empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -47,13 +47,13 @@ if(_objects isEqualTo []) exitWith {
 private _covers = [];
 _objects apply {
     private _object = _x;
-    private _positions = [_object] call FUNC(getCoverPositions_AGL);
+    private _positions = [_object] call FUNC(cover_getCoverPositions_AGL);
     _positions = [_positions, [_unit], { _input0 distanceSqr _x }, "DESCEND"] call BIS_fnc_sortBy;
     _positions apply {
         private _position = _x;
         allPlayers apply {
             private _player = _x;
-            if(([AGLToASL _position, _player] call FUNC(isPositionHidden_ASL))) then {
+            if(([AGLToASL _position, _player] call FUNC(cover_isPositionHidden_ASL))) then {
                 _covers pushBackUnique [_object, _position];
             };
         };

@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_clearWaypoints
+Function: btc_toolchain_stealth_fnc_waypoints_clearWaypoints
 
 Description:
     Clears all waypoints from an AI group and sets its current waypoint position to the leader's position.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_group] call btc_toolchain_stealth_fnc_clearWaypoints;
+        [_group] call btc_toolchain_stealth_fnc_waypoints_clearWaypoints;
     (end)
 
 Author:
