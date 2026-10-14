@@ -81,7 +81,7 @@ private _actionData = [];
         private _triggerCond = _triggerStatements#0;
 
         _triggerCond = _triggerCond regexReplace ["this", format["(thisTrigger getVariable[""%1"", false] || this)", QGVAR(cond)]];
-        _obj setTriggerStatements[_triggerCond, _triggerStatements#1, _triggerStatements#2];
+        [_obj, [_triggerCond, _triggerStatements#1, _triggerStatements#2]] remoteExecCall ["setTriggerStatements", 0, true];
 
         _actionData pushBack [_triggerName, _obj];
     };

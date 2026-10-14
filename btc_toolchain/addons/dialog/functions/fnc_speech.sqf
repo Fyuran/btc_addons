@@ -29,7 +29,10 @@ if(!hasInterface) exitWith {};
 disableSerialization;
 
 if (!canSuspend) exitWith {
+	#ifdef BTC_DEBUG_DIALOG
 	[["%1: attempted to call in unscheduled envinronment, use spawn to call this function", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+	#endif
+	_this spawn FUNC(speech);
 };
 
 if (_conv_name isEqualTo "") exitWith {

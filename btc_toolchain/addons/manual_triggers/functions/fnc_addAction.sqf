@@ -51,7 +51,6 @@ if (player getVariable [QGVAR(isSpecialBoy), false]) then {
 #endif
 
 //Children actions
-private _isServerExec = _logic getVariable [QGVAR(isServer), false];
 {
     _x params[
         ["_triggerName", "", [""]],
@@ -73,12 +72,11 @@ private _isServerExec = _logic getVariable [QGVAR(isServer), false];
         params ["_target","_caller","_params"];
         _params params [
             ["_thisActionName", "", [""]],
-            ["_trigger", objNull, [objNull]],
-            ["_isServerExec", false, [true]]
+            ["_trigger", objNull, [objNull]]
         ];
         if (isNull _trigger) exitWith {};
 
-        _trigger setVariable[QGVAR(cond), true, [0, 2] select _isServerExec];
+        _trigger setVariable[QGVAR(cond), true, 0];
         
         #ifdef BTC_DEBUG_MANUAL_TRIGGERS
         [["%1: %2 has been manually activated", __FILE_NAME__, _thisActionName], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug);
@@ -93,9 +91,9 @@ private _isServerExec = _logic getVariable [QGVAR(isServer), false];
         }
         else {
             [{ //flip it back on a delay, as it won't evaluate in time
-                params["_trigger", "_isServerExec"];
-                _trigger setVariable[QGVAR(cond), false, [0, 2] select _isServerExec]; //flip it back to 0 to allow rexecution
-            }, [_trigger, _isServerExec], 1] call CBA_fnc_waitAndExecute;     
+                params["_trigger"];
+                _trigger setVariable[QGVAR(cond), false, 0]; //flip it back to 0 to allow rexecution
+            }, [_trigger], 1] call CBA_fnc_waitAndExecute;     
         }
 
     }, {
@@ -106,7 +104,7 @@ private _isServerExec = _logic getVariable [QGVAR(isServer), false];
         ];
         
         !(_trigger getVariable[QGVAR(cond), false]);
-    }, {}, [_triggerName, _trigger, _isServerExec]] call ACEFUNC(interact_menu,createAction);
+    }, {}, [_triggerName, _trigger]] call ACEFUNC(interact_menu,createAction);
 
     [player, 1, ["ACE_SelfActions", "btc_ace_Actions", QGVAR(menu)], _action] call ACEFUNC(interact_menu,addActionToObject);
 } forEach _actionData;

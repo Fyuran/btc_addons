@@ -48,7 +48,6 @@ class CfgVehicles
 	{
 		class AttributesBase
 		{
-			class Default;
 			class ModuleDescription;	// Module description
 		};
 
@@ -76,29 +75,6 @@ class CfgVehicles
 		};
 		class Attributes : AttributesBase
 		{
-			class GVAR(isServer) : Default
-			{
-				displayName = "Server Only Triggers"; // Name assigned to UI control class Title
-				tooltip = "Evaluate trigger code only on server, if you need to mix, create another module with this off"; // Tooltip assigned to UI control class Title
-				property = QGVAR(isServer); // Unique config property name saved in SQM
-				control = "Checkbox"; // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
-				// Expression called when applying the attribute in Eden and at the scenario start
-				// The expression is called twice - first for data validation, and second for actual saving
-				// Entity is passed as _this, value is passed as _value
-				// In MP scenario, the expression is called only on server.
-				expression = QUOTE(_this setVariable [ARR_2(QQGVAR(isServer),_value)]);
-				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
-				// Must be of type string
-				// Entity (unit, group, marker, comment etc.) is passed as _this
-				// Returned value is the default value
-				// Used when no value is returned, or when it's of other type than NUMBER, STRING or ARRAY
-				// Custom attributes of logic entities (e.g., modules) are saved always, even when they have default value
-				defaultValue = "0";
-				//--- Optional properties
-				//unique = 0; // When 1, only one entity of the type can have the value in the mission (used for example for variable names or player control)
-				//validate = "number"; // Validate the value before saving. Can be "none", "expression", "condition", "number" or "variable"
-				typeName = "NUMBER"; // Defines data type of saved value, can be STRING, NUMBER or BOOL. Used only when control is "Combo", "Edit" or their variants
-			};
 			class ModuleDescription : ModuleDescription {};
 		};
 	};
