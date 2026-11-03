@@ -1,0 +1,261 @@
+{
+  "name": "btc-sqf-vscode",
+  "displayName": "BTC SQF & CBA IntelliSense",
+  "description": "Rich documentation hovers, parameter inspection, and Go-to-Definition for Arma 3 SQF and CBA/HEMTT macros.",
+  "version": "0.5.13",
+  "publisher": "btc",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BlackTemplarsClan/btc_toolchain.git"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "sqf",
+    "arma",
+    "arma 3",
+    "cba",
+    "hemtt"
+  ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --no-dependencies"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "sqf",
+        "extensions": [
+          ".sqf"
+        ],
+        "aliases": [
+          "SQF",
+          "sqf"
+        ],
+        "configuration": "./configs/sqf.language-configuration.json"
+      },
+      {
+        "id": "arma-cfg",
+        "extensions": [
+          ".hpp",
+          ".inc"
+        ],
+        "filenames": [
+          "config.cpp",
+          "description.ext",
+          "mission.sqm"
+        ],
+        "aliases": [
+          "Arma config",
+          "arma-cfg"
+        ],
+        "configuration": "./configs/arma-cfg.language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "sqf",
+        "scopeName": "source.sqf",
+        "path": "./syntaxes/sqf.tmLanguage.json",
+        "balancedBracketScopes": [
+          "*"
+        ],
+        "unbalancedBracketScopes": [
+          "comment",
+          "string",
+          "comment.block",
+          "comment.line",
+          "string.quoted.double",
+          "string.quoted.single",
+          "punctuation.definition.comment",
+          "punctuation.definition.string"
+        ]
+      },
+      {
+        "language": "arma-cfg",
+        "scopeName": "source.arma-cfg",
+        "path": "./syntaxes/arma-cfg.tmLanguage.json",
+        "balancedBracketScopes": [
+          "*"
+        ],
+        "unbalancedBracketScopes": [
+          "comment",
+          "string",
+          "comment.block",
+          "comment.line",
+          "string.quoted.double",
+          "string.quoted.single",
+          "punctuation.definition.comment",
+          "punctuation.definition.string"
+        ]
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "sqf",
+        "scopes": {
+          "variable.defaultLibrary": [
+            "variable.language.magic.sqf",
+            "variable.language.sqf",
+            "variable.language"
+          ],
+          "variable.defaultLibrary.readonly": [
+            "variable.language.magic.sqf",
+            "variable.language.sqf",
+            "variable.language"
+          ]
+        }
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "btc-sqf-tools-container",
+          "title": "BTC SQF",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "btc-sqf-tools-container": [
+        {
+          "id": "btcSqfToolsView",
+          "name": "BTC SQF Tools",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "btc-sqf.updateCurrentHeader",
+        "title": "Update Header (Active File)",
+        "category": "BTC SQF",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "btc-sqf.updateAllHeaders",
+        "title": "Update All Headers (Workspace)",
+        "category": "BTC SQF",
+        "icon": "$(files)"
+      },
+      {
+        "command": "btc-sqf.generateCurrentXehPrep",
+        "title": "Generate XEH_PREP.hpp (Current Component)",
+        "category": "BTC SQF",
+        "icon": "$(file-submodule)"
+      },
+      {
+        "command": "btc-sqf.generateAllXehPrep",
+        "title": "Generate All XEH_PREP.hpp (Workspace)",
+        "category": "BTC SQF",
+        "icon": "$(folder-library)"
+      },
+      {
+        "command": "btc-sqf.rebuildIndex",
+        "title": "Reindex Workspace Functions",
+        "category": "BTC SQF",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "btc-sqf.updateCurrentHeader",
+          "when": "resourceExtname == .sqf",
+          "group": "navigation"
+        },
+        {
+          "command": "btc-sqf.generateCurrentXehPrep",
+          "when": "resourceFilename == XEH_PREP.hpp",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "btc-sqf.updateCurrentHeader",
+          "when": "view == btcSqfToolsView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "btc-sqf.updateAllHeaders",
+          "when": "view == btcSqfToolsView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "btc-sqf.generateCurrentXehPrep",
+          "when": "view == btcSqfToolsView",
+          "group": "navigation@3"
+        },
+        {
+          "command": "btc-sqf.generateAllXehPrep",
+          "when": "view == btcSqfToolsView",
+          "group": "navigation@4"
+        },
+        {
+          "command": "btc-sqf.rebuildIndex",
+          "when": "view == btcSqfToolsView",
+          "group": "navigation@5"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "BTC SQF IntelliSense",
+      "properties": {
+        "btcSqf.enableNativeHovers": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show documentation hover popups for native Arma 3 commands."
+        },
+        "btcSqf.enableCbaHovers": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show documentation and parameter hover popups for CBA functions and macros (FUNC, EFUNC)."
+        },
+        "btcSqf.enableCallHover": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show target function parameters when hovering over the 'call' keyword."
+        },
+        "btcSqf.enableVariableHover": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inferred type and declaration source when hovering over local variables."
+        },
+        "btcSqf.enableCompletions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable auto-completion suggestions for CBA macros, workspace functions, native commands, and local variables."
+        },
+        "btcSqf.enableTypeChecking": {
+          "type": "boolean",
+          "default": true,
+          "description": "Real-time SQF type checking and operand validation diagnostics."
+        },
+        "btcSqf.warnGetVariableWithoutDefault": {
+          "type": "boolean",
+          "default": true,
+          "description": "Warn when 'getVariable' is used without a default fallback value."
+        },
+        "btcSqf.defaultPrefix": {
+          "type": "string",
+          "default": "myAddon",
+          "description": "Default addon prefix if script_mod.hpp or script_macros.hpp cannot be resolved."
+        }
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.33",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.24.0",
+    "typescript": "^5.9.3"
+  }
+}
