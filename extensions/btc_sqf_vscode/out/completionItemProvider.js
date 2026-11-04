@@ -39,6 +39,73 @@ const cbaResolver_1 = require("./cbaResolver");
 const syntaxClassifier_1 = require("./syntaxClassifier");
 const variableInferrer_1 = require("./variableInferrer");
 const eventData_1 = require("./eventData");
+const MAGIC_VARIABLES = [
+    {
+        name: '_this',
+        syntax: '(magic variable) _this: Any',
+        description: 'Contains the arguments passed to a script, function, event handler, or code block executed with `call`, `spawn`, or `execVM`.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_this)'
+    },
+    {
+        name: '_x',
+        syntax: '(magic variable) _x: Any',
+        description: 'Represents the current element in loops and iteration constructs such as `forEach`, `count`, `select`, `apply`, `findIf`.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_x)'
+    },
+    {
+        name: '_y',
+        syntax: '(magic variable) _y: Any',
+        description: 'Represents the current key in a `forEach` loop iterating over a HashMap (while `_x` represents the value).\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_y)'
+    },
+    {
+        name: '_forEachIndex',
+        syntax: '(magic variable) _forEachIndex: Number',
+        description: 'Contains the current zero-based iteration index in a `forEach` loop.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_forEachIndex)'
+    },
+    {
+        name: '_self',
+        syntax: '(magic variable) _self: HashMap',
+        description: 'References the HashMap instance itself within a HashMap method call.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_self)'
+    },
+    {
+        name: '_exception',
+        syntax: '(magic variable) _exception: Any',
+        description: 'Contains the exception object caught in a `catch` block after being thrown with `throw`.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_exception)'
+    },
+    {
+        name: '_thisArgs',
+        syntax: '(magic variable) _thisArgs: Any',
+        description: 'Holds custom arguments passed when registering event handlers with `addEventHandler` / `addMPEventHandler` / `addUserActionEventHandler`.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_thisArgs)'
+    },
+    {
+        name: '_thisEvent',
+        syntax: '(magic variable) _thisEvent: String',
+        description: 'Contains the name of the event currently being executed in an event handler.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_thisEvent)'
+    },
+    {
+        name: '_thisEventHandler',
+        syntax: '(magic variable) _thisEventHandler: Number',
+        description: 'Contains the index / ID of the currently executing event handler, suitable for removing it with `removeEventHandler`.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_thisEventHandler)'
+    },
+    {
+        name: '_thisScript',
+        syntax: '(magic variable) _thisScript: Script',
+        description: 'Contains the script handle of the current script instance running via `execVM` or `spawn`.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_thisScript)'
+    },
+    {
+        name: '_fnc_scriptName',
+        syntax: '(magic variable) _fnc_scriptName: String',
+        description: 'Contains the name of the function currently executing (defined when functions are compiled with the BIS Functions Framework).\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_fnc_scriptName)'
+    },
+    {
+        name: '_fnc_scriptNameParent',
+        syntax: '(magic variable) _fnc_scriptNameParent: String',
+        description: 'Contains the name of the caller function that invoked the current function.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_fnc_scriptNameParent)'
+    },
+    {
+        name: '_fnc_scriptMap',
+        syntax: '(magic variable) _fnc_scriptMap: Array',
+        description: 'Contains the call stack trace of function names leading to the current execution.\n\n[Magic Variables Documentation](https://community.bistudio.com/wiki/Magic_Variables#_fnc_scriptMap)'
+    }
+];
 class SqfCompletionItemProvider {
     indexer;
     nativeCommands;
@@ -71,8 +138,11 @@ class SqfCompletionItemProvider {
         if (eventItems) {
             return eventItems;
         }
-        // If inside a string (and not an event handler argument), suppress completions
-        if (classified.isInsideString(offset)) {
+        // Check if inside private ["_..."] or params ["_..."]
+        const privateOrParamsMatch = lineUntilCursor.match(/\b(?:private|params)\s*\[[^\]]*?(["'])(_[a-zA-Z0-9_]*)$/i);
+        const isInsidePrivateOrParams = !!privateOrParamsMatch;
+        // If inside a string (and not an event handler argument or private/params declaration), suppress completions
+        if (!isInsidePrivateOrParams && classified.isInsideString(offset)) {
             return undefined;
         }
         const items = [];
@@ -123,7 +193,7 @@ class SqfCompletionItemProvider {
         // 3. Right after 'call ' keyword
         // e.g. "call " or "call FUNC"
         const callMatch = lineUntilCursor.match(/\bcall\s+([_a-zA-Z0-9]*)$/i);
-        if (callMatch) {
+        if (callMatch && !callMatch[1].startsWith('_')) {
             const ctx = cbaResolver_1.CbaResolver.resolveContext(document.uri.fsPath);
             const compFunctions = this.indexer.getFunctionsByComponent(ctx.component);
             // Suggest FUNC(funcName) for current component
@@ -132,7 +202,7 @@ class SqfCompletionItemProvider {
                 item.detail = `[${this.formatParams(fn)}] call FUNC(${fn.shortName})`;
                 item.documentation = this.buildDoc(fn);
                 item.insertText = `FUNC(${fn.shortName})`;
-                item.sortText = `0_${fn.shortName}`;
+                item.sortText = `10_${fn.shortName}`;
                 items.push(item);
             }
             // Suggest EFUNC(comp, funcName) for other components
@@ -143,7 +213,7 @@ class SqfCompletionItemProvider {
                     item.detail = `[${this.formatParams(fn)}] call EFUNC(${fn.component}, ${fn.shortName})`;
                     item.documentation = this.buildDoc(fn);
                     item.insertText = `EFUNC(${fn.component}, ${fn.shortName})`;
-                    item.sortText = `1_${fn.component}_${fn.shortName}`;
+                    item.sortText = `11_${fn.component}_${fn.shortName}`;
                     items.push(item);
                 }
             }
@@ -151,42 +221,50 @@ class SqfCompletionItemProvider {
             const funcSnippet = new vscode.CompletionItem('FUNC(...)', vscode.CompletionItemKind.Snippet);
             funcSnippet.insertText = new vscode.SnippetString('FUNC(${1:functionName})');
             funcSnippet.detail = 'CBA FUNC macro call';
-            funcSnippet.sortText = '2_0';
+            funcSnippet.sortText = '20_0';
             items.push(funcSnippet);
             const efuncSnippet = new vscode.CompletionItem('EFUNC(...)', vscode.CompletionItemKind.Snippet);
             efuncSnippet.insertText = new vscode.SnippetString('EFUNC(${1:component}, ${2:functionName})');
             efuncSnippet.detail = 'CBA EFUNC macro call';
-            efuncSnippet.sortText = '2_1';
+            efuncSnippet.sortText = '20_1';
             items.push(efuncSnippet);
-            return items;
+            // Also include local & magic variables (e.g. call _fnc) prioritized at 00_
+            this.addVariableCompletions(items, document, classified);
+            return new vscode.CompletionList(items, true);
         }
-        // 4. Local variables (when typing starting with '_')
+        // 4. Local variables, macros, and native commands
         const wordMatch = lineUntilCursor.match(/([_a-zA-Z0-9]+)$/);
         const prefix = wordMatch ? wordMatch[1] : '';
-        if (prefix.startsWith('_')) {
-            const variables = variableInferrer_1.VariableTypeInferrer.inferDocumentVariables(document, this.nativeCommands, undefined, this.indexer);
-            for (const v of variables.values()) {
-                const item = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.Variable);
-                item.detail = `(local variable) ${v.name}: ${v.type}`;
-                item.documentation = new vscode.MarkdownString(`Declared on line ${v.line + 1}:\n\`\`\`sqf\n${v.declarationText}\n\`\`\``);
-                item.sortText = `0_${v.name}`;
-                items.push(item);
-            }
-        }
+        const isUnderscorePrefix = prefix.startsWith('_');
+        // Variables: always included and prioritized at the top (00_, 01_, 02_)
+        this.addVariableCompletions(items, document, classified);
         // 5. CBA Macro snippets
-        this.addMacroSnippets(items);
+        this.addMacroSnippets(items, isUnderscorePrefix);
         // 6. Native SQF commands
         if (this.nativeCommands) {
             const allCmds = this.nativeCommands.getAllCommands();
             for (const cmd of allCmds) {
-                const item = new vscode.CompletionItem(cmd.name, vscode.CompletionItemKind.Function);
-                item.detail = cmd.syntaxes && cmd.syntaxes.length > 0 ? cmd.syntaxes[0].typedSignature : cmd.name;
-                item.documentation = new vscode.MarkdownString(cmd.description || '');
-                item.sortText = `1_${cmd.name}`;
-                items.push(item);
+                const lower = cmd.name.toLowerCase();
+                if (isUnderscorePrefix) {
+                    // When the word starts with '_', only suggest commands containing '_' and sort them below variables
+                    if (lower.includes('_')) {
+                        const item = new vscode.CompletionItem(cmd.name, vscode.CompletionItemKind.Function);
+                        item.detail = cmd.syntaxes && cmd.syntaxes.length > 0 ? cmd.syntaxes[0].typedSignature : cmd.name;
+                        item.documentation = new vscode.MarkdownString(cmd.description || '');
+                        item.sortText = `90_${lower}`;
+                        items.push(item);
+                    }
+                }
+                else {
+                    const item = new vscode.CompletionItem(cmd.name, vscode.CompletionItemKind.Function);
+                    item.detail = cmd.syntaxes && cmd.syntaxes.length > 0 ? cmd.syntaxes[0].typedSignature : cmd.name;
+                    item.documentation = new vscode.MarkdownString(cmd.description || '');
+                    item.sortText = `10_${lower}`;
+                    items.push(item);
+                }
             }
         }
-        return items;
+        return new vscode.CompletionList(items, true);
     }
     createFunctionCompletionItem(fn, macroType, isCurrentComp, targetComp) {
         const item = new vscode.CompletionItem(fn.shortName, vscode.CompletionItemKind.Function);
@@ -230,7 +308,56 @@ class SqfCompletionItemProvider {
         }
         return md;
     }
-    addMacroSnippets(items) {
+    addVariableCompletions(items, document, classified) {
+        const seenVars = new Set();
+        // 4A. Inferred variables in document (params, assignments, for loops)
+        try {
+            const variables = variableInferrer_1.VariableTypeInferrer.inferDocumentVariables(document, this.nativeCommands, undefined, this.indexer);
+            for (const v of variables.values()) {
+                const lower = v.name.toLowerCase();
+                seenVars.add(lower);
+                const item = new vscode.CompletionItem(v.name, vscode.CompletionItemKind.Variable);
+                item.detail = `(local variable) ${v.name}: ${v.type}`;
+                item.documentation = new vscode.MarkdownString(`Declared on line ${v.line + 1}:\n\`\`\`sqf\n${v.declarationText}\n\`\`\``);
+                item.sortText = `00_${lower}`;
+                items.push(item);
+            }
+        }
+        catch {
+            // In case inference encounters unexpected draft syntax, continue with magic and document vars
+        }
+        // 4B. Magic variables (_this, _x, _y, _forEachIndex, _self, etc.)
+        for (const mv of MAGIC_VARIABLES) {
+            const lower = mv.name.toLowerCase();
+            if (!seenVars.has(lower)) {
+                seenVars.add(lower);
+                const item = new vscode.CompletionItem(mv.name, vscode.CompletionItemKind.Variable);
+                item.detail = mv.syntax;
+                item.documentation = new vscode.MarkdownString(mv.description);
+                item.sortText = `01_${lower}`;
+                items.push(item);
+            }
+        }
+        // 4C. Any other local variable names present in the document
+        // (e.g. declared via private ["_var"], loop counters, or referenced in code)
+        const docVarMatches = classified.maskedComments.match(/\b(_[a-zA-Z0-9_]+)\b/g);
+        if (docVarMatches) {
+            for (const varName of docVarMatches) {
+                if (varName.startsWith('__'))
+                    continue; // Skip __FILE__, __LINE__, etc.
+                const lower = varName.toLowerCase();
+                if (!seenVars.has(lower)) {
+                    seenVars.add(lower);
+                    const item = new vscode.CompletionItem(varName, vscode.CompletionItemKind.Variable);
+                    item.detail = `(local variable) ${varName}: Any`;
+                    item.documentation = new vscode.MarkdownString(`Local variable referenced in this document.`);
+                    item.sortText = `02_${lower}`;
+                    items.push(item);
+                }
+            }
+        }
+    }
+    addMacroSnippets(items, isUnderscorePrefix = false) {
         const macros = [
             { label: 'FUNC(...)', snippet: 'FUNC(${1:functionName})', detail: 'CBA component function macro' },
             { label: 'EFUNC(...)', snippet: 'EFUNC(${1:component}, ${2:functionName})', detail: 'CBA external component function macro' },
@@ -251,7 +378,7 @@ class SqfCompletionItemProvider {
             const item = new vscode.CompletionItem(m.label, vscode.CompletionItemKind.Snippet);
             item.insertText = new vscode.SnippetString(m.snippet);
             item.detail = m.detail;
-            item.sortText = `2_${m.label}`;
+            item.sortText = isUnderscorePrefix ? `99_${m.label}` : `20_${m.label}`;
             items.push(item);
         }
     }
