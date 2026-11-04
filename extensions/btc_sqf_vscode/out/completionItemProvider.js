@@ -124,6 +124,10 @@ class SqfCompletionItemProvider {
         if (!config.get('enableCompletions', true)) {
             return undefined;
         }
+        const enableNative = config.get('enableNativeCompletions', true);
+        const enableCba = config.get('enableCbaCompletions', true);
+        const enableVars = config.get('enableVariableCompletions', true);
+        const enableSnippets = config.get('enableMacroSnippets', true);
         const classified = syntaxClassifier_1.SyntaxClassifier.getClassified(document);
         const offset = document.offsetAt(position);
         // Never provide completions inside comments
@@ -134,9 +138,11 @@ class SqfCompletionItemProvider {
         const lineMaskedCommentsOnly = classified.getLineMaskedCommentsOnly(position.line);
         const lineUntilCursor = lineMaskedCommentsOnly.slice(0, position.character);
         // Check for Event Handler autocompletion (addEventHandler, ctrlAddEventHandler, etc.)
-        const eventItems = this.getEventHandlerCompletions(document, classified, position, lineText, lineUntilCursor);
-        if (eventItems) {
-            return eventItems;
+        if (enableNative) {
+            const eventItems = this.getEventHandlerCompletions(document, classified, position, lineText, lineUntilCursor);
+            if (eventItems) {
+                return eventItems;
+            }
         }
         // Check if inside private ["_..."] or params ["_..."]
         const privateOrParamsMatch = lineUntilCursor.match(/\b(?:private|params)\s*\[[^\]]*?(["'])(_[a-zA-Z0-9_]*)$/i);
@@ -149,7 +155,7 @@ class SqfCompletionItemProvider {
         // 1. Inside FUNC(...) or QFUNC(...)
         // e.g. FUNC( or QFUNC( or FUNC(veh
         const funcMacroMatch = lineUntilCursor.match(/\b(Q?FUNC)\s*\(\s*([_a-zA-Z0-9]*)$/i);
-        if (funcMacroMatch) {
+        if (enableCba && funcMacroMatch) {
             const macroType = funcMacroMatch[1].toUpperCase();
             const ctx = cbaResolver_1.CbaResolver.resolveContext(document.uri.fsPath);
             const compFunctions = this.indexer.getFunctionsByComponent(ctx.component);
@@ -169,7 +175,7 @@ class SqfCompletionItemProvider {
         // 2. Inside EFUNC(...) or QEFUNC(...)
         // Case 2A: Inside second parameter (function name): EFUNC(comp, or EFUNC(comp, veh
         const efuncFuncMatch = lineUntilCursor.match(/\b(Q?EFUNC)\s*\(\s*([_a-zA-Z0-9]+)\s*,\s*([_a-zA-Z0-9]*)$/i);
-        if (efuncFuncMatch) {
+        if (enableCba && efuncFuncMatch) {
             const macroType = efuncFuncMatch[1].toUpperCase();
             const targetComp = efuncFuncMatch[2];
             const compFunctions = this.indexer.getFunctionsByComponent(targetComp);
@@ -180,7 +186,7 @@ class SqfCompletionItemProvider {
         }
         // Case 2B: Inside first parameter (component name): EFUNC( or EFUNC(cas
         const efuncCompMatch = lineUntilCursor.match(/\b(Q?E(?:FUNC|GVAR))\s*\(\s*([_a-zA-Z0-9]*)$/i);
-        if (efuncCompMatch) {
+        if (enableCba && efuncCompMatch) {
             const components = this.indexer.getAllComponents();
             for (const comp of components) {
                 const item = new vscode.CompletionItem(comp, vscode.CompletionItemKind.Module);
@@ -194,42 +200,48 @@ class SqfCompletionItemProvider {
         // e.g. "call " or "call FUNC"
         const callMatch = lineUntilCursor.match(/\bcall\s+([_a-zA-Z0-9]*)$/i);
         if (callMatch && !callMatch[1].startsWith('_')) {
-            const ctx = cbaResolver_1.CbaResolver.resolveContext(document.uri.fsPath);
-            const compFunctions = this.indexer.getFunctionsByComponent(ctx.component);
-            // Suggest FUNC(funcName) for current component
-            for (const fn of compFunctions) {
-                const item = new vscode.CompletionItem(`FUNC(${fn.shortName})`, vscode.CompletionItemKind.Function);
-                item.detail = `[${this.formatParams(fn)}] call FUNC(${fn.shortName})`;
-                item.documentation = this.buildDoc(fn);
-                item.insertText = `FUNC(${fn.shortName})`;
-                item.sortText = `10_${fn.shortName}`;
-                items.push(item);
-            }
-            // Suggest EFUNC(comp, funcName) for other components
-            const allFunctions = this.indexer.getAllFunctions();
-            for (const fn of allFunctions) {
-                if (fn.component.toLowerCase() !== ctx.component.toLowerCase()) {
-                    const item = new vscode.CompletionItem(`EFUNC(${fn.component}, ${fn.shortName})`, vscode.CompletionItemKind.Function);
-                    item.detail = `[${this.formatParams(fn)}] call EFUNC(${fn.component}, ${fn.shortName})`;
+            if (enableCba) {
+                const ctx = cbaResolver_1.CbaResolver.resolveContext(document.uri.fsPath);
+                const compFunctions = this.indexer.getFunctionsByComponent(ctx.component);
+                // Suggest FUNC(funcName) for current component
+                for (const fn of compFunctions) {
+                    const item = new vscode.CompletionItem(`FUNC(${fn.shortName})`, vscode.CompletionItemKind.Function);
+                    item.detail = `[${this.formatParams(fn)}] call FUNC(${fn.shortName})`;
                     item.documentation = this.buildDoc(fn);
-                    item.insertText = `EFUNC(${fn.component}, ${fn.shortName})`;
-                    item.sortText = `11_${fn.component}_${fn.shortName}`;
+                    item.insertText = `FUNC(${fn.shortName})`;
+                    item.sortText = `10_${fn.shortName}`;
                     items.push(item);
                 }
+                // Suggest EFUNC(comp, funcName) for other components
+                const allFunctions = this.indexer.getAllFunctions();
+                for (const fn of allFunctions) {
+                    if (fn.component.toLowerCase() !== ctx.component.toLowerCase()) {
+                        const item = new vscode.CompletionItem(`EFUNC(${fn.component}, ${fn.shortName})`, vscode.CompletionItemKind.Function);
+                        item.detail = `[${this.formatParams(fn)}] call EFUNC(${fn.component}, ${fn.shortName})`;
+                        item.documentation = this.buildDoc(fn);
+                        item.insertText = `EFUNC(${fn.component}, ${fn.shortName})`;
+                        item.sortText = `11_${fn.component}_${fn.shortName}`;
+                        items.push(item);
+                    }
+                }
+                if (enableSnippets) {
+                    // Macro call snippets
+                    const funcSnippet = new vscode.CompletionItem('FUNC(...)', vscode.CompletionItemKind.Snippet);
+                    funcSnippet.insertText = new vscode.SnippetString('FUNC(${1:functionName})');
+                    funcSnippet.detail = 'CBA FUNC macro call';
+                    funcSnippet.sortText = '20_0';
+                    items.push(funcSnippet);
+                    const efuncSnippet = new vscode.CompletionItem('EFUNC(...)', vscode.CompletionItemKind.Snippet);
+                    efuncSnippet.insertText = new vscode.SnippetString('EFUNC(${1:component}, ${2:functionName})');
+                    efuncSnippet.detail = 'CBA EFUNC macro call';
+                    efuncSnippet.sortText = '20_1';
+                    items.push(efuncSnippet);
+                }
             }
-            // Macro call snippets
-            const funcSnippet = new vscode.CompletionItem('FUNC(...)', vscode.CompletionItemKind.Snippet);
-            funcSnippet.insertText = new vscode.SnippetString('FUNC(${1:functionName})');
-            funcSnippet.detail = 'CBA FUNC macro call';
-            funcSnippet.sortText = '20_0';
-            items.push(funcSnippet);
-            const efuncSnippet = new vscode.CompletionItem('EFUNC(...)', vscode.CompletionItemKind.Snippet);
-            efuncSnippet.insertText = new vscode.SnippetString('EFUNC(${1:component}, ${2:functionName})');
-            efuncSnippet.detail = 'CBA EFUNC macro call';
-            efuncSnippet.sortText = '20_1';
-            items.push(efuncSnippet);
             // Also include local & magic variables (e.g. call _fnc) prioritized at 00_
-            this.addVariableCompletions(items, document, classified);
+            if (enableVars) {
+                this.addVariableCompletions(items, document, classified);
+            }
             return new vscode.CompletionList(items, true);
         }
         // 4. Local variables, macros, and native commands
@@ -237,11 +249,15 @@ class SqfCompletionItemProvider {
         const prefix = wordMatch ? wordMatch[1] : '';
         const isUnderscorePrefix = prefix.startsWith('_');
         // Variables: always included and prioritized at the top (00_, 01_, 02_)
-        this.addVariableCompletions(items, document, classified);
+        if (enableVars) {
+            this.addVariableCompletions(items, document, classified);
+        }
         // 5. CBA Macro snippets
-        this.addMacroSnippets(items, isUnderscorePrefix);
+        if (enableSnippets && enableCba) {
+            this.addMacroSnippets(items, isUnderscorePrefix);
+        }
         // 6. Native SQF commands
-        if (this.nativeCommands) {
+        if (enableNative && this.nativeCommands) {
             const allCmds = this.nativeCommands.getAllCommands();
             for (const cmd of allCmds) {
                 const lower = cmd.name.toLowerCase();

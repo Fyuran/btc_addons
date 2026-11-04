@@ -58,7 +58,7 @@ class SqfDiagnosticProvider {
         vscode.workspace.textDocuments.forEach(doc => this.checkDocument(doc));
     }
     checkDocument(document) {
-        if (!document.fileName.endsWith('.sqf')) {
+        if (document.languageId !== 'sqf' && !document.fileName.endsWith('.sqf')) {
             return;
         }
         const config = vscode.workspace.getConfiguration('btcSqf');

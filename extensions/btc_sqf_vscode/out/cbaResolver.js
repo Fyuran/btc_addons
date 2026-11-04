@@ -38,21 +38,52 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 class CbaResolver {
     static contextCache = new Map();
-    static defaultPrefix = 'btc_toolchain';
+    static defaultPrefix = 'myAddon';
+    static defaultComponent = 'main';
+    static addonDirectories = ['addons'];
     static setDefaultPrefix(prefix) {
-        this.defaultPrefix = prefix;
+        this.defaultPrefix = prefix || 'myAddon';
+        this.contextCache.clear();
+    }
+    static getDefaultPrefix() {
+        return this.defaultPrefix;
+    }
+    static setDefaultComponent(component) {
+        this.defaultComponent = component || 'main';
+        this.contextCache.clear();
+    }
+    static getDefaultComponent() {
+        return this.defaultComponent;
+    }
+    static setAddonDirectories(dirs) {
+        this.addonDirectories = (dirs && dirs.length > 0 ? dirs : ['addons']).map(d => d.toLowerCase());
+        this.contextCache.clear();
+    }
+    static getAddonDirectories() {
+        return this.addonDirectories;
+    }
+    static clearCache() {
+        this.contextCache.clear();
     }
     static resolveContext(filePath) {
+        if (!filePath || !path.isAbsolute(filePath)) {
+            return { prefix: this.defaultPrefix, component: this.defaultComponent };
+        }
         const dir = path.dirname(filePath);
         if (this.contextCache.has(dir)) {
             return this.contextCache.get(dir);
         }
-        let component = 'main';
+        let component = this.defaultComponent;
         let prefix = this.defaultPrefix;
-        // Walk up directory tree to find script_component.hpp
+        // Walk up directory tree to find script_component.hpp or component directory
         let currentDir = dir;
-        let root = path.parse(dir).root;
-        while (currentDir !== root) {
+        const root = path.parse(dir).root;
+        while (currentDir && currentDir !== root) {
+            const parent = path.dirname(currentDir);
+            if (parent === currentDir) {
+                break;
+            }
+            // 1. Check for script_component.hpp
             const compHeader = path.join(currentDir, 'script_component.hpp');
             if (fs.existsSync(compHeader)) {
                 try {
@@ -67,16 +98,26 @@ class CbaResolver {
                 }
                 break;
             }
-            // Also check if directory name looks like an addon component (e.g. addons/cas)
-            const parent = path.dirname(currentDir);
-            if (path.basename(parent).toLowerCase() === 'addons') {
+            // 2. Check if parent directory matches any configured addon directory name (e.g. addons/cas)
+            const parentBase = path.basename(parent).toLowerCase();
+            if (this.addonDirectories.includes(parentBase)) {
+                component = path.basename(currentDir);
+                break;
+            }
+            // 3. Fallback: If current directory has a functions/ subdirectory, treat currentDir as component
+            const funcsCandidate = path.join(currentDir, 'functions');
+            if (fs.existsSync(funcsCandidate) && fs.statSync(funcsCandidate).isDirectory()) {
                 component = path.basename(currentDir);
             }
             currentDir = parent;
         }
         // Try to find script_mod.hpp to extract PREFIX
         currentDir = dir;
-        while (currentDir !== root) {
+        while (currentDir && currentDir !== root) {
+            const parent = path.dirname(currentDir);
+            if (parent === currentDir) {
+                break;
+            }
             const modHeader = path.join(currentDir, 'script_mod.hpp');
             if (fs.existsSync(modHeader)) {
                 try {
@@ -91,21 +132,24 @@ class CbaResolver {
                     // Ignore
                 }
             }
-            const mainModHeader = path.join(currentDir, 'addons', 'main', 'script_mod.hpp');
-            if (fs.existsSync(mainModHeader)) {
-                try {
-                    const content = fs.readFileSync(mainModHeader, 'utf-8');
-                    const prefixMatch = content.match(/#define\s+PREFIX\s+([_a-zA-Z0-9]+)/i);
-                    if (prefixMatch) {
-                        prefix = prefixMatch[1];
-                        break;
+            // Check configured addon container directories (e.g. addons/main/script_mod.hpp)
+            for (const addonDirName of this.addonDirectories) {
+                const mainModHeader = path.join(currentDir, addonDirName, 'main', 'script_mod.hpp');
+                if (fs.existsSync(mainModHeader)) {
+                    try {
+                        const content = fs.readFileSync(mainModHeader, 'utf-8');
+                        const prefixMatch = content.match(/#define\s+PREFIX\s+([_a-zA-Z0-9]+)/i);
+                        if (prefixMatch) {
+                            prefix = prefixMatch[1];
+                            break;
+                        }
+                    }
+                    catch {
+                        // Ignore
                     }
                 }
-                catch {
-                    // Ignore
-                }
             }
-            currentDir = path.dirname(currentDir);
+            currentDir = parent;
         }
         const ctx = { prefix, component };
         this.contextCache.set(dir, ctx);

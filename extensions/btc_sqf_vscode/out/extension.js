@@ -54,9 +54,16 @@ const variableInferrer_1 = require("./variableInferrer");
 async function activate(context) {
     console.log('[BTC SQF] Activating BTC SQF & CBA IntelliSense extension...');
     // Load user configuration
-    const config = vscode.workspace.getConfiguration('btcSqf');
-    const defaultPrefix = config.get('defaultPrefix', 'btc_toolchain');
-    cbaResolver_1.CbaResolver.setDefaultPrefix(defaultPrefix);
+    const syncConfiguration = () => {
+        const config = vscode.workspace.getConfiguration('btcSqf');
+        const defaultPrefix = config.get('defaultPrefix', 'myAddon');
+        const defaultComponent = config.get('defaultComponent', 'main');
+        const addonDirs = config.get('addonDirectories', ['addons']);
+        cbaResolver_1.CbaResolver.setDefaultPrefix(defaultPrefix);
+        cbaResolver_1.CbaResolver.setDefaultComponent(defaultComponent);
+        cbaResolver_1.CbaResolver.setAddonDirectories(addonDirs);
+    };
+    syncConfiguration();
     // Initialize native commands database
     const nativeCommands = new nativeCommands_1.NativeCommandsManager(context.extensionPath);
     // Initialize workspace indexer
@@ -64,12 +71,12 @@ async function activate(context) {
     await indexer.indexWorkspace();
     console.log(`[BTC SQF] Indexed ${indexer.getAllFunctions().length} functions across workspace.`);
     variableInferrer_1.VariableTypeInferrer.setIndexer(indexer);
-    // Supported language selectors
+    // Supported language selectors (supporting both saved files and untitled buffers)
     const documentSelectors = [
-        { language: 'sqf', scheme: 'file' },
-        { language: 'arma-cfg', scheme: 'file' },
-        { pattern: '**/*.sqf', scheme: 'file' },
-        { pattern: '**/*.hpp', scheme: 'file' }
+        { language: 'sqf' },
+        { language: 'arma-cfg' },
+        { pattern: '**/*.sqf' },
+        { pattern: '**/*.hpp' }
     ];
     // Register Hover Provider (Native commands, CBA functions, variables, operands)
     const hoverProvider = new hoverProvider_1.SqfHoverProvider(nativeCommands, indexer);
@@ -105,9 +112,10 @@ async function activate(context) {
     }));
     // Watch for config changes
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(e => {
-        if (e.affectsConfiguration('btcSqf.defaultPrefix')) {
-            const newPrefix = vscode.workspace.getConfiguration('btcSqf').get('defaultPrefix', 'btc_toolchain');
-            cbaResolver_1.CbaResolver.setDefaultPrefix(newPrefix);
+        if (e.affectsConfiguration('btcSqf.defaultPrefix') ||
+            e.affectsConfiguration('btcSqf.defaultComponent') ||
+            e.affectsConfiguration('btcSqf.addonDirectories')) {
+            syncConfiguration();
         }
         if (e.affectsConfiguration('btcSqf.enableTypeChecking')) {
             vscode.workspace.textDocuments.forEach(doc => diagnosticProvider.checkDocument(doc));

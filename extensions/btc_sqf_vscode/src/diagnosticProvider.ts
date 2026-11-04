@@ -35,7 +35,7 @@ export class SqfDiagnosticProvider {
     }
 
     public checkDocument(document: vscode.TextDocument) {
-        if (!document.fileName.endsWith('.sqf')) {
+        if (document.languageId !== 'sqf' && !document.fileName.endsWith('.sqf')) {
             return;
         }
 

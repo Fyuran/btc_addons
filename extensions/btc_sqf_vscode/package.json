@@ -2,7 +2,7 @@
   "name": "btc-sqf-vscode",
   "displayName": "BTC SQF & CBA IntelliSense",
   "description": "Rich documentation hovers, parameter inspection, and Go-to-Definition for Arma 3 SQF and CBA/HEMTT macros.",
-  "version": "0.5.15",
+  "version": "0.5.16",
   "publisher": "btc",
   "engines": {
     "vscode": "^1.80.0"
@@ -234,6 +234,26 @@
           "default": true,
           "description": "Enable auto-completion suggestions for CBA macros, workspace functions, native commands, and local variables."
         },
+        "btcSqf.enableNativeCompletions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable auto-completion suggestions for native Arma 3 SQF commands."
+        },
+        "btcSqf.enableCbaCompletions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable auto-completion suggestions for CBA macros and custom functions (FUNC, EFUNC)."
+        },
+        "btcSqf.enableVariableCompletions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable auto-completion suggestions for local and magic variables."
+        },
+        "btcSqf.enableMacroSnippets": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable auto-completion snippets for CBA macros (e.g. FUNC(...), GVAR(...))."
+        },
         "btcSqf.enableTypeChecking": {
           "type": "boolean",
           "default": true,
@@ -248,6 +268,21 @@
           "type": "string",
           "default": "myAddon",
           "description": "Default addon prefix if script_mod.hpp or script_macros.hpp cannot be resolved."
+        },
+        "btcSqf.defaultComponent": {
+          "type": "string",
+          "default": "main",
+          "description": "Default component name if script_component.hpp cannot be resolved."
+        },
+        "btcSqf.addonDirectories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "addons"
+          ],
+          "description": "Directory names containing addon components (e.g. ['addons', 'components'])."
         }
       }
     }

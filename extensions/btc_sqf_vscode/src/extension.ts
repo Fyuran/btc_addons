@@ -19,9 +19,17 @@ export async function activate(context: vscode.ExtensionContext) {
     console.log('[BTC SQF] Activating BTC SQF & CBA IntelliSense extension...');
 
     // Load user configuration
-    const config = vscode.workspace.getConfiguration('btcSqf');
-    const defaultPrefix = config.get<string>('defaultPrefix', 'btc_toolchain');
-    CbaResolver.setDefaultPrefix(defaultPrefix);
+    const syncConfiguration = () => {
+        const config = vscode.workspace.getConfiguration('btcSqf');
+        const defaultPrefix = config.get<string>('defaultPrefix', 'myAddon');
+        const defaultComponent = config.get<string>('defaultComponent', 'main');
+        const addonDirs = config.get<string[]>('addonDirectories', ['addons']);
+        CbaResolver.setDefaultPrefix(defaultPrefix);
+        CbaResolver.setDefaultComponent(defaultComponent);
+        CbaResolver.setAddonDirectories(addonDirs);
+    };
+
+    syncConfiguration();
 
     // Initialize native commands database
     const nativeCommands = new NativeCommandsManager(context.extensionPath);
@@ -33,12 +41,12 @@ export async function activate(context: vscode.ExtensionContext) {
     console.log(`[BTC SQF] Indexed ${indexer.getAllFunctions().length} functions across workspace.`);
     VariableTypeInferrer.setIndexer(indexer);
 
-    // Supported language selectors
+    // Supported language selectors (supporting both saved files and untitled buffers)
     const documentSelectors: vscode.DocumentSelector = [
-        { language: 'sqf', scheme: 'file' },
-        { language: 'arma-cfg', scheme: 'file' },
-        { pattern: '**/*.sqf', scheme: 'file' },
-        { pattern: '**/*.hpp', scheme: 'file' }
+        { language: 'sqf' },
+        { language: 'arma-cfg' },
+        { pattern: '**/*.sqf' },
+        { pattern: '**/*.hpp' }
     ];
 
     // Register Hover Provider (Native commands, CBA functions, variables, operands)
@@ -105,9 +113,10 @@ export async function activate(context: vscode.ExtensionContext) {
     // Watch for config changes
     context.subscriptions.push(
         vscode.workspace.onDidChangeConfiguration(e => {
-            if (e.affectsConfiguration('btcSqf.defaultPrefix')) {
-                const newPrefix = vscode.workspace.getConfiguration('btcSqf').get<string>('defaultPrefix', 'btc_toolchain');
-                CbaResolver.setDefaultPrefix(newPrefix);
+            if (e.affectsConfiguration('btcSqf.defaultPrefix') ||
+                e.affectsConfiguration('btcSqf.defaultComponent') ||
+                e.affectsConfiguration('btcSqf.addonDirectories')) {
+                syncConfiguration();
             }
             if (e.affectsConfiguration('btcSqf.enableTypeChecking')) {
                 vscode.workspace.textDocuments.forEach(doc => diagnosticProvider.checkDocument(doc));

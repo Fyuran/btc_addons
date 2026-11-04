@@ -1148,40 +1148,49 @@ class VariableTypeInferrer {
             }
         }
         // Fallback: If not found in indexer but file exists on disk, read directly
-        if (!fnInfo && filePath && compToSearch && fncToSearch) {
+        if (!fnInfo && filePath && compToSearch && fncToSearch && path.isAbsolute(filePath)) {
             try {
                 let current = path.dirname(filePath);
                 const root = path.parse(filePath).root;
                 let addonsDir = '';
-                while (current !== root) {
-                    const candidate = path.join(current, 'addons');
-                    if (fs.existsSync(candidate)) {
-                        addonsDir = candidate;
+                const addonDirs = cbaResolver_1.CbaResolver.getAddonDirectories();
+                while (current && current !== root) {
+                    const parent = path.dirname(current);
+                    if (parent === current) {
                         break;
                     }
-                    if (path.basename(current).toLowerCase() === 'addons') {
+                    for (const dirName of addonDirs) {
+                        const candidate = path.join(current, dirName);
+                        if (fs.existsSync(candidate)) {
+                            addonsDir = candidate;
+                            break;
+                        }
+                    }
+                    if (addonsDir)
+                        break;
+                    if (addonDirs.includes(path.basename(current).toLowerCase())) {
                         addonsDir = current;
                         break;
                     }
-                    current = path.dirname(current);
+                    current = parent;
                 }
+                const candidateFiles = [];
                 if (addonsDir) {
-                    const candidateFiles = [
-                        path.join(addonsDir, compToSearch, 'functions', `fnc_${fncToSearch}.sqf`),
-                        path.join(addonsDir, compToSearch, 'functions', 'list', `fnc_${fncToSearch}.sqf`)
-                    ];
-                    for (const candidateFile of candidateFiles) {
-                        if (fs.existsSync(candidateFile)) {
-                            const content = fs.readFileSync(candidateFile, 'utf-8');
-                            const doc = docParser_1.SqfDocParser.parseFile(content);
-                            if (doc.returns) {
-                                const parsed = this.parseReturnType(doc.returns);
-                                if (parsed && parsed !== 'Any') {
-                                    return parsed;
-                                }
+                    candidateFiles.push(path.join(addonsDir, compToSearch, 'functions', `fnc_${fncToSearch}.sqf`), path.join(addonsDir, compToSearch, 'functions', 'list', `fnc_${fncToSearch}.sqf`));
+                }
+                const fileDir = path.dirname(filePath);
+                candidateFiles.push(path.join(fileDir, 'functions', `fnc_${fncToSearch}.sqf`), path.join(fileDir, `fnc_${fncToSearch}.sqf`));
+                for (const candidateFile of candidateFiles) {
+                    if (fs.existsSync(candidateFile)) {
+                        const content = fs.readFileSync(candidateFile, 'utf-8');
+                        const doc = docParser_1.SqfDocParser.parseFile(content);
+                        if (doc.returns) {
+                            const parsed = this.parseReturnType(doc.returns);
+                            if (parsed && parsed !== 'Any') {
+                                return parsed;
                             }
-                            break;
                         }
+                        break;
                     }
                 }
             }

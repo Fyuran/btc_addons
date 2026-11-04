@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import { CbaResolver } from './cbaResolver';
 
 export interface XehPrepBuildResult {
     addonDir: string;
@@ -15,9 +16,13 @@ export class XehPrepBuilder {
     /**
      * Resolves the addon root directory from any file path inside the addon.
      * Walks up the directory tree looking for script_component.hpp, XEH_PREP.hpp,
-     * or a direct child of an 'addons' folder.
+     * or a direct child of configured addon directories.
      */
-    public static resolveAddonDir(filePath: string): string | undefined {
+    public static resolveAddonDir(filePath?: string): string | undefined {
+        if (!filePath || !path.isAbsolute(filePath)) {
+            return undefined;
+        }
+
         let current = fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()
             ? filePath
             : path.dirname(filePath);
@@ -32,9 +37,14 @@ export class XehPrepBuilder {
                 return current;
             }
 
-            // Check if parent directory is 'addons'
+            // Check if parent directory matches configured addon directories
             const parent = path.dirname(current);
-            if (path.basename(parent).toLowerCase() === 'addons') {
+            if (parent === current) {
+                break;
+            }
+
+            const addonDirs = CbaResolver.getAddonDirectories();
+            if (addonDirs.includes(path.basename(parent).toLowerCase())) {
                 return current;
             }
 
