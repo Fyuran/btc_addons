@@ -226,20 +226,20 @@ export class SqfHoverProvider implements vscode.HoverProvider {
             }
         }
 
-        // 5. Check if word is a custom function name in workspace index
-        if (enableCba) {
-            const customFunc = this.indexer.findFunction(undefined, word, word);
-            if (customFunc) {
-                const md = this.buildCustomFunctionHover(customFunc, 'RAW_FUNC');
-                return new vscode.Hover(md, wordRange);
-            }
-        }
-
-        // 6. Check if word is a native Arma 3 command
+        // 7. Check if word is a native Arma 3 command
         if (enableNative) {
             const nativeCmd = this.nativeCommands.getCommand(word);
             if (nativeCmd) {
                 const md = this.buildNativeCommandHover(nativeCmd, document, position, lineText, wordRange);
+                return new vscode.Hover(md, wordRange);
+            }
+        }
+
+        // 8. Check if word is a custom function name in workspace index
+        if (enableCba) {
+            const customFunc = this.indexer.findFunction(undefined, word, word);
+            if (customFunc) {
+                const md = this.buildCustomFunctionHover(customFunc, 'RAW_FUNC');
                 return new vscode.Hover(md, wordRange);
             }
         }

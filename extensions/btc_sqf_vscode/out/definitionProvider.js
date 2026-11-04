@@ -39,8 +39,10 @@ const cbaResolver_1 = require("./cbaResolver");
 const syntaxClassifier_1 = require("./syntaxClassifier");
 class SqfDefinitionProvider {
     indexer;
-    constructor(indexer) {
+    nativeCommands;
+    constructor(indexer, nativeCommands) {
         this.indexer = indexer;
+        this.nativeCommands = nativeCommands;
     }
     provideDefinition(document, position, token) {
         // Do not parse or jump to definitions inside comments, comment blocks, or strings
@@ -63,6 +65,10 @@ class SqfDefinitionProvider {
         const wordRange = document.getWordRangeAtPosition(position, /[_a-zA-Z0-9]+/);
         if (wordRange) {
             const word = document.getText(wordRange);
+            // Do not jump to user-defined functions if word is a native Arma 3 command (e.g. hideObject)
+            if (this.nativeCommands && this.nativeCommands.hasCommand(word)) {
+                return undefined;
+            }
             const customFunc = this.indexer.findFunction(undefined, word, word);
             if (customFunc) {
                 const targetUri = vscode.Uri.file(customFunc.filePath);

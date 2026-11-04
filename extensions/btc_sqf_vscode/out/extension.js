@@ -75,7 +75,7 @@ async function activate(context) {
     const hoverProvider = new hoverProvider_1.SqfHoverProvider(nativeCommands, indexer);
     context.subscriptions.push(vscode.languages.registerHoverProvider(documentSelectors, hoverProvider));
     // Register Definition Provider (F12 / Ctrl+Click)
-    const defProvider = new definitionProvider_1.SqfDefinitionProvider(indexer);
+    const defProvider = new definitionProvider_1.SqfDefinitionProvider(indexer, nativeCommands);
     context.subscriptions.push(vscode.languages.registerDefinitionProvider(documentSelectors, defProvider));
     // Register Rename Provider (F2 / Right-click -> Rename Symbol for local variables, globals, and functions)
     const renameProvider = new renameProvider_1.SqfRenameProvider(indexer, nativeCommands);

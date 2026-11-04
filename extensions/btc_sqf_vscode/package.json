@@ -2,7 +2,7 @@
   "name": "btc-sqf-vscode",
   "displayName": "BTC SQF & CBA IntelliSense",
   "description": "Rich documentation hovers, parameter inspection, and Go-to-Definition for Arma 3 SQF and CBA/HEMTT macros.",
-  "version": "0.5.14",
+  "version": "0.5.15",
   "publisher": "btc",
   "engines": {
     "vscode": "^1.80.0"

@@ -2,9 +2,13 @@ import * as vscode from 'vscode';
 import { WorkspaceIndexer } from './workspaceIndexer';
 import { CbaResolver } from './cbaResolver';
 import { SyntaxClassifier } from './syntaxClassifier';
+import { NativeCommandsManager } from './nativeCommands';
 
 export class SqfDefinitionProvider implements vscode.DefinitionProvider {
-    constructor(private indexer: WorkspaceIndexer) {}
+    constructor(
+        private indexer: WorkspaceIndexer,
+        private nativeCommands?: NativeCommandsManager
+    ) {}
 
     public provideDefinition(
         document: vscode.TextDocument,
@@ -34,6 +38,12 @@ export class SqfDefinitionProvider implements vscode.DefinitionProvider {
         const wordRange = document.getWordRangeAtPosition(position, /[_a-zA-Z0-9]+/);
         if (wordRange) {
             const word = document.getText(wordRange);
+
+            // Do not jump to user-defined functions if word is a native Arma 3 command (e.g. hideObject)
+            if (this.nativeCommands && this.nativeCommands.hasCommand(word)) {
+                return undefined;
+            }
+
             const customFunc = this.indexer.findFunction(undefined, word, word);
             if (customFunc) {
                 const targetUri = vscode.Uri.file(customFunc.filePath);

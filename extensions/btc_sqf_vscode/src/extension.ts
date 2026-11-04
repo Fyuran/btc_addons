@@ -48,7 +48,7 @@ export async function activate(context: vscode.ExtensionContext) {
     );
 
     // Register Definition Provider (F12 / Ctrl+Click)
-    const defProvider = new SqfDefinitionProvider(indexer);
+    const defProvider = new SqfDefinitionProvider(indexer, nativeCommands);
     context.subscriptions.push(
         vscode.languages.registerDefinitionProvider(documentSelectors, defProvider)
     );
