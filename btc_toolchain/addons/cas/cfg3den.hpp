@@ -45,7 +45,7 @@ class Cfg3DEN
 					{
 						class Title: ctrlStatic 
 						{
-							text = "Weapons selection";
+							text = "Multi Weapons Selection";
 							tooltip = "Multi-Select vehicle weapon";
 							w = QUOTE(43 * h_PIXELW);
 							h = QUOTE(5 * h_PIXELH);

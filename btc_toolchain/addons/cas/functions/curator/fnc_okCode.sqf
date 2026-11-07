@@ -87,7 +87,7 @@ if (cbChecked _remoteCb) then {
 
     if ((_type isEqualTo "OBJECT") && {alive _object}) then {
         if (!isPlayer _object) then { //curatorMouseOver is never guaranteed to be hovering over player, fuck this
-            private _playerIndex = allPlayers findIf {(_x distance _object )< 1};
+            private _playerIndex = allPlayers findIf {(_x distance _object ) < 5};
             if (_playerIndex > -1) then {
                 _object = allPlayers select _playerIndex;
             };

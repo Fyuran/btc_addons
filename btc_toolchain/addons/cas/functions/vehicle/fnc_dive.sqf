@@ -161,7 +161,7 @@ _veh addEventHandler ["Fired", {
     ];
 
     private _dotProduct = _dir vectorDotProduct (_p0 vectorFromTo _logicPosASL);
-    if ((abs _dotProduct) >= 0.99) then {
-        [_veh, _logicPosASL, _t, _logic] call _onFrame;
+    if ((abs _dotProduct) >= 0.98) then {
+        [_veh, _logic] call _onFrame;
     };
 }, 0, [_veh, _startTimer, _endTimer, _startPosASL, _logicPosASL, _endPosASL, _startToLogicASL, _logicToEndASL, _speed, _logic, _onFrame, _onComplete]] call CBAFUNC(addPerFrameHandler);

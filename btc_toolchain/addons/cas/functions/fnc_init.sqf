@@ -46,6 +46,9 @@ if (_vehicleData isEqualType "") then {
 if (_vehicleData isEqualTo createHashMap) exitWith {
     [["%1: empty vehicle data has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
+if (isNil "_vehicleData") exitWith {
+    [["%1: _vehicleData is nil", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+};
 
 private _vehicleClass = _vehicleData getOrDefault ["class", ""];
 if (_vehicleClass isEqualTo "") exitWith {
@@ -85,7 +88,7 @@ if (_logic getVariable [QGVAR(remoteControl), false]) exitWith {
         #endif
         private _owner = owner (_synchedPlayers#0);
         private _showMarker = _logic getVariable [QGVAR(remoteHelper), false];
-        
+
         _logic setVariable [QGVAR(remoteHelper), _showMarker, _owner];
         [_veh, _logic] remoteExecCall [QFUNC(vehicle_remoteControl), _owner];
     } else {

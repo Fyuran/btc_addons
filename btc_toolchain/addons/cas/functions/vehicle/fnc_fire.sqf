@@ -26,8 +26,6 @@ Author:
 
 params [
     ["_veh", objNull, [objNull]],
-    ["_targetPosASL", [0, 0, 0], [[]], 3],
-    ["_t", 0, [123]],
     ["_logic", objNull, [objNull]]
 ];
 
@@ -36,11 +34,11 @@ if (_weapons isEqualTo []) exitWith {
     [["%1: no weapons found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-private _nearEntities = _targetPosASL nearEntities ["Land", 50];
+private _nearEntities = _logic nearEntities [["Land", "Air"], 200];
 private _target = if (_nearEntities isNotEqualTo []) then {
     selectRandom _nearEntities
 } else {
-    objNull
+    _logic
 };
 
 if (!isNull _target) then {
