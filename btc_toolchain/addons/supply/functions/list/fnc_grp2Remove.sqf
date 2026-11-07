@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_supply_fnc_list_grp2_remove
+Function: btc_toolchain_supply_fnc_list_grp2Remove
 
 Description:
     Removes selected item from LIST_2 and deletes it from active object's inventory.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_supply_fnc_list_grp2_remove;
+        [_buttonControl] call btc_toolchain_supply_fnc_list_grp2Remove;
     (end)
 
 Author:
@@ -53,4 +53,3 @@ _grp2_list lnbSetCurSelRow -1;
 #ifdef BTC_DEBUG_SUPPLY
 [["%1: removing %2 from LIST_2", __FILE_NAME__, _class], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
-

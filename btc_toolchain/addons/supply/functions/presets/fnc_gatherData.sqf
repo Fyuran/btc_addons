@@ -6,7 +6,7 @@ Description:
     Gathers current supply dialog attributes into a HashMap for preset saving.
 
 Parameters:
-    NONE
+    None
 
 Returns:
     HASHMAP - Preset attribute data
@@ -20,8 +20,13 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-private _vehicleClassCombo = uiNamespace getVariable [QGVAR(vehicleClass), controlNull];
+private _attrHash = uiNamespace getVariable [QEGVAR(gui,attributesHash), createHashMap];
+private _vehicleClassCombo = uiNamespace getVariable [QEGVAR(gui,class), controlNull];
 private _enableDamageCb = uiNamespace getVariable [QGVAR(enableDamage), controlNull];
+if (isNull _enableDamageCb) then {
+    private _enableDamageGrp = _attrHash getOrDefault [QGVAR(enableDamage), controlNull];
+    _enableDamageCb = _enableDamageGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
+};
 
 private _vehicleClass = _vehicleClassCombo lbData (lbCurSel _vehicleClassCombo);
 private _enableDamage = [false, true] select (cbChecked _enableDamageCb);
@@ -45,4 +50,3 @@ createHashMapFromArray [
     [QGVAR(table_enableDamage), _enableDamage],
     [QGVAR(table), _table]
 ]
-

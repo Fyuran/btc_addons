@@ -96,4 +96,3 @@ if (_inventory isNotEqualTo []) then {
 };
 
 _supply
-

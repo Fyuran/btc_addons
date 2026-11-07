@@ -9,7 +9,7 @@ Parameters:
     _main_grp: CONTROL or ARRAY - Main control group containing list displays
 
 Returns:
-    STRING - JSON encoded table data
+    HASHMAP
 
 Examples:
     (begin example)
@@ -20,7 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_main_grp", controlNull, [controlNull]]
 ];
 
@@ -28,4 +28,4 @@ params[
 [["%1: executing list_grp attributeSave with %2", __FILE_NAME__, GVAR(table)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
-[GVAR(table)] call CBAFUNC(encodeJSON);
+GVAR(table)

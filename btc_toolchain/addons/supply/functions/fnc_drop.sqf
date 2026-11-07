@@ -11,7 +11,7 @@ Parameters:
     _activated: BOOLEAN - Module activation state
 
 Returns:
-    None
+    NOTHING
 
 Examples:
     (begin example)
@@ -41,7 +41,7 @@ if (surfaceIsWater _logicPos) exitWith {
     [["%1: attempting to supply over water %2", __FILE_NAME__, _logicPos], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-private _vehicleClass = _logic getVariable [QGVAR(vehicleClass), ""];
+private _vehicleClass = _logic getVariable [QGVAR(class), ""];
 if (_vehicleClass isEqualTo "") exitWith {
     [["%1: empty vehicle class has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
@@ -71,8 +71,8 @@ private _paradropData = [];
                 ...
 */
 _data apply {
-    private _paradropClass = _y get "class";
-    private _paradropInventory = (_y get "inventory") apply {
+    private _paradropClass = _y getOrDefault ["class", ""];
+    private _paradropInventory = (_y getOrDefault ["inventory", createHashMap]) apply {
         [_x, _y] params [
             ["_class", "", [""]],
             ["_amount", 1, [123]]

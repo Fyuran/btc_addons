@@ -11,7 +11,7 @@ Parameters:
     _inventory: ARRAY - Array of items in format [_class, _count]
 
 Returns:
-    BOOL - True if inventory was processed, false otherwise
+    BOOLEAN - True if inventory was processed, false otherwise
 
 Examples:
     (begin example)
@@ -73,4 +73,3 @@ _inventory apply {
 };
 
 true
-

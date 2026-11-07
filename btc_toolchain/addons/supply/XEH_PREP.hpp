@@ -11,24 +11,20 @@ PREP(debug);
 PREP_FOLDER(list,attributeLoad);
 PREP_FOLDER(list,attributeSave);
 PREP_FOLDER(list,onLoad);
-PREP_FOLDER(list,grp1_add);
-PREP_FOLDER(list,grp1_remove);
-PREP_FOLDER(list,grp1_LBSelChanged);
-PREP_FOLDER(list,grp2_add);
-PREP_FOLDER(list,grp2_remove);
-PREP_FOLDER(list,grp2_onAdjust);
+PREP_FOLDER(list,grp1Add);
+PREP_FOLDER(list,grp1Remove);
+PREP_FOLDER(list,grp1LbSelChanged);
+PREP_FOLDER(list,grp2Add);
+PREP_FOLDER(list,grp2Remove);
+PREP_FOLDER(list,grp2OnAdjust);
 
-// combo
-PREP_FOLDER(combo,onLoad);
-PREP_FOLDER(combo,attributeLoad);
-PREP_FOLDER(combo,attributeSave);
 
 // enableDamage
 PREP_FOLDER(enableDamage,onLoad);
 
 // curator
 PREP_FOLDER(curator,init);
-PREP_FOLDER(curator,OKCode);
+PREP_FOLDER(curator,okCode);
 
 // presets
 PREP_FOLDER(presets,applyData);

@@ -10,7 +10,12 @@ class CfgPatches
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_toolchain_main", "btc_toolchain_gui"};
+		requiredAddons[] = {
+			"A3_Modules_F",
+			"3DEN",
+			"btc_toolchain_main",
+			"btc_toolchain_gui"
+		};
 		VERSION_CONFIG;
 	};
 };
@@ -41,7 +46,7 @@ class ctrlStaticBackground;
 class CfgVehicles
 {
 	class Logic;
-	class Module_F : Logic
+	class Module_F: Logic
 	{
 		class AttributesBase
 		{

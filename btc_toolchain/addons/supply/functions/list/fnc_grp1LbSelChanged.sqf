@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_supply_fnc_list_grp1_LBSelChanged
+Function: btc_toolchain_supply_fnc_list_grp1LbSelChanged
 
 Description:
     Updates LIST_2 inventory display when selection in LIST_1 changes.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_listControl, 0] call btc_toolchain_supply_fnc_list_grp1_LBSelChanged;
+        [_listControl, 0] call btc_toolchain_supply_fnc_list_grp1LbSelChanged;
     (end)
 
 Author:

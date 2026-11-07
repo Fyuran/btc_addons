@@ -1,19 +1,20 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_supply_fnc_list_grp1_add
+Function: btc_toolchain_supply_fnc_list_grp1Add
 
 Description:
     Adds a new vehicle or ammo box class from EDIT_1 to LIST_1 and updates the internal table.
 
 Parameters:
     _add: CONTROL - The button control clicked
+    _uid: STRING
 
 Returns:
     NOTHING
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_supply_fnc_list_grp1_add;
+        [_buttonControl] call btc_toolchain_supply_fnc_list_grp1Add;
     (end)
 
 Author:

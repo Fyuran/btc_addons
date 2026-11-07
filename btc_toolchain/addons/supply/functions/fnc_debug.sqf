@@ -13,7 +13,7 @@ Description:
       velocity, stopping once supplies are close to the ground (<= 3m ATL).
 
 Parameters:
-    _enable: BOOL - Toggle or explicitly enable/disable (default: toggle)
+    _enable: BOOLEAN - Toggle or explicitly enable/disable (default: toggle)
 
 Returns:
     NUMBER - CBA Per Frame Handler handle (-1 if disabled)
@@ -30,29 +30,12 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params [
-    ["_enable", true, [true]]
-];
-
 if (!hasInterface) exitWith {};
 
 private _currentHandle = missionNamespace getVariable [QGVAR(debug_PFH_handle), -1];
-
-// If disabling or toggling off
-if (!_enable) exitWith {
-    if (_currentHandle isNotEqualTo -1) then {
-        [_currentHandle] call CBA_fnc_removePerFrameHandler;
-        missionNamespace setVariable [QGVAR(debug_PFH_handle), -1];
-        #ifdef BTC_DEBUG_SUPPLY
-        [["%1: debug PFH stopped (handle: %2)", __FILE_NAME__, _currentHandle], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-        #endif
-        systemChat "Supply Debug: OFF";
-    };
-    -1
+if (_currentHandle isNotEqualTo -1) exitWith {
+    _currentHandle
 };
-
-// If already running just ignore
-if (_currentHandle isNotEqualTo -1) exitWith {};
 
 private _handle = [{
     // 1. Render Supply Modules
@@ -82,7 +65,7 @@ private _handle = [{
             0.04
         ];
 
-        private _vehClass = _module getVariable [QGVAR(vehicleClass), ""];
+        private _vehClass = _module getVariable [QGVAR(class), ""];
         drawIcon3D [
             "",
             [1, 1, 1, 1],
@@ -253,7 +236,7 @@ private _handle = [{
             drawLine3D [_supplyPos, _landingPosAGL, [0.2, 1, 0.3, 0.8], 2];
         };
     };
-}, 0, []] call CBA_fnc_addPerFrameHandler;
+}, 0, []] call CBAFUNC(addPerFrameHandler);
 
 missionNamespace setVariable [QGVAR(debug_PFH_handle), _handle];
 #ifdef BTC_DEBUG_SUPPLY
@@ -262,4 +245,3 @@ missionNamespace setVariable [QGVAR(debug_PFH_handle), _handle];
 systemChat "Supply Debug: ON";
 
 _handle
-

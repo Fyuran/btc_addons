@@ -24,8 +24,13 @@ params [
     ["_preset", createHashMap, [createHashMap]]
 ];
 
+private _attrHash = uiNamespace getVariable [QEGVAR(gui,attributesHash), createHashMap];
 private _checkbox = uiNamespace getVariable [QGVAR(enableDamage), controlNull];
-private _combo = uiNamespace getVariable [QGVAR(vehicleClass), controlNull];
+if (isNull _checkbox) then {
+    private _enableDamageGrp = _attrHash getOrDefault [QGVAR(enableDamage), controlNull];
+    _checkbox = _enableDamageGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
+};
+private _combo = uiNamespace getVariable [QEGVAR(gui,class), controlNull];
 private _list_grps = uiNamespace getVariable [QGVAR(list_grps), controlNull];
 
 if (isNull _checkbox || isNull _combo || isNull _list_grps) exitWith {
@@ -36,7 +41,6 @@ if (isNull _checkbox || isNull _combo || isNull _list_grps) exitWith {
 [["%1: loading preset %2", __FILE_NAME__, _preset], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
-[ctrlParentControlsGroup _combo, _preset getOrDefault [QGVAR(table_vehicle), "B_Heli_Light_01_F"]] call FUNC(combo_attributeLoad);
+[ctrlParentControlsGroup _combo, _preset getOrDefault [QGVAR(table_vehicle), "B_Heli_Light_01_F"]] call EFUNC(gui,class_attributeLoad);
 _checkbox cbSetChecked (_preset getOrDefault [QGVAR(table_allowDamage), true]);
 [_list_grps, _preset getOrDefault [QGVAR(table), createHashMap]] call FUNC(list_attributeLoad);
-

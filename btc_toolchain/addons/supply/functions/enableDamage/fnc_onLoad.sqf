@@ -21,7 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_checkboxGrp", controlNull, [controlNull]],
     ["_config", configNull, [configNull]]
 ];
@@ -32,4 +32,3 @@ if (isNull _checkbox) exitWith {
 };
 
 uiNamespace setVariable[QGVAR(enableDamage), _checkbox];
-

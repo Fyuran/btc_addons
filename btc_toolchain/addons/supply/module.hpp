@@ -16,20 +16,20 @@ class GVAR(module) : Module_F
         description = "Sync a trigger and initiate a =BTC= supply drop with passed values";
         sync[] = { "EmptyDetector" };	
     };
-    class Attributes : AttributesBase
+    class Attributes: AttributesBase
     {
-        class GVAR(vehicleClass): Default
+        class GVAR(class): Default
         {
             displayName = "Vehicle class"; // Name assigned to UI control class Title
             tooltip = "Change vehicle carrying supplies"; // Tooltip assigned to UI control class Title
-            property = QGVAR(vehicleClass); // Unique config property name saved in SQM
-            control = QGVAR(vehicleClass); // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
+            property = QGVAR(class); // Unique config property name saved in SQM
+            control = QGVAR(class); // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
             // Expression called when applying the attribute in Eden and at the scenario start
             // The expression is called twice - first for data validation, and second for actual saving
             // Entity is passed as _this, value is passed as _value
             // btc_toolchain_supply_class is replaced by attribute config name. It can be used only once in the expression
             // In MP scenario, the expression is called only on server.
-            expression = QUOTE(_this setVariable [ARR_2(QQGVAR(vehicleClass),_value)]);
+            expression = QUOTE(_this setVariable [ARR_2(QQGVAR(class),_value)]);
             // Expression called when custom property is undefined yet (i.e., when setting the attribute for the first time)
             // Must be of type string
             // Entity (unit, group, marker, comment etc.) is passed as _this
@@ -47,7 +47,7 @@ class GVAR(module) : Module_F
             displayName = "Allow Vehicle damage";
             tooltip = "Change if vehicle can be damaged";
             property = QGVAR(enableDamage);
-            control = QGVAR(enableDamage);
+            control = "Checkbox";
             expression = QUOTE(_this setVariable [ARR_2(QQGVAR(enableDamage),_value)]);
             defaultValue = "true";
             typeName = "BOOL";
@@ -68,9 +68,8 @@ class GVAR(module) : Module_F
             control = QGVAR(presets);
             expression = QUOTE(_this setVariable[ARR_2(QQGVAR(list_value),_value)]);
             defaultValue = "''";
-            typeName = "STRING"; 
         };
-        class ModuleDescription : ModuleDescription {};
+        class ModuleDescription: ModuleDescription {};
     };
 };
 

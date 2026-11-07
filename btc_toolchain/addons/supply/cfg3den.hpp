@@ -11,23 +11,12 @@ class Cfg3DEN
 	class Attributes
 	{
 		#include "cfg3den_forward_declarations.hpp"
-
-		class GVAR(vehicleClass): Combo
+		class GVAR(class): Combo
 		{
 			idc = VEHICLE_CLASS;
-			onLoad = QUOTE(_this call FUNC(combo_onLoad));
-			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(combo_attributeLoad));
-			attributeSave = QUOTE([_this] call FUNC(combo_attributeSave));
-			class Controls: Controls
-			{
-				class Title: Title {};
-				class Value: Value {};
-			};
-		};
-		class GVAR(enableDamage): Checkbox 
-		{
-			idc = ALLOW_DAMAGE;
-			onLoad = QUOTE(_this call FUNC(enableDamage_onLoad));
+			onLoad = QUOTE([ARR_2(_this#0,'Air')] call EFUNC(gui,class_onLoad));
+			attributeLoad = QUOTE([ARR_2(_this,_value)] call EFUNC(gui,class_attributeLoad));
+			attributeSave = QUOTE([_this] call EFUNC(gui,class_attributeSave));
 			class Controls: Controls
 			{
 				class Title: Title {};
@@ -68,18 +57,18 @@ class Cfg3DEN
 						{
 							idc = BUTTON_1;
 							text = "Add";
-							onButtonClick = QUOTE(_this call FUNC(list_grp1_add));
+							onButtonClick = QUOTE(_this call FUNC(list_grp1Add));
 						};
 						class Button_2: Button_2
 						{
 							idc = BUTTON_2;
 							text = "Remove";
-							onButtonClick = QUOTE(_this call FUNC(list_grp1_remove));
+							onButtonClick = QUOTE(_this call FUNC(list_grp1Remove));
 						};
 						class Value: Value
 						{
 							idc = VALUE_1;
-							onLBSelChanged = QUOTE(_this call FUNC(list_grp1_LBSelChanged));
+							onLBSelChanged = QUOTE(_this call FUNC(list_grp1LbSelChanged));
 						};
 					};
 				};
@@ -106,7 +95,7 @@ class Cfg3DEN
 						{
 							idc = BUTTON_1_2;
 							text = "Add";
-							onButtonClick = QUOTE(_this call FUNC(list_grp2_add));
+							onButtonClick = QUOTE(_this call FUNC(list_grp2Add));
 						};
 						class Buttons_MidBackground: ctrlStaticBackground
 						{
@@ -120,7 +109,7 @@ class Cfg3DEN
 						{
 							idc = BUTTON_2_2;
 							text = "Remove";
-							onButtonClick = QUOTE(_this call FUNC(list_grp2_remove));
+							onButtonClick = QUOTE(_this call FUNC(list_grp2Remove));
 							x = QUOTE(60 * h_PIXELW);
 						};
 						class List_Background: List_Background
@@ -137,12 +126,12 @@ class Cfg3DEN
 						class ArrowLeft: ArrowLeft
 						{
 							idc = ARROWLEFT;
-							onButtonClick = QUOTE([ARR_3(_this#0,false,FUNC(list_grp2_onAdjust))] call EFUNC(gui,list_arrowAdjust));
+							onButtonClick = QUOTE([ARR_3(_this#0,false,FUNC(list_grp2OnAdjust))] call EFUNC(gui,list_arrowAdjust));
 						};
 						class ArrowRight: ArrowRight
 						{
 							idc = ARROWRIGHT;
-							onButtonClick = QUOTE([ARR_3(_this#0,true,FUNC(list_grp2_onAdjust))] call EFUNC(gui,list_arrowAdjust));
+							onButtonClick = QUOTE([ARR_3(_this#0,true,FUNC(list_grp2OnAdjust))] call EFUNC(gui,list_arrowAdjust));
 						};
 						class Value: Value
 						{

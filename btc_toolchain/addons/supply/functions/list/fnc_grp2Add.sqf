@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_supply_fnc_list_grp2_add
+Function: btc_toolchain_supply_fnc_list_grp2Add
 
 Description:
     Adds a new inventory class to LIST_2 if valid and updates the HashMap.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_supply_fnc_list_grp2_add;
+        [_buttonControl] call btc_toolchain_supply_fnc_list_grp2Add;
     (end)
 
 Author:

@@ -8,7 +8,7 @@ Description:
 Parameters:
     _logicPos: ARRAY - Target drop position [x, y, z]
     _vehicleClass: STRING - Aircraft vehicle class name
-    _enableDamage: BOOL - Allow damage on the aircraft (default: true)
+    _enableDamage: BOOLEAN - Allow damage on the aircraft (default: true)
 
 Returns:
     OBJECT - Created vehicle object
@@ -34,7 +34,8 @@ private _height = [PLANE_HEIGHT, AIR_HEIGHT] select _isHelicopter;
 private _speed = [PLANE_SPEED, AIR_SPEED] select _isHelicopter;
 
 private _vehPos = _logicPos vectorAdd [(cos _randomAngle) * 2000, (sin _randomAngle) * 2000, _height];
-private _veh = createVehicle [_vehicleClass, _vehPos, [], 0, "FLY"];
+private _grp = createGroup [civilian, true];
+private _veh = ([_vehPos, 0, _vehicleClass, _grp] call EFUNC(tools,spawnCrewedVehicle)) select 0;
 
 private _logicPosDirection = _logicPos vectorDiff _vehPos;
 _logicPosDirection = [_logicPosDirection#0, _logicPosDirection#1, 0];
@@ -47,20 +48,13 @@ _veh setVariable [QGVAR(isSupplyVehicle), true, true];
 _veh setVariable [QGVAR(hasDroppedSupplies), false, true];
 _veh setVariable [QGVAR(dropPos), _logicPos, true];
 
-private _activeVehicles = missionNamespace getVariable [QGVAR(activeVehicles), []];
-_activeVehicles pushBackUnique _veh;
-missionNamespace setVariable [QGVAR(activeVehicles), _activeVehicles, true];
-
-// Create pilot crew
-private _grp = createGroup [civilian, true];
-_grp setVariable ["acex_headless_blacklist", true];
-private _pilot = _grp createUnit ["C_man_pilot_F", [0, 0, 0], [], 0, "CAN_COLLIDE"];
-_pilot assignAsDriver _veh;
-_pilot moveInDriver _veh;
-
 allCurators apply {
     _x addCuratorEditableObjects [[_veh], true];
 };
+
+private _activeVehicles = missionNamespace getVariable [QGVAR(activeVehicles), []];
+_activeVehicles pushBackUnique _veh;
+missionNamespace setVariable [QGVAR(activeVehicles), _activeVehicles, true];
 
 // Assign waypoints (WP1: over drop target, WP2: egress path)
 private _wp1 = _grp addWaypoint [[_logicPos#0, _logicPos#1, _height], 0];
@@ -70,4 +64,3 @@ private _wp2 = _grp addWaypoint [_logicPos vectorAdd [(_logicPosDirection#0) * 1
 _wp2 setWaypointBehaviour "CARELESS";
 
 _veh
-

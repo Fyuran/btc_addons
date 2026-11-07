@@ -11,9 +11,6 @@
 //VEHICLE_CLASS
 #define VEHICLE_CLASS 999
 
-//ALLOW_DAMAGE
-#define ALLOW_DAMAGE 1000
-
 //Drop script
 #define PLANE_HEIGHT 800
 #define AIR_HEIGHT 500

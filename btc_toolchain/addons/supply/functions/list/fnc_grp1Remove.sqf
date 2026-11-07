@@ -1,19 +1,20 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_supply_fnc_list_grp1_remove
+Function: btc_toolchain_supply_fnc_list_grp1Remove
 
 Description:
     Removes the selected item in LIST_1 from the supply table and clears LIST_1 selection.
 
 Parameters:
     _remove: CONTROL - The remove button control clicked
+    _uid: STRING
 
 Returns:
     NOTHING
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_supply_fnc_list_grp1_remove;
+        [_buttonControl] call btc_toolchain_supply_fnc_list_grp1Remove;
     (end)
 
 Author:
@@ -51,4 +52,3 @@ _grp1_list lbSetCurSel -1; //Should trigger LBSelChanged -1 exitWith lbClear
 #ifdef BTC_DEBUG_SUPPLY
 [["%1: removing %2 from LIST_1", __FILE_NAME__, _uid], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
-
