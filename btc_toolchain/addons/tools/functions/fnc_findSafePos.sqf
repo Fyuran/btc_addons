@@ -7,7 +7,7 @@ Description:
     Prefers road positions when dealing with land vehicle types/classes.
 
 Parameters:
-    _pos: ARRAY, OBJECT, STRING or LOCATION - Center position to search around
+    _pos: ARRAY or OBJECT or STRING or LOCATION - Center position to search around
     _type: STRING or OBJECT - Classname or object to find a safe position for (optional, default "")
     _maxDist: NUMBER - Maximum search distance in meters (optional, default 100)
     _minDist: NUMBER - Minimum search distance in meters (optional, default 0)
@@ -172,4 +172,3 @@ if (_safePos isEqualTo []) then {
 #endif
 
 _safePos
-

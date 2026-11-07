@@ -51,8 +51,10 @@ private _controls = createHashMap;
         _key = _candidate;
     };
 
+    #ifdef BTC_DEBUG_TOOLS
     [["%1: found [%2, %3]", __FILE_NAME__, _key, _control], LOGS, QCOMPONENT] call FUNC(debug);
-
+    #endif
+    
     _controls set [_key, _control];
 };
 

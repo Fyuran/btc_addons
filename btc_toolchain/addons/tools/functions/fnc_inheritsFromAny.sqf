@@ -7,11 +7,11 @@ Description:
 
 Parameters:
     _class: STRING or OBJECT
-    _baseClasses: ARRAY of STRING
+    _baseClasses: ARRAY or STRING
     _root: STRING
 
 Returns:
-    STRING
+    BOOLEAN
 
 Examples:
     (begin example)
@@ -23,7 +23,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_class", "", ["", objNull]],
     ["_baseClasses", ["Air", "Land"], [[], ""]],
     ["_root", "CfgVehicles", [""]]

@@ -38,15 +38,15 @@ private _useLogs = [_mode, LOGS] call BIS_fnc_bitflagsCheck;
 private _isError = [_mode, REPORT] call BIS_fnc_bitflagsCheck;
 private _global = [_mode, GLOBAL] call BIS_fnc_bitflagsCheck;
 
-if(_title isNotEqualTo "DEBUG") then {
+if (_title isNotEqualTo "DEBUG") then {
     _title = format["[BTC] (%1)", toUpper _title];
 };
 
 _message = format _message;
-if(!_isError) then {
+if (!_isError) then {
     [_message, _title, [_useChat, _useLogs, _global]] call CBAFUNC(debug2);
 } else { //it's an REPORT message
-	if(is3DEN) then {
+	if (is3DEN) then {
 		[_message, 1] call BIS_fnc_3DENNotification;
 	} else {
 		[_message] call BIS_fnc_error;
@@ -54,4 +54,3 @@ if(!_isError) then {
     _title = format["%1 ERROR", _title];
     [_message, _title, [_useChat, true, _global]] call CBAFUNC(debug2);
 };
-

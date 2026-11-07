@@ -12,6 +12,7 @@ Parameters:
     _guiPosSize: ARRAY
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -23,7 +24,7 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[
+params [
 	["_duration", 0, [123]],
 	["_clock", 24, [123]],
 	["_predicate", {false}, [{}]],
@@ -36,7 +37,7 @@ if (!isNil QGVAR(ui_timer_handle)) then {
 };
    
 GVAR(ui_timer_handle) = [_duration, _clock, _predicate, _guiPosSize] spawn {
-	params[
+	params [
 		"_duration",
 		"_clock",
 		"_predicate",

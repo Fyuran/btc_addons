@@ -6,11 +6,10 @@ Description:
     Resolves path based on if it has a trailing slash or semicolon
 
 Parameters:
-    _path: STRING
+    _path: STRING or ARRAY
 
 Returns:
-    "\a3\dubbing_radio_f\Sfx\in2a.ogg" -> "\a3\dubbing_radio_f\Sfx\in2a.ogg"
-    "radionoise1.ogg" -> "C:\Steam\steamapps\common\Arma 3\z\btc_toolchain\addons\dialog\missions\btc_toolchain_dialog_demo.VR\radionoise1.ogg"
+    STRING
 
 Examples:
     (begin example)

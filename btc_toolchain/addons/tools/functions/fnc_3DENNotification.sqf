@@ -6,13 +6,14 @@ Description:
     Displays Eden editor notification popups or standard error messages with appropriate sound cues.
 
 Parameters:
-    _class: STRING/NUMBER
-    _type: NUMBER/BOOLEAN
+    _class: NUMBER or STRING
+    _type: NUMBER or BOOLEAN
     _duration: NUMBER
     _animate: BOOLEAN
     _volume: NUMBER
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -23,7 +24,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_class", "", [123, ""]],
 	["_type", 0, [123, false]],
 	["_duration", -1, [123]],
@@ -31,7 +32,7 @@ params[
 	["_volume", 1, [123]]
 ];
 
-if(is3DEN) exitWith {
+if (is3DEN) exitWith {
 	[_class, _type, _duration, _animate, _volume] call BIS_fnc_3DENNotification;
 };
 

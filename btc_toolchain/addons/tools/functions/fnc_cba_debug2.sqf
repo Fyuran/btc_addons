@@ -31,6 +31,18 @@ Author:
     Sickboy, commy2, =BTC= Fyuran
 ---------------------------------------------------------------------------- */
 
+params [
+	["_message", "", ["", []]], 
+	["_title", 'cba_diagnostic', [""]], 
+	["_type", [], [[]]]
+];
+
+_type params [
+	["_useChat", true, [false]],
+	["_useLog", true, [false]],
+	["_global", false, [false]]
+];
+
 // function to split lines into multiple lines with a maxium length
 #define MAX_LINE_LENGTH 120
 
@@ -49,25 +61,13 @@ private _fnc_splitLines = {
 	_return
 };
 
-
 if (isNil "cba_diagnostic_logic") then {
 	cba_diagnostic_logic = "Logic" createVehicleLocal [0, 0, 0];
 };
 
-
-params [["_message", "", ["", []]], ["_title", 'cba_diagnostic', [""]], ["_type", [], [[]]]];
-
-_type params [
-	["_useChat", true, [false]],
-	["_useLog", true, [false]],
-	["_global", false, [false]]
-];
-
-
 if (_global) then {
 	["cba_diagnostic_debug", [_message, _title, [_useChat, _useLog, false]]] call CBAFUNC(remoteEvent);
 };
-
 
 if (_message isEqualType "") then {
 	_message = [_message, "\n"] call CBAFUNC(split);
