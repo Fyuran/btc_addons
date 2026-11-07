@@ -12,7 +12,7 @@ class RscTitles
         onLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(hud),_this select 0)]);
         class controls
         {
-            class Radar_background_RscPicture_1001 : RscPicture
+            class Radar_background_RscPicture_1001: RscPicture
             {
                 idc = 1001;
                 x = "0.82 * safezoneW + safezoneX";
@@ -22,7 +22,7 @@ class RscTitles
                 colorText[] = {0.1, 0.1, 0.1, 0.6};
                 text = "\A3\ui_f\data\igui\rscingameui\rscminimap\gradient_gs.paa";
             };
-            class Radar_RscPicture_1002 : RscPicture
+            class Radar_RscPicture_1002: RscPicture
             {
                 idc = 1002;
                 x = "0.82 * safezoneW + safezoneX";
@@ -31,7 +31,7 @@ class RscTitles
                 h = "0.14 * safezoneH * (getresolution select 4)";
                 text = "\A3\Ui_f\data\GUI\Rsc\RscSlingLoadAssistant\SLA_Circles_ca.paa";
             };
-            class Crosshair_RscPicture_1003 : RscPicture
+            class Crosshair_RscPicture_1003: RscPicture
             {
                 idc = 1003;
                 x = "0.85 * safezoneW + safezoneX";
@@ -41,7 +41,7 @@ class RscTitles
                 colorText[] = {1, 0, 0, 1};
                 text = "\A3\ui_f\data\igui\cfg\simpleTasks\types\target_ca.paa";
             };
-            class Pic_Obj_RscPicture_1004 : RscPicture
+            class Pic_Obj_RscPicture_1004: RscPicture
             {
                 idc = 1004;
                 x = "0.822 * safezoneW + safezoneX";
@@ -49,7 +49,7 @@ class RscTitles
                 w = "0.03 * safezoneW";
                 h = "0.03 * safezoneH";
             };
-            class Arrow_RscPicture_1005 : RscPicture
+            class Arrow_RscPicture_1005: RscPicture
             {
                 idc = 1005;
                 x = "0.94 * safezoneW + safezoneX";
@@ -57,7 +57,7 @@ class RscTitles
                 w = "0.02 * safezoneW";
                 h = "0.02 * safezoneH * (getresolution select 4)";
             };
-            class Type_Obj_RscText_1006 : RscText
+            class Type_Obj_RscText_1006: RscText
             {
                 idc = 1006;
                 font = "PuristaMedium";
@@ -67,7 +67,7 @@ class RscTitles
                 w = "0.3 * safezoneW";
                 h = "0.1 * safezoneH";
             };
-            class Alt_Obj_RscText_1007 : RscText
+            class Alt_Obj_RscText_1007: RscText
             {
                 idc = 1007;
                 font = "PuristaMedium";

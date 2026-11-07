@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_fsm_FSM_init
+Function: btc_toolchain_stealth_fnc_fsm_init
 
 Description:
     Registers all states (Patrol, Investigate, Investigate_Body, Alert, Cover, Reinforcement) and transitions into the CBA state machine.
@@ -9,37 +9,38 @@ Parameters:
     _FSM: LOCATION
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [_groupFSM] call btc_toolchain_stealth_fnc_fsm_FSM_init;
+        [_groupFSM] call btc_toolchain_stealth_fnc_fsm_init;
     (end)
 
 Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_FSM", locationNull, [locationNull]]
 ];
-if(isNull _FSM) exitWith {};
+if (isNull _FSM) exitWith {};
 
 GVAR(allowed_states) = ["Patrol", "Investigate", "Investigate_Body", "Cover", "Reinforcement", "Alert"];
-private _patrol = (_FSM call FUNC(fsm_FSM_patrol)) call CBA_statemachine_fnc_addState;
-private _investigate = (_FSM call FUNC(fsm_FSM_investigate)) call CBA_statemachine_fnc_addState;
-private _investigate_body = (_FSM call FUNC(fsm_FSM_investigate_body)) call CBA_statemachine_fnc_addState;
-private _alert = (_FSM call FUNC(fsm_FSM_alert)) call CBA_statemachine_fnc_addState;
-private _cover = (_FSM call FUNC(fsm_FSM_cover)) call CBA_statemachine_fnc_addState;
-private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_fnc_addState;
+private _patrol = (_FSM call FUNC(fsm_patrol)) call CBA_statemachine_fnc_addState;
+private _investigate = (_FSM call FUNC(fsm_investigate)) call CBA_statemachine_fnc_addState;
+private _investigate_body = (_FSM call FUNC(fsm_investigateBody)) call CBA_statemachine_fnc_addState;
+private _alert = (_FSM call FUNC(fsm_alert)) call CBA_statemachine_fnc_addState;
+private _cover = (_FSM call FUNC(fsm_cover)) call CBA_statemachine_fnc_addState;
+private _reinforcement = (_FSM call FUNC(fsm_reinf)) call CBA_statemachine_fnc_addState;
 
 [_FSM, _patrol, _investigate, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	private _threat = _group getVariable[QGVAR(threat), 0];
 	_threat >= (_group getVariable [QGVAR(investigate_threshold), 1])
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	(units _group) spawn {
@@ -56,13 +57,13 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _patrol, _investigate_body, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	private _body_threat = _group getVariable[QGVAR(body_threat), 0];
 	_body_threat >= (_group getVariable [QGVAR(investigate_threshold), 1])
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	(units _group) spawn {
@@ -79,12 +80,12 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _investigate_body, _reinforcement, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	_group getVariable[QGVAR(isReinforcement), false]
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -94,12 +95,12 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _patrol, _reinforcement, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	_group getVariable[QGVAR(isReinforcement), false]
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -109,12 +110,12 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _reinforcement, _patrol, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	!(_group getVariable[QGVAR(isReinforcement), false])
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -124,12 +125,12 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _investigate, _reinforcement, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	_group getVariable[QGVAR(isReinforcement), false]
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -139,13 +140,13 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _investigate, _patrol, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	private _threat = _group getVariable[QGVAR(threat), 0];
 	_threat < (_group getVariable [QGVAR(investigate_threshold), 1])
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -155,13 +156,13 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _investigate, _cover, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	private _threat = _group getVariable[QGVAR(threat), 0];
 	_threat >= (_group getVariable [QGVAR(cover_threshold), 2])
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -171,13 +172,13 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _cover, _alert, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	private _threat = _group getVariable[QGVAR(threat), 0];
 	private _groupInCover = true;
 	(units _group) apply {
-		if(!(_x getVariable[QGVAR(isInCover), false])) then {
+		if (!(_x getVariable[QGVAR(isInCover), false])) then {
 			_groupInCover = false;
 			break;
 		};
@@ -185,7 +186,7 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 	_groupInCover && 
 	{_threat >= (_group getVariable [QGVAR(alarm_threshold), 3])}
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -195,7 +196,7 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _investigate_body, _alert, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	private _threat = _group getVariable[QGVAR(threat), 0];
@@ -204,7 +205,7 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 	_threat >= (_group getVariable [QGVAR(cover_threshold), 2])
 
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -214,7 +215,7 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _reinforcement, _alert, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	private _threat = _group getVariable[QGVAR(threat), 0];
@@ -222,7 +223,7 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 	_threat > (_group getVariable [QGVAR(cover_threshold), 2]) ||
 	_distance <= 50
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	#ifdef BTC_DEBUG_STEALTH
@@ -232,13 +233,13 @@ private _reinforcement = (_FSM call FUNC(fsm_FSM_reinf)) call CBA_statemachine_f
 }] call CBA_statemachine_fnc_addTransition;
 
 [_FSM, _alert, _patrol, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	private _threat = _group getVariable[QGVAR(threat), 0];
 	_threat <= (_group getVariable [QGVAR(alarm_threshold), 3])
 }, {
-	params[
+	params [
 		["_group", grpNull, [grpNull]]
 	];
 	[_group, 0] call FUNC(threat_setThreat);

@@ -9,6 +9,7 @@ Parameters:
     _heli: OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)

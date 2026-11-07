@@ -24,9 +24,9 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-if(!isServer) exitWith {};
+if (!isServer) exitWith {};
 
-params[
+params [
 	["_fogValue", 0.5, [123]],
 	["_fogDecay", 0, [123]],
 	["_fogBase", 0, [123]],
@@ -37,12 +37,12 @@ GVAR(duration) = -1;
 GVAR(timedSnowstorm) = false;
 GVAR(snowfall) = true;
 publicVariable QGVAR(snowfall);
-if(_duration > 0) then { 
+if (_duration > 0) then { 
 	GVAR(duration) = CBA_missionTime + (GVAR(duration) * 1000); //s to ms
 	GVAR(timedSnowstorm) = true;
 };
 
-if(!isNil QGVAR(handle)) then { //make sure the previous handler is removed
+if (!isNil QGVAR(handle)) then { //make sure the previous handler is removed
 	[] remoteExecCall [QFUNC(server_terminate), 0];
 };
 
@@ -104,9 +104,9 @@ GVAR(windTrans) = [TRANS_DELAY, 40] spawn FUNC(server_windSmoothTrans);
 
 		GVAR(windTrans) = [TRANS_DELAY, random (_this#0)] spawn FUNC(server_windSmoothTrans);
 
-		if(GVAR(timedSnowstorm)) then {
+		if (GVAR(timedSnowstorm)) then {
 			GVAR(duration) = GVAR(duration) - CBA_missionTime;
-			if(GVAR(duration) <= 0) then {
+			if (GVAR(duration) <= 0) then {
 				[] remoteExecCall [QFUNC(server_terminate), 0];
 			};
 		};

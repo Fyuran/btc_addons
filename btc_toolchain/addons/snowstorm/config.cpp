@@ -10,7 +10,11 @@ class CfgPatches
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_toolchain_main"};
+		requiredAddons[] = {
+			"A3_Modules_F",
+			"3DEN",
+			"btc_toolchain_main"
+		};
 		VERSION_CONFIG;
 	};
 };
@@ -29,20 +33,15 @@ class CfgMissions
 	};
 };
 
+class ctrlStatic;
+class ctrlEdit;
+class ctrlXSliderH;
+
 class Cfg3DEN
 {
 	class Attributes
 	{
-		class Title;
-		class Slider: Title
-		{
-			class Controls
-			{
-				class Title;
-				class Value;
-				class Edit;
-			};
-		};
+		#include "cfg3den_forward_declarations.hpp"
 		class GVAR(Slider_0_to_1) : Slider
 		{
 			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(initSlider));
@@ -97,7 +96,7 @@ class Cfg3DEN
 class CfgVehicles
 {
 	class Logic;
-	class Module_F : Logic
+	class Module_F: Logic
 	{
 		class AttributesBase
 		{
@@ -123,7 +122,7 @@ class CfgVehicles
 		{
 			description = "Initiates a =BTC= snowstorm with passed values";
 		};
-		class Attributes : AttributesBase
+		class Attributes: AttributesBase
 		{
 			class GVAR(fogValue): Default
 			{
@@ -206,7 +205,7 @@ class CfgVehicles
 				defaultValue = 40;
 				typeName = "NUMBER";
 			};
-			class ModuleDescription : ModuleDescription {};
+			class ModuleDescription: ModuleDescription {};
 		};
 	};
 };

@@ -6,9 +6,10 @@ Description:
     Manages ambient winter wind and blizzard sound loops on the local client, accounting for indoor/outdoor occlusion.
 
 Parameters:
-    NONE
+    None
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,13 +21,13 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-if(!hasInterface) exitWith {};
-if(!GVAR(enable_sounds)) exitWith {
+if (!hasInterface) exitWith {};
+if (!GVAR(enable_sounds)) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
     [["%1: client has disabled sounds", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
-if(!isNil QGVAR(indoor_handle)) then {
+if (!isNil QGVAR(indoor_handle)) then {
     stopSound(GVAR(windSoundID));
     [GVAR(indoor_handle)] call CBAFUNC(removePerFrameHandler);
     [GVAR(sound_loop_handle)] call CBAFUNC(removePerFrameHandler);
@@ -52,7 +53,7 @@ GVAR(indoor_handle) = [{
     private _pos1 = getPosWorldVisual player;
     private _pos2 = _pos1 vectorAdd [0, 0, 10];
     private _objects = lineIntersectsWith[_pos1, _pos2, player, objNull, true];
-    private _isHouse = if((count _objects) > 0) then {
+    private _isHouse = if ((count _objects) > 0) then {
         (_objects#0) isKindOf "House"
     } else {
         false
@@ -69,7 +70,7 @@ GVAR(indoor_handle) = [{
         }, 59, []] call CBAFUNC(addPerFrameHandler);
 
     } else {
-        if(GVAR(isIndoors) && {!_isHouse}) then { //outdoor sound
+        if (GVAR(isIndoors) && {!_isHouse}) then { //outdoor sound
             [GVAR(sound_loop_handle)] call CBAFUNC(removePerFrameHandler);
             stopSound(GVAR(windSoundID));
             GVAR(isIndoors) = false;

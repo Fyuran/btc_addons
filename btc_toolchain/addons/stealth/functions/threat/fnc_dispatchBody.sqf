@@ -26,23 +26,23 @@ Land_Bodybag_01_black_F
 Land_Bodybag_01_blue_F
 Land_Bodybag_01_white_F
 */
-params[
+params [
     ["_body", objNull, [objNull]],
     ["_remove", true, [false]]
 ];
 
-if(!(_body in allDeadMen)) exitWith {
+if (!(_body in allDeadMen)) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: attempted to dispatch non body", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
     objNull
 };
 
-if(_body getVariable[QGVAR(kia), false]) exitWith {
+if (_body getVariable[QGVAR(kia), false]) exitWith {
     _body
 };
 
-if(_remove) then {
+if (_remove) then {
     private _pos = getPosASL _body;
     private _dirAndUp = [vectorDir _body, vectorUp _body];
     deleteVehicle _body;

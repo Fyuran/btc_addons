@@ -6,7 +6,7 @@ Description:
     Finds and returns terrain and dynamic obstacle objects within distance from a source position, sorted by distance.
 
 Parameters:
-    _src: ARRAY/OBJECT
+    _src: OBJECT or ARRAY
     _direction: STRING
     _distance: NUMBER
 
@@ -23,13 +23,13 @@ Author:
 
 ---------------------------------------------------------------------------- */
 //Includes both runtime and terrain objects
-params[
+params [
 	["_src", [0,0,0], [objNull, []]],
 	["_direction", "ASCEND", [""]],
 	["_distance", 50, [123]]
 ];
 
-if((_direction isNotEqualTo "ASCEND") && (_direction isNotEqualTo "DESCEND")) exitWith {
+if ((_direction isNotEqualTo "ASCEND") && (_direction isNotEqualTo "DESCEND")) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _direction should be either 'ASCEND' or 'DESCEND'", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif

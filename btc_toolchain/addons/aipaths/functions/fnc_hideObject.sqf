@@ -9,6 +9,7 @@ Parameters:
     _object: OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,10 +21,10 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[
+params [
     ["_object", objNull, [objNull]]
 ];
-if(!isServer) exitWith {
+if (!isServer) exitWith {
     _this remoteExecCall [QFUNC(hideObject), 2];
 };
 #ifdef BTC_DEBUG_AIPATHS
@@ -36,4 +37,4 @@ private _textures = getObjectTextures _object;
 {
     _object setObjectTextureGlobal [_forEachIndex, ""];
     GVAR(objects) pushBack _object;
-}forEach _textures;
+} forEach _textures;

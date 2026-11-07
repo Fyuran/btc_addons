@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_fsm_FSM_investigate
+Function: btc_toolchain_stealth_fnc_fsm_investigate
 
 Description:
     Defines the Investigate state in the stealth state machine where units search around the last known enemy position.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_investigate;
+        _fsm call btc_toolchain_stealth_fnc_fsm_investigate;
     (end)
 
 Author:
@@ -24,8 +24,8 @@ Author:
 _this,
 {
 	/*State*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -35,7 +35,7 @@ _this,
 	private _hasFound = false;
 	(units _group) apply {
 		private _player = [_x, allPlayers] call FUNC(threat_unitDetectEntities);
-		if(!isNull _player) then {
+		if (!isNull _player) then {
 			private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 			private _rate = 1/5 + (1/8 - 1/5) * (((_x distance _player) - MIN_DIS) / (_threat_dis - MIN_DIS));
 			[_group, _rate] call FUNC(threat_addThreat);
@@ -43,13 +43,13 @@ _this,
 			_hasFound = true;
 		};
 	};
-	if(!_hasFound) then {
+	if (!_hasFound) then {
 		[_group, -1/80] call FUNC(threat_addThreat);
 	};
 }, {
 	/*Enter*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif

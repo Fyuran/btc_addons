@@ -7,7 +7,9 @@ Description:
 Parameters:
     _path: STRING
     _newPath: STRING
+
 Returns:
+    HASHMAP
 
 Examples:
     (begin example)
@@ -18,14 +20,14 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_path", "", [""]],
 	["_newPath", "", [""]]
 ];
-if(_path isEqualTo "") exitWith {
+if (_path isEqualTo "") exitWith {
     [["%1: path property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(_newPath isEqualTo "") exitWith {
+if (_newPath isEqualTo "") exitWith {
     [["%1: newPath property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 

@@ -19,7 +19,14 @@ class CfgPatches
 		url = "http://www.blacktemplars.altervista.org";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_toolchain_main"};
+		requiredAddons[] = {
+			"A3_Structures_F",
+			"A3_Supplies_F_Heli_CargoNets",
+			"A3_Supplies_F_Orange",
+			"A3_Supplies_F_Enoch",
+			"3DEN",
+			"btc_toolchain_main"
+		};
 		VERSION_CONFIG;
 	};
 };

@@ -2,32 +2,32 @@
 
 // core
 PREP_FOLDER(core,init);
-PREP_FOLDER(core,EH_init);
+PREP_FOLDER(core,ehInit);
 PREP_FOLDER(core,manualTransition);
 PREP_FOLDER(core,debug);
 
 // cover
 PREP_FOLDER(cover,debugCover);
 PREP_FOLDER(cover,findCover);
-PREP_FOLDER(cover,getBoundingBoxFaces_Model);
+PREP_FOLDER(cover,getBoundingBoxFacesModel);
 PREP_FOLDER(cover,getCentroid);
-PREP_FOLDER(cover,getCoverPositions_AGL);
-PREP_FOLDER(cover,getFaceMidpoint_Model);
-PREP_FOLDER(cover,isPositionHidden_ASL);
+PREP_FOLDER(cover,getCoverPositionsAgl);
+PREP_FOLDER(cover,getFaceMidpointModel);
+PREP_FOLDER(cover,isPositionHiddenAsl);
 PREP_FOLDER(cover,nearestSortedObjects);
 
 // fsm
-PREP_FOLDER(fsm,FSM_alert);
-PREP_FOLDER(fsm,FSM_cover);
-PREP_FOLDER(fsm,FSM_init);
-PREP_FOLDER(fsm,FSM_investigate);
-PREP_FOLDER(fsm,FSM_investigate_body);
-PREP_FOLDER(fsm,FSM_patrol);
-PREP_FOLDER(fsm,FSM_reinf);
+PREP_FOLDER(fsm,alert);
+PREP_FOLDER(fsm,cover);
+PREP_FOLDER(fsm,init);
+PREP_FOLDER(fsm,investigate);
+PREP_FOLDER(fsm,investigateBody);
+PREP_FOLDER(fsm,patrol);
+PREP_FOLDER(fsm,reinf);
 
 // reinforcements
-PREP_FOLDER(reinforcements,call_reinforcements);
-PREP_FOLDER(reinforcements,call_removeReinforcements);
+PREP_FOLDER(reinforcements,callReinforcements);
+PREP_FOLDER(reinforcements,callRemoveReinforcements);
 
 // threat
 PREP_FOLDER(threat,addThreat);

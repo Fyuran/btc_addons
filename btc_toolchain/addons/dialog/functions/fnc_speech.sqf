@@ -7,9 +7,10 @@ Description:
 
 Parameters:
     _conv_name: STRING
-    _path: STRING
+    _path: ""]] //LOADFILE DOES NOT SUPPORT ABSOLUTE PATHS SUCH AS GETMISSIONPAT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -21,17 +22,14 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[
+params [
     ["_conv_name", "", [""]],
 	["_path", "conv_table.json", [""]] //loadFile does not support absolute paths such as getMissionPath
 ];
-if(!hasInterface) exitWith {};
+if (!hasInterface) exitWith {};
 disableSerialization;
 
 if (!canSuspend) exitWith {
-	#ifdef BTC_DEBUG_DIALOG
-	[["%1: attempted to call in unscheduled envinronment, use spawn to call this function", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
 	_this spawn FUNC(speech);
 };
 
@@ -53,7 +51,7 @@ if (!isNil QGVAR(box_handle) && {!scriptDone GVAR(box_handle)}) then {
 };
 
 GVAR(box_handle) = [_conv_name, _path] spawn {
-	params[
+	params [
 		["_conv_name", "", [""]],
 		["_path", "", [""]]
 	];

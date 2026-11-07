@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_cover_getCoverPositions_AGL
+Function: btc_toolchain_stealth_fnc_cover_getCoverPositionsAgl
 
 Description:
     Generates potential cover positions around an obstacle object in AGL coordinates.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        private _positions = [cursorObject, 0.25] call btc_toolchain_stealth_fnc_cover_getCoverPositions_AGL;
+        private _positions = [cursorObject, 0.25] call btc_toolchain_stealth_fnc_cover_getCoverPositionsAgl;
     (end)
 
 Author:
@@ -25,25 +25,25 @@ Author:
 #define _MAX_ 0.75
 #define _MULTIPLIER_ 1.5
 
-params[
+params [
     ["_object", objNull, [objNull]],
     ["_resolution", 0.25, [123]]
 ];
 
-if((_resolution < _MIN_) || (_resolution > _MAX_)) exitWith {
+if ((_resolution < _MIN_) || (_resolution > _MAX_)) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _resolution is invalid should be between %2 and %3", __FILE_NAME__, _MIN_, _MAX_], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
     []
 };
-if(isNull _object) exitWith {
+if (isNull _object) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _object is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
     []
 };
 private _isEvenlyDivisible = abs((_MAX_ / _resolution) - round(_MAX_ / _resolution)) < 0.0001;
-if(!_isEvenlyDivisible) exitWith {
+if (!_isEvenlyDivisible) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _resolution is not evenly divisible", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
@@ -51,9 +51,9 @@ if(!_isEvenlyDivisible) exitWith {
 };
 
 private _boundingBox = boundingBoxReal [_object, "FireGeometry"];
-_boundingBox params["_boxMin", "_boxMax", "_radius"];
-_boxMin params["_xMin", "_yMin", "_zMin"];
-_boxMax params["_xMax", "_yMax", "_zMax"];
+_boundingBox params ["_boxMin", "_boxMax", "_radius"];
+_boxMin params ["_xMin", "_yMin", "_zMin"];
+_boxMax params ["_xMax", "_yMax", "_zMax"];
 
 //Top view where positions are at center of object provided z = 0
 private _bottomLeft = [_xMin, _yMin, 0];
@@ -84,7 +84,7 @@ _positions = _positions apply {
 };
 
 //add extra positions
-if(_object isKindOf "House") then {
+if (_object isKindOf "House") then {
     _positions = _positions + (_object buildingPos -1);
 };
 

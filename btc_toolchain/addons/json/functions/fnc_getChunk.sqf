@@ -5,9 +5,11 @@ Function: btc_toolchain_json_fnc_getChunk
 Description:
 	Retrieves a chunk of JSON from inside extension's cache
 Parameters:
-	_ID: STRING
-	_size: NUMBER
+    _ID: STRING
+    _size: NUMBER
+
 Returns:
+    ANY
 
 Examples:
     (begin example)
@@ -18,14 +20,14 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_ID", ""],
 	["_size", 0]
 ];
-if(_ID isEqualTo "") exitWith {
+if (_ID isEqualTo "") exitWith {
     [["%1: ID property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(_size <= 0) exitWith {
+if (_size <= 0) exitWith {
     [["%1: size property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 

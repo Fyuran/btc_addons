@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_reinforcements_call_removeReinforcements
+Function: btc_toolchain_stealth_fnc_reinforcements_callRemoveReinforcements
 
 Description:
     Plays radio animation to call all-clear / stand down, canceling reinforcement alerts and dispatching nearby dead bodies.
@@ -9,17 +9,18 @@ Parameters:
     _unit: OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [leader _group] spawn btc_toolchain_stealth_fnc_reinforcements_call_removeReinforcements;
+        [leader _group] spawn btc_toolchain_stealth_fnc_reinforcements_callRemoveReinforcements;
     (end)
 
 Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_unit", objNull, [objNull]]
 ];
 
@@ -29,13 +30,13 @@ private _alarm_dis = _group getVariable[QGVAR(alarm_distance), ALARM_DISTANCE];
     [_x, false] call FUNC(threat_dispatchBody);
 };
 
-if(GVAR(radioInProgress)) exitWith {};
+if (GVAR(radioInProgress)) exitWith {};
 
-if(!canSuspend) exitWith {
-    _this spawn FUNC(reinforcements_call_removeReinforcements);
+if (!canSuspend) exitWith {
+    _this spawn FUNC(reinforcements_callRemoveReinforcements);
 };
-if(!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
-if(!local _unit) exitWith {
+if (!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
+if (!local _unit) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _unit is not local", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
@@ -55,19 +56,19 @@ _unit switchMove "Acts_listeningToRadio_In";
 
 private _soundName = format[QGVAR(hq_call_%1), selectRandom [1, 2, 3, 4]];
 [_unit, _soundName] remoteExecCall["say3D", [0, -2] select isDedicated];
-if(!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
+if (!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
 sleep 1;
-if(!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
+if (!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
 _unit switchMove "Acts_listeningToRadio_Loop";
 _soundName = format[QGVAR(all_clear_%1), selectRandom [1, 2, 3, 4]];
 [_unit, _soundName] remoteExecCall["say3D", [0, -2] select isDedicated];
 sleep 2;
-if(!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
+if (!alive _unit || {IS_UNCONSCIOUS}) exitWith {};
 _unit switchMove "Acts_listeningToRadio_Out";
 
 //radio request call off reinforcements
 private _nearGrps = [_unit, _alarm_dis, [], {
-    params[
+    params [
         ["_grp", grpNull, [grpNull]]
     ];
 

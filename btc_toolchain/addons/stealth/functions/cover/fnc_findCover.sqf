@@ -20,16 +20,16 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_unit", objNull, [objNull]]
 ];
-if(!alive _unit) exitWith {
+if (!alive _unit) exitWith {
     #ifdef BTC_DEBUG_STEALTH
 	[["%1: _unit is not alive or is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
     []
 };
-if(!local _unit) exitWith {
+if (!local _unit) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: unit group is not local", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
@@ -37,7 +37,7 @@ if(!local _unit) exitWith {
 };
 
 private _objects = [_unit] call FUNC(cover_nearestSortedObjects);
-if(_objects isEqualTo []) exitWith {
+if (_objects isEqualTo []) exitWith {
     #ifdef BTC_DEBUG_STEALTH
 	[["%1: _objects is empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
@@ -47,19 +47,19 @@ if(_objects isEqualTo []) exitWith {
 private _covers = [];
 _objects apply {
     private _object = _x;
-    private _positions = [_object] call FUNC(cover_getCoverPositions_AGL);
+    private _positions = [_object] call FUNC(cover_getCoverPositionsAgl);
     _positions = [_positions, [_unit], { _input0 distanceSqr _x }, "DESCEND"] call BIS_fnc_sortBy;
     _positions apply {
         private _position = _x;
         allPlayers apply {
             private _player = _x;
-            if(([AGLToASL _position, _player] call FUNC(cover_isPositionHidden_ASL))) then {
+            if (([AGLToASL _position, _player] call FUNC(cover_isPositionHiddenAsl))) then {
                 _covers pushBackUnique [_object, _position];
             };
         };
     };
 };
-if(_covers isEqualTo []) exitWith {
+if (_covers isEqualTo []) exitWith {
     #ifdef BTC_DEBUG_STEALTH
 	[["%1: no covers found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
@@ -76,7 +76,7 @@ _covers apply {
     _c params ["_object", "_position"];
     _cover_holders apply {
         private _holder = _x;
-        if((_position distance _holder) < 5) then { //if fails, go to next _position
+        if ((_position distance _holder) < 5) then { //if fails, go to next _position
             _hasFound = false;
             break;
         } else {
@@ -84,7 +84,7 @@ _covers apply {
             _cover = _c;
         };
     };
-    if(_hasFound) then {
+    if (_hasFound) then {
         break;
     };
 };

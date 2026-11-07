@@ -9,6 +9,7 @@ Parameters:
     _obj: OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,15 +21,15 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[
+params [
 	["_obj",objNull,[objNull]]
 ];
-if(isNull _obj) exitWith {
+if (isNull _obj) exitWith {
     [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _handle = _obj getVariable [QGVAR(timer_handle), -1];
-if(_handle != -1) then {
+if (_handle != -1) then {
 	[_handle] call CBAFUNC(removePerFrameHandler);
 };
 private _objs = attachedObjects _obj;

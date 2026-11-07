@@ -109,4 +109,4 @@ _vehicle call {
     }];
 };
 #endif
-[_rearCorner, _rearCorner2, _frontCorner, _frontCorner2];
+[_rearCorner, _rearCorner2, _frontCorner, _frontCorner2]

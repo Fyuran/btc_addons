@@ -6,9 +6,10 @@ Description:
     Restores original textures ingame for all tracked objects in the global objects pool.
 
 Parameters:
-    NONE
+    None
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,11 +21,11 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-if(!isServer) exitWith {
+if (!isServer) exitWith {
     remoteExecCall [QFUNC(unhideObjects), 2];
 };
 GVAR(objects) = missionNamespace getVariable [QGVAR(objects), []];
-if(GVAR(objects) isEqualTo []) exitWith {
+if (GVAR(objects) isEqualTo []) exitWith {
     [["%1: no objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 

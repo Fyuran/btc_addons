@@ -26,11 +26,11 @@ Author:
 #define _CIVILIAN_ 3
 
 private _fnc_removeEh = {
-	params[
+	params [
 		["_unit", objNull, [objNull]]
 	];
 
-	if(!alive _unit) exitWith {};
+	if (!alive _unit) exitWith {};
 	private _EHs = _unit getVariable[QGVAR(client_EHs), []];
 
 	_EHs params [
@@ -100,35 +100,35 @@ private _fnc_removeEh = {
 
 //Check if handles already exist
 private _handle = missionNamespace getVariable [QGVAR(removeEH_clients_handle), -1];
-if(_handle isNotEqualTo -1) exitWith {};
+if (_handle isNotEqualTo -1) exitWith {};
 removeEH_clients_handle = [QGVAR(debug_removeEHs), _fnc_removeEh] call CBAFUNC(addEventHandler);
 
 _handle = missionNamespace getVariable [QGVAR(debug_PFH_handle), -1];
-if(_handle isNotEqualTo -1) exitWith {};
+if (_handle isNotEqualTo -1) exitWith {};
 
 debug_PFH_handle = [{
 private _groups = missionNamespace getVariable[QGVAR(groups), []];
-if(_groups isEqualTo []) exitWith {};
+if (_groups isEqualTo []) exitWith {};
 _groups apply {
 	private _group = _x;
 	private _isGroupAlive = false;
-	if(isNull _group) then {continue};
+	if (isNull _group) then {continue};
 	(units _group) apply {
-		if(alive _x) then {
+		if (alive _x) then {
 			_isGroupAlive = true;
 			break;
 		};
 	};
-	if(!_isGroupAlive) then {continue};
+	if (!_isGroupAlive) then {continue};
 
 	private _side = side _group;
-	private _group_icon = switch([_side] call BIS_fnc_sideID) do {
+	private _group_icon = switch ([_side] call BIS_fnc_sideID) do {
 		case _OPFOR_: {"\a3\ui_f\data\map\markers\nato\o_inf.paa"};
 		case _BLUFOR_: {"\a3\ui_f\data\map\markers\nato\b_inf.paa"};
 		case _INDEPENDENT_: {"\a3\ui_f\data\map\markers\nato\n_inf.paa"};
 		default {"\a3\ui_f\data\map\markers\nato\c_unknown.paa"};
 	};
-	private _enemyColor = switch([_side] call BIS_fnc_sideID) do {
+	private _enemyColor = switch ([_side] call BIS_fnc_sideID) do {
 		case _OPFOR_ : {[
 			Map_OPFOR_RGB,
 			Map_OPFOR_A
@@ -152,12 +152,12 @@ _groups apply {
 
 	private _positions = [];
 	(units _group) apply { 
-		if(alive _x) then {
+		if (alive _x) then {
 			_positions pushBack (getPosVisual _x)
 		};
 	};
 	private _centroid = [0, 0, 0];
-	if(_positions isNotEqualTo []) then {
+	if (_positions isNotEqualTo []) then {
 		_centroid = ([_positions, true] call FUNC(cover_getCentroid)) vectorAdd [0, 0, 4];
 
 		drawIcon3D [_group_icon, _enemyColor, _centroid, pixelW * pixelGrid * 100, pixelH * pixelGrid * 80, 0];
@@ -173,33 +173,33 @@ _groups apply {
 
 	(units _group) apply {
 		private _unit = _x;
-		if(!alive _unit) then {continue};
-		if(_unit getVariable ["ACE_isUnconscious", false]) then {continue};
+		if (!alive _unit) then {continue};
+		if (_unit getVariable ["ACE_isUnconscious", false]) then {continue};
 
 		private _unitPos = getPosVisual _unit;
 
 		
 		//drawIcon3D ["\a3\ui_f\data\map\vehicleicons\iconman_ca.paa", _enemyColor, _unitPos, pixelW * pixelGrid * 5, pixelH * pixelGrid * 5, 0];
-		if(_centroid isNotEqualTo [0, 0, 0]) then {
+		if (_centroid isNotEqualTo [0, 0, 0]) then {
 			drawLine3D[_centroid, _unitPos, [0, 0, 1, 1], 6];
 		};
 
 		private _coverData = _unit getVariable[QGVAR(coverData), []];
-		if(_coverData isNotEqualTo []) then {
-			_coverData params["_coverObj", "_coverPos"];
+		if (_coverData isNotEqualTo []) then {
+			_coverData params ["_coverObj", "_coverPos"];
 			drawIcon3D ["", [1,0.23,1,1], _unitPos vectorAdd[0,0,2.6], 1, 1, 0, format["Cover:%1", _unit getVariable[QGVAR(isInCover), false]]];
 			drawLine3D[_unitPos, _coverPos, [0, 1, 0, 1]];
 			[_coverObj] call FUNC(cover_debugCover);
 		};
 
 		private _player = [_unit, allPlayers + ([side _unit] call FUNC(threat_getAllSideCorpses))] call FUNC(threat_unitDetectEntities);
-		if(!isNull _player) then {
+		if (!isNull _player) then {
 			drawLine3D[_unit modelToWorldVisual EYE_OFFSET, _player modelToWorldVisual EYE_OFFSET, [_threat max _body_threat, 1 - (_threat max _body_threat), 0, 1]];
 		};
 	};
 
 	allDeadMen apply {
-		if(_x getVariable[QGVAR(kia), false]) then {
+		if (_x getVariable[QGVAR(kia), false]) then {
 			drawIcon3D ["", [1,0,0,1], (getPos _x) vectorAdd[0,0,0.4], 1, 1, 0, "KIA"];
 		};
 	};

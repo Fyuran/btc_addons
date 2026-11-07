@@ -10,6 +10,7 @@ Parameters:
     _plannedIntesity: NUMBER - Planned wind intensity (optional, default: 20)
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -21,7 +22,7 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[
+params [
     ["_duration", 10, [123]],
     ["_plannedIntesity", 20, [123]]
 ];

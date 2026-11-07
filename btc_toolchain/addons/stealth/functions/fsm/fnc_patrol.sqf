@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_fsm_FSM_patrol
+Function: btc_toolchain_stealth_fnc_fsm_patrol
 
 Description:
     Defines the default Patrol state in the stealth state machine where units follow their original waypoints calmly.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_patrol;
+        _fsm call btc_toolchain_stealth_fnc_fsm_patrol;
     (end)
 
 Author:
@@ -24,8 +24,8 @@ Author:
 _this, 
 {
 	/*STATE*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -36,12 +36,12 @@ _this,
 	(units _group) apply {
 		private _bodies = [side _group] call FUNC(threat_getAllSideCorpses);
 		private _entity = [_x, allPlayers + _bodies] call FUNC(threat_unitDetectEntities);
-		if(!isNull _entity) then {
+		if (!isNull _entity) then {
 			private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 			
 			private _rate = 1/5 + (1/8 - 1/5) * (((_x distance _entity) - MIN_DIS) / (_threat_dis - MIN_DIS));
 			private _varName = ["threat", "body_threat"] select (_entity in _bodies);
-			if(_entity in _bodies) then {
+			if (_entity in _bodies) then {
 				[_group, 0.5, _varName] call FUNC(threat_addThreat);
 				[_group, _entity, 0] call FUNC(threat_setLastKnownPosition);
 			} else {
@@ -52,14 +52,14 @@ _this,
 		};
 	};
 
-	if(!_hasFound) then {
+	if (!_hasFound) then {
 		[_group, -1/80] call FUNC(threat_addThreat);
 	};
 
 }, {
     /*ENTER*/
-    params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+    params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -67,7 +67,7 @@ _this,
 	};
 	
 	private _original_WPS = _group getVariable[QGVAR(Original_WPS), []];
-	if(_original_WPS isEqualTo []) then {
+	if (_original_WPS isEqualTo []) then {
 		_group setVariable [QGVAR(Original_WPS), [_group] call FUNC(waypoints_getWaypoints)];
 	} else {
 		[_group, _original_WPS] call FUNC(waypoints_setWaypoints);
@@ -86,7 +86,7 @@ _this,
 
 }, {
 	/*EXIT*/
-    params[["_group", grpNull, [grpNull]]];
+    params [["_group", grpNull, [grpNull]]];
 
 	_group setVariable [QGVAR(Original_WPS), [_group] call FUNC(waypoints_getWaypoints)];
 

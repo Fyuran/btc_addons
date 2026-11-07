@@ -24,12 +24,12 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[
+params [
 	["_obj", objNull, [objNull]],
 	["_end_time", 60, [0]],
 	["_max_colors", 1, [0]]
 ];
-if(isNull _obj) exitWith {
+if (isNull _obj) exitWith {
     [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
@@ -133,7 +133,7 @@ _obj setVariable ["isBoobyTrapped",true,true];
 	count ((_this select 1) getVariable [QGVAR(input_wire_colors),[]]) >= (_this select 2)
 },
 {
-	params["_defuser","_obj","_max_colors","_wire_colors","_light_pos"];
+	params ["_defuser","_obj","_max_colors","_wire_colors","_light_pos"];
 	private _obj_colors = _obj getVariable [QGVAR(input_wire_colors),[]];
 	private _handle = _obj getVariable [QGVAR(timer_handle),0];
 	[_handle] call CBAFUNC(removePerFrameHandler);
@@ -147,8 +147,7 @@ _obj setVariable ["isBoobyTrapped",true,true];
 		_light attachTo[_obj,_light_pos];
 		[{deleteVehicle _this}, _light, 60] call CBAFUNC(waitAndExecute);
 		_obj setVariable ["isBoobyTrapped",false,true];
-	}
-	else { //Explode
+	} else { //Explode
 		private _r = "Bo_GBU12_LGB" createVehicle getPos _obj;
 		_r setVectorDirAndUp[[0,0,-1],[1,0,0]]; //steer it towards the ground or odd things will happen
 		deleteVehicle _obj;

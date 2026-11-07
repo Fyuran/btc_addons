@@ -6,9 +6,10 @@ Description:
     Registers CBA keybinds for helicopter lift operations (deploy ropes, cut ropes, toggle HUD, hook).
 
 Parameters:
-    NONE
+    None
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -26,8 +27,7 @@ private _menuString = "BTC Toolchain Lift";
     QGVAR(deployRopes),
     [localize "STR_ACE_Fastroping_Interaction_deployRopes", "deploy ropes from helicopter"],
     {
-        if (
-            !GVAR(ropes_deployed) &&
+        if (!GVAR(ropes_deployed) &&
             {(driver vehicle player) isEqualTo player} &&
             {(getPosATL player) select 2 > 4}
         ) then {

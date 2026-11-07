@@ -10,6 +10,7 @@ Parameters:
     _PFH_id: NUMBER
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)

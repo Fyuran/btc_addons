@@ -10,7 +10,15 @@ class CfgPatches
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {QGVAR(DeployableAntenna)};
-		requiredAddons[] = {"btc_toolchain_main"};
+		requiredAddons[] = {
+			"A3_Weapons_F",
+			"A3_Structures_F",
+			"A3_Structures_F_Exp",
+			"A3_Characters_F",
+			"cba_common",
+			"ace_interact_menu",
+			"btc_toolchain_main"
+		};
 		VERSION_CONFIG;
 	};
 };

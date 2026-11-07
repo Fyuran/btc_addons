@@ -11,7 +11,10 @@ class CfgPatches
 		url = "https://www.blacktemplars.it/";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_toolchain_main"};
+		requiredAddons[] = {
+			"A3_Data_F",
+			"btc_toolchain_main"
+		};
 		VERSION_CONFIG;
 	};
 };

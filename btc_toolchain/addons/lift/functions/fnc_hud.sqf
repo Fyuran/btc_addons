@@ -6,9 +6,10 @@ Description:
     Toggles the helicopter sling load alignment HUD on or off.
 
 Parameters:
-    NONE
+    None
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)

@@ -6,9 +6,10 @@ Description:
     Initializes stealth system logic module on the server, creates FSMs for synchronized groups, and sets up detection handlers.
 
 Parameters:
-    _logic: OBJECT
+    _logic: OBJNULL]] // CAN BE MODULE_
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -19,28 +20,28 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_logic", objNull, [objNull]] // can be Module_F
 ];
 
-if(isNull _logic) exitWith {
+if (isNull _logic) exitWith {
 	[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(!isServer) exitWith {
+if (!isServer) exitWith {
 	[["%1: Should be run only on Server", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(!(_logic isKindOf "Module_F")) exitWith {
+if (!(_logic isKindOf "Module_F")) exitWith {
 	[["%1: _logic is not a Module_F", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _synchedObjs = synchronizedObjects _logic;
 
-if(_synchedObjs isEqualTo []) exitWith {
+if (_synchedObjs isEqualTo []) exitWith {
 	[["%1: No linked objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 //Check if Synched objects are correct, only 'CAManBase' should be used, 
 //if multiple objects of the same group are synched just filter to unique groups
-if(!(_synchedObjs isEqualTypeAll objNull)) exitWith {
+if (!(_synchedObjs isEqualTypeAll objNull)) exitWith {
 	[["%1: Linked types aren't of type objNull", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
@@ -52,7 +53,7 @@ _synchedObjs apply {
 	    _groups pushBackUnique _group;
     };
 };
-if(_groups isEqualTo []) exitWith {
+if (_groups isEqualTo []) exitWith {
 	[["%1: No groups were found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 _logic setVariable [QGVAR(groups), _groups];
@@ -63,7 +64,7 @@ GVAR(groups) = []; //hold ref to groups
 
 //retrieved from logic namespace
 private _debug = _logic getVariable[QGVAR(debug), false]; //used for logic
-if(_debug isEqualType 123) then { //handle some weird cases when even if typeName is 'BOOL' when default it's handled as 'SCALAR'
+if (_debug isEqualType 123) then { //handle some weird cases when even if typeName is 'BOOL' when default it's handled as 'SCALAR'
     _debug = _debug isEqualTo 1;
 };
 private _investigate_offset = _logic getVariable[QGVAR(investigate_offset), 0];
@@ -93,7 +94,7 @@ _groups apply {
     _group setVariable[QGVAR(threat_limit), _threat_limit];
     _group setVariable[QGVAR(radio_delay), _radio_delay];
 
-    [_FSM] call FUNC(fsm_FSM_init);
+    [_FSM] call FUNC(fsm_init);
     
     GVAR(groups) pushBack _group;
     allCurators apply {
@@ -102,9 +103,9 @@ _groups apply {
     };
 };
 
-[_groups] call FUNC(core_EH_init);
+[_groups] call FUNC(core_ehInit);
 
-if(_debug && {!isDedicated}) then {
+if (_debug && {!isDedicated}) then {
     publicVariable QGVAR(groups);
 	GVAR(debug_JIP) = [] remoteExecCall [QFUNC(core_debug), [0, -2] select isDedicated, true];
 } else {

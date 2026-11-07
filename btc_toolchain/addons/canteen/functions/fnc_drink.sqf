@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_canteen_fnc_Drink
+Function: btc_toolchain_canteen_fnc_drink
 
 Description:
     Player drinks from a canteen or water bottle, restoring ACE stamina and advancing item fill state.
@@ -20,7 +20,7 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-if(!params[
+if (!params [
 ["_item","",[""]]
 ]) exitWith {    
 	[["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -41,20 +41,20 @@ private _consumeAnim = getArray (_config) param [_stanceIndex, "", [""]];
 {
 	_args params ["_item"];
 
-	if(isNil QACEGVAR(advanced_fatigue,anreserve)) exitWith {
+	if (isNil QACEGVAR(advanced_fatigue,anreserve)) exitWith {
     	[["%1: non existing ace_advanced_fatigue_anreserve, check if ACE is loaded", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	};
 	ACEGVAR(advanced_fatigue,anreserve) = 2300; //GVAR of ace_advanced_fatigue
 	[format["You took a sip of %1.", getText(configFile >> "CfgWeapons" >> _item >> "DisplayName")], 2.5, ACE_player] call ACEFUNC(common,displayTextStructured);
 	ACE_player removeItem _item;
 	private _new_item = call {
-		if(_item isEqualTo "ACE_WaterBottle") exitWith {"ACE_WaterBottle_Half"};
-		if(_item isEqualTo "ACE_WaterBottle_Half") exitWith {"ACE_WaterBottle_Empty"};
+		if (_item isEqualTo "ACE_WaterBottle") exitWith {"ACE_WaterBottle_Half"};
+		if (_item isEqualTo "ACE_WaterBottle_Half") exitWith {"ACE_WaterBottle_Empty"};
 		
-		if(_item isEqualTo "ACE_Canteen") exitWith {"ACE_Canteen_Nearly_Full"};
-		if(_item isEqualTo "ACE_Canteen_Nearly_Full") exitWith {"ACE_Canteen_Half"};
-		if(_item isEqualTo "ACE_Canteen_Half") exitWith {"ACE_Canteen_Nearly_Empty"};
-		if(_item isEqualTo "ACE_Canteen_Nearly_Empty") exitWith {"ACE_Canteen_Empty"};
+		if (_item isEqualTo "ACE_Canteen") exitWith {"ACE_Canteen_Nearly_Full"};
+		if (_item isEqualTo "ACE_Canteen_Nearly_Full") exitWith {"ACE_Canteen_Half"};
+		if (_item isEqualTo "ACE_Canteen_Half") exitWith {"ACE_Canteen_Nearly_Empty"};
+		if (_item isEqualTo "ACE_Canteen_Nearly_Empty") exitWith {"ACE_Canteen_Empty"};
 		""
 	};
 	ACE_player addItem _new_item;

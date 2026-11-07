@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_fsm_FSM_investigate_body
+Function: btc_toolchain_stealth_fnc_fsm_investigateBody
 
 Description:
     Defines the Investigate_Body state where a group moves to examine and secure a discovered casualty.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_investigate_body;
+        _fsm call btc_toolchain_stealth_fnc_fsm_investigateBody;
     (end)
 
 Author:
@@ -24,8 +24,8 @@ Author:
 _this,
 {
 	/*State*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -34,7 +34,7 @@ _this,
 
 	(units _group) apply {
 		private _player = [_x, allPlayers] call FUNC(threat_unitDetectEntities);
-		if(!isNull _player) then {
+		if (!isNull _player) then {
 			private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 
 			private _rate = 1/5 + (1/8 - 1/5) * (((_x distance _entity) - MIN_DIS) / (_threat_dis - MIN_DIS));
@@ -44,8 +44,8 @@ _this,
 	};
 }, {
 	/*Enter*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -67,13 +67,13 @@ _this,
 	};
 
     [leader _group, _lastKnownPos] spawn {
-		params["_unit", "_pos"];
+		params ["_unit", "_pos"];
 		private _time = CBA_missionTime + 30; //timeout
 		waitUntil{((_unit distance _pos) <= 1) || (CBA_missionTime > _time)};
 		
-		[_unit, BODY] call FUNC(reinforcements_call_reinforcements);
-		if(!alive _unit) exitWith {};
-		if(CBA_missionTime > _time) exitWith {}; //abort body removal when timing out
+		[_unit, BODY] call FUNC(reinforcements_callReinforcements);
+		if (!alive _unit) exitWith {};
+		if (CBA_missionTime > _time) exitWith {}; //abort body removal when timing out
 		private _threat_dis = (group _unit) getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 		(allDeadMen select {(_x distance _pos <= (_threat_dis / 2))}) apply {
 			[_x] call FUNC(threat_dispatchBody);
@@ -83,7 +83,7 @@ _this,
 
 }, {
 	/*Exit*/
-	params[["_group", grpNull, [grpNull]]];
+	params [["_group", grpNull, [grpNull]]];
 	_group setVariable[QGVAR(body_dispatched), false];
 	[_group, 0, "body_threat"] call FUNC(threat_setThreat);
 }, "Investigate_Body"]

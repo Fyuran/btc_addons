@@ -47,8 +47,20 @@ class CfgPatches
 		units[] = {"ACE_Canteen_Nearly_Empty_Item","ACE_Canteen_Nearly_Full_Item"};
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
-		weapons[] = {"ACE_Canteen_Nearly_Empty","ACE_Canteen_Nearly_Full"};
-		requiredAddons[] = {"btc_toolchain_main", "ace_field_rations"};
+		skipWhenMissingDependencies = 1;
+		weapons[] = {
+			"ACE_Canteen_Nearly_Empty",
+			"ACE_Canteen_Half",
+			"ACE_Canteen_Nearly_Full"
+		};
+		requiredAddons[] = {
+			"A3_Characters_F",
+			"A3_Soft_F",
+			"cba_common",
+			"ace_interact_menu",
+			"ace_field_rations",
+			"btc_toolchain_main"
+		};
 		VERSION_CONFIG;
 	};
 };
@@ -128,13 +140,13 @@ class CfgVehicles
 						condition = "'ACE_WaterBottle_Half' in items _player";
 						exceptions[] = {};
 						icon = QPATHTOF(data\item_waterbottle_refill_icon.paa);
-						statement = QUOTE(['ACE_WaterBottle_Half'] call FUNC(Refill));
+						statement = QUOTE(['ACE_WaterBottle_Half'] call FUNC(refill));
 					};
 					class GVAR(WaterBottle_a): GVAR(WaterBottle)
 					{
 						displayName = "Refill Water Bottle (Empty)";
 						condition = "'ACE_WaterBottle_Empty' in items _player";
-						statement = QUOTE(['ACE_WaterBottle_Empty'] call FUNC(Refill));
+						statement = QUOTE(['ACE_WaterBottle_Empty'] call FUNC(refill));
 					};
 					
 					class GVAR(Canteen)
@@ -143,25 +155,25 @@ class CfgVehicles
 						condition = "'ACE_Canteen_Nearly_Full' in items _player";
 						exceptions[] = {};
 						icon = QPATHTOF(data\item_canteen_refill_icon.paa);
-						statement = QUOTE(['ACE_Canteen_Nearly_Full'] call FUNC(Refill));
+						statement = QUOTE(['ACE_Canteen_Nearly_Full'] call FUNC(refill));
 					};
 					class GVAR(Canteen_a): GVAR(Canteen)
 					{
 						displayName = "Refill Canteen (Half)";
 						condition = "'ACE_Canteen_Half' in items _player";
-						statement = QUOTE(['ACE_Canteen_Half'] call FUNC(Refill));
+						statement = QUOTE(['ACE_Canteen_Half'] call FUNC(refill));
 					};
 					class GVAR(Canteen_b): GVAR(Canteen)
 					{
 						displayName = "Refill Canteen (Nearly-Empty)";
 						condition = "'ACE_Canteen_Nearly_Empty' in items _player";
-						statement = QUOTE(['ACE_Canteen_Nearly_Empty'] call FUNC(Refill));
+						statement = QUOTE(['ACE_Canteen_Nearly_Empty'] call FUNC(refill));
 					};
 					class GVAR(Canteen_c): GVAR(Canteen)
 					{
 						displayName = "Refill Canteen (Empty)";
 						condition = "'ACE_Canteen_Empty' in items _player";
-						statement = QUOTE(['ACE_Canteen_Empty'] call FUNC(Refill));
+						statement = QUOTE(['ACE_Canteen_Empty'] call FUNC(refill));
 					};
 				};
 			};
@@ -180,13 +192,13 @@ class CfgVehicles
 					condition = "'ACE_WaterBottle' in items _player";
 					exceptions[] = {};
 					icon = QPATHTOF(data\item_waterbottle_drink_icon.paa);
-					statement = QUOTE(['ACE_WaterBottle'] call FUNC(Drink));
+					statement = QUOTE(['ACE_WaterBottle'] call FUNC(drink));
 				};
 				class GVAR(WaterBottle_a): GVAR(WaterBottle)
 				{
 					displayName = "Drink Water Bottle (Half)";
 					condition = "'ACE_WaterBottle_Half' in items _player";
-					statement = QUOTE(['ACE_WaterBottle_Half'] call FUNC(Drink));
+					statement = QUOTE(['ACE_WaterBottle_Half'] call FUNC(drink));
 				};
 				
 				class GVAR(Canteen)
@@ -195,25 +207,25 @@ class CfgVehicles
 					condition = "'ACE_Canteen' in items _player";
 					exceptions[] = {};
 					icon = QPATHTOF(data\item_canteen_drink_icon.paa);
-					statement = QUOTE(['ACE_Canteen'] call FUNC(Drink));
+					statement = QUOTE(['ACE_Canteen'] call FUNC(drink));
 				};
 				class GVAR(Canteen_a): GVAR(Canteen)
 				{
 					displayName = "Drink Canteen (Nearly-Full)";
 					condition = "'ACE_Canteen_Nearly_Full' in items _player";
-					statement = QUOTE(['ACE_Canteen_Nearly_Full'] call FUNC(Drink));
+					statement = QUOTE(['ACE_Canteen_Nearly_Full'] call FUNC(drink));
 				};
 				class GVAR(Canteen_b): GVAR(Canteen)
 				{
 					displayName = "Drink Canteen (Half)";
 					condition = "'ACE_Canteen_Half' in items _player";
-					statement = QUOTE(['ACE_Canteen_Half'] call FUNC(Drink));
+					statement = QUOTE(['ACE_Canteen_Half'] call FUNC(drink));
 				};
 				class GVAR(Canteen_c): GVAR(Canteen)
 				{
 					displayName = "Drink Canteen (Nearly-Empty)";
 					condition = "'ACE_Canteen_Nearly_Empty' in items _player";
-					statement = QUOTE(['ACE_Canteen_Nearly_Empty'] call FUNC(Drink));
+					statement = QUOTE(['ACE_Canteen_Nearly_Empty'] call FUNC(drink));
 				};
 			};
 		};

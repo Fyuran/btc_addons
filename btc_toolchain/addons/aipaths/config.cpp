@@ -22,7 +22,11 @@ class CfgPatches
 	        QGVAR(Wall_6x2)
         };
 		weapons[] = {};
-		requiredAddons[] = {"btc_toolchain_main"};
+		requiredAddons[] = {
+			"A3_Data_F",
+			"A3_Structures_F",
+			"btc_toolchain_main"
+		};
 		url = "https://www.blacktemplars.it/";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};

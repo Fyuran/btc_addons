@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_core_EH_init
+Function: btc_toolchain_stealth_fnc_core_ehInit
 
 Description:
     Initializes event handlers (Suppressed, Killed, Hit, FiredNear) on all units of the given stealth groups.
@@ -9,21 +9,22 @@ Parameters:
     _groups: ARRAY
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [_stealthGroups] call btc_toolchain_stealth_fnc_core_EH_init;
+        [_stealthGroups] call btc_toolchain_stealth_fnc_core_ehInit;
     (end)
 
 Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_groups", [], [[]]]
 ];
 
-if(_groups isEqualTo []) exitWith {
+if (_groups isEqualTo []) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _groups is empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
@@ -38,7 +39,7 @@ _groups apply {
 
             private _group = group _unit;
             private _hasTriggeredEH = _group getVariable[QGVAR(hasTriggeredSuppression), false];
-            if(_hasTriggeredEH) exitWith {};
+            if (_hasTriggeredEH) exitWith {};
 
             _group setVariable[QGVAR(hasTriggeredSuppression), true];
 			//Do not allow multiple Suppressed to trigger, so add a delay
@@ -89,7 +90,7 @@ _groups apply {
             
             private _group = group _unit;
             private _hasTriggeredEH = missionNamespace getVariable[QGVAR(hasTriggeredFired), false];
-            if(_hasTriggeredEH) exitWith {};
+            if (_hasTriggeredEH) exitWith {};
 
             missionNamespace setVariable[QGVAR(hasTriggeredFired), true];
 			//Do not allow multiple Suppressed to trigger, so add a delay
@@ -99,15 +100,15 @@ _groups apply {
             [_group, _threat + 1.5] call FUNC(threat_setThreat);
             private _lastKnownPos = _group getVariable[QGVAR(lastKnownPos), [0, 0, 0]];
             private _nearGrps = [_unit, (_group getVariable[QGVAR(alarm_distance), ALARM_DISTANCE]) / 2, [_lastKnownPos], {
-                params[
+                params [
                     ["_grp", grpNull, [grpNull]],
                     ["_args", [], [[]]]
                 ];
-                _args params[
+                _args params [
                     ["_lastKnownPos", [0, 0, 0], [[]], 3]
                 ];
                 private _currentState = [_grp, _grp getVariable[QGVAR(FSM), locationNull]] call CBA_statemachine_fnc_getCurrentState;
-                if(_currentState isEqualTo "Alert") exitWith {
+                if (_currentState isEqualTo "Alert") exitWith {
                     [_grp, [[0, AGLToASL _lastKnownPos, -1, "MOVE", "UNCHANGED", "UNCHANGED", 
 		                "FULL", "NO CHANGE", ["true", ""], [0, 0, 0]]]] call FUNC(waypoints_setWaypoints);
                     private _threat_limit = _grp getVariable[QGVAR(threat_limit), 4];
@@ -116,7 +117,7 @@ _groups apply {
                     [["%1: %2 heard shot, moving to %3", __FILE_NAME__, _grp, _lastKnownPos], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug); 
                     #endif
                 };
-                if(_lastKnownPos isEqualTo [0, 0, 0]) exitWith {};
+                if (_lastKnownPos isEqualTo [0, 0, 0]) exitWith {};
 
                 #ifdef BTC_DEBUG_STEALTH
                 [["%1: %2 is reinforcing to %3", __FILE_NAME__, _grp, _lastKnownPos], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug); 

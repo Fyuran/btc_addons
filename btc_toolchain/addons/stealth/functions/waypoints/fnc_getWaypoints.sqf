@@ -6,7 +6,7 @@ Description:
     Serializes all waypoints and their properties (type, speed, combatMode, formation, statements, timeout) from a group.
 
 Parameters:
-    _group: GROUP/OBJECT
+    _group: GROUP or OBJECT
 
 Returns:
     ARRAY
@@ -30,13 +30,13 @@ if (isNull _group) exitWith {
 	#endif
     []
 };
-if(_group isEqualType objNull) then {
+if (_group isEqualType objNull) then {
     _group = group _group;
 };
 private _wps = waypoints _group;
 private _waypointsArray = [];
 
-if(_wps isEqualTo []) exitWith {
+if (_wps isEqualTo []) exitWith {
     _waypointsArray
 };
 

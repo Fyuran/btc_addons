@@ -5,7 +5,9 @@ Description:
     Deletes JSON file in [PATH:STRING]
 Parameters:
     _path: STRING
+
 Returns:
+    HASHMAP
 
 Examples:
     (begin example)
@@ -16,10 +18,10 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_path", "", [""]]
 ];
-if(_path isEqualTo "") exitWith {
+if (_path isEqualTo "") exitWith {
     [["%1: path property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 

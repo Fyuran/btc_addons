@@ -27,17 +27,17 @@ params [
 	["_activated", true, [true]]		// True when the module was activated, false when it is deactivated (i.e., synced triggers are no longer active)
 ];
 
-if(!isServer) exitWith {};
+if (!isServer) exitWith {};
 //ace will overwrite any kind of weather settings passed
-if(ACEGVAR(weather,windSimulation)) exitWith {
+if (ACEGVAR(weather,windSimulation)) exitWith {
 	[["%1: snowfall could not be executed while ace is managing wind simulation", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 #ifdef BTC_DEBUG_SNOWSTORM
 [["%1: initializing snowstorm by module _this: %2", __FILE_NAME__, _this], 3, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 private _handle = missionNamespace getVariable[QGVAR(handle), -1];
-if(_activated) then {
-    if(_handle isNotEqualTo -1) exitWith {
+if (_activated) then {
+    if (_handle isNotEqualTo -1) exitWith {
         #ifdef BTC_DEBUG_SNOWSTORM
         [["%1: one module is already running", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         #endif
@@ -54,7 +54,7 @@ if(_activated) then {
 	private _wind_max = _logic getVariable [QGVAR(intensity_max), 40];
     [_fogValue, _fogDecay, _fogBase, _duration, [_wind_min, _wind_avg, _wind_max]] call FUNC(server_init);
 } else {
-    if(_handle isEqualTo -1) then { //make sure the previous handler is removed
+    if (_handle isEqualTo -1) then { //make sure the previous handler is removed
         #ifdef BTC_DEBUG_SNOWSTORM
         [["%1: deactivating snowstorm by module: %2", __FILE_NAME__, _logic], 3, QCOMPONENT] call EFUNC(tools,debug);
         #endif

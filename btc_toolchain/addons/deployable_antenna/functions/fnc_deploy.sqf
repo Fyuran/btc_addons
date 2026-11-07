@@ -9,6 +9,7 @@ Parameters:
     _player: OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -21,7 +22,7 @@ Author:
 ---------------------------------------------------------------------------- */
 
 [_this, {
-    params[
+    params [
         ["_player", objNull, [objNull]]
     ];
     _player removeItem QGVAR(DeployableAntenna);
@@ -33,7 +34,7 @@ Author:
     _obj setPos _objectRelPos;
 
     [_obj] spawn {
-        params[
+        params [
             ["_obj", objNull, [objNull]]
         ];
         while {alive _obj} do {

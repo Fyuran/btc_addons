@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_fsm_FSM_reinf
+Function: btc_toolchain_stealth_fnc_fsm_reinf
 
 Description:
     Defines the Reinforcement state where a neighboring group rushes to assist an alerted stealth group.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_reinf;
+        _fsm call btc_toolchain_stealth_fnc_fsm_reinf;
     (end)
 
 Author:
@@ -24,8 +24,8 @@ Author:
 _this, 
 {
 	/*STATE*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -34,7 +34,7 @@ _this,
 
 	(units _group) apply {
 		private _player = [_x, allPlayers] call FUNC(threat_unitDetectEntities);
-		if(!isNull _player) then {
+		if (!isNull _player) then {
 			private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
 
 			private _rate = 1/5 + (1/8 - 1/5) * (((_x distance _entity) - MIN_DIS) / (_threat_dis - MIN_DIS));
@@ -44,8 +44,8 @@ _this,
 	};
 }, {
     /*ENTER*/
-    params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+    params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -55,7 +55,7 @@ _this,
 	_group setBehaviourStrong "AWARE";
 
 	private _reinf_location = _group getVariable[QGVAR(reinf_location), [0, 0, 0]];
-	if(_reinf_location isEqualTo [0, 0, 0]) exitWith {
+	if (_reinf_location isEqualTo [0, 0, 0]) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: %2 could not reinforce as reinf_location is invalid", __FILE_NAME__, _group], REPORT, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif

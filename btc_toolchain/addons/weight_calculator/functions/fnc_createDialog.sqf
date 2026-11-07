@@ -64,7 +64,7 @@ private _cfg = configFile;
 private _summedKgs = 0;
 
 {
-	_x params[
+	_x params [
 		["_class", "", [""]], 
 		["_count", 0, [123]]	
 	];
@@ -74,7 +74,7 @@ private _summedKgs = 0;
 	private _name = "";
 	private _picture = "";
 	
-	switch(true) do {
+	switch (true) do {
 	  case (isNumber _WEAPONDATA("ItemInfo" >> "mass")): {
 		_picture = getText _WEAPONDATA("picture");
 		_name = getText _WEAPONDATA("displayName");
@@ -102,7 +102,7 @@ private _summedKgs = 0;
 	
 	_summedKgs = _summedKgs + _totalKg;
 	
-}forEach _array;
+} forEach _array;
 
 
 _array = [_array, [], { _x#5 }, "DESCEND"] call BIS_fnc_sortBy; //sort by KG
@@ -112,7 +112,7 @@ for "_i" from 0 to (count (_array#0)) do {
 }; //add as many columns as required
 
 {
-	_x params[
+	_x params [
 		["_class", "", [""]], 
 		["_count", 0, [123]],
 		["_picture", "", [""]],
@@ -123,6 +123,6 @@ for "_i" from 0 to (count (_array#0)) do {
 
 	_listNBox lnbAddRow["	" + _name, str _count, (_kg toFixed 2) + "kg", (_totalKg toFixed 2) + "kg"];
 	_listNBox lnbSetPicture[[_forEachIndex+1, 0], _picture];
-}forEach _array;
+} forEach _array;
 
 _kgCounter ctrlSetText (format["All: %1kg", _summedKgs toFixed 2]);

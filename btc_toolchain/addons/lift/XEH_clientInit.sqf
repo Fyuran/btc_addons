@@ -96,8 +96,7 @@ private _menuString = "BTC Toolchain Lift";
     "btc_toolchain_lift_deployRopes",
     [localize "STR_ACE_Fastroping_Interaction_deployRopes", "deploy ropes from helicopter"],
     {
-        if (
-            !GVAR(ropes_deployed) &&
+        if (!GVAR(ropes_deployed) &&
             {(driver vehicle player) isEqualTo player} &&
             {(getPosATL player) select 2 > 4}
         ) then {

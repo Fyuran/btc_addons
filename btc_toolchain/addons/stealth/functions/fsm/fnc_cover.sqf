@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_fsm_FSM_cover
+Function: btc_toolchain_stealth_fnc_fsm_cover
 
 Description:
     Defines the Cover state in the stealth state machine where units take positions behind protective obstacles.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_cover;
+        _fsm call btc_toolchain_stealth_fnc_fsm_cover;
     (end)
 
 Author:
@@ -24,8 +24,8 @@ Author:
 _this, 
 {
 	/*STATE*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -34,20 +34,20 @@ _this,
 
 	private _groupInCover = true;
 	(units _group) apply {
-		if(!(_x getVariable[QGVAR(isInCover), false])) then {
+		if (!(_x getVariable[QGVAR(isInCover), false])) then {
 			_groupInCover = false;
 			break;
 		};
 	};
 
-    if(_groupInCover) then {
+    if (_groupInCover) then {
 		[_group, 1/3] call FUNC(threat_addThreat);
     };
 }, 
 {
 	/*ENTER*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -68,10 +68,10 @@ _this,
             [_this, _soundName] remoteExecCall["say3D", [0, -2] select isDedicated];
 
             private _coverData = [_this] call FUNC(cover_findCover);
-            if(_coverData isEqualTo []) exitWith {
+            if (_coverData isEqualTo []) exitWith {
                 _this setUnitPos "DOWN";
             };
-            _coverData params["_object", "_position"];
+            _coverData params ["_object", "_position"];
             private _debug = ((group _this) getVariable[QGVAR(logic), objNull]) getVariable[QGVAR(debug), false];
             _this setVariable[QGVAR(coverData), _coverData, _debug];
             _this doMove _position;
@@ -81,12 +81,12 @@ _this,
             doStop _this;
 
             private _leader = leader group _this;
-            if(_this isNotEqualTo _leader) then {
+            if (_this isNotEqualTo _leader) then {
                 _this setVariable[QGVAR(isInCover), true, _debug];
             };
             //delay leader reactivation
-            if(_this isEqualTo _leader) then {
-                [_leader] call FUNC(reinforcements_call_reinforcements);
+            if (_this isEqualTo _leader) then {
+                [_leader] call FUNC(reinforcements_callReinforcements);
                 _leader setVariable[QGVAR(isInCover), true];
             };
         };
@@ -94,8 +94,8 @@ _this,
     
 	//alert nearby groups
 	[_group, _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE], [_group getVariable[QGVAR(lastKnownPos), [0, 0, 0]]], {
-        params[["_grp", grpNull, [grpNull]]];
-        _args params["_lastKnownPos"];
+        params [["_grp", grpNull, [grpNull]]];
+        _args params ["_lastKnownPos"];
         _grp setVariable[QGVAR(isReinforcement), true];
         _grp setVariable[QGVAR(reinf_location), _lastKnownPos];
         #ifdef BTC_DEBUG_STEALTH
@@ -105,7 +105,7 @@ _this,
 
 }, {
     /*EXIT*/
-    params[["_group", grpNull, [grpNull]]];
+    params [["_group", grpNull, [grpNull]]];
 
     private _cover_holders = _group getVariable[QGVAR(cover_holders), []];
     _cover_holders apply {

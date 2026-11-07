@@ -23,20 +23,20 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_src", objNull, [objNull, grpNull]],
     ["_range", ALARM_DISTANCE, [123]],
     ["_args", [], [[]]],
     ["_code", {}, [{}]]
 ];
 
-if(isNull _src) exitWith {
+if (isNull _src) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _src is invalid", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
     []
 };
-if(_range <= 0) exitWith {
+if (_range <= 0) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _range is zero or neg", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
@@ -44,7 +44,7 @@ if(_range <= 0) exitWith {
 };
 
 private _nearGrps = [];
-if(_src isEqualType objNull) then {
+if (_src isEqualType objNull) then {
     private _group = group _src;
     _nearGrps = (allGroups - [_group]) select {
         private _leader = leader _x;
@@ -55,7 +55,7 @@ if(_src isEqualType objNull) then {
     };
 };
 
-if(_src isEqualType grpNull) then {
+if (_src isEqualType grpNull) then {
     _nearGrps = (allGroups - [_src]) select {
         private _leader = leader _x;
         private _side = side _x;
@@ -65,7 +65,7 @@ if(_src isEqualType grpNull) then {
     };
 };
 
-if(_nearGrps isEqualTo []) exitWith {
+if (_nearGrps isEqualTo []) exitWith {
     #ifdef BTC_DEBUG_STEALTH
 	[["%1: no groups found nearby from %2 with range %3", __FILE_NAME__, _src, _range], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif

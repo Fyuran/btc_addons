@@ -6,9 +6,10 @@ Description:
     Clears all waypoints from an AI group and sets its current waypoint position to the leader's position.
 
 Parameters:
-    _group: GROUP/OBJECT
+    _group: GROUP or OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -29,9 +30,9 @@ if (isNull _group) exitWith {
     #endif
     []
 };
-if(_group isEqualType objNull) then {
+if (_group isEqualType objNull) then {
     _group = group _group;
 };
 
 [_group, currentWaypoint _group] setWaypointPosition [getPosASL leader _group, -1];
-{ deleteWaypoint _x } forEachReversed waypoints _group; 
+{ deleteWaypoint _x } forEachReversed waypoints _group;

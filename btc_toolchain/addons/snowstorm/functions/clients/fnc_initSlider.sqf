@@ -6,10 +6,11 @@ Description:
     Initializes a slider UI control and synchronizes its value with an edit control for snowstorm module settings.
 
 Parameters:
-    _args: ARRAY/CONTROL
+    _args: CONTROL or ARRAY
     _value: NUMBER
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,15 +21,15 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_args", ctrlNull, [controlNull, []], 2],
     ["_value", 0, [123]]
 ];
-_args params[
+_args params [
     ["_ctrlGroup", controlNull, [controlNull]],
     ["_cfg", configNull, [configNull]]
 ];
-if(!isServer) exitWith {};
+if (!isServer) exitWith {};
 private _ctrlEdit = _ctrlGroup controlsGroupCtrl 50;
 private _ctrlTitle = _ctrlGroup controlsGroupCtrl 51;
 private _ctrlSlider = _ctrlGroup controlsGroupCtrl 52;

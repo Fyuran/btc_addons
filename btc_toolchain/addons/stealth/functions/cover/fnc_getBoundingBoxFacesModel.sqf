@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_cover_getBoundingBoxFaces_Model
+Function: btc_toolchain_stealth_fnc_cover_getBoundingBoxFacesModel
 
 Description:
     Calculates the model-space coordinates of the 6 bounding box faces (Front, Back, Left, Right, Top, Bottom) of an object.
@@ -13,18 +13,18 @@ Returns:
 
 Examples:
     (begin example)
-        private _faces = [cursorObject] call btc_toolchain_stealth_fnc_cover_getBoundingBoxFaces_Model;
+        private _faces = [cursorObject] call btc_toolchain_stealth_fnc_cover_getBoundingBoxFacesModel;
     (end)
 
 Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_object", objNull, [objNull]]
 ];
 
-if(isNull _object) exitWith {
+if (isNull _object) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _object is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
@@ -32,9 +32,9 @@ if(isNull _object) exitWith {
 };
 
 private _boundingBox = boundingBoxReal [_object, "FireGeometry"];
-_boundingBox params["_boxMin", "_boxMax", "_radius"];
-_boxMin params["_xMin", "_yMin", "_zMin"];
-_boxMax params["_xMax", "_yMax", "_zMax"];
+_boundingBox params ["_boxMin", "_boxMax", "_radius"];
+_boxMin params ["_xMin", "_yMin", "_zMin"];
+_boxMax params ["_xMax", "_yMax", "_zMax"];
 
 /*
 Anti clockwise pattern

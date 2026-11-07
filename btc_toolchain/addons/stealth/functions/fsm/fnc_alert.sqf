@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_stealth_fnc_fsm_FSM_alert
+Function: btc_toolchain_stealth_fnc_fsm_alert
 
 Description:
     Defines the Alert state in the stealth state machine where units enter combat behavior and call in reinforcements.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     (begin example)
-        _fsm call btc_toolchain_stealth_fnc_fsm_FSM_alert;
+        _fsm call btc_toolchain_stealth_fnc_fsm_alert;
     (end)
 
 Author:
@@ -24,8 +24,8 @@ Author:
 _this, 
 {
 	/*STATE*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -35,21 +35,21 @@ _this,
 	private _hasFound = false;
 	(units _group) apply {
 		private _player = [_x, allPlayers, 300] call FUNC(threat_unitDetectEntities);
-		if(!isNull _player) then {
+		if (!isNull _player) then {
 			[_group, _player, 0] call FUNC(threat_setLastKnownPosition);
 			private _threat_limit = _group getVariable[QGVAR(threat_limit), 4];
 			[_group, _threat_limit] call FUNC(threat_setThreat);
 			_hasFound = true;
 		};
 	};
-	if(!_hasFound) then {
+	if (!_hasFound) then {
 		[_group, -1/150] call FUNC(threat_addThreat);
 	};
 }, 
 {
 	/*ENTER*/
-	params[["_group", grpNull, [grpNull]]];
-	if((units _group) isEqualTo []) exitWith {
+	params [["_group", grpNull, [grpNull]]];
+	if ((units _group) isEqualTo []) exitWith {
 		#ifdef BTC_DEBUG_STEALTH
 		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
 		#endif
@@ -74,6 +74,6 @@ _this,
 	};
 
 }, {/*EXIT*/
-	params[["_group", grpNull, [grpNull]]];
-	[leader _group] call FUNC(reinforcements_call_removeReinforcements);
+	params [["_group", grpNull, [grpNull]]];
+	[leader _group] call FUNC(reinforcements_callRemoveReinforcements);
 }, "Alert"];

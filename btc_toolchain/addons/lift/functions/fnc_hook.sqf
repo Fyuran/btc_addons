@@ -9,6 +9,7 @@ Parameters:
     _chopper: OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)

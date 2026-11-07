@@ -22,10 +22,10 @@ Description:
     modified to support more than 2048 chars - =BTC= Fyuran
 
 Parameters:
-    _object - Object to serialize. <ARRAY, ...>
+    _object: ANY
 
 Returns:
-    _json   - JSON string containing serialized object.
+    STRING
 
 Examples:
     (begin example)

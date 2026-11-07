@@ -22,19 +22,19 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_group", grpNull, [grpNull]],
     ["_threat", 0, [123]],
     ["_varName", "threat", [""]] //horrible hack to add to body threat
 ];
-if(isGamePaused) exitWith {0};
-if(isNull _group) exitWith {
+if (isGamePaused) exitWith {0};
+if (isNull _group) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
     0
 };
-if(!local _group) exitWith {
+if (!local _group) exitWith {
 	#ifdef BTC_DEBUG_STEALTH
 	[["%1: _group is not local", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif

@@ -6,9 +6,10 @@ Description:
     Creates local particle sources around the player simulating blowing snow dust.
 
 Parameters:
-    NONE
+    None
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,17 +21,17 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-if(!hasInterface) exitWith {
+if (!hasInterface) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
     [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
-if(!GVAR(enable_snowdust)) exitWith {
+if (!GVAR(enable_snowdust)) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
     [["%1: client has disabled snow dust", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
-if(!isNil QGVAR(snowDust)) then { //do not allow more than one particle object
+if (!isNil QGVAR(snowDust)) then { //do not allow more than one particle object
 	deleteVehicle GVAR(snowDust);
 };
 

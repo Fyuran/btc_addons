@@ -8,7 +8,9 @@ Description:
 Parameters:
     _path: STRING
     _data: STRING
+
 Returns:
+    HASHMAP
 
 Examples:
     (begin example)
@@ -19,20 +21,20 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_path", "", [""]],
 	["_data", "", []]
 ];
-if(_path isEqualTo "") exitWith {
+if (_path isEqualTo "") exitWith {
     [["%1: path property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(_path isEqualTo ".") exitWith {
+if (_path isEqualTo ".") exitWith {
     [["%1: current path cannot be used as a path", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(_path isEqualTo "./") exitWith {
+if (_path isEqualTo "./") exitWith {
     [["%1: no filename for path found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(_data isEqualTo "") exitWith {
+if (_data isEqualTo "") exitWith {
     [["%1: data property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 

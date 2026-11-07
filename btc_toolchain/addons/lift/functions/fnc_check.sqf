@@ -25,8 +25,7 @@ params [
     ["_chopper", vehicle player, [objNull]]
 ];
 
-if (
-    !(_chopper isKindOf "Helicopter" || (_chopper isKindOf "Ship")) ||
+if (!(_chopper isKindOf "Helicopter" || (_chopper isKindOf "Ship")) ||
     !isNull (_chopper getVariable ["cargo", objNull]) ||
     !(missionNamespace getVariable [QGVAR(ropes_deployed), false])
 ) exitWith {false};

@@ -6,10 +6,11 @@ Description:
     Clears existing waypoints and restores a serialized array of waypoints and attributes onto a group.
 
 Parameters:
-    _group: GROUP/OBJECT
+    _group: GROUP or OBJECT
     _waypointsArray: ARRAY
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -30,7 +31,7 @@ if (isNull _group) exitWith {
 	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
-if(_group isEqualType objNull) then {
+if (_group isEqualType objNull) then {
     _group = group _group;
 };
 
@@ -51,7 +52,7 @@ if (_waypointsArray isEqualTo []) exitWith {}; //clear wps only
         ["_timeout", [0,0,0], [[]], 3],
         ["_compRadius", 0, [123]]
     ];
-    if(_pos isEqualTo [0, 0, 0]) then {
+    if (_pos isEqualTo [0, 0, 0]) then {
 	    #ifdef BTC_DEBUG_STEALTH
 	    [["%1: found a wp leading to [0, 0, 0] for group %2", __FILE_NAME__, _group], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 	    #endif

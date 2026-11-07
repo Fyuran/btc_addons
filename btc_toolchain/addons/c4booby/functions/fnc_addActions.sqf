@@ -21,7 +21,7 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-if(!params [
+if (!params [
 	["_defuser",objNull,[objNull]],
 	["_obj",objNull,[objNull]]
 ]) exitWith {
@@ -35,7 +35,7 @@ private _action_ids = [];
 ["red","green","blue"] apply {
 	private _action = [format["c4booby_%1",_x], format["Cut the %1 wire",_x], "",
 	{
-		params["_target","_caller","_args"];
+		params ["_target","_caller","_args"];
 		[1,	_args,
 		{
 			_args params ["_obj","_color"];

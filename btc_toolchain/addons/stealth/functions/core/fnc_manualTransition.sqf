@@ -10,6 +10,7 @@ Parameters:
     _obj: OBJECT - Trigger or synchronized object
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,7 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_state", "Alert", [""]],
     ["_obj", objNull, [objNull]]
 ];
@@ -39,11 +40,11 @@ if (!(_state in GVAR(allowed_states))) exitWith {
 
 private _synchedObjs = synchronizedObjects _obj;
 
-if(_synchedObjs isEqualTo []) exitWith {
+if (_synchedObjs isEqualTo []) exitWith {
 	[["%1: No linked objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-if(!(_synchedObjs isEqualTypeAll objNull)) exitWith {
+if (!(_synchedObjs isEqualTypeAll objNull)) exitWith {
 	[["%1: Linked types aren't of type objNull", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
@@ -81,4 +82,3 @@ _groups apply {
 
     }, QFUNC(core_manualTransition)] call CBA_statemachine_fnc_manualTransition;
 };
-

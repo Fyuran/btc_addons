@@ -19,13 +19,13 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-if(!hasInterface) exitWith {
+if (!hasInterface) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
     [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 
-if(!GVAR(show_breath)) exitWith {
+if (!GVAR(show_breath)) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
     [["%1: client has disabled breath", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
@@ -42,7 +42,7 @@ private _fnc_getBreathEntitiesData = {
     private _data = [];
     (player nearEntities["CAManBase", 100]) apply {
         private _mouthPos = (ASLToAGL eyePos _x) vectorAdd [0,0,-0.1];
-        if(
+        if (
 			//only render if unit is in sight
 			worldToScreen _mouthPos isNotEqualTo [] &&
 			{[_x] call ACEFUNC(common,isAwake)}
@@ -57,19 +57,19 @@ private _fnc_getBreathEntitiesData = {
 };
 
 //Avoid at any cost duplicates
-if(!isNil QGVAR(breath_handle)) then {
+if (!isNil QGVAR(breath_handle)) then {
     [GVAR(breath_handle)] call CBAFUNC(removePerFrameHandler);
 };
 GVAR(breath_handle) = [{
-    params["_fnc_getBreathEntitiesData", "_handle"];
+    params ["_fnc_getBreathEntitiesData", "_handle"];
     ([] call _fnc_getBreathEntitiesData) apply {
 		_x params ["_unit", "_mouthPos", "_maxTime"];
-		if(underwater _unit) then {
+		if (underwater _unit) then {
 			continue;
 		};
 		private _deltaTime = HANDLE_DELAY + random[-0.1, 0, 0.1];  
 		private _time = _unit getVariable [QGVAR(breath_time), random[0, 0.1, 0.2]]; 
-		if(_time >= _maxTime) then {
+		if (_time >= _maxTime) then {
 			_unit setVariable[QGVAR(breath_time), 0];
 			private _breath = "#particlesource" createVehicleLocal _mouthPos; 
 			_breath setParticleParams [ 

@@ -6,10 +6,11 @@ Description:
     Recursively parses inventory loadout array and extracts non-empty classnames into a target array.
 
 Parameters:
-    _loadout: ARRAY/STRING
+    _loadout: ARRAY or STRING
     _arr: ARRAY
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -22,20 +23,20 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[
+params [
 	["_loadout", [], [[], ""]],
 	["_arr", [], [[]]]
 ];
-if(_loadout isEqualTo []) exitWith {};
-if(_loadout isEqualTo "") exitWith {};
-if(_loadout isEqualType "") exitWith {};
+if (_loadout isEqualTo []) exitWith {};
+if (_loadout isEqualTo "") exitWith {};
+if (_loadout isEqualType "") exitWith {};
 
 _loadout apply {
-	if(_x isEqualType []) then {
-		if(_x isEqualTo []) then {continue};
+	if (_x isEqualType []) then {
+		if (_x isEqualTo []) then {continue};
 		[_x, _arr] call FUNC(parseClasses);
 	} else {
-		if(_x isEqualTo "") then {continue};
+		if (_x isEqualTo "") then {continue};
 		_arr pushBack _x;
 	};
 };

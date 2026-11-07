@@ -6,9 +6,10 @@ Description:
     Applies winter post-processing color correction and atmospheric effects on client.
 
 Parameters:
-    NONE
+    None
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -19,13 +20,13 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-if(!hasInterface) exitWith {
+if (!hasInterface) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
     [["%1: attempted to exec on a client with no interface", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 };
 
-if(!GVAR(enable_ppe)) exitWith {
+if (!GVAR(enable_ppe)) exitWith {
 	#ifdef BTC_DEBUG_SNOWSTORM
     [["%1: client has disabled ppe", __FILE_NAME__], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif

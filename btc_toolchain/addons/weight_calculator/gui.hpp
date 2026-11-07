@@ -60,7 +60,7 @@ class GVAR(calculator)
     idd = 751993;
     class ControlsBackground
     {
-        class RscText_1001 : GVAR(calculator_RscText)
+        class RscText_1001: GVAR(calculator_RscText)
         {
             colorBackground[] = GUI_BCG_MENU;
             x = "0.2525 * safezoneW + safezoneX";
@@ -69,7 +69,7 @@ class GVAR(calculator)
             h = "0.51 * safezoneH";
         };
 
-        class RscText_1002 : GVAR(calculator_RscText)
+        class RscText_1002: GVAR(calculator_RscText)
         {
             idc = 1002;
             x = "0.685625 * safezoneW + safezoneX";
@@ -79,7 +79,7 @@ class GVAR(calculator)
             colorBackground[] = GUI_BCG_COLOR_SELECTED;
         };
 
-        class RscFrame_2000 : RscFrame
+        class RscFrame_2000: RscFrame
         {
             x = "0.2525 * safezoneW + safezoneX";
             y = "0.269 * safezoneH + safezoneY";
@@ -87,7 +87,7 @@ class GVAR(calculator)
             h = "0.51 * safezoneH";
         };
 
-        class RscText_1000 : GVAR(calculator_RscText)
+        class RscText_1000: GVAR(calculator_RscText)
         {
             text = "Gear Weight Calculator";
             font = "PuristaBold";
@@ -100,7 +100,7 @@ class GVAR(calculator)
     };
     class Controls
     {
-        class RscListNBox_1500 : GVAR(calculator_RscListNBox)
+        class RscListNBox_1500: GVAR(calculator_RscListNBox)
         {
             idc = 1500;
             x = "0.2525 * safezoneW + safezoneX";
@@ -109,7 +109,7 @@ class GVAR(calculator)
             h = "0.506 * safezoneH";
         };
 		
-        class RscButton_1000 : GVAR(calculator_RscButton)
+        class RscButton_1000: GVAR(calculator_RscButton)
         {
             onButtonClick = "closeDialog 2";
             text = "X";

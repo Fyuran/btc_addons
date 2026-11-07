@@ -9,6 +9,7 @@ Parameters:
     _object: OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,17 +21,17 @@ Author:
 
 ---------------------------------------------------------------------------- */
 //Should be used only with getBoundingBoxFaces_Model's return
-params[
+params [
     ["_object", objNull, [objNull]]
 ];
-if(isNull _object) exitWith {
+if (isNull _object) exitWith {
 	[["%1: _obj is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };	
  
-private _coverPositions = [_object] call FUNC(cover_getCoverPositions_AGL);
-private _faces = [_object] call FUNC(cover_getBoundingBoxFaces_Model);
-private _bottomPoints = _faces get "Bottom";
-private _topPoints = _faces get "Top";
+private _coverPositions = [_object] call FUNC(cover_getCoverPositionsAgl);
+private _faces = [_object] call FUNC(cover_getBoundingBoxFacesModel);
+private _bottomPoints = _faces getOrDefault ["Bottom", []];
+private _topPoints = _faces getOrDefault ["Top", []];
 
 private _size = count _bottomPoints;
 for "_i" from 0 to (_size - 1) do {
@@ -53,7 +54,7 @@ _coverPositions apply {
     private _position = _x;
     private _isSafe = true;
     allPlayers apply {
-        if(!([AGLToASL _position, _x] call FUNC(cover_isPositionHidden_ASL))) then {
+        if (!([AGLToASL _position, _x] call FUNC(cover_isPositionHiddenAsl))) then {
             _isSafe = false;
             break;
         };

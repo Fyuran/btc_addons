@@ -10,7 +10,11 @@ class CfgPatches
 		url = "http://www.blacktemplars.it";
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_toolchain_main"};
+		requiredAddons[] = {
+			"A3_Modules_F",
+			"3DEN",
+			"btc_toolchain_main"
+		};
 		VERSION_CONFIG;
 	};
 };
@@ -20,7 +24,7 @@ class CfgPatches
 class CfgVehicles
 {
 	class Logic;
-	class Module_F : Logic
+	class Module_F: Logic
 	{
 		class AttributesBase
 		{
@@ -49,7 +53,7 @@ class CfgVehicles
 			sync[] = { "AnyAI" };
 			optional = 0;	// Synced entity is optional
 		};
-		class Attributes : AttributesBase
+		class Attributes: AttributesBase
 		{
 			class GVAR(debug): Default
 			{
@@ -130,7 +134,7 @@ class CfgVehicles
 				defaultValue = ALARM_DISTANCE;
 				typeName = "NUMBER";
 			};
-			class ModuleDescription : ModuleDescription {};
+			class ModuleDescription: ModuleDescription {};
 		};
 	};
 };
