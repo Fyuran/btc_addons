@@ -1,0 +1,35 @@
+#include "..\..\script_component.hpp"
+/* ----------------------------------------------------------------------------
+Function: btc_toolchain_cas_fnc_curator_init
+
+Description:
+    Initializes the cas module when synced with a Zeus curator.
+
+Parameters:
+    _logic: OBJECT
+    _units: ARRAY
+    _activated: BOOLEAN
+
+Returns:
+    NOTHING
+
+Examples:
+    (begin example)
+        [_logic, [], true] call btc_toolchain_cas_fnc_curator_init;
+    (end)
+
+Author:
+    =BTC= Fyuran
+
+---------------------------------------------------------------------------- */
+params [
+    ["_logic", objNull, [objNull]],
+    ["_units", [], [[]]],
+    ["_activated", true, [true]]
+];
+
+if (!_activated) exitWith {};
+
+missionNamespace setVariable [QGVAR(logic), _logic, owner _logic];
+
+[_logic, _units, _activated, FUNC(curator_okCode)] call EFUNC(gui,curator_init);
