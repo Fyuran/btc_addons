@@ -10,6 +10,7 @@ Parameters:
     _toArray: ARRAY
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,12 +21,12 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_waypoint_module", objNull, [objNull]],
     ["_toArray", [], [[]]]
 ]; 
 
-if(!(_waypoint_module isKindOf QGVAR(waypoint_module))) exitWith {
+if (!(_waypoint_module isKindOf QGVAR(waypoint_module))) exitWith {
 	[["%1: _waypoint_module's type: %2 is not a valid btc_enemy_waves_waypoint_module type", __FILE_NAME__, typeOf _waypoint_module], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 

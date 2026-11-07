@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_seek_checkbox_onLoad
+Function: btc_toolchain_enemy_waves_fnc_seekCheckbox_onLoad
 
 Description:
     Initializes the seek end checkbox control in UI namespace on dialog load.
@@ -14,14 +14,14 @@ Returns:
 
 Examples:
     (begin example)
-        [_checkboxGrp] call btc_toolchain_enemy_waves_fnc_seek_checkbox_onLoad;
+        [_checkboxGrp] call btc_toolchain_enemy_waves_fnc_seekCheckbox_onLoad;
     (end)
 
 Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_checkboxGrp", controlNull, [controlNull]],
     ["_config", configNull, [configNull]]
 ];
@@ -39,4 +39,3 @@ if (isNull _checkbox) exitWith {
 _checkbox cbSetChecked true;
 
 uiNamespace setVariable[QGVAR(seek_end), _checkbox];
-

@@ -4,11 +4,11 @@
 PREP_FOLDER(behavior,attributeLoad);
 
 //Seek end Checkbox
-PREP_FOLDER(seek_checkbox,onLoad);
+PREP_FOLDER(seekCheckbox,onLoad);
 
 //Side Combo
-PREP_FOLDER(side_combo,onLoad);
-PREP_FOLDER(side_combo,attributeLoad);
+PREP_FOLDER(sideCombo,onLoad);
+PREP_FOLDER(sideCombo,attributeLoad);
 
 //Timeout
 PREP_FOLDER(timeout,onLoad);
@@ -18,16 +18,16 @@ PREP_FOLDER(timeout,attributeLoad);
 PREP_FOLDER(list,attributeLoad);
 PREP_FOLDER(list,attributeSave);
 PREP_FOLDER(list,onLoad);
-PREP_FOLDER(list,grp1_add);
-PREP_FOLDER(list,grp1_remove);
-PREP_FOLDER(list,grp1_lbSelChanged);
-PREP_FOLDER(list,grp2_add);
-PREP_FOLDER(list,grp2_remove);
-PREP_FOLDER(list,grp2_onAdjust);
+PREP_FOLDER(list,grp1Add);
+PREP_FOLDER(list,grp1Remove);
+PREP_FOLDER(list,grp1LbSelChanged);
+PREP_FOLDER(list,grp2Add);
+PREP_FOLDER(list,grp2Remove);
+PREP_FOLDER(list,grp2OnAdjust);
 
 //Curator
 PREP_FOLDER(curator,init);
-PREP_FOLDER(curator,OKCode);
+PREP_FOLDER(curator,okCode);
 
 //Presets
 PREP_FOLDER(presets,applyData);

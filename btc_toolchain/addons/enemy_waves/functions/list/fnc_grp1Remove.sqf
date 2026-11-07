@@ -1,18 +1,20 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_list_grp1_remove
+Function: btc_toolchain_enemy_waves_fnc_list_grp1Remove
 
 Description:
     Removes the selected group entry from the wave table and refreshes the list.
 
 Parameters:
     _remove: CONTROL - The remove button control
+    _uid: STRING
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_enemy_waves_fnc_list_grp1_remove;
+        [_buttonControl] call btc_toolchain_enemy_waves_fnc_list_grp1Remove;
     (end)
 
 Author:

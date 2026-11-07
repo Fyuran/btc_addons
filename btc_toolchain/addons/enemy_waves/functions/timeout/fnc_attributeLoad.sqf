@@ -6,10 +6,11 @@ Description:
     Sets the timeout value into the edit box control.
 
 Parameters:
-    _edit: CONTROL - Timeout edit box control
+    _editGrp: CONTROL
     _value: NUMBER or STRING - Timeout value in seconds (optional, default: 60)
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,7 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_editGrp", controlNull, [controlNull]],
     ["_value", 60, [123, ""]]
 ];
@@ -30,7 +31,7 @@ disableSerialization;
 #endif
 
 private _edit = _editGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
-if(_value isEqualType 123) then {
+if (_value isEqualType 123) then {
 	_value = str _value;
 };
 _edit ctrlSetText _value;

@@ -94,4 +94,3 @@ private _worldX = (_anchorPos select 0) + (_relX * cos _dir + _relY * sin _dir);
 private _worldY = (_anchorPos select 1) + (-_relX * sin _dir + _relY * cos _dir);
 
 [_worldX, _worldY, 0]
-

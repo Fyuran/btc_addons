@@ -29,4 +29,4 @@ params [
 ];
 
 missionNamespace setVariable [QGVAR(logic), _logic, owner _logic];
-[_logic, _activated, FUNC(curator_OKCode)] call EFUNC(gui,curator_init);
+[_logic, _units, _activated, FUNC(curator_okCode)] call EFUNC(gui,curator_init);

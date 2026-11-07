@@ -21,7 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_treeCtrl", controlNull, [controlNull]],
     ["_selectionPath", [], [[]]]
 ];
@@ -38,7 +38,7 @@ if (!(isNull _wp_cfg) && {isClass _wp_cfg}) then {
 };
 
 [_treeCtrl, _script] spawn { //forced to wait until UI is done being constructed
-    params["_treeCtrl", "_script"];
+    params ["_treeCtrl", "_script"];
     private _treeGrp = ctrlParentControlsGroup _treeCtrl;
     private _attributesGrp = ctrlParentControlsGroup _treeGrp;
 

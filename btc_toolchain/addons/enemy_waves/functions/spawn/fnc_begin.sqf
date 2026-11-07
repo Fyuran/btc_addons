@@ -16,8 +16,11 @@ Description:
 
 Parameters:
     _logic: OBJECT - Enemy waves logic module
+    _units: ARRAY - Synced units (optional, default: [])
+    _activated: BOOLEAN - Module trigger activation state (optional, default: true)
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -30,9 +33,12 @@ Author:
 ---------------------------------------------------------------------------- */
 
 params [ 
-	["_logic", objNull, [objNull]]
+	["_logic", objNull, [objNull]],
+	["_units", [], [[]]],
+	["_activated", true, [true]]
 ]; 
- 
+
+if (!_activated) exitWith {};
 if (isNull _logic) exitWith {
 	[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
@@ -58,6 +64,9 @@ if (_logicGroups isEqualTo createHashMap) exitWith {
 };
  
 private _timeout = _logic getVariable [QGVAR(timeout), 60];
+if (_timeout isEqualType "") then {
+	_timeout = parseNumber _timeout;
+};
 private _side = (_logic getVariable [QGVAR(side), east]) call BIS_fnc_sideType;
 
 // Parse and normalize formation setting
@@ -75,6 +84,7 @@ if (_syncedWPs isNotEqualTo [] && {_dir == 0}) then {
 #endif
 
 private _units = [];
+private _isFirstWave = true;
 
 if (_logic getVariable [QGVAR(debug), false]) then {
 	[] call FUNC(debug);
@@ -82,17 +92,22 @@ if (_logic getVariable [QGVAR(debug), false]) then {
 
 _logicGroups apply {
 	private _logicGroup = _y;
-	private _time = CBA_missionTime + _timeout;
-	private _threshold = ((count _units) - (floor((count _units) * 0.75))) max 0; 
-		
-	waitUntil { 
-		#ifdef BTC_DEBUG_ENEMY_WAVES
-		[["%1: %2(Group %3) - time remaining: %4", __FILE_NAME__, _logic, _logicGroup, _time - CBA_missionTime], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-		[["%1: %2(Group %3) - units remaining: %4 threshold: %5", __FILE_NAME__, _logic, _logicGroup, count _units, _threshold], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-		#endif
-		sleep 5;
-		(CBA_missionTime > _time) || ((count _units) <= _threshold)
-	}; 
+
+	if (!_isFirstWave) then {
+		private _time = CBA_missionTime + _timeout;
+		private _aliveCount = {alive _x} count _units;
+		private _threshold = floor (_aliveCount * 0.25);
+
+		waitUntil {
+			#ifdef BTC_DEBUG_ENEMY_WAVES
+			[["%1: %2(Group %3) - time remaining: %4", __FILE_NAME__, _logic, _logicGroup, _time - CBA_missionTime], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+			[["%1: %2(Group %3) - units remaining: %4 threshold: %5", __FILE_NAME__, _logic, _logicGroup, {alive _x} count _units, _threshold], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+			#endif
+			sleep 2;
+			isNull _logic || {CBA_missionTime >= _time} || {({alive _x} count _units) <= _threshold}
+		};
+	};
+	_isFirstWave = false;
 
 	if (isNull _logic) exitWith {
 		[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -112,6 +127,8 @@ _logicGroups apply {
 	[["%1: %2 - Spawning wave: %3 (formation: %4)", __FILE_NAME__, _logic, _logicGroup, _formation], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 
+	private _waveUnits = [];
+
 	_logicGroup apply { // wave's classes hashmap
 		_x params [
 			["_class", "", [""]], 
@@ -126,29 +143,30 @@ _logicGroups apply {
 		for "_i" from 0 to (_quantity - 1) do { 
 			private _safePos = [_logic, _class] call EFUNC(tools,findSafePos);
 			if ([_class, ["LandVehicle", "Air"]] call EFUNC(tools,inheritsFromAny)) then {
-				([_safePos, _dir, _class, _group] call EFUNC(tools,spawnFullVehicle)) params ["_vehicle", "_crew"];
-				_units append _crew;
+				([_safePos, _dir, _class, _group] call EFUNC(tools,spawnCrewedVehicle)) params ["_vehicle", "_crew"];
+				_waveUnits append _crew;
 				_crew apply {_x setVariable [QGVAR(wave_spawn), _logic]};
 			} else {
-				_unit = _group createUnit [_class, _safePos, [], 0, "NONE"];
+				private _unit = _group createUnit [_class, _safePos, [], 0, "NONE"];
 				_unit setDir _dir;
 				_unit setVariable [QGVAR(wave_spawn), _logic]; 
-				_units pushBack _unit;
+				_waveUnits pushBack _unit;
 			};
 		
 			sleep 0.5; 
 		};
 	}; 
 
+	_units append _waveUnits;
 	_logic setVariable [QGVAR(wave_units), _units];
 	#ifdef BTC_DEBUG_ENEMY_WAVES
 	[["%1: %2 now holds %3 units", __FILE_NAME__, _logic, count _units], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
 
 	allCurators apply {
-		_x addCuratorEditableObjects [_units, true];
+		_x addCuratorEditableObjects [_waveUnits, true];
 	};
 
-	[_units] call FUNC(spawn_addEH);
+	[_waveUnits] call FUNC(spawn_addEH);
 	[_logic, _group] call FUNC(wp_moduleInit);
 };

@@ -10,6 +10,7 @@ Parameters:
     _value: ARRAY/STRING
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,7 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_main_grp", controlNull, [controlNull]],
     ["_value", createHashMap, []]
 ];
@@ -36,22 +37,22 @@ disableSerialization;
 [["%1: executing list load with _value: %2", __FILE_NAME__, _value], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
-if(_value isEqualTo "") exitWith {
+if (_value isEqualTo "") exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
     [["%1: empty _value as STRING", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
-if(_value isEqualTo createHashMap) exitWith {
+if (_value isEqualTo createHashMap) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
     [["%1: empty _value as HASHMAP", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
-if(_value isEqualType "") then {
+if (_value isEqualType "") then {
     GVAR(table) = fromJSON _value;
 } else {
     GVAR(table) = +_value;
 };
-if(GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
+if (GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
 	#ifdef BTC_DEBUG_ENEMY_WAVES
 	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 	#endif
@@ -80,6 +81,5 @@ private _grp2_list = _grp2 controlsGroupCtrl VALUE_2;
 lnbClear _grp2_list;
 
 GVAR(table) apply {
-    [_grp1_list, _x] call FUNC(list_grp1_add);
+    [_grp1_list, _x] call FUNC(list_grp1Add);
 };
-

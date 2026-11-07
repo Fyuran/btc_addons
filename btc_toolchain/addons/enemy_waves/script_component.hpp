@@ -12,12 +12,9 @@
 #define FILE 992
 #define SPEED 993
 #define FORMATION_WP 994
-#define BEHAVIOR 995
-#define COMBATMODE 996
 //MODULE
 #define WP_TYPE 995
 #define SIDE_GRP 996
 #define TIMEOUT 997
-#define SEEK_END 998
 
 #define DEFAULT_CFG configFile >> "cfgWaypoints" >> "Default" >> "Move"

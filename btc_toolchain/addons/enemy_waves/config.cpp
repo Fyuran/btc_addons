@@ -6,11 +6,19 @@ class CfgPatches
 		name = "=BTC= Toolchain Enemy Waves";
 		author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
-		units[] = {QGVAR(module_curator), QGVAR(module)};
-		url = "http://www.blacktemplars.it";
+		units[] = {
+			QGVAR(module),
+			QGVAR(module_curator),
+			QGVAR(waypoint_module)
+		};
 		requiredVersion = REQUIRED_VERSION;
 		weapons[] = {};
-		requiredAddons[] = {"btc_toolchain_main", "btc_toolchain_supply", "btc_toolchain_gui"};
+		requiredAddons[] = {
+			"A3_Modules_F",
+			"3DEN",
+			"btc_toolchain_main",
+			"btc_toolchain_gui"
+		};
 		VERSION_CONFIG;
 	};
 };
@@ -46,12 +54,12 @@ class ctrlToolbox;
 class CfgVehicles
 {
 	class Logic;
-	class Module_F : Logic
+	class Module_F: Logic
 	{
 		class AttributesBase
 		{
 			class Default;
-			class Combo : Default {};
+			class Combo: Default {};
 			class ModuleDescription;	// Module description
 		};
 

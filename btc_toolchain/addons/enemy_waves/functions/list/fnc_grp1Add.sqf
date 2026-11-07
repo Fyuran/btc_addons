@@ -1,18 +1,20 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_list_grp1_add
+Function: btc_toolchain_enemy_waves_fnc_list_grp1Add
 
 Description:
     Adds a new group entry to the wave table and updates the group listbox.
 
 Parameters:
     _add: CONTROL - The add button control
+    _uid: STRING
 
 Returns:
+    NUMBER
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_enemy_waves_fnc_list_grp1_add;
+        [_buttonControl] call btc_toolchain_enemy_waves_fnc_list_grp1Add;
     (end)
 
 Author:

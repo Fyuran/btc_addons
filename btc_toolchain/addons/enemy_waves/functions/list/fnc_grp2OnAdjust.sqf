@@ -1,15 +1,13 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_list_grp2_onAdjust
+Function: btc_toolchain_enemy_waves_fnc_list_grp2OnAdjust
 
 Description:
     Callback invoked by GUI list arrow adjust to update wave group unit count.
 
 Parameters:
-    _grp1_key: STRING - Wave key or unused
-    _grp2_class: STRING - Class name
+    _uid: ANY
     _newAmount: NUMBER - New unit quantity
-    _grp1_curSel: NUMBER - Selected group index
     _grp2_curSelRow: NUMBER - Selected class row index
 
 Returns:
@@ -17,7 +15,7 @@ Returns:
 
 Examples:
     (begin example)
-        ["Wave-1", "", 2] call btc_toolchain_enemy_waves_fnc_list_grp2_onAdjust;
+        ["Wave-1", "", 2] call btc_toolchain_enemy_waves_fnc_list_grp2OnAdjust;
     (end)
 
 Author:

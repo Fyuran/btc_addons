@@ -7,9 +7,14 @@ Description:
 
 Parameters:
     _group: GROUP
+    _position: ARRAY
+    _wp_cfg: CONFIG or STRING
+    _completion_radius: NUMBER
+    _script: STRING or CODE
     _wpAttributes: ARRAY
 
 Returns:
+    ARRAY
 
 Examples:
     (begin example)
@@ -20,7 +25,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_group", grpNull, [grpNull]],
     ["_position", [0, 0, 0], [[]], 3],
     ["_wp_cfg", DEFAULT_CFG, [configNull, ""]],
@@ -40,7 +45,7 @@ _wpAttributes params [ //parse cfg properties
 	["_speed", "UNCHANGED", [""]]
 ];
 
-if(isNull _group) exitWith {
+if (isNull _group) exitWith {
 	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 

@@ -10,6 +10,7 @@ Parameters:
     _group: GROUP
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,12 +21,12 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[ 
+params [ 
 	["_logic", objNull, [objNull]],
     ["_group", grpNull, [grpNull]]
 ]; 
 
-if(isNull _logic) exitWith {
+if (isNull _logic) exitWith {
 	[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 if (isNull _group) exitWith {

@@ -7,7 +7,7 @@ Description:
     Applies value to Waypoint Behavior
 
 Parameters:
-    _ctrlGrp: CONTROL - Control group
+    _comboGrp: CONTROL
     _value: STRING - Waypoint behavior
 
 Returns:
@@ -22,7 +22,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_comboGrp", controlNull, [controlNull]],
     ["_value", "", [""]]
 ];

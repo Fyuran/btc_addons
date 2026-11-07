@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_side_combo_onLoad
+Function: btc_toolchain_enemy_waves_fnc_sideCombo_onLoad
 
 Description:
     Initializes the side selection combo control in UI namespace with default side on dialog load.
@@ -14,14 +14,14 @@ Returns:
 
 Examples:
     (begin example)
-        [_sideComboGrp] call btc_toolchain_enemy_waves_fnc_side_combo_onLoad;
+        [_sideComboGrp] call btc_toolchain_enemy_waves_fnc_sideCombo_onLoad;
     (end)
 
 Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_comboGrp", controlNull, [controlNull]],
     ["_config", configNull, [configNull]]
 ];
@@ -57,4 +57,3 @@ _combo lbSetValue[_civ_row, 3];
 _combo lbSetPicture[_civ_row, "\a3\Data_f\cfgFactionClasses_CIV_ca.paa"];
 
 _combo lbSetCurSel 0;
-

@@ -6,9 +6,10 @@ Description:
     Adds several Event Handlers to spawned units
 
 Parameters:
-    _units: OBJECT, ARRAY or GROUP - Unit, array of units, or group to add event handlers to
+    _units: OBJECT or ARRAY or GROUP - Unit, array of units, or group to add event handlers to
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -20,7 +21,7 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[ 
+params [ 
 	["_units", objNull, [objNull, [], grpNull]]
 ];
 
@@ -37,7 +38,9 @@ private _fnc = {
     private _logic = _unit getVariable[QGVAR(wave_spawn), objNull];
     private _units = _logic getVariable[QGVAR(wave_units), []];
     private _index = _units find _unit; 
-    _units deleteAt _index;
+    if (_index isNotEqualTo -1) then {
+        _units deleteAt _index;
+    };
 
     #ifdef BTC_DEBUG_ENEMY_WAVES
     [["%1: Removing %2(%3) from %4", __FILE_NAME__, _unit, _logic, _units], LOGS, QCOMPONENT] call EFUNC(tools,debug);

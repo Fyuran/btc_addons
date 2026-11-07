@@ -6,7 +6,7 @@ Description:
     Initializes WP Type list on dialog load.
 
 Parameters:
-    _ctrlGrp: CONTROL - The control group
+    _ctrlGrp: CONTROL or ARRAY - The control group
 
 Returns:
     NOTHING
@@ -20,7 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_ctrlGrp", controlNull, [controlNull, []], [1, 2]]
 ];
 
@@ -45,4 +45,3 @@ _categories apply {
         _treeCtrl tvSetData [[_parentIndex, _childIndex], str _childCfg];
     };
 };
-

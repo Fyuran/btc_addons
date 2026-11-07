@@ -38,7 +38,7 @@ if (isNull _side_combo || isNull _timeout || isNull _seekEnd_cb || isNull _list_
 [["%1: loading preset %2", __FILE_NAME__, _preset], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
-[_side_combo, _preset getOrDefault [QGVAR(side), east]] call FUNC(side_combo_attributeLoad);
+[_side_combo, _preset getOrDefault [QGVAR(side), east]] call FUNC(sideCombo_attributeLoad);
 [_timeout, _preset getOrDefault [QGVAR(timeout), 60]] call FUNC(timeout_attributeLoad);
 
 
@@ -48,4 +48,3 @@ private _seek_end = _preset getOrDefault [QGVAR(seek_end), true];
 _seekEnd_cb cbSetChecked _seek_end;
 
 [_list_grps, _preset getOrDefault [QGVAR(table), createHashMap]] call FUNC(list_attributeLoad);
-

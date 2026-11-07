@@ -6,7 +6,7 @@ Description:
     Gathers current enemy wave dialog attributes into a HashMap for preset saving.
 
 Parameters:
-    NONE
+    None
 
 Returns:
     HASHMAP - Preset attribute data
@@ -53,4 +53,3 @@ createHashMapFromArray [
     [QGVAR(seek_end), _seek_end],
     [QGVAR(table), _table]
 ]
-

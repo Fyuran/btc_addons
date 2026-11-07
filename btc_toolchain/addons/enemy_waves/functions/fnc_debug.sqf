@@ -12,7 +12,6 @@ Description:
     group units' centroid elevated 5 meters ATL.
 
 Parameters:
-    _enable: BOOL - Toggle or explicitly enable/disable (default: toggle)
 
 Returns:
     NUMBER - CBA Per Frame Handler handle (-1 if disabled)
@@ -36,22 +35,9 @@ params [
 if (!hasInterface) exitWith {};
 
 private _currentHandle = missionNamespace getVariable [QGVAR(debug_PFH_handle), -1];
-
-// If disabling or toggling off
-if (!_enable) exitWith {
-    if (_currentHandle isNotEqualTo -1) then {
-        [_currentHandle] call CBA_fnc_removePerFrameHandler;
-        missionNamespace setVariable [QGVAR(debug_PFH_handle), -1];
-        #ifdef BTC_DEBUG_ENEMY_WAVES
-        [["%1: debug PFH stopped (handle: %2)", __FILE_NAME__, _currentHandle], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-        #endif
-        systemChat "Enemy Waves Debug: OFF";
-    };
-    -1
+if (_currentHandle isNotEqualTo -1) exitWith {
+    _currentHandle
 };
-
-// If already running and asked to enable, just ignore
-if (_currentHandle isNotEqualTo -1) exitWith {};
 
 private _handle = [{
     // Fetch all enemy waves modules in the mission
@@ -300,7 +286,7 @@ private _handle = [{
             } forEach _aliveUnits;
         } forEach _groups;
     };
-}, 0, []] call CBA_fnc_addPerFrameHandler;
+}, 0, []] call CBAFUNC(addPerFrameHandler);
 
 missionNamespace setVariable [QGVAR(debug_PFH_handle), _handle];
 #ifdef BTC_DEBUG_ENEMY_WAVES

@@ -21,7 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_editGrp", controlNull, [controlNull]],
     ["_config", configNull, [configNull]]
 ];
@@ -39,4 +39,3 @@ if (isNull _edit) exitWith {
 uiNamespace setVariable[QGVAR(timeout), _edit];
 
 _edit ctrlSetText "60";
-

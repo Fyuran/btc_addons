@@ -21,7 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_ctrlGrp", controlNull, [controlNull]],
     ["_value", DEFAULT_CFG, []]
 ];

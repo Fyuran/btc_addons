@@ -11,7 +11,6 @@ class Cfg3DEN
 	class Attributes
 	{
 		#include "cfg3den_forward_declarations.hpp"
-		
 		class GVAR(wp_type): Type 
 		{
 			idc = WP_TYPE;
@@ -32,7 +31,7 @@ class Cfg3DEN
 		class GVAR(side): Combo
 		{
 			idc = SIDE_GRP;
-			onLoad = QUOTE(_this call FUNC(side_combo_onLoad));
+			onLoad = QUOTE(_this call FUNC(sideCombo_onLoad));
 			class Controls: Controls
 			{
 				class Title: Title {};
@@ -54,21 +53,15 @@ class Cfg3DEN
 		};
 		class GVAR(seek_end): Checkbox
 		{
-			idc = SEEK_END;
-			onLoad = QUOTE(_this call FUNC(seek_checkbox_onLoad));
+			onLoad = QUOTE(_this call FUNC(seekCheckbox_onLoad));
 			class Controls: Controls
 			{
 				class Title: Title {};
 				class Value: Value {};
 			};
 		};
-		class GVAR(CombatModeWaypoint) : CombatModeWaypoint
-		{
-			idc = COMBATMODE;
-		};
 		class GVAR(BehaviourWaypoint): BehaviourWaypoint
 		{
-			idc = BEHAVIOR;
 			attributeLoad = QUOTE([ARR_2(_this,_value)] call FUNC(behavior_attributeLoad));
 			//attributeSave = QUOTE(_ctrl = _this controlsGroupCtrl 100; _value = _ctrl lbValue (lbCurSel _ctrl));
 			class Controls: Controls
@@ -82,7 +75,7 @@ class Cfg3DEN
 			idc = FORMATION_WP;
 			attributeLoad = "(_this controlsGroupCtrl 100) lbSetCurSel (['no change','wedge','vee','line','column','file','stag_column','ech_left','ech_right','diamond'] find _value);";
 			attributeSave = "_ctrl = _this controlsGroupCtrl 100; _value = _ctrl lbValue (lbCurSel _ctrl); ['no change','wedge','vee','line','column','file','stag_column','ech_left','ech_right','diamond'] select _value;";
-			onLoad = QUOTE(_ctrl = (_this#0) controlsGroupCtrl 100; uiNamespace setVariable[ARR_2(QQGVAR(formation),_ctrl)]);
+			onLoad = QUOTE(_ctrl = (_this#0) controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE; uiNamespace setVariable[ARR_2(QQGVAR(formation),_ctrl)]);
 			class Controls: Controls
 			{
 				class Title: Title {};
@@ -98,8 +91,8 @@ class Cfg3DEN
 		{
 			idc = SPEED;
 			//onLoad = QUOTE(_this call FUNC(speed_onLoad));
-			attributeLoad = QUOTE((_this controlsGroupCtrl 100) lbSetCurSel ([ARR_4('unchanged','limited','normal','full')] find _value));
-			attributeSave = QUOTE(_ctrl = _this controlsGroupCtrl 100; _value = _ctrl lbValue (lbCurSel _ctrl); [ARR_4('unchanged','limited','normal','full')] select _value);
+			attributeLoad = QUOTE((_this controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE) lbSetCurSel ([ARR_4('unchanged','limited','normal','full')] find _value));
+			attributeSave = QUOTE(_ctrl = _this controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE; _value = _ctrl lbValue (lbCurSel _ctrl); [ARR_4('unchanged','limited','normal','full')] select _value);
 			class Controls: Controls
 			{
 				class Title: Title {};
@@ -148,20 +141,20 @@ class Cfg3DEN
 						{
 							idc = BUTTON_1;
 							text = "Add";
-							onButtonClick = QUOTE(_this call FUNC(list_grp1_add));
+							onButtonClick = QUOTE(_this call FUNC(list_grp1Add));
 						};
 						class Button_2: Button_2
 						{
 							idc = BUTTON_2;
 							text = "Remove";
-							onButtonClick = QUOTE(_this call FUNC(list_grp1_remove));
+							onButtonClick = QUOTE(_this call FUNC(list_grp1Remove));
 						};
 						class Value: Value
 						{
 							y = QUOTE(18.5 * h_PIXELH);
 							h = QUOTE(31.5 * h_PIXELH);
 							idc = VALUE_1;
-							onLBSelChanged = QUOTE(_this call FUNC(list_grp1_LBSelChanged));
+							onLBSelChanged = QUOTE(_this call FUNC(list_grp1LbSelChanged));
 						};
 					};
 				};
@@ -188,7 +181,7 @@ class Cfg3DEN
 						{
 							idc = BUTTON_1_2;
 							text = "Add";
-							onButtonClick = QUOTE(_this call FUNC(list_grp2_add));
+							onButtonClick = QUOTE(_this call FUNC(list_grp2Add));
 						};
 						class Buttons_MidBackground: ctrlStaticBackground
 						{
@@ -202,7 +195,7 @@ class Cfg3DEN
 						{
 							idc = BUTTON_2_2;
 							text = "Remove";
-							onButtonClick = QUOTE(_this call FUNC(list_grp2_remove));
+							onButtonClick = QUOTE(_this call FUNC(list_grp2Remove));
 							x = QUOTE(60 * h_PIXELW);
 						};
 						class List_Background: List_Background
@@ -219,12 +212,12 @@ class Cfg3DEN
 						class ArrowLeft: ArrowLeft
 						{
 							idc = ARROWLEFT;
-							onButtonClick = QUOTE([ARR_3(_this#0,false,FUNC(list_grp2_onAdjust))] call EFUNC(gui,list_arrowAdjust));
+							onButtonClick = QUOTE([ARR_3(_this#0,false,FUNC(list_grp2OnAdjust))] call EFUNC(gui,list_arrowAdjust));
 						};
 						class ArrowRight: ArrowRight
 						{
 							idc = ARROWRIGHT;
-							onButtonClick = QUOTE([ARR_3(_this#0,true,FUNC(list_grp2_onAdjust))] call EFUNC(gui,list_arrowAdjust));
+							onButtonClick = QUOTE([ARR_3(_this#0,true,FUNC(list_grp2OnAdjust))] call EFUNC(gui,list_arrowAdjust));
 						};
 						class Value: Value
 						{

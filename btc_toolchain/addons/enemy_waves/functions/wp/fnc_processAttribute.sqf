@@ -7,10 +7,10 @@ Description:
     where every fucking thing is lower cased and has underscores, the only solution is this pathetic function.
 
 Parameters:
-    _wpAttribute: STRING, NUMBER or ARRAY - Waypoint attribute value to process
+    _wpAttribute: NUMBER or STRING or ARRAY - Waypoint attribute value to process
 
 Returns:
-    Upper cased and invalid chars removed string
+    STRING
 
 Examples:
     (begin example)
@@ -21,7 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_wpAttribute", "", [123, "", []]]
 ]; 
 

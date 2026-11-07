@@ -9,6 +9,7 @@ Parameters:
     _group: GROUP - Group to assign player seeking waypoint to
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -19,11 +20,11 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
 	["_group", grpNull, [grpNull]]
 ]; 
 
-if(isNull _group) exitWith {
+if (isNull _group) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
 	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif

@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_list_grp2_add
+Function: btc_toolchain_enemy_waves_fnc_list_grp2Add
 
 Description:
     Adds a new enemy class to the selected group and updates the classes listbox.
@@ -9,10 +9,11 @@ Parameters:
     _add: CONTROL - The add button control
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_enemy_waves_fnc_list_grp2_add;
+        [_buttonControl] call btc_toolchain_enemy_waves_fnc_list_grp2Add;
     (end)
 
 Author:
@@ -45,7 +46,7 @@ if (_class isEqualTo "") exitWith {
 };
 
 private _classExists = (_groupClasses findIf {
-    _x params["_c", "_amount"];
+    _x params ["_c", "_amount"];
     _c isEqualTo _class;
 }) isNotEqualTo -1;
 if (_classExists) exitWith {
@@ -83,4 +84,3 @@ _groupClasses pushBack [_class, 1];
 #ifdef BTC_DEBUG_ENEMY_WAVES
 [["%1: Adding %2 to Wave %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
-

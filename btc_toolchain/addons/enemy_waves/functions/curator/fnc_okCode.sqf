@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_curator_OKCode
+Function: btc_toolchain_enemy_waves_fnc_curator_okCode
 
 Description:
     Handles confirmation button click in the curator GUI, applies configured wave settings, and triggers spawn.
@@ -9,10 +9,11 @@ Parameters:
     _OKButton: CONTROL - The OK / confirm button control
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_enemy_waves_fnc_curator_OKCode;
+        [_buttonControl] call btc_toolchain_enemy_waves_fnc_curator_okCode;
     (end)
 
 Author:
@@ -43,25 +44,31 @@ if (GVAR(table) isEqualTo createHashMap) exitWith {
     ["Class table is empty", 1] call EFUNC(tools,3DENNotification);
 };
 
-private _sideComboGrp = _editDisplay displayCtrl SIDE_GRP;
+private _attrHash = _editDisplay getVariable [QEGVAR(gui,attributesHash), createHashMap];
+
+private _sideComboGrp = _attrHash getOrDefault [QGVAR(side), controlNull];
 private _side_combo = _sideComboGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
 
-private _timeoutGrp = _editDisplay displayCtrl TIMEOUT;
+private _timeoutGrp = _attrHash getOrDefault [QGVAR(timeout), controlNull];
 private _timeout = _timeoutGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
 
-private _formationGrp = _editDisplay displayCtrl FORMATION_WP;
+private _formationGrp = _attrHash getOrDefault [QGVAR(formation), controlNull];
 private _formationToolboxCtrl = _formationGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
 private _formation = ['no change','wedge','vee','line','column','file','stag_column','ech_left','ech_right','diamond'] select (_formationToolboxCtrl lbValue (lbCurSel _formationToolboxCtrl));
 
-private _seekCbGrp = _editDisplay displayCtrl SEEK_END;
-private _seek_cb= _seekCbGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
+private _seekCbGrp = _attrHash getOrDefault [QGVAR(seek_end), controlNull];
+private _seek_cb = _seekCbGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
 
-private _clientID = [0, 2] select isMultiplayer;
-_logic setVariable [QGVAR(side), _side_combo lbValue (lbCurSel _side_combo), _clientID];
-_logic setVariable [QGVAR(timeout), parseNumber (ctrlText _timeout), _clientID];
-_logic setVariable [QGVAR(seek_end), cbChecked _seek_cb, _clientID];
-_logic setVariable [QGVAR(formation), _formation, _clientID];
-_logic setVariable [QGVAR(list_value), GVAR(table), _clientID];
+private _debugGrp = _attrHash getOrDefault [QGVAR(debug), controlNull];
+private _debugCb = _debugGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
+
+private _serverID = [0, 2] select isMultiplayer;
+_logic setVariable [QGVAR(side), _side_combo lbValue (lbCurSel _side_combo), _serverID];
+_logic setVariable [QGVAR(timeout), parseNumber (ctrlText _timeout), _serverID];
+_logic setVariable [QGVAR(seek_end), cbChecked _seek_cb, _serverID];
+_logic setVariable [QGVAR(formation), _formation, _serverID];
+_logic setVariable [QGVAR(list_value), GVAR(table), _serverID];
+_logic setVariable[QGVAR(debug), cbChecked _debugCb, _serverId];
 
 _editDisplay closeDisplay 1;
-[_logic] remoteExecCall [QFUNC(spawn_begin), _clientID];
+[_logic] remoteExecCall [QFUNC(spawn_begin), _serverID];

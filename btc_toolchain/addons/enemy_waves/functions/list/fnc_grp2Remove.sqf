@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_list_grp2_remove
+Function: btc_toolchain_enemy_waves_fnc_list_grp2Remove
 
 Description:
     Removes the selected enemy class from the selected group and updates the classes listbox.
@@ -9,10 +9,11 @@ Parameters:
     _remove: CONTROL - The remove button control
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
-        [_buttonControl] call btc_toolchain_enemy_waves_fnc_list_grp2_remove;
+        [_buttonControl] call btc_toolchain_enemy_waves_fnc_list_grp2Remove;
     (end)
 
 Author:
@@ -58,4 +59,3 @@ _grp2_list lnbSetCurSelRow -1;
 #ifdef BTC_DEBUG_ENEMY_WAVES
 [["%1: Removing %2 from Wave %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
-

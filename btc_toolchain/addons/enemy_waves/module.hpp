@@ -15,7 +15,7 @@ class GVAR(module) : Module_F
         description = "Sync a trigger and initiate a =BTC= enemy waves incursion against the closest player who activated the trigger, with passed values, you can also sync =BTC= enemy waves waypoints modules to lead the waves before approaching a enemy character";
         sync[] = { "EmptyDetector" };	
     };
-    class Attributes : AttributesBase
+    class Attributes: AttributesBase
     {
         class GVAR(side): Default
         {
@@ -85,9 +85,8 @@ class GVAR(module) : Module_F
             control = QGVAR(presets);
             expression = QUOTE(_this setVariable[ARR_2(QQGVAR(list_value),_value)]);
             defaultValue = "''";
-            typeName = "STRING"; 
         };
-        class ModuleDescription : ModuleDescription {};
+        class ModuleDescription: ModuleDescription {};
     };
 };
 
@@ -113,7 +112,7 @@ class GVAR(waypoint_module) : Module_F
     {
         description = "Waypoints for the =BTC= Enemy waves module";
     };
-    class Attributes : AttributesBase
+    class Attributes: AttributesBase
     {
         class GVAR(type): Default
         {
@@ -129,7 +128,7 @@ class GVAR(waypoint_module) : Module_F
             displayName = "Combat Mode";
             tooltip = "Waypoint combat mode";
             property = QGVAR(combat_mode);
-            control = QGVAR(CombatModeWaypoint);
+            control = "CombatModeWaypoint";
             expression = QUOTE(_this setVariable [ARR_2(QQGVAR(combat_mode),_value)]);
             defaultValue = "'NO CHANGE'";
         };
@@ -181,6 +180,6 @@ class GVAR(waypoint_module) : Module_F
             validate = "number";
             typeName = "NUMBER";
         };
-        class ModuleDescription : ModuleDescription {};
+        class ModuleDescription: ModuleDescription {};
     };
 };

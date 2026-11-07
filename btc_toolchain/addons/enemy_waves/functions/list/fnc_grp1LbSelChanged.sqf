@@ -1,6 +1,6 @@
 #include "..\..\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: btc_toolchain_enemy_waves_fnc_list_grp1_lbSelChanged
+Function: btc_toolchain_enemy_waves_fnc_list_grp1LbSelChanged
 
 Description:
     Handles selection changes in the groups listbox, populating the class listbox with vehicles/units.
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-        [_listControl, 0] call btc_toolchain_enemy_waves_fnc_list_grp1_lbSelChanged;
+        [_listControl, 0] call btc_toolchain_enemy_waves_fnc_list_grp1LbSelChanged;
     (end)
 
 Author:
@@ -23,7 +23,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params [
     ["_grp1_list", controlNull, [controlNull]],
-    ["_lbCurSel", -1, [0]]
+    ["_lbCurSel", -1, [123]]
 ];
 
 private _grp1 = ctrlParentControlsGroup _grp1_list;

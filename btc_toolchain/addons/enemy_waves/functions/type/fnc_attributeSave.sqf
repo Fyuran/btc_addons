@@ -20,7 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_ctrlGrp", controlNull, [controlNull]]
 ];
 
@@ -33,4 +33,4 @@ if (isNull _treeCtrl) exitWith {
 [["%1: executing wp attributeSave with tvData: %2", __FILE_NAME__, _treeCtrl tvData (tvCurSel _treeCtrl)], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
-_treeCtrl tvData (tvCurSel _treeCtrl) 
+_treeCtrl tvData (tvCurSel _treeCtrl)

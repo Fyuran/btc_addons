@@ -45,4 +45,3 @@ private _grp2_list = _grp2 controlsGroupCtrl VALUE_2;
 _grp1_list ctrlAddEventHandler ["KeyDown", EFUNC(gui,list_keyDown)];
 _grp2_list ctrlAddEventHandler ["KeyDown", EFUNC(gui,list_keyDown)];
 _grp2_list ctrlAddEventHandler ["KeyUp", EFUNC(gui,list_keyUp)];
-
