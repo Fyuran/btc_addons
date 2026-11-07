@@ -20,7 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
+params [
     ["_logic", objNull, [objNull]],
     ["_actionData", [], [[]]] //[_triggerName, _varName, _trigger]
 ]; 
@@ -37,7 +37,7 @@ if (isNull _logic) exitWith {
     #endif
 };
 
-if(_actionData isEqualTo []) exitWith {
+if (_actionData isEqualTo []) exitWith {
 	#ifdef BTC_DEBUG_MANUAL_TRIGGERS
     [["%1: Empty _actionData", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
@@ -52,7 +52,7 @@ if (player getVariable [QGVAR(isSpecialBoy), false]) then {
 
 //Children actions
 {
-    _x params[
+    _x params [
         ["_triggerName", "", [""]],
         ["_trigger", objNull, [objNull]]
     ];
@@ -76,7 +76,7 @@ if (player getVariable [QGVAR(isSpecialBoy), false]) then {
         ];
         if (isNull _trigger) exitWith {};
 
-        _trigger setVariable[QGVAR(cond), true, 0];
+        _trigger setVariable [QGVAR(cond), true, true];
         
         #ifdef BTC_DEBUG_MANUAL_TRIGGERS
         [["%1: %2 has been manually activated", __FILE_NAME__, _thisActionName], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug);
@@ -88,11 +88,10 @@ if (player getVariable [QGVAR(isSpecialBoy), false]) then {
             [["%1: %2 is non repeating, removing %3 action", __FILE_NAME__, _trigger, _thisActionName], LOGS + CHAT, QCOMPONENT] call EFUNC(tools,debug);
             #endif
             [player, 1, ["ACE_SelfActions", "btc_ace_Actions", QGVAR(menu), _thisActionName]] call ACEFUNC(interact_menu,removeActionFromObject);
-        }
-        else {
+        } else {
             [{ //flip it back on a delay, as it won't evaluate in time on Repeatable
-                params["_trigger"];
-                _trigger setVariable[QGVAR(cond), false, 0]; //allow rexecution
+                params ["_trigger"];
+                _trigger setVariable [QGVAR(cond), false, true]; //allow rexecution
             }, [_trigger], 1] call CBAFUNC(waitAndExecute);     
         }
 

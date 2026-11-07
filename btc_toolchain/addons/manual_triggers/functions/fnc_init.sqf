@@ -11,6 +11,7 @@ Parameters:
     _logic: OBJECT
 
 Returns:
+    NOTHING
 
 Examples:
     (begin example)
@@ -21,26 +22,26 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[ 
+params [ 
 	["_logic", objNull, [objNull]]
 ]; 
 
-if(isNull _logic) exitWith {
+if (isNull _logic) exitWith {
 	[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(!isServer) exitWith {
+if (!isServer) exitWith {
 	[["%1: Should be run only on Server", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-if(!(_logic isKindOf "Module_F")) exitWith {
+if (!(_logic isKindOf "Module_F")) exitWith {
 	[["%1: _logic is not a Module_F", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _synchedObjs = synchronizedObjects _logic;
-if(_synchedObjs isEqualTo []) exitWith {
+if (_synchedObjs isEqualTo []) exitWith {
 	[["%1: No linked objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-if(!(_synchedObjs isEqualTypeAll objNull)) exitWith {
+if (!(_synchedObjs isEqualTypeAll objNull)) exitWith {
 	[["%1: Linked types aren't of type objNull", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 

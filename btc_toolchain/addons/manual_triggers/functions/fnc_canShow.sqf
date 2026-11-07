@@ -6,9 +6,10 @@ Description:
     Performs checks to see if we can show the action
 
 Parameters:
+    None
 
 Returns:
-    BOOLEAN if can show action
+    BOOLEAN
 
 Examples:
     (begin example)
