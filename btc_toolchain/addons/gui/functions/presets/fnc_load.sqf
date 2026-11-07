@@ -60,4 +60,3 @@ if (_preset isEqualTo createHashMap) exitWith {
 
 private _presets = ctrlParent _load;
 _presets closeDisplay 1;
-

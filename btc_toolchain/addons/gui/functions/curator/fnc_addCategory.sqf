@@ -16,7 +16,7 @@ Parameters:
 
 Returns:
     CONTROL
-    
+
 Examples:
     (begin example)
         [_display, "My Category"] call btc_toolchain_gui_fnc_curator_addCategory;
@@ -27,7 +27,7 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params[
+params [
     ["_display", displayNull, [displayNull]],
     ["_categoryTitle", "", [""]],
     ["_categoryCfg", configFile >> "Display3DENEditAttributes" >> "AttributeCategory", [configNull, ""]],
@@ -82,4 +82,3 @@ uiNamespace setVariable [QGVAR(categories), _uiCategories];
 
 //[_categoryCtrlGrp] call EFUNC(tools,getCtrlsHashmap);
 _category
-

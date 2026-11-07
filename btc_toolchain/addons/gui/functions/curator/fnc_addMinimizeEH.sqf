@@ -16,7 +16,8 @@ Parameters:
     _category: CONTROL
 
 Returns:
-    
+    NOTHING
+
 Examples:
     (begin example)
         [] call btc_toolchain_gui_fnc_curator_addMinimizeEH;
@@ -100,4 +101,3 @@ _ctrlMinimize ctrlAddEventHandler ["CheckedChanged", {
 
     uiNamespace setVariable [QGVAR(sizeY), _currentY];
 }];
-

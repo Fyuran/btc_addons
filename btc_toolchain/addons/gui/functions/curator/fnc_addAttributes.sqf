@@ -17,7 +17,7 @@ Parameters:
     _attributesCfgs: ARRAY
 
 Returns:
-    ARRAY of CONTROL
+    ARRAY
 
 Examples:
     (begin example)
@@ -52,6 +52,7 @@ if (isNull _attributes) exitWith {
 private _3denAttributesCfg = configFile >> "Cfg3DEN" >> "Attributes";
 
 private _attributesCtrlsArr = [];
+private _attributesHash = _display getVariable [QGVAR(attributesHash), createHashMap];
 
 private _currentMaxY = uiNamespace getVariable [QGVAR(sizeY), 0]; //used for whole UI
 private _currentY = 0;
@@ -62,12 +63,22 @@ _attributesCfgs apply {
     if (_moduleAttributeCtrlClass isEqualTo "ModuleInfo") then {
         continue; //will be added later by an appropriate function
     };
-    private _idc = getNumber (_3denAttributesCfg >> _moduleAttributeCtrlClass >> "idc");
+    private _attributeCfg = _3denAttributesCfg >> _moduleAttributeCtrlClass;
+    private _idc = getNumber (_attributeCfg >> "idc");
     if (_idc <= 0) then {
         _idc = -1;
     };
-    private _attribute = _display ctrlCreate [_3denAttributesCfg >> _moduleAttributeCtrlClass, _idc, _attributes];
+    private _attribute = _display ctrlCreate [_attributeCfg, _idc, _attributes];
     _attributesCtrlsArr pushBack _attribute;
+
+    private _property = getText (_moduleAttributeCfg >> "property");
+    if (_property isEqualTo "") then {
+        _property = configName _moduleAttributeCfg;
+    };
+    _attributesHash set [_property, _attribute];
+    _attributesHash set [configName _moduleAttributeCfg, _attribute];
+    _attribute setVariable [QGVAR(config), _moduleAttributeCfg];
+    _attribute setVariable [QGVAR(property), _property];
 
     private _tooltip = getText (_moduleAttributeCfg >> "tooltip");
     _attribute ctrlSetTooltip _tooltip;
@@ -76,6 +87,66 @@ _attributesCfgs apply {
     private _ctrlHash = [_attribute] call EFUNC(tools,getCtrlsHashmap);
     if (_displayName isNotEqualTo "") then {
         (_ctrlHash getOrDefault ["Title", controlNull]) ctrlSetText _displayName;
+    };
+
+    // Look up the module property's defaultValue
+    private _defaultValueCfg = _moduleAttributeCfg >> "defaultValue";
+    if (!isNumber _defaultValueCfg && {!isText _defaultValueCfg}) then {
+        _defaultValueCfg = _attributeCfg >> "defaultValue";
+    };
+
+    private _defaultValue = if (isNumber _defaultValueCfg) then {
+        getNumber _defaultValueCfg
+    } else {
+        if (isText _defaultValueCfg) then {
+            private _defaultText = getText _defaultValueCfg;
+            private _compiled = call compile _defaultText;
+            if (isNil "_compiled") then {
+                _defaultText
+            } else {
+                _compiled
+            };
+        } else {
+            nil
+        };
+    };
+
+    // Coerce type based on typeName if specified
+    private _typeName = toUpper getText (_moduleAttributeCfg >> "typeName");
+    if (!isNil "_defaultValue") then {
+        switch (_typeName) do {
+            case "BOOL": {
+                if (_defaultValue isEqualType 0) then {
+                    _defaultValue = _defaultValue > 0;
+                } else {
+                    if (_defaultValue isEqualType "") then {
+                        _defaultValue = (toLower _defaultValue) in ["true", "1"];
+                    };
+                };
+            };
+            case "NUMBER": {
+                if (_defaultValue isEqualType "") then {
+                    _defaultValue = parseNumber _defaultValue;
+                };
+            };
+            case "STRING": {
+                if !(_defaultValue isEqualType "") then {
+                    _defaultValue = str _defaultValue;
+                };
+            };
+        };
+    };
+
+    // Look up attributeLoad expression from module attribute config (or fallback to attribute control config)
+    private _attributeLoad = getText (_moduleAttributeCfg >> "attributeLoad");
+    if (_attributeLoad isEqualTo "") then {
+        _attributeLoad = getText (_attributeCfg >> "attributeLoad");
+    };
+
+    if (_attributeLoad isNotEqualTo "" && {!isNil "_defaultValue"}) then {
+        private _config = _attributeCfg;
+        private _value = _defaultValue;
+        _attribute call (compile _attributeLoad);
     };
 
     //Handle listing
@@ -91,7 +162,7 @@ private _ctrlTitle = _categoryHash getOrDefault ["Title", controlNull];
 private _titleH = if (!isNull _ctrlTitle) then {
     (ctrlPosition _ctrlTitle) select 3
 } else {
-    5 * (pixelH * pixelGrid * 0.50)
+    5 * h_PIXELH
 };
 
 _attributes ctrlSetPositionH _currentY;
@@ -110,5 +181,7 @@ _category setVariable [QGVAR(data), createHashMapFromArray [
 
 uiNamespace setVariable [QGVAR(sizeY), _currentMaxY];
 
-_attributesCtrlsArr
+_display setVariable [QGVAR(attributesHash), _attributesHash];
+uiNamespace setVariable [QGVAR(attributesHash), _attributesHash];
 
+_attributesCtrlsArr

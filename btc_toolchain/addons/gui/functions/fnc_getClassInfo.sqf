@@ -9,7 +9,7 @@ Parameters:
     _class: STRING - Class name to query
 
 Returns:
-    ARRAY - [_displayName, _icon, _type]
+    NOTHING
 
 Examples:
     (begin example)

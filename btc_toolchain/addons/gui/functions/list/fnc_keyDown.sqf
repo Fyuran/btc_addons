@@ -62,4 +62,3 @@ missionNamespace setVariable [QGVAR(shift_modifier), _shift];
 #endif
 
 false
-

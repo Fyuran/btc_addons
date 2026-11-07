@@ -23,7 +23,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params [
     ["_list", controlNull, [controlNull]],
-    ["_lbCurSel", -1, [0]]
+    ["_lbCurSel", -1, [123]]
 ];
 disableSerialization;
 
@@ -33,4 +33,3 @@ private _ctrlGrp = ctrlParentControlsGroup _list;
 private _edit = _ctrlGrp controlsGroupCtrl PRESETS_EDIT;
 private _savename = _list lbText _lbCurSel;
 _edit ctrlSetText _savename;
-

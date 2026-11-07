@@ -25,6 +25,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params [
     ["_logic", objNull, [objNull]],
+    ["_units", [], [[]]],
     ["_activated", true, [true]],
     ["_okCode", {}, [{}, ""]],
     ["_abortCode", {}, [{}, ""]]
@@ -38,13 +39,10 @@ if (isNull _logic) exitWith {
 
 if (!_activated) exitWith {};
 
-missionNamespace setVariable [QGVAR(curator_logic), _logic, owner _logic];
-
 if (_abortCode isEqualTo {}) then {
     _abortCode = {
-        deleteVehicle (missionNamespace getVariable [QGVAR(curator_logic), objNull]);
+        deleteVehicle (missionNamespace getVariable [QGVAR(curatorLogic), objNull]);
     };
 };
 
 [_logic, 1, _okCode, _abortCode] remoteExecCall [QFUNC(curator_build), _logic];
-

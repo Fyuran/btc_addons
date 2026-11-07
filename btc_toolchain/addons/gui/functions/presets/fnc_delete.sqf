@@ -48,4 +48,3 @@ _savedPresets deleteAt (_list lbText _lbCurSel);
 _list lbDelete _lbCurSel;
 profileNamespace setVariable [_profileVar, _savedPresets];
 saveProfileNamespace;
-

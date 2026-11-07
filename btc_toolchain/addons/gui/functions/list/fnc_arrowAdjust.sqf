@@ -61,4 +61,3 @@ private _newAmount = if (_isIncrement) then {
 _grp2_list lnbSetText [[_grp2_curSelRow, 1], str _newAmount];
 
 [_grp1_key, _grp2_class, _newAmount, _grp1_curSel, _grp2_curSelRow] call _onUpdate;
-

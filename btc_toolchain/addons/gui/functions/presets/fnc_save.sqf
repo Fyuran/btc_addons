@@ -60,4 +60,3 @@ if (_savename in _savedPresets) then {
 _savedPresets set [_savename, _inner];
 profileNamespace setVariable [_profileVar, _savedPresets];
 saveProfileNamespace;
-

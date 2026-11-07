@@ -31,7 +31,7 @@ Parameters:
     _abortCode: CODE or STRING
 
 Returns:
-    ARRAY: [_category, _attributes, _moduleInfo, _ctrlOk, _ctrlAbort]
+    ARRAY - [_category, _attributes, _moduleInfo, _ctrlOk, _ctrlAbort]
 
 Examples:
     (begin example)
@@ -69,11 +69,13 @@ private _moduleAttributesCfgs = configClasses [ _moduleCfg >> "Attributes", 0, f
 
 uiNamespace setVariable [QGVAR(sizeY), nil];
 uiNamespace setVariable [QGVAR(categories), nil];
+uiNamespace setVariable [QGVAR(attributesHash), nil];
 
 private _editDisplay = createDialog["Display3DENEditAttributes", true];
 _editDisplay displayAddEventHandler ["Unload", {
     uiNamespace setVariable [QGVAR(sizeY), nil];
     uiNamespace setVariable [QGVAR(categories), nil];
+    uiNamespace setVariable [QGVAR(attributesHash), nil];
 }];
 
 private _category = [_editDisplay, "=BTC= Curator Modules"] call FUNC(curator_addCategory);
@@ -99,4 +101,3 @@ _ctrlOk ctrlAddEventHandler ["ButtonClick", _okCode];
 _ctrlAbort ctrlAddEventHandler ["ButtonClick", _abortCode];
 
 [_category, _attributes, _moduleInfo, _ctrlOk, _ctrlAbort]
-

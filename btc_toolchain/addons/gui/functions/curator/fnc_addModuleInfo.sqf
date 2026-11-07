@@ -11,7 +11,7 @@ Parameters:
 
 Returns:
     CONTROL
-    
+
 Examples:
     (begin example)
         [] call btc_toolchain_gui_fnc_curator_addModuleInfo;
@@ -43,4 +43,3 @@ private _ctrlText = _moduleInfoHash getOrDefault ["Text", controlNull];
 _ctrlText ctrlSetText _moduleDescription;
 
 _ctrlText
-

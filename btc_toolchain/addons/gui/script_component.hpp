@@ -7,4 +7,4 @@
 #include "\z\btc_toolchain\addons\main\script_macros.hpp"
 #include "gui_defines.hpp"
 
-#define CATEGORY_PADDING (pixelH * pixelGrid)
+#define CATEGORY_PADDING 6 * h_PIXELH

@@ -19,3 +19,7 @@ PREP_FOLDER(presets,save);
 PREP_FOLDER(list,arrowAdjust);
 PREP_FOLDER(list,keyDown);
 PREP_FOLDER(list,keyUp);
+
+PREP_FOLDER(class,onLoad);
+PREP_FOLDER(class,attributeLoad);
+PREP_FOLDER(class,attributeSave);
