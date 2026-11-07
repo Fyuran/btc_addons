@@ -11,4 +11,3 @@
 #include "script_version.hpp"
 
 #endif
-

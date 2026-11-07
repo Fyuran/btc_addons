@@ -34,6 +34,15 @@
         count = b;    \
     }
 
+// BIS macros
+#define BIS_PREFIX BIS
+
+#define BISFUNC(function)    TRIPLES(BIS_PREFIX,fnc,function)
+#define QBISFUNC(function)   QUOTE(BISFUNC(function))
+
+#define BISPATHTOF(component,path) \a3\component\path
+#define QBISPATHTOF(component,path) QUOTE(BISPATHTOF(component,path))
+
 // ACE3 macros
 #define ACE_PREFIX ace
 
@@ -102,4 +111,3 @@
 #endif
 
 #endif
-

@@ -10,3 +10,6 @@ btc.txt
 *.png
 .dev/
 *.kra
+__pycache__
+.vscode/
+

@@ -8,7 +8,14 @@ class CfgPatches
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {"cba_main", "ace_main"};
+        requiredAddons[] = {
+            "A3_Data_F",
+            "A3_Characters_F",
+            "A3_Modules_F",
+            "cba_main",
+            "ace_main",
+            "ace_interact_menu"
+        };
         author = MAIN_AUTHOR;
         authors[] = {AUTHORS};
         url = "https://www.blacktemplars.it/";
