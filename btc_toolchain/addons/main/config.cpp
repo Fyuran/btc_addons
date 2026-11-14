@@ -39,7 +39,7 @@ class btc_ace_Actions
     exceptions[] = {};
     statement = "";
     priority = 2.1;
-    icon = QPATHTOEF(main,data\iconBtcA.paa);
+    icon = QPATHTOF(data\iconBtcA.paa);
 };
 
 class CfgVehicles

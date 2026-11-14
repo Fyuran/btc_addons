@@ -25,6 +25,7 @@ class CfgPatches
 		requiredAddons[] = {
 			"A3_Data_F",
 			"A3_Structures_F",
+			"cba_xeh",
 			"btc_toolchain_main"
 		};
 		url = "https://www.blacktemplars.it/";

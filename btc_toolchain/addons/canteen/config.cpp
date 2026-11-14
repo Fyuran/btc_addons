@@ -57,6 +57,7 @@ class CfgPatches
 			"A3_Characters_F",
 			"A3_Soft_F",
 			"cba_common",
+			"ace_common",
 			"ace_interact_menu",
 			"ace_field_rations",
 			"btc_toolchain_main"

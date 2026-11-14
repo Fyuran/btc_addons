@@ -938,7 +938,7 @@ class VariableTypeInferrer {
             return 'Code';
         if (lower.includes('controlnull'))
             return 'Control';
-        if (lower.includes('displaynull'))
+        if (lower.includes('displaynull') || lower.includes('createdisplay'))
             return 'Display';
         if (lower.includes('objnull') || lower === 'player' || lower === 'cursorobject' || lower === 'cursortarget' || lower === 'cameraon')
             return 'Object';

@@ -12,6 +12,7 @@ class CfgPatches
 		weapons[] = {};
 		requiredAddons[] = {
 			"A3_Modules_F",
+			"A3_Ui_F",
 			"3DEN",
 			"btc_toolchain_main", 
 			"btc_toolchain_gui"

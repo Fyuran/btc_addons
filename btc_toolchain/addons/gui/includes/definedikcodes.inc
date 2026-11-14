@@ -1,5 +1,7 @@
 #ifndef DIK_ESCAPE
 
+#define MOUSE_LMB               0
+#define MOUSE_RMB               1
 /****************************************************************************
  *
  *      DirectInput keyboard scan codes
@@ -187,4 +189,3 @@
 
 
 #endif /* DIK_ESCAPE */
-

@@ -141,13 +141,13 @@ _logicGroups apply {
 		}; 
 		
 		for "_i" from 0 to (_quantity - 1) do { 
-			private _safePos = [_logic, _class] call EFUNC(tools,findSafePos);
 			if ([_class, ["LandVehicle", "Air"]] call EFUNC(tools,inheritsFromAny)) then {
+				private _safePos = [_logic, _class] call EFUNC(tools,findSafePos);
 				([_safePos, _dir, _class, _group] call EFUNC(tools,spawnCrewedVehicle)) params ["_vehicle", "_crew"];
 				_waveUnits append _crew;
 				_crew apply {_x setVariable [QGVAR(wave_spawn), _logic]};
 			} else {
-				private _unit = _group createUnit [_class, _safePos, [], 0, "NONE"];
+				private _unit = _group createUnit [_class, _logic, [], 0, "NONE"];
 				_unit setDir _dir;
 				_unit setVariable [QGVAR(wave_spawn), _logic]; 
 				_waveUnits pushBack _unit;

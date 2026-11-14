@@ -25655,14 +25655,14 @@
             "defaultValue": null
           }
         ],
-        "returnType": "Any",
-        "returnDescription": "",
+        "returnType": "Display",
+        "returnDescription": "Created display (or displayNull if failed).",
         "signature": "parent createDisplay resourceName",
-        "typedSignature": "(Display) createDisplay (String) -> Any"
+        "typedSignature": "(Display) createDisplay (String) -> Display"
       }
     ],
     "callType": "binary",
-    "returnType": "Any",
+    "returnType": "Display",
     "leftType": "Display",
     "rightType": "String"
   },

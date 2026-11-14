@@ -7,8 +7,10 @@
 #include "includes\defineresincldesign.inc"
 #include "includes\resincl.inc"
 
-#define PIXELW_SCALED(SCALE) (pixelW * pixelGrid * SCALE)
-#define PIXELH_SCALED(SCALE) (pixelH * pixelGrid * SCALE)
+#define PIXELW pixelW * pixelGrid
+#define PIXELH pixelH * pixelGrid
+#define PIXELW_SCALED(SCALE) (PIXELW * SCALE)
+#define PIXELH_SCALED(SCALE) (PIXELH * SCALE)
 #define h_PIXELW PIXELW_SCALED(0.5)
 #define h_PIXELH PIXELH_SCALED(0.5)
 

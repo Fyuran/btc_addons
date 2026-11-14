@@ -37,7 +37,6 @@ PREP_FOLDER(presets,open);
 //Spawn
 PREP_FOLDER(spawn,addEH);
 PREP_FOLDER(spawn,begin);
-PREP_FOLDER(spawn,getFormationPos);
 
 //Type
 PREP_FOLDER(type,attributeLoad);
