@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_add", controlNull, [controlNull]],
     ["_uid", "", [""]]
@@ -35,9 +36,9 @@ if (_uid isNotEqualTo "") then {
     private _inner = GVAR(table) getOrDefault [_uid, createHashMap];
     _class = _inner getOrDefault ["class", ""];
 } else {
-    _class = trim(ctrlText _edit);
+    _class = trim (ctrlText _edit);
 
-    _uid = format["%1-%2", _class, ([] call EFUNC(tools,uid))];
+    _uid = format ["%1-%2", _class, ([] call EFUNC(tools,uid))];
     //table inits
     private _inner = GVAR(table) getOrDefault [_uid, createHashMap, true];
     _inner set ["class", _class];
@@ -46,7 +47,7 @@ if (_uid isNotEqualTo "") then {
 
 private _cfg = configFile >> "CfgVehicles" >> _class;
 if (!isClass _cfg) exitWith {
-    [format["%1 invalid ammo box or vehicle class", _class], 1] call EFUNC(tools,3DENNotification);
+    [format ["%1 invalid ammo box or vehicle class", _class], 1] call EFUNC(tools,3DENNotification);
 };
 
 private _row = _grp1_list lbAdd (getText (_cfg >> "displayName"));

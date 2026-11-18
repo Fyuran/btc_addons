@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_positions", [], [[]]],
     ["_useZ", false, [true]]
@@ -28,7 +29,7 @@ params [
 
 if (_positions isEqualTo []) exitWith {
     #ifdef BTC_DEBUG_STEALTH
-	[["%1: _positions is empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _positions is empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
 

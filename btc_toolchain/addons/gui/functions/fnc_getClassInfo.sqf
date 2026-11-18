@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_class", "", [""]]
 ];
@@ -27,7 +28,8 @@ params [
 switch (true) do {
     case (isClass (configFile >> "CfgVehicles" >> _class)): {
         private _icon = getText (configFile >> "CfgVehicles" >> _class >> "icon");
-        if (!fileExists _icon) then { //icon sometimes refers to a .paa file and sometimes to a property name in CfgVehicleIcons
+        if (!fileExists _icon) then {
+            //icon sometimes refers to a .paa file and sometimes to a property name in CfgVehicleIcons
             _icon = getText (configFile >> "CfgVehicleIcons" >> _icon);
         };
         [

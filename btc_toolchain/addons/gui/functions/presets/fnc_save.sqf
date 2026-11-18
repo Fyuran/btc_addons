@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_save", controlNull, [controlNull]]
 ];
@@ -37,7 +38,7 @@ private _edit = _ctrlGrp controlsGroupCtrl PRESETS_EDIT;
 private _list = _ctrlGrp controlsGroupCtrl PRESETS_VALUE;
 
 private _inner = [] call _gatherData;
-if (_inner isEqualTo createHashMap || {_inner isEqualTo []}) exitWith {
+if (_inner isEqualTo createHashMap || { _inner isEqualTo [] }) exitWith {
     #ifdef BTC_DEBUG_GUI
     [["%1: gather callback returned empty data", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif

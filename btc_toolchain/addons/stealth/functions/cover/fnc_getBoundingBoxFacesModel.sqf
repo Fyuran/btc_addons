@@ -20,14 +20,15 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_object", objNull, [objNull]]
 ];
 
 if (isNull _object) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
-	[["%1: _object is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    #ifdef BTC_DEBUG_STEALTH
+    [["%1: _object is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     []
 };
 
@@ -43,17 +44,20 @@ Anti clockwise pattern
     :     :
     0-----1
 */
+
 private _boxMinTop = [_xMin, _yMin, _zMax];
-createHashMapFromArray[
-    ["Bottom",
-        [       
-            _boxMin, 
+createHashMapFromArray [
+    [
+        "Bottom",
+        [
+            _boxMin,
             [_xMax, _yMin, _zMin],
             [_xMax, _yMax, _zMin],
             [_xMin, _yMax, _zMin]
         ]
     ],
-    ["Top",
+    [
+        "Top",
         [
             [_xMin, _yMin, _zMax],
             [_xMax, _yMin, _zMax],
@@ -61,23 +65,26 @@ createHashMapFromArray[
             [_xMin, _yMax, _zMax]
         ]
     ],
-    ["Front",
+    [
+        "Front",
         [
-            _boxMin, 
+            _boxMin,
             [_xMax, _yMin, _zMin],
             [_xMax, _yMin, _zMax],
             [_xMin, _yMin, _zMax]
         ]
     ],
-    ["Right", 
+    [
+        "Right",
         [
-            [_xMax, _yMin, _zMin], 
+            [_xMax, _yMin, _zMin],
             [_xMax, _yMax, _zMin],
             [_xMax, _yMax, _zMax],
             [_xMax, _yMin, _zMax]
         ]
     ],
-    ["Left", 
+    [
+        "Left",
         [
             [_xMin, _yMax, _zMin],
             [_xMin, _yMin, _zMin],
@@ -85,7 +92,8 @@ createHashMapFromArray[
             [_xMin, _yMax, _zMax]
         ]
     ],
-    ["Back",
+    [
+        "Back",
         [
             [_xMax, _yMax, _zMin],
             [_xMin, _yMax, _zMin],

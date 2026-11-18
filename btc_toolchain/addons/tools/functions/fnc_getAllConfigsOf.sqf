@@ -23,6 +23,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_baseClass", "All", [""]],
     ["_root", configFile >> "CfgVehicles", [configNull]]
@@ -38,7 +39,7 @@ if (!(isClass (_root >> _baseClass))) exitWith {
     []
 };
 
-private _configs = format["(configName _x) isKindOf '%1' && {getNumber (_x >> 'scope') isEqualTo 2} && {getNumber (_x >> 'isUav') != 1}", _baseClass] configClasses _root;
+private _configs = format ["(configName _x) isKindOf '%1' && {getNumber (_x >> 'scope') isEqualTo 2} && {getNumber (_x >> 'isUav') != 1}", _baseClass] configClasses _root;
 if (_configs isEqualTo []) exitWith {
     [["%1: _configs with %2 as _baseClass and %3 as _root is empty", __FILE_NAME__, _baseClass, configName _root], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     []

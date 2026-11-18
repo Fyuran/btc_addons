@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_grp1_list", controlNull, [controlNull]],
     ["_lbCurSel", -1, [123]]
@@ -35,9 +36,10 @@ lnbClear _grp2_list;
 if (_lbCurSel < 0) exitWith {};
 
 private _uid = _grp1_list lbData _lbCurSel;
-private _groupClasses = GVAR(table) getOrDefault[_uid, []];
+private _groupClasses = GVAR(table) getOrDefault [_uid, []];
 
-if (_groupClasses isEqualTo []) exitWith {}; //Empty
+if (_groupClasses isEqualTo []) exitWith {};
+//Empty
 
 _groupClasses apply {
     _x params [

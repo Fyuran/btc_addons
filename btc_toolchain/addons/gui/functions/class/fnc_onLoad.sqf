@@ -23,10 +23,11 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_comboGrp", controlNull, [controlNull]],
     ["_baseClass", "All", [""]],
-    ["_predicate", {true}, [{}]],
+    ["_predicate", { true }, [{}]],
     ["_setDefaultSel", true, [false]]
 ];
 disableSerialization;

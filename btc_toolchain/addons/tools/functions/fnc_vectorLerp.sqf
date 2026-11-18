@@ -36,6 +36,6 @@ if (_t > 1) then {
     _t = 1;
 };
 
-private _lerpVec = _vec1 vectorAdd((_vec2 vectorDiff _vec1) vectorMultiply _t);
+private _lerpVec = _vec1 vectorAdd ((_vec2 vectorDiff _vec1) vectorMultiply _t);
 
 _lerpVec

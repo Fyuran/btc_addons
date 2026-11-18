@@ -22,6 +22,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_combo", controlNull, [controlNull]],
     ["_lbCurSel", -1, [123]]

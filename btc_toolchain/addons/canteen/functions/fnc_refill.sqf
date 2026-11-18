@@ -21,24 +21,30 @@ Author:
 ---------------------------------------------------------------------------- */
 
 if (!params [
-	["_item","",[""]]
-]) exitWith {
-	[["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    ["_item", "", [""]]
+]
+) exitWith {
+    [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
+[
+    5,
+    _this,
+    {
+        _args params ["_item"];
+        ACE_player removeItem _item;
+        private _new_item = call {
+            if (_item in ["ACE_WaterBottle_Half", "ACE_WaterBottle_Nearly_Empty", "ACE_WaterBottle_Empty"]) exitWith { "ACE_WaterBottle" };
+            if (_item in ["ACE_Canteen_Half", "ACE_Canteen_Nearly_Full", "ACE_Canteen_Nearly_Empty", "ACE_Canteen_Empty"]) exitWith { "ACE_Canteen" };
+            ""
+        };
+        ACE_player addItem _new_item;
+        private _targets = ACE_player nearEntities ["CAManBase", 20];
+        [QACEGVAR(medical_feedback,forceSay3D), [ACE_player, QGVAR(Refill_sound), 20], _targets] call CBAFUNC(targetEvent);
+        [format ["%1 refilled.", getText (configFile >> "CfgWeapons" >> _item >> "DisplayName")], 2.5, ACE_player] call ACEFUNC(common,displayTextStructured);
 
-[5,	_this,
-{
-	_args params ["_item"];
-	ACE_player removeItem _item;
-	private _new_item = call {
-		if (_item in ["ACE_WaterBottle_Half", "ACE_WaterBottle_Nearly_Empty", "ACE_WaterBottle_Empty"]) exitWith {"ACE_WaterBottle"};
-		if (_item in ["ACE_Canteen_Half", "ACE_Canteen_Nearly_Full", "ACE_Canteen_Nearly_Empty", "ACE_Canteen_Empty"]) exitWith {"ACE_Canteen"};
-		""
-	};
-	ACE_player addItem _new_item;
-	private _targets = ACE_player nearEntities ["CAManBase", 20];
-	[QACEGVAR(medical_feedback,forceSay3D), [ACE_player, QGVAR(Refill_sound), 20], _targets] call CBAFUNC(targetEvent);
-	[format["%1 refilled.", getText(configFile >> "CfgWeapons" >> _item >> "DisplayName")], 2.5, ACE_player] call ACEFUNC(common,displayTextStructured);
-
-}, {}, "Refilling"] call ACEFUNC(common,progressBar);
+    },
+    {},
+    "Refilling"
+]
+call ACEFUNC(common,progressBar);

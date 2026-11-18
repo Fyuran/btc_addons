@@ -82,97 +82,101 @@ for "_time" from 0 to 1 step _step do {
 if (_debug) then {
     GVAR(bezierDebugHandle) = missionNamespace getVariable [QGVAR(bezierDebugHandle), -1];
     [GVAR(bezierDebugHandle)] call CBAFUNC(removePerFrameHandler);
-    GVAR(bezierDebugHandle) = [{
-        params ["_args", "_thisHandle"];
-        _args params [
-            ["_startASL", [0, 0, 0], [objNull, []], 3],
-            ["_controlPointASL", [0, 0, 0], [objNull, []], 3],
-            ["_endASL", [0, 0, 0], [objNull, []], 3],
-            ["_points", [], [[]]]
-        ];
+    GVAR(bezierDebugHandle) = [
+        {
+            params ["_args", "_thisHandle"];
+            _args params [
+                ["_startASL", [0, 0, 0], [objNull, []], 3],
+                ["_controlPointASL", [0, 0, 0], [objNull, []], 3],
+                ["_endASL", [0, 0, 0], [objNull, []], 3],
+                ["_points", [], [[]]]
+            ];
 
-        drawIcon3D [
-            "",
-            [0.2, 0.85, 0.2, 1],
-            ASLToAGL _startASL,
-            0,
-            0,
-            0,
-            "•",
-            1,
-            0.05,
-            "RobotoCondensedBold",
-            "center"
-        ];
-
-        drawIcon3D [
-            "",
-            [0.2, 0.85, 0.2, 1],
-            ASLToAGL _controlPointASL,
-            0,
-            0,
-            0,
-            "•",
-            1,
-            0.05,
-            "RobotoCondensedBold",
-            "center"
-        ];
-
-        drawIcon3D [
-            "",
-            [0.2, 0.85, 0.2, 1],
-            ASLToAGL _endASL,
-            0,
-            0,
-            0,
-            "•",
-            1,
-            0.05,
-            "RobotoCondensedBold",
-            "center"
-        ];
-        
-        private _i = 0;
-        while {_i < ((count _points) - 1)} do {
-            private _current = _points select _i;
-            private _next = _points select (_i + 1);
-
-            private _currentAGL = ASLToAGL (_current#1);
-            private _nextAGL = ASLToAGL (_next#1);
-    
             drawIcon3D [
                 "",
-                [1, 0.85, 0.2, 1],
-                _currentAGL,
+                [0.2, 0.85, 0.2, 1],
+                ASLToAGL _startASL,
                 0,
                 0,
                 0,
                 "•",
                 1,
-                0.03,
+                0.05,
                 "RobotoCondensedBold",
                 "center"
             ];
-            drawLine3D [_currentAGL, _nextAGL, [1, 0.2, 0.2, 0.8]];
+
             drawIcon3D [
                 "",
-                [1, 0.85, 0.2, 1],
-                _nextAGL,
+                [0.2, 0.85, 0.2, 1],
+                ASLToAGL _controlPointASL,
                 0,
                 0,
                 0,
                 "•",
                 1,
-                0.03,
+                0.05,
                 "RobotoCondensedBold",
                 "center"
             ];
 
-            _i = _i + 1;
-        };
-    }, 0, [_startASL, _controlPointASL, _endASL, _points]] call CBAFUNC(addPerFrameHandler);
+            drawIcon3D [
+                "",
+                [0.2, 0.85, 0.2, 1],
+                ASLToAGL _endASL,
+                0,
+                0,
+                0,
+                "•",
+                1,
+                0.05,
+                "RobotoCondensedBold",
+                "center"
+            ];
+
+            private _i = 0;
+            while { _i < ((count _points) - 1) } do {
+                private _current = _points select _i;
+                private _next = _points select (_i + 1);
+
+                private _currentAGL = ASLToAGL (_current#1);
+                private _nextAGL = ASLToAGL (_next#1);
+
+                drawIcon3D [
+                    "",
+                    [1, 0.85, 0.2, 1],
+                    _currentAGL,
+                    0,
+                    0,
+                    0,
+                    "•",
+                    1,
+                    0.03,
+                    "RobotoCondensedBold",
+                    "center"
+                ];
+                drawLine3D [_currentAGL, _nextAGL, [1, 0.2, 0.2, 0.8]];
+                drawIcon3D [
+                    "",
+                    [1, 0.85, 0.2, 1],
+                    _nextAGL,
+                    0,
+                    0,
+                    0,
+                    "•",
+                    1,
+                    0.03,
+                    "RobotoCondensedBold",
+                    "center"
+                ];
+
+                _i = _i + 1;
+            };
+        },
+        0,
+        [_startASL, _controlPointASL, _endASL, _points]
+    ]
+    call CBAFUNC(addPerFrameHandler);
 };
-
 
 _points

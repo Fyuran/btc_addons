@@ -22,6 +22,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_logic", objNull, [objNull]],
     ["_units", [], [[]]],
@@ -70,6 +71,7 @@ private _paradropData = [];
                 "CFG_CLASS_2": SCALAR
                 ...
 */
+
 _data apply {
     private _paradropClass = _y getOrDefault ["class", ""];
     private _paradropInventory = (_y getOrDefault ["inventory", createHashMap]) apply {
@@ -100,11 +102,11 @@ if (isNull _veh) exitWith {
 [["%1: parsed data is: %2", __FILE_NAME__, _paradropData], CHAT, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
-if (_logic getVariable[QGVAR(debug), false]) then {
-	[] call FUNC(debug);
-	allCurators apply {
-		_x addCuratorEditableObjects [[_logic], true];
-	};
+if (_logic getVariable [QGVAR(debug), false]) then {
+    [] call FUNC(debug);
+    allCurators apply {
+        _x addCuratorEditableObjects [[_logic], true];
+    };
 };
 
 // Asynchronous flight watcher and paradrop execution
@@ -126,7 +128,8 @@ if (_logic getVariable[QGVAR(debug), false]) then {
         [["%1: empty _paradropClasses", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     };
 
-    private _time = CBA_missionTime + 300; // 5 minutes timeout
+    private _time = CBA_missionTime + 300;
+    // 5 minutes timeout
     waitUntil { (_veh distance2D _logicPos) <= 100 || CBA_missionTime >= _time };
 
     _paradropData apply {
@@ -169,7 +172,8 @@ if (_logic getVariable[QGVAR(debug), false]) then {
             #endif
         },
         [_veh, CBA_missionTime + 60, _logic]
-    ] call CBAFUNC(waitUntilAndExecute);
+    ]
+    call CBAFUNC(waitUntilAndExecute);
 };
 
 #ifdef BTC_DEBUG_SUPPLY

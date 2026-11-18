@@ -26,13 +26,14 @@ params [
     ["_cfgPath", "", [""]]
 ];
 
-private _cleanPath = _cfgPath select [15]; // remove "bin\config.bin/"
+private _cleanPath = _cfgPath select [15];
+// remove "bin\config.bin/"
 private _tokens = _cleanPath splitString "/";
-
 
 private _config = configFile;
 {
-    _config = _config >> _x; //appends config
+    _config = _config >> _x;
+    //appends config
 } forEach _tokens;
 
 if (!(isClass _config)) exitWith {

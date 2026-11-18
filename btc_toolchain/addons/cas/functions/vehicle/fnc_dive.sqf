@@ -51,7 +51,8 @@ private _logicPosASL = getPosASL _logic;
 private _startToLogicASL = _logicPosASL vectorDiff _startPosASL;
 private _endPosASL = _logicPosASL vectorAdd [_startToLogicASL#0, _startToLogicASL#1, _startPosASL#2];
 private _endPosTerrainHeight = getTerrainHeightASL _endPosASL;
-_endPosASL = _endPosASL vectorAdd [0, 0, _endPosTerrainHeight]; //Add extra height so the vehicle doesn't crash into the bloody mountains
+_endPosASL = _endPosASL vectorAdd [0, 0, _endPosTerrainHeight];
+//Add extra height so the vehicle doesn't crash into the bloody mountains
 
 private _logicToEndASL = _endPosASL vectorDiff _logicPosASL;
 
@@ -75,93 +76,101 @@ private _startTimer = CBA_missionTime;
 private _endTimer = _startTimer + _duration;
 
 //Redirect projectiles to logic pos
-_veh addEventHandler ["Fired", {
-    params [
-        ["_veh", objNull, [objNull]], 
-        ["_weapon", "", [""]], 
-        ["_muzzle", "", [""]],
-        ["_mode", "", [""]],
-        ["_ammo", "", [""]],
-        ["_magazine", "", [""]],
-        ["_projectile", objNull, [objNull]],
-        ["_gunner", objNull, [objNull]]
-    ];
+_veh addEventHandler [
+    "Fired",
+    {
+        params [
+            ["_veh", objNull, [objNull]],
+            ["_weapon", "", [""]],
+            ["_muzzle", "", [""]],
+            ["_mode", "", [""]],
+            ["_ammo", "", [""]],
+            ["_magazine", "", [""]],
+            ["_projectile", objNull, [objNull]],
+            ["_gunner", objNull, [objNull]]
+        ];
 
-    private _logic = _veh getVariable [QGVAR(logic), objNull];
-    if (isNull _logic) exitWith {
-        #ifdef BTC_DEBUG_CAS
-        [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-        #endif
-    };
+        private _logic = _veh getVariable [QGVAR(logic), objNull];
+        if (isNull _logic) exitWith {
+            #ifdef BTC_DEBUG_CAS
+            [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+            #endif
+        };
 
-    private _debug = _logic getVariable [QGVAR(debug), false];
-    if (_debug) then {
-        private _ammos = missionNamespace getVariable [QGVAR(debugAmmo), []];
-        _ammos pushBack _projectile;
-        missionNamespace setVariable [QGVAR(debugAmmo), _ammos];
-    };
+        private _debug = _logic getVariable [QGVAR(debug), false];
+        if (_debug) then {
+            private _ammos = missionNamespace getVariable [QGVAR(debugAmmo), []];
+            _ammos pushBack _projectile;
+            missionNamespace setVariable [QGVAR(debugAmmo), _ammos];
+        };
 
-    private _dispersion = _logic getVariable [QGVAR(dispersion), 10];
-    [_projectile, _logic, _dispersion] call EFUNC(tools,redirectProjectile);
-}];
+        private _dispersion = _logic getVariable [QGVAR(dispersion), 10];
+        [_projectile, _logic, _dispersion] call EFUNC(tools,redirectProjectile);
+    }
+];
 
-[{
-    params ["_args", "_thisHandle"];
-    _args params [
-        ["_veh", objNull, [objNull]],
-        ["_startTimer", 0, [123]],
-        ["_endTimer", 1, [123]],
-        ["_startPosASL", [0, 0, 0], [[]], 3],
-        ["_logicPosASL", [0, 0, 0], [[]], 3],
-        ["_endPosASL", [0, 0, 0], [[]], 3],
-        ["_startToLogicASL", [0, 0, 0], [[]], 3],
-        ["_logicToEndASL", [0, 0, 0], [[]], 3],
-        ["_speed", 100, [123]],
-        ["_logic", objNull, [objNull]],
-        ["_onFrame", {}, [{}]],
-        ["_onComplete", {}, [{}]]
-    ];
+[
+    {
+        params ["_args", "_thisHandle"];
+        _args params [
+            ["_veh", objNull, [objNull]],
+            ["_startTimer", 0, [123]],
+            ["_endTimer", 1, [123]],
+            ["_startPosASL", [0, 0, 0], [[]], 3],
+            ["_logicPosASL", [0, 0, 0], [[]], 3],
+            ["_endPosASL", [0, 0, 0], [[]], 3],
+            ["_startToLogicASL", [0, 0, 0], [[]], 3],
+            ["_logicToEndASL", [0, 0, 0], [[]], 3],
+            ["_speed", 100, [123]],
+            ["_logic", objNull, [objNull]],
+            ["_onFrame", {}, [{}]],
+            ["_onComplete", {}, [{}]]
+        ];
 
-    if (isGamePaused) exitWith {};
-    
-    if (!alive _veh) exitWith {
-        [_thisHandle] call CBAFUNC(removePerFrameHandler);
-        [objNull, _logic] call _onComplete;
-    };
+        if (isGamePaused) exitWith {};
 
-    private _t = linearConversion [_startTimer, _endTimer, CBA_missionTime, 0, 1, true];
-    if (_t >= 1) exitWith {
-        _veh setVariable [QGVAR(pathIndex), nil];
-        _veh enableAI "MOVE";
-        _veh enableAI "PATH";
-        private _originalHeight = _startPosASL#2;
-        _veh flyInHeightASL [_originalHeight, _originalHeight, _originalHeight];
+        if (!alive _veh) exitWith {
+            [_thisHandle] call CBAFUNC(removePerFrameHandler);
+            [objNull, _logic] call _onComplete;
+        };
 
-        [_veh, _logic] call _onComplete;
-        [_thisHandle] call CBAFUNC(removePerFrameHandler);
-    };
+        private _t = linearConversion [_startTimer, _endTimer, CBA_missionTime, 0, 1, true];
+        if (_t >= 1) exitWith {
+            _veh setVariable [QGVAR(pathIndex), nil];
+            _veh enableAI "MOVE";
+            _veh enableAI "PATH";
+            private _originalHeight = _startPosASL#2;
+            _veh flyInHeightASL [_originalHeight, _originalHeight, _originalHeight];
 
-    private _p0 = _startPosASL vectorAdd (_startToLogicASL vectorMultiply _t);
-    private _p1 = _logicPosASL vectorAdd (_logicToEndASL vectorMultiply _t);
-    private _dir = _p0 vectorFromTo _p1;
-    private _right = _dir vectorCrossProduct [0, 0, 1];
-    private _up = _right vectorCrossProduct _dir;
-    private _velocity = _dir vectorMultiply _speed;
+            [_veh, _logic] call _onComplete;
+            [_thisHandle] call CBAFUNC(removePerFrameHandler);
+        };
 
-    _veh setVelocityTransformation [
-        _p0,
-        _p1,
-        _velocity,
-        _velocity,
-        _dir,
-        _dir,
-        _up,
-        _up,
-        _t
-    ];
+        private _p0 = _startPosASL vectorAdd (_startToLogicASL vectorMultiply _t);
+        private _p1 = _logicPosASL vectorAdd (_logicToEndASL vectorMultiply _t);
+        private _dir = _p0 vectorFromTo _p1;
+        private _right = _dir vectorCrossProduct [0, 0, 1];
+        private _up = _right vectorCrossProduct _dir;
+        private _velocity = _dir vectorMultiply _speed;
 
-    private _dotProduct = _dir vectorDotProduct (_p0 vectorFromTo _logicPosASL);
-    if ((abs _dotProduct) >= 0.98) then {
-        [_veh, _logic] call _onFrame;
-    };
-}, 0, [_veh, _startTimer, _endTimer, _startPosASL, _logicPosASL, _endPosASL, _startToLogicASL, _logicToEndASL, _speed, _logic, _onFrame, _onComplete]] call CBAFUNC(addPerFrameHandler);
+        _veh setVelocityTransformation [
+            _p0,
+            _p1,
+            _velocity,
+            _velocity,
+            _dir,
+            _dir,
+            _up,
+            _up,
+            _t
+        ];
+
+        private _dotProduct = _dir vectorDotProduct (_p0 vectorFromTo _logicPosASL);
+        if ((abs _dotProduct) >= 0.98) then {
+            [_veh, _logic] call _onFrame;
+        };
+    },
+    0,
+    [_veh, _startTimer, _endTimer, _startPosASL, _logicPosASL, _endPosASL, _startToLogicASL, _logicToEndASL, _speed, _logic, _onFrame, _onComplete]
+]
+call CBAFUNC(addPerFrameHandler);

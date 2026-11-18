@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params ["_add"];
 
 private _grp2 = ctrlParentControlsGroup _add;
@@ -47,7 +48,7 @@ if (_class in _inventory) exitWith {
     ["_cfgType", "", [""]]
 ];
 
-if (_displayName isEqualTo "" || {!(_cfgType in ["CfgWeapons", "CfgMagazines"])}) exitWith {
+if (_displayName isEqualTo "" || { !(_cfgType in ["CfgWeapons", "CfgMagazines"]) }) exitWith {
     [format ["%1 invalid inventory class", _class], 1] call EFUNC(tools,3DENNotification);
 };
 

@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params ["_grp1_list", "_lbCurSel"];
 
 private _grp1 = ctrlParentControlsGroup _grp1_list;
@@ -37,7 +38,8 @@ private _uid = _grp1_list lbData _lbCurSel;
 private _inventory = (GVAR(table) getOrDefault [_uid, createHashMap]) getOrDefault ["inventory", createHashMap];
 
 lnbClear _grp2_list;
-if (_inventory isEqualTo createHashMap) exitWith {}; //empty
+if (_inventory isEqualTo createHashMap) exitWith {};
+//empty
 
 _inventory apply {
     [_x, _y] params [

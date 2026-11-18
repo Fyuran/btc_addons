@@ -23,6 +23,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_src", objNull, [objNull, grpNull]],
     ["_range", ALARM_DISTANCE, [123]],
@@ -31,15 +32,15 @@ params [
 ];
 
 if (isNull _src) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
-	[["%1: _src is invalid", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    #ifdef BTC_DEBUG_STEALTH
+    [["%1: _src is invalid", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     []
 };
 if (_range <= 0) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
-	[["%1: _range is zero or neg", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    #ifdef BTC_DEBUG_STEALTH
+    [["%1: _range is zero or neg", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     []
 };
 
@@ -50,8 +51,7 @@ if (_src isEqualType objNull) then {
         private _leader = leader _x;
         private _side = side _x;
 
-        (_side isEqualTo (side _src)) && 
-        {((_leader distance _src) <= _range)}    
+        (_side isEqualTo (side _src)) && { ((_leader distance _src) <= _range) }
     };
 };
 
@@ -60,20 +60,19 @@ if (_src isEqualType grpNull) then {
         private _leader = leader _x;
         private _side = side _x;
 
-        (_side isEqualTo (side _src)) && 
-        {((_leader distance (leader _src)) <= _range)} 
+        (_side isEqualTo (side _src)) && { ((_leader distance (leader _src)) <= _range) }
     };
 };
 
 if (_nearGrps isEqualTo []) exitWith {
     #ifdef BTC_DEBUG_STEALTH
-	[["%1: no groups found nearby from %2 with range %3", __FILE_NAME__, _src, _range], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: no groups found nearby from %2 with range %3", __FILE_NAME__, _src, _range], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
     []
 };
 _nearGrps apply {
     #ifdef BTC_DEBUG_STEALTH
-    [["%1: exec code to nearby grp: %2", __FILE_NAME__, _x], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
+    [["%1: exec code to nearby grp: %2", __FILE_NAME__, _x], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
     [_x, _args] call _code;
 };

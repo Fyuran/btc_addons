@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_treeCtrl", controlNull, [controlNull]],
     ["_selectionPath", [], [[]]]
@@ -33,19 +34,20 @@ if (_wp_cfg isEqualTo "") exitWith {};
 _wp_cfg = [_wp_cfg] call EFUNC(tools,strToCfg);
 
 private _script = "";
-if (!(isNull _wp_cfg) && {isClass _wp_cfg}) then {
+if (!(isNull _wp_cfg) && { isClass _wp_cfg }) then {
     _script = getText (_wp_cfg >> "file");
 };
 
-[_treeCtrl, _script] spawn { //forced to wait until UI is done being constructed
+[_treeCtrl, _script] spawn {
+    //forced to wait until UI is done being constructed
     params ["_treeCtrl", "_script"];
     private _treeGrp = ctrlParentControlsGroup _treeCtrl;
     private _attributesGrp = ctrlParentControlsGroup _treeGrp;
 
-    waitUntil {!(isNull (_attributesGrp controlsGroupCtrl FILE))};
+    waitUntil { !(isNull (_attributesGrp controlsGroupCtrl FILE)) };
     private _fileGrp = _attributesGrp controlsGroupCtrl FILE;
 
-    waitUntil {!(isNull (_fileGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE))};
+    waitUntil { !(isNull (_fileGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE)) };
     private _fileCtrl = _fileGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
 
     _fileCtrl ctrlSetText _script;

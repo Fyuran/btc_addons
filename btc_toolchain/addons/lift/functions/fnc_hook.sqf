@@ -28,14 +28,15 @@ params [
 private _array = [_chopper] call FUNC(getLiftable);
 private _cargo_array = nearestObjects [_chopper, _array, 30];
 _cargo_array = _cargo_array - [_chopper];
-_cargo_array = _cargo_array select {!(
-    _x isKindOf "ACE_friesBase" OR
-    _x isKindOf "ace_fastroping_helper"
-)};
+_cargo_array = _cargo_array select {
+    !(_x isKindOf "ACE_friesBase" or _x isKindOf "ace_fastroping_helper")
+};
 if (_cargo_array isEqualTo []) exitWith {};
 private _cargo = _cargo_array select 0;
 
-{ropeDestroy _x;} forEach ropes _chopper;
+{
+    ropeDestroy _x;
+} forEach ropes _chopper;
 
 private _bbr = getArray (configOf _cargo >> "slingLoadCargoMemoryPoints");
 private _ropes_check = [];
@@ -46,11 +47,11 @@ if (_bbr isNotEqualTo []) then {
 };
 
 private _rope_length = 10;
-if ((_bbr isEqualTo []) OR (_ropes_check select {!isNull _x} isEqualTo [])) then {
+if ((_bbr isEqualTo []) or (_ropes_check select { !isNull _x } isEqualTo [])) then {
 
     _bbr = boundingBoxReal _cargo;
-    if (abs((_bbr select 0) select 0) > 5) then {
-        _rope_length = 10 + abs((_bbr select 0) select 0);
+    if (abs ((_bbr select 0) select 0) > 5) then {
+        _rope_length = 10 + abs ((_bbr select 0) select 0);
     };
     ([_cargo] call FUNC(getCornerPoints)) params [
         "_rearCorner",
@@ -76,7 +77,7 @@ if ((_bbr isEqualTo []) OR (_ropes_check select {!isNull _x} isEqualTo [])) then
 #ifdef BTC_DEBUG_LIFT
 [["%1: boundingBoxReal : %2 rope length : %3", __FILE_NAME__, _bbr, _rope_length], 2, COMPONENT] call btc_debug_fnc_message;
 #endif
-private _max_cargo  = getNumber (configOf _chopper >> "slingLoadMaxCargoMass");
+private _max_cargo = getNumber (configOf _chopper >> "slingLoadMaxCargoMass");
 private _mass = getMass _cargo;
 
 [_cargo, clientOwner] remoteExecCall ["setOwner", 2];
@@ -84,12 +85,17 @@ GVAR(lifted) = true;
 sleep 1;
 if ((_mass + 400) > _max_cargo) then {
     private _new_mass = _max_cargo - 1000;
-    if (_new_mass < 0) then {_new_mass = 50;};
+    if (_new_mass < 0) then {
+        _new_mass = 50;
+    };
     [_cargo, _new_mass] remoteExecCall ["setMass", _cargo];
 };
 
 _chopper setVariable ["cargo", _cargo];
 
-waitUntil {sleep 5; (!alive player || !alive _cargo || !GVAR(lifted) || vehicle player isEqualTo player)};
+waitUntil {
+    sleep 5;
+    (!alive player || !alive _cargo || !GVAR(lifted) || vehicle player isEqualTo player)
+};
 
 [_cargo, _mass] remoteExecCall ["setMass", _cargo];

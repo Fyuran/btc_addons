@@ -32,7 +32,7 @@ if (GVAR(objects) isEqualTo []) exitWith {
 private _cfg = configFile >> "CfgVehicles";
 GVAR(objects) apply {
     private _object = _x;
-    private _textures = getArray(_cfg >> typeOf _object >> "hiddenSelectionsTextures");
+    private _textures = getArray (_cfg >> typeOf _object >> "hiddenSelectionsTextures");
     {
         _object setObjectTextureGlobal [_forEachIndex, _x];
     } forEach _textures;

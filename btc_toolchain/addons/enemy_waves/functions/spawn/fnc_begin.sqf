@@ -32,21 +32,21 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params [ 
-	["_logic", objNull, [objNull]],
-	["_units", [], [[]]],
-	["_activated", true, [true]]
-]; 
+params [
+    ["_logic", objNull, [objNull]],
+    ["_units", [], [[]]],
+    ["_activated", true, [true]]
+];
 
 if (!_activated) exitWith {};
 if (isNull _logic) exitWith {
-	[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 if (!isServer) exitWith {
-	[["%1: Should be run only on Server", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: Should be run only on Server", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 if (!canSuspend) exitWith {
-	_this spawn FUNC(spawn_begin);
+    _this spawn FUNC(spawn_begin);
 };
 
 private _logicGroups = _logic getVariable [QGVAR(list_value), ""];
@@ -54,18 +54,18 @@ private _logicGroups = _logic getVariable [QGVAR(list_value), ""];
 [["%1: _logicGroups: %2", __FILE_NAME__, _logicGroups], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 if (_logicGroups isEqualTo "") exitWith {
-	[["%1: empty _logicGroups has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: empty _logicGroups has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 if (_logicGroups isEqualType "") then {
-	_logicGroups = fromJSON _logicGroups;
+    _logicGroups = fromJSON _logicGroups;
 };
 if (_logicGroups isEqualTo createHashMap) exitWith {
-	[["%1: empty _logicGroups has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: empty _logicGroups has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
- 
+
 private _timeout = _logic getVariable [QGVAR(timeout), 60];
 if (_timeout isEqualType "") then {
-	_timeout = parseNumber _timeout;
+    _timeout = parseNumber _timeout;
 };
 private _side = (_logic getVariable [QGVAR(side), east]) call BIS_fnc_sideType;
 
@@ -75,8 +75,8 @@ private _formation = [_logic getVariable [QGVAR(formation), "no change"]] call F
 // Determine facing direction: use module rotation, or face first synced waypoint module
 private _dir = getDir _logic;
 private _syncedWPs = (synchronizedObjects _logic) select { _x isKindOf QGVAR(waypoint_module) };
-if (_syncedWPs isNotEqualTo [] && {_dir == 0}) then {
-	_dir = _logic getDir (_syncedWPs select 0);
+if (_syncedWPs isNotEqualTo [] && { _dir == 0 }) then {
+    _dir = _logic getDir (_syncedWPs select 0);
 };
 
 #ifdef BTC_DEBUG_ENEMY_WAVES
@@ -87,86 +87,87 @@ private _units = [];
 private _isFirstWave = true;
 
 if (_logic getVariable [QGVAR(debug), false]) then {
-	[] call FUNC(debug);
+    [] call FUNC(debug);
 };
 
 _logicGroups apply {
-	private _logicGroup = _y;
+    private _logicGroup = _y;
 
-	if (!_isFirstWave) then {
-		private _time = CBA_missionTime + _timeout;
-		private _aliveCount = {alive _x} count _units;
-		private _threshold = floor (_aliveCount * 0.25);
+    if (!_isFirstWave) then {
+        private _time = CBA_missionTime + _timeout;
+        private _aliveCount = { alive _x } count _units;
+        private _threshold = floor (_aliveCount * 0.25);
 
-		waitUntil {
-			#ifdef BTC_DEBUG_ENEMY_WAVES
-			[["%1: %2(Group %3) - time remaining: %4", __FILE_NAME__, _logic, _logicGroup, _time - CBA_missionTime], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-			[["%1: %2(Group %3) - units remaining: %4 threshold: %5", __FILE_NAME__, _logic, _logicGroup, {alive _x} count _units, _threshold], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-			#endif
-			sleep 2;
-			isNull _logic || {CBA_missionTime >= _time} || {({alive _x} count _units) <= _threshold}
-		};
-	};
-	_isFirstWave = false;
+        waitUntil {
+            #ifdef BTC_DEBUG_ENEMY_WAVES
+            [["%1: %2(Group %3) - time remaining: %4", __FILE_NAME__, _logic, _logicGroup, _time - CBA_missionTime], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+            [["%1: %2(Group %3) - units remaining: %4 threshold: %5", __FILE_NAME__, _logic, _logicGroup, { alive _x } count _units, _threshold], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+            #endif
+            sleep 2;
+            isNull _logic || { CBA_missionTime >= _time } || { ({ alive _x } count _units) <= _threshold }
+        };
+    };
+    _isFirstWave = false;
 
-	if (isNull _logic) exitWith {
-		[["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	};
+    if (isNull _logic) exitWith {
+        [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    };
 
-	private _group = createGroup [_side, true];
-	_group setVariable ["acex_headless_blacklist", true]; 
-	_group setVariable [QGVAR(wave_spawn), _logic];
-	_group setFormation _formation;
-	_group setFormDir _dir;
+    private _group = createGroup [_side, true];
+    _group setVariable ["acex_headless_blacklist", true];
+    _group setVariable [QGVAR(wave_spawn), _logic];
+    _group setFormation _formation;
+    _group setFormDir _dir;
 
-	private _spawnedGroups = _logic getVariable [QGVAR(groups), []];
-	_spawnedGroups pushBackUnique _group;
-	_logic setVariable [QGVAR(groups), _spawnedGroups];
+    private _spawnedGroups = _logic getVariable [QGVAR(groups), []];
+    _spawnedGroups pushBackUnique _group;
+    _logic setVariable [QGVAR(groups), _spawnedGroups];
 
-	#ifdef BTC_DEBUG_ENEMY_WAVES
-	[["%1: %2 - Spawning wave: %3 (formation: %4)", __FILE_NAME__, _logic, _logicGroup, _formation], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    #ifdef BTC_DEBUG_ENEMY_WAVES
+    [["%1: %2 - Spawning wave: %3 (formation: %4)", __FILE_NAME__, _logic, _logicGroup, _formation], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
 
-	private _waveUnits = [];
+    private _waveUnits = [];
 
-	_logicGroup apply { // wave's classes hashmap
-		_x params [
-			["_class", "", [""]], 
-			["_quantity", 1, [123]] 
-		]; 
+    _logicGroup apply {
+        // wave's classes hashmap
+        _x params [
+            ["_class", "", [""]],
+            ["_quantity", 1, [123]]
+        ];
 
-		if (!(isClass (configFile >> "CfgVehicles" >> _class))) then { 
-			[["%1: %2 is not a valid class", __FILE_NAME__, _class], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-			continue; 
-		}; 
-		
-		for "_i" from 0 to (_quantity - 1) do { 
-			if ([_class, ["LandVehicle", "Air"]] call EFUNC(tools,inheritsFromAny)) then {
-				private _safePos = [_logic, _class] call EFUNC(tools,findSafePos);
-				([_safePos, _dir, _class, _group] call EFUNC(tools,spawnCrewedVehicle)) params ["_vehicle", "_crew"];
-				_waveUnits append _crew;
-				_crew apply {_x setVariable [QGVAR(wave_spawn), _logic]};
-			} else {
-				private _unit = _group createUnit [_class, _logic, [], 0, "NONE"];
-				_unit setDir _dir;
-				_unit setVariable [QGVAR(wave_spawn), _logic]; 
-				_waveUnits pushBack _unit;
-			};
-		
-			sleep 0.5; 
-		};
-	}; 
+        if (!(isClass (configFile >> "CfgVehicles" >> _class))) then {
+            [["%1: %2 is not a valid class", __FILE_NAME__, _class], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+            continue;
+        };
 
-	_units append _waveUnits;
-	_logic setVariable [QGVAR(wave_units), _units];
-	#ifdef BTC_DEBUG_ENEMY_WAVES
-	[["%1: %2 now holds %3 units", __FILE_NAME__, _logic, count _units], CHAT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+        for "_i" from 0 to (_quantity - 1) do {
+            if ([_class, ["LandVehicle", "Air"]] call EFUNC(tools,inheritsFromAny)) then {
+                private _safePos = [_logic, _class] call EFUNC(tools,findSafePos);
+                ([_safePos, _dir, _class, _group] call EFUNC(tools,spawnCrewedVehicle)) params ["_vehicle", "_crew"];
+                _waveUnits append _crew;
+                _crew apply { _x setVariable [QGVAR(wave_spawn), _logic] };
+            } else {
+                private _unit = _group createUnit [_class, _logic, [], 0, "NONE"];
+                _unit setDir _dir;
+                _unit setVariable [QGVAR(wave_spawn), _logic];
+                _waveUnits pushBack _unit;
+            };
 
-	allCurators apply {
-		_x addCuratorEditableObjects [_waveUnits, true];
-	};
+            sleep 0.5;
+        };
+    };
 
-	[_waveUnits] call FUNC(spawn_addEH);
-	[_logic, _group] call FUNC(wp_moduleInit);
+    _units append _waveUnits;
+    _logic setVariable [QGVAR(wave_units), _units];
+    #ifdef BTC_DEBUG_ENEMY_WAVES
+    [["%1: %2 now holds %3 units", __FILE_NAME__, _logic, count _units], CHAT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
+
+    allCurators apply {
+        _x addCuratorEditableObjects [_waveUnits, true];
+    };
+
+    [_waveUnits] call FUNC(spawn_addEH);
+    [_logic, _group] call FUNC(wp_moduleInit);
 };

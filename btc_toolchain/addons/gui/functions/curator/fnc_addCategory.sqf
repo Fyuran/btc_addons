@@ -45,7 +45,6 @@ if (isNull _attributeCategories) exitWith {
     createHashMap
 };
 
-
 private _category = _display ctrlCreate [_categoryCfg, -1, _attributeCategories];
 private _categoryHash = [_category] call EFUNC(tools,getCtrlsHashmap);
 

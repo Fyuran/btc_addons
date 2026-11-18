@@ -22,15 +22,18 @@ Author:
 ---------------------------------------------------------------------------- */
 
 if (!params [
-	["_defuser",objNull,[objNull]]
-]) exitWith {
+    ["_defuser", objNull, [objNull]]
+]
+) exitWith {
     [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-private _actionIDS = _defuser getVariable [QGVAR(actionids),[]];
+private _actionIDS = _defuser getVariable [QGVAR(actionIDs), []];
 if (_actionIDS isEqualTo []) exitWith {
     [["%1: bad action ids: %2", __FILE_NAME__, _actionIDS], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-_actionIDS apply {[_defuser, 0, _x] call ACEFUNC(interact_menu,removeActionFromObject);};
+_actionIDS apply {
+    [_defuser, 0, _x] call ACEFUNC(interact_menu,removeActionFromObject);
+};
 
 true

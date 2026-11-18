@@ -20,9 +20,10 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
-	["_ID", ""],
-	["_size", 0]
+    ["_ID", ""],
+    ["_size", 0]
 ];
 if (_ID isEqualTo "") exitWith {
     [["%1: ID property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -32,15 +33,15 @@ if (_size <= 0) exitWith {
 };
 
 private _chunks = [];
-private _requestChunk = createHashMapFromArray[
-	["function", "getChunk"],
-	["chunk", 0],
-	["ID", _ID]
+private _requestChunk = createHashMapFromArray [
+    ["function", "getChunk"],
+    ["chunk", 0],
+    ["ID", _ID]
 ];
 for "_i" from 0 to (_size - 1) do {
-	_requestChunk set["chunk", _i];
-	private _responseChunk = "btc_ArmaToJSON" callExtension (toJSON _requestChunk);
-	_chunks pushBack _responseChunk;
+    _requestChunk set ["chunk", _i];
+    private _responseChunk = "btc_ArmaToJSON" callExtension (toJSON _requestChunk);
+    _chunks pushBack _responseChunk;
 };
 
 fromJSON (_chunks joinString "")

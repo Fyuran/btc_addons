@@ -21,17 +21,18 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_wpAttribute", "", [123, "", []]]
-]; 
+];
 
 //non string attributes are returned as is
 if (!(_wpAttribute isEqualType "")) exitWith {
     _wpAttribute
 };
 
-if (_wpAttribute isEqualTo "") exitWith {""};
+if (_wpAttribute isEqualTo "") exitWith { "" };
 
-private _fixedString = toUpper (_wpAttribute regexReplace["_", " "]);
+private _fixedString = toUpper (_wpAttribute regexReplace ["_", " "]);
 
 _fixedString

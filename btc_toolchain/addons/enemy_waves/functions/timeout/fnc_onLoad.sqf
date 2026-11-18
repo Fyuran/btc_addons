@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_editGrp", controlNull, [controlNull]],
     ["_config", configNull, [configNull]]
@@ -36,6 +37,6 @@ if (isNull _edit) exitWith {
     [["%1: _edit is null, _this = %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-uiNamespace setVariable[QGVAR(timeout), _edit];
+uiNamespace setVariable [QGVAR(timeout), _edit];
 
 _edit ctrlSetText "60";

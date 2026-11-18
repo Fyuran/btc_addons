@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_checkboxGrp", controlNull, [controlNull]],
     ["_config", configNull, [configNull]]
@@ -38,4 +39,4 @@ if (isNull _checkbox) exitWith {
 
 _checkbox cbSetChecked true;
 
-uiNamespace setVariable[QGVAR(seek_end), _checkbox];
+uiNamespace setVariable [QGVAR(seek_end), _checkbox];

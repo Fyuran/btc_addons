@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_config", configNull, [configNull]]
 ];

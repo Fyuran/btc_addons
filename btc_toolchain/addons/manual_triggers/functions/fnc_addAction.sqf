@@ -20,10 +20,11 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_logic", objNull, [objNull]],
     ["_actionData", [], [[]]] //[_triggerName, _varName, _trigger]
-]; 
+];
 
 if (!hasInterface) exitWith {
     #ifdef BTC_DEBUG_MANUAL_TRIGGERS
@@ -38,7 +39,7 @@ if (isNull _logic) exitWith {
 };
 
 if (_actionData isEqualTo []) exitWith {
-	#ifdef BTC_DEBUG_MANUAL_TRIGGERS
+    #ifdef BTC_DEBUG_MANUAL_TRIGGERS
     [["%1: Empty _actionData", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
@@ -66,44 +67,58 @@ if (player getVariable [QGVAR(isSpecialBoy), false]) then {
 
     private _actionNameTokens = _triggerName splitString "_";
     private _actionName = _actionNameTokens joinString " ";
-    
-    private _action = [_triggerName, _actionName, "",
-    {
-        params ["_target","_caller","_params"];
-        _params params [
-            ["_thisActionName", "", [""]],
-            ["_trigger", objNull, [objNull]]
-        ];
-        if (isNull _trigger) exitWith {};
 
-        _trigger setVariable [QGVAR(cond), true, true];
-        
-        #ifdef BTC_DEBUG_MANUAL_TRIGGERS
-        [["%1: %2 has been manually activated", __FILE_NAME__, _thisActionName], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug);
-        #endif
+    private _action = [
+        _triggerName,
+        _actionName,
+        "",
+        {
+            params ["_target", "_caller", "_params"];
+            _params params [
+                ["_thisActionName", "", [""]],
+                ["_trigger", objNull, [objNull]]
+            ];
+            if (isNull _trigger) exitWith {};
 
-        (triggerActivation _trigger) params ["_by", "_type", "_repeating", "_persistent"];
-        if (!_repeating) then {
+            _trigger setVariable [QGVAR(cond), true, true];
+
             #ifdef BTC_DEBUG_MANUAL_TRIGGERS
-            [["%1: %2 is non repeating, removing %3 action", __FILE_NAME__, _trigger, _thisActionName], LOGS + CHAT, QCOMPONENT] call EFUNC(tools,debug);
+            [["%1: %2 has been manually activated", __FILE_NAME__, _thisActionName], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug);
             #endif
-            [player, 1, ["ACE_SelfActions", "btc_ace_Actions", QGVAR(menu), _thisActionName]] call ACEFUNC(interact_menu,removeActionFromObject);
-        } else {
-            [{ //flip it back on a delay, as it won't evaluate in time on Repeatable
-                params ["_trigger"];
-                _trigger setVariable [QGVAR(cond), false, true]; //allow rexecution
-            }, [_trigger], 1] call CBAFUNC(waitAndExecute);     
-        }
 
-    }, {
-        params ["_target","_caller","_params"];
-        _params params [
-            ["_thisActionName", "", [""]],
-            ["_trigger", objNull, [objNull]]
-        ];
-        
-        !(_trigger getVariable[QGVAR(cond), false]);
-    }, {}, [_triggerName, _trigger]] call ACEFUNC(interact_menu,createAction);
+            (triggerActivation _trigger) params ["_by", "_type", "_repeating", "_persistent"];
+            if (!_repeating) then {
+                #ifdef BTC_DEBUG_MANUAL_TRIGGERS
+                [["%1: %2 is non repeating, removing %3 action", __FILE_NAME__, _trigger, _thisActionName], LOGS + CHAT, QCOMPONENT] call EFUNC(tools,debug);
+                #endif
+                [player, 1, ["ACE_SelfActions", "btc_ace_Actions", QGVAR(menu), _thisActionName]] call ACEFUNC(interact_menu,removeActionFromObject);
+            } else {
+                [
+                    {
+                        //flip it back on a delay, as it won't evaluate in time on Repeatable
+                        params ["_trigger"];
+                        _trigger setVariable [QGVAR(cond), false, true];
+                        //allow rexecution
+                    },
+                    [_trigger],
+                    1
+                ]
+                call CBAFUNC(waitAndExecute);
+            }
+
+        },
+        {
+            params ["_target", "_caller", "_params"];
+            _params params [
+                ["_thisActionName", "", [""]],
+                ["_trigger", objNull, [objNull]]
+            ];
+
+            !(_trigger getVariable [QGVAR(cond), false]);
+        },
+        {}, [_triggerName, _trigger]
+    ]
+    call ACEFUNC(interact_menu,createAction);
 
     [player, 1, ["ACE_SelfActions", "btc_ace_Actions", QGVAR(menu)], _action] call ACEFUNC(interact_menu,addActionToObject);
 } forEach _actionData;

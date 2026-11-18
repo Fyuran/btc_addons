@@ -21,7 +21,4 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-(([] call BIS_fnc_admin) > 0) || 
-{isServer} || 
-{player getVariable [QGVAR(isSpecialBoy), false]} || 
-{!isNull (getAssignedCuratorLogic player)}
+(([] call BIS_fnc_admin) > 0) || { isServer } || { player getVariable [QGVAR(isSpecialBoy), false] } || { !isNull (getAssignedCuratorLogic player) }

@@ -32,7 +32,7 @@ params [
 ];
 
 if (_positionAGL isEqualTo [0, 0, 0]) exitWith {
-	[["%1: bad _positionAGL: %2", __FILE_NAME__, _positionAGL], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: bad _positionAGL: %2", __FILE_NAME__, _positionAGL], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     [objNull, []]
 };
 
@@ -56,7 +56,8 @@ _vehicle setDir _direction;
 _vehicle setPos _positionAGL;
 
 private _crew = units _group;
-private _emptySeats = _vehicle emptyPositions ""; //Cargo
+private _emptySeats = _vehicle emptyPositions "";
+//Cargo
 if (_emptySeats > 0) then {
     private _crewType = getText (configFile >> "CfgVehicles" >> _class >> "crew");
     if (_crewType isEqualTo "") exitWith {};

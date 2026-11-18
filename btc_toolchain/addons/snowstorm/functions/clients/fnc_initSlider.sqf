@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_args", ctrlNull, [controlNull, []], 2],
     ["_value", 0, [123]]
@@ -42,10 +43,13 @@ private _ctrlSlider = _ctrlGroup controlsGroupCtrl 52;
 _ctrlEdit ctrlSetText (str _value);
 _ctrlSlider sliderSetPosition _value;
 
-_ctrlSlider ctrlAddEventHandler ["SliderPosChanged", {
-    params ["_ctrlSlider", "_newValue"];
-    private _ctrlGroup = ctrlParentControlsGroup _ctrlSlider;
-    private _ctrlEdit = _ctrlGroup controlsGroupCtrl 50;
-    _ctrlEdit ctrlSetText (str _newValue);
+_ctrlSlider ctrlAddEventHandler [
+    "SliderPosChanged",
+    {
+        params ["_ctrlSlider", "_newValue"];
+        private _ctrlGroup = ctrlParentControlsGroup _ctrlSlider;
+        private _ctrlEdit = _ctrlGroup controlsGroupCtrl 50;
+        _ctrlEdit ctrlSetText (str _newValue);
 
-}];
+    }
+];

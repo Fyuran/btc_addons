@@ -20,21 +20,22 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
-	["_group", grpNull, [grpNull]]
-]; 
+    ["_group", grpNull, [grpNull]]
+];
 
 if (isNull _group) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
-	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
 
 //There is a bug that will make enemies such as helicopters spawn endStatement like 100 times
-private _previousWp = _group getVariable[QGVAR(player_wp), []];
+private _previousWp = _group getVariable [QGVAR(player_wp), []];
 if (_previousWp isNotEqualTo []) then {
     deleteWaypoint _previousWp;
-    _group setVariable[QGVAR(player_wp), []];
+    _group setVariable [QGVAR(player_wp), []];
 };
 
 //find group leaders
@@ -42,8 +43,9 @@ private _hostileSides = [side _group] call BIS_fnc_enemySides;
 if (_hostileSides isEqualTo []) exitWith {};
 
 private _players = (allPlayers select {
-    (alive _x ) && {(side _x) in _hostileSides}
-}) - entities "HeadlessClient_F";
+    (alive _x) && { (side _x) in _hostileSides }
+}
+) - entities "HeadlessClient_F";
 
 if (_players isEqualTo []) exitWith {
     [FUNC(wp_toPlayer), [_group], 5] call CBAFUNC(waitAndExecute);
@@ -55,17 +57,17 @@ _players apply {
 };
 
 //Sort by closest and select him
-_playerLeaders = [_playerLeaders, [leader _group], {_x distance _input0}, "ASCEND"] call BIS_fnc_sortBy;
+_playerLeaders = [_playerLeaders, [leader _group], { _x distance _input0 }, "ASCEND"] call BIS_fnc_sortBy;
 if (_playerLeaders isEqualTo []) exitWith {};
 private _leader = _playerLeaders select 0;
 
 if (isNull _leader) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
-	[["%1: found _leader is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: found _leader is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 };
 
 private _wp = [_group, getPosASL _leader] call FUNC(wp_add);
-_group setVariable[QGVAR(player_wp), _wp];
+_group setVariable [QGVAR(player_wp), _wp];
 //Endless hunt
 _wp setWaypointStatements ["true", QUOTE([group this] call FUNC(wp_toPlayer))];

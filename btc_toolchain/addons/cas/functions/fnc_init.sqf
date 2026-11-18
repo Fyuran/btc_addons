@@ -22,6 +22,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_logic", objNull, [objNull]],
     ["_units", [], [[]]],
@@ -65,7 +66,7 @@ private _spawnHeight = _logic getVariable [QGVAR(height), 2000];
 // Spawn vehicle and crew
 private _debug = _logic getVariable [QGVAR(debug), false];
 ([_logic, _vehicleClass, _enableDamage, _spawnDistance, _spawnHeight, _debug] call FUNC(vehicle_spawn)) params [
-    ["_veh", objNull, [objNull]], 
+    ["_veh", objNull, [objNull]],
     ["_group", grpNull, [grpNull]]
 ];
 if (isNull _veh) exitWith {
@@ -79,7 +80,8 @@ if (_debug) then {
 if (_logic getVariable [QGVAR(remoteControl), false]) exitWith {
     private _synchedObjects = synchronizedObjects _logic;
     private _synchedPlayers = _synchedObjects select { isPlayer _x };
-    if (_synchedPlayers isEqualTo []) then { //try again
+    if (_synchedPlayers isEqualTo []) then {
+        //try again
         _synchedPlayers = _logic getVariable [QGVAR(curatorUnits), []];
     };
     if (_synchedPlayers isNotEqualTo []) then {
@@ -102,10 +104,12 @@ private _weapons = _vehicleData getOrDefault ["listData", []];
 if (_weapons isEqualTo []) exitWith {
     [["%1: no weapons selected", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-_veh setVariable [QGVAR(weapons), _weapons]; //used by FUNC(vehicle_fire)
+_veh setVariable [QGVAR(weapons), _weapons];
+//used by FUNC(vehicle_fire)
 
 private _logicPos = getPos _logic;
-_logicPos set [2, 0]; //height reset at 0
+_logicPos set [2, 0];
+//height reset at 0
 private _wp1 = _group addWaypoint [_logicPos, 0];
 _wp1 setWaypointBehaviour "CARELESS";
 _wp1 setWaypointType "MOVE";
@@ -121,4 +125,4 @@ waitUntil {
 };
 
 _veh setVariable [QGVAR(logic), _logic, true];
-[_veh, _logic, {}, FUNC(vehicle_fire), {deleteVehicle (_this#1)}, _logic getVariable [QGVAR(duration), 15], _debug] call FUNC(vehicle_dive);
+[_veh, _logic, {}, FUNC(vehicle_fire), { deleteVehicle (_this#1) }, _logic getVariable [QGVAR(duration), 15], _debug] call FUNC(vehicle_dive);

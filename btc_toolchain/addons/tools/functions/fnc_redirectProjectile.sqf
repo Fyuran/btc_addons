@@ -49,7 +49,7 @@ if (!isNull _targetObj) then {
     _targetPosASL = getPosASL _targetObj;
 };
 
-if (_targetPosASL isEqualTo [] || {_targetPosASL isEqualTo [0, 0, 0]}) exitWith {
+if (_targetPosASL isEqualTo [] || { _targetPosASL isEqualTo [0, 0, 0] }) exitWith {
     #ifdef BTC_DEBUG_TOOLS
     [["%1: invalid _targetPosASL", __FILE_NAME__], REPORT, QCOMPONENT] call FUNC(debug);
     #endif
@@ -78,10 +78,10 @@ private _simulation = toLower getText (_ammoCfg >> "simulation");
 private _thrust = getNumber (_ammoCfg >> "thrust");
 private _maxSpeed = getNumber (_ammoCfg >> "maxSpeed");
 
-private _isBomb = _ammoClass isKindOf ["BombCore", configFile >> "CfgAmmo"] || {_simulation isEqualTo "shotbomb"};
-private _isRocket = _simulation isEqualTo "shotrocket" || {_ammoClass isKindOf ["RocketBase", configFile >> "CfgAmmo"]};
-private _isMissile = !_isBomb && (_simulation isEqualTo "shotmissile" || {_ammoClass isKindOf ["MissileBase", configFile >> "CfgAmmo"]});
-private _hasThrust = _thrust > 0 && {!_isBomb};
+private _isBomb = _ammoClass isKindOf ["BombCore", configFile >> "CfgAmmo"] || { _simulation isEqualTo "shotbomb" };
+private _isRocket = _simulation isEqualTo "shotrocket" || { _ammoClass isKindOf ["RocketBase", configFile >> "CfgAmmo"] };
+private _isMissile = !_isBomb && (_simulation isEqualTo "shotmissile" || { _ammoClass isKindOf ["MissileBase", configFile >> "CfgAmmo"] });
+private _hasThrust = _thrust > 0 && { !_isBomb };
 
 private _curVel = velocity _projectile;
 private _speed = vectorMagnitude _curVel;
@@ -99,34 +99,38 @@ if (_isBomb) exitWith {
     _projectile setVelocity (_dir vectorMultiply _speed);
 
     // Active glide guidance loop until bomb impact
-    [{
-        params ["_args", "_handle"];
-        _args params ["_projectile", "_targetObj", "_aimPosASL", "_speed"];
+    [
+        {
+            params ["_args", "_handle"];
+            _args params ["_projectile", "_targetObj", "_aimPosASL", "_speed"];
 
-        if (isGamePaused) exitWith {};
+            if (isGamePaused) exitWith {};
 
-        if (!alive _projectile) exitWith {
-            [_handle] call CBAFUNC(removePerFrameHandler);
-        };
+            if (!alive _projectile) exitWith {
+                [_handle] call CBAFUNC(removePerFrameHandler);
+            };
 
-        private _destPosASL = if (!isNull _targetObj) then {
-            getPosASL _targetObj
-        } else {
-            _aimPosASL
-        };
+            private _destPosASL = if (!isNull _targetObj) then {
+                getPosASL _targetObj
+            } else {
+                _aimPosASL
+            };
 
-        private _pos = getPosASL _projectile;
-        if (_pos distance _destPosASL < 2) exitWith {
-            [_handle] call CBAFUNC(removePerFrameHandler);
-        };
+            private _pos = getPosASL _projectile;
+            if (_pos distance _destPosASL < 2) exitWith {
+                [_handle] call CBAFUNC(removePerFrameHandler);
+            };
 
-        private _dir = _pos vectorFromTo _destPosASL;
-        private _right = if (abs (_dir#2) > 0.99) then { [1, 0, 0] } else { vectorNormalized (_dir vectorCrossProduct [0, 0, 1]) };
-        private _up = _right vectorCrossProduct _dir;
+            private _dir = _pos vectorFromTo _destPosASL;
+            private _right = if (abs (_dir#2) > 0.99) then { [1, 0, 0] } else { vectorNormalized (_dir vectorCrossProduct [0, 0, 1]) };
+            private _up = _right vectorCrossProduct _dir;
 
-        _projectile setVectorDirAndUp [_dir, _up];
-        _projectile setVelocity (_dir vectorMultiply _speed);
-    }, 0, [_projectile, _targetObj, _aimPosASL, _speed]] call CBAFUNC(addPerFrameHandler);
+            _projectile setVectorDirAndUp [_dir, _up];
+            _projectile setVelocity (_dir vectorMultiply _speed);
+        },
+        0, [_projectile, _targetObj, _aimPosASL, _speed]
+    ]
+    call CBAFUNC(addPerFrameHandler);
 
     true
 };
@@ -153,8 +157,8 @@ if (_hasThrust || _isMissile || _isRocket) exitWith {
 // Calculate parabolic arc elevation to compensate for gravity drop and drag
 if (_speed < 100) then {
     private _typical = getNumber (_ammoCfg >> "typicalSpeed");
-    if (_typical > 0) then { 
-        _speed = _typical; 
+    if (_typical > 0) then {
+        _speed = _typical;
     };
 };
 _speed = _speed max 400;

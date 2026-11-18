@@ -20,14 +20,15 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_group", grpNull, [grpNull, objNull]]
 ];
 
 if (isNull _group) exitWith {
-	#ifdef BTC_DEBUG_STEALTH
-	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    #ifdef BTC_DEBUG_STEALTH
+    [["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     []
 };
 if (_group isEqualType objNull) then {
@@ -42,7 +43,8 @@ if (_wps isEqualTo []) exitWith {
 
 {
     private _radius = waypointCompletionRadius _x;
-    private _pos = [waypointPosition _x, AGLToASL (waypointPosition _x)] select (_radius <= -1); //radius -1 uses posASL for whatever reason
+    private _pos = [waypointPosition _x, AGLToASL (waypointPosition _x)] select (_radius <= -1);
+    //radius -1 uses posASL for whatever reason
     private _type = waypointType _x;
     private _wpData = [
         _forEachIndex,

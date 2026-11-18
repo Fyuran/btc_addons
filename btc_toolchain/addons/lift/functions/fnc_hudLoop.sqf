@@ -30,7 +30,7 @@ _ui params ["_arrow_up", "_arrow_down", "_complete", "_incomplete", "_crosshair"
 
 disableSerialization;
 
-if !((alive player && {!isNull objectParent player}) && GVAR(hud)) then {
+if !((alive player && { !isNull objectParent player }) && GVAR(hud)) then {
     [_PFH_id] call CBAFUNC(removePerFrameHandler);
     939996 cutText ["", "PLAIN"];
 };
@@ -38,15 +38,16 @@ if !((alive player && {!isNull objectParent player}) && GVAR(hud)) then {
 private _chopper = vehicle player;
 private _array = [_chopper] call FUNC(getLiftable);
 private _cargo_array = nearestObjects [_chopper, _array, 30];
-if (_array isEqualTo []) then {_cargo_array = [];};
+if (_array isEqualTo []) then {
+    _cargo_array = [];
+};
 _cargo_array = _cargo_array - [_chopper];
-_cargo_array = _cargo_array select {!(
-    _x isKindOf "ACE_friesBase" OR
-    _x isKindOf "ace_fastroping_helper"
-)};
+_cargo_array = _cargo_array select {
+    !(_x isKindOf "ACE_friesBase" or _x isKindOf "ace_fastroping_helper")
+};
 
 _cargo_array params [["_cargo", objNull]];
-private _can_lift = _array findIf {_cargo isKindOf _x} != -1;
+private _can_lift = _array findIf { _cargo isKindOf _x } != -1;
 
 if (!isNull _cargo) then {
     private _cargo_pos = getPosATL _cargo;
@@ -54,7 +55,7 @@ if (!isNull _cargo) then {
     private _cargo_z = ((getPosATL _chopper) select 2) - (_cargo_pos select 2);
     _crosshair ctrlShow true;
     private _hud_x = _cargo_x / 100;
-    private _hud_y = - _cargo_y / 100;
+    private _hud_y = -_cargo_y / 100;
     private _hud_x_1 = (BTC_LIFT_HUD_X + _hud_x) * safeZoneW + safeZoneX;
     private _hud_y_1 = (BTC_LIFT_HUD_Y + _hud_y) * safeZoneH + safeZoneY;
     _crosshair ctrlSetPosition [_hud_x_1, _hud_y_1];
@@ -68,7 +69,7 @@ if (!isNull _cargo) then {
     _obj_pic ctrlSetText _pic_cargo;
     _obj_name ctrlSetText _name_cargo;
     if (GVAR(lifted)) then {
-        _obj_alt ctrlSetText (format ["%1 m", (round((getPos _cargo select 2) * 10))/10]);
+        _obj_alt ctrlSetText (format ["%1 m", (round ((getPos _cargo select 2) * 10)) / 10]);
         _crosshair ctrlSetTextColor [0, 1, 0, 1];
         _obj_pic ctrlSetTextColor [0, 1, 0, 1];
     };

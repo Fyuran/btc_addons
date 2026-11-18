@@ -18,16 +18,17 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
-	["_path", "", [""]]
+    ["_path", "", [""]]
 ];
 if (_path isEqualTo "") exitWith {
     [["%1: path property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-private _request = createHashMapFromArray[
-	["function", "deleteFile"],
-	["path", _path]
+private _request = createHashMapFromArray [
+    ["function", "deleteFile"],
+    ["path", _path]
 ];
 
 _request call FUNC(callExtension)

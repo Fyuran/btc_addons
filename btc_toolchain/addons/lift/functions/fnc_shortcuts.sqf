@@ -27,10 +27,7 @@ private _menuString = "BTC Toolchain Lift";
     QGVAR(deployRopes),
     [localize "STR_ACE_Fastroping_Interaction_deployRopes", "deploy ropes from helicopter"],
     {
-        if (!GVAR(ropes_deployed) &&
-            {(driver vehicle player) isEqualTo player} &&
-            {(getPosATL player) select 2 > 4}
-        ) then {
+        if (!GVAR(ropes_deployed) && { (driver vehicle player) isEqualTo player } && { (getPosATL player) select 2 > 4 }) then {
             [] spawn FUNC(deployRopes);
             if (BTC_LIFT_PLAY_FBSOUND) then {
                 playSound BTC_LIFT_FBSOUND;
@@ -38,17 +35,15 @@ private _menuString = "BTC Toolchain Lift";
         };
     },
     {}
-] call CBAFUNC(addKeybind);
+]
+call CBAFUNC(addKeybind);
 
 [
     _menuString,
     QGVAR(cutRopes),
     [localize "STR_ACE_Fastroping_Interaction_cutRopes", "Cut ropes from helicopter"],
     {
-        if (
-            GVAR(ropes_deployed) &&
-            {(driver vehicle player) isEqualTo player}
-        ) then {
+        if (GVAR(ropes_deployed) && { (driver vehicle player) isEqualTo player }) then {
             [] call FUNC(destroyRopes);
             if (BTC_LIFT_PLAY_FBSOUND) then {
                 playSound BTC_LIFT_FBSOUND;
@@ -56,7 +51,8 @@ private _menuString = "BTC Toolchain Lift";
         };
     },
     {}
-] call CBAFUNC(addKeybind);
+]
+call CBAFUNC(addKeybind);
 
 [
     _menuString,
@@ -71,8 +67,8 @@ private _menuString = "BTC Toolchain Lift";
         };
     },
     {}
-] call CBAFUNC(addKeybind);
-
+]
+call CBAFUNC(addKeybind);
 
 [
     _menuString,
@@ -87,4 +83,5 @@ private _menuString = "BTC Toolchain Lift";
         };
     },
     {}
-] call CBAFUNC(addKeybind);
+]
+call CBAFUNC(addKeybind);

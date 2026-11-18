@@ -22,6 +22,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_supply", objNull, [objNull]],
     ["_inventory", [], [[]]]
@@ -37,7 +38,8 @@ if (_inventory isEqualTo []) exitWith { false };
 clearMagazineCargoGlobal _supply;
 clearWeaponCargoGlobal _supply;
 clearBackpackCargoGlobal _supply;
-clearItemCargoGlobal _supply; // also removes vests and uniforms
+clearItemCargoGlobal _supply;
+// also removes vests and uniforms
 
 private _backpackBase = configFile >> "CfgVehicles" >> "Bag_Base";
 private _supplyClass = typeOf _supply;
@@ -48,12 +50,7 @@ _inventory apply {
         ["_count", 1, [123]]
     ];
 
-    if (
-        (!isClass (configFile >> "CfgVehicles" >> _class)) &&
-        {(!isClass (configFile >> "CfgWeapons" >> _class))} &&
-        {(!isClass (configFile >> "CfgAmmo" >> _class))} &&
-        {(!isClass (configFile >> "CfgMagazines" >> _class))}
-    ) then {
+    if ((!isClass (configFile >> "CfgVehicles" >> _class)) && { (!isClass (configFile >> "CfgWeapons" >> _class)) } && { (!isClass (configFile >> "CfgAmmo" >> _class)) } && { (!isClass (configFile >> "CfgMagazines" >> _class)) }) then {
         [["%1: invalid class %2", __FILE_NAME__, _class], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         continue;
     };
@@ -68,7 +65,8 @@ _inventory apply {
     if (_inheritsFromBackpackbase) then {
         _supply addBackpackCargoGlobal [_class, (_count) max 1];
     } else {
-        _supply addItemCargoGlobal [_class, (_count) max 1]; // Works with items, weapons, magazines, equipment, and glasses
+        _supply addItemCargoGlobal [_class, (_count) max 1];
+        // Works with items, weapons, magazines, equipment, and glasses
     };
 };
 

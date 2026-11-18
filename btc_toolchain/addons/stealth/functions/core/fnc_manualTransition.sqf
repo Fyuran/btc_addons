@@ -21,40 +21,41 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_state", "Alert", [""]],
     ["_obj", objNull, [objNull]]
 ];
 
 if (isNull _obj) exitWith {
-	[["%1: _obj is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _obj is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 if (_state isEqualTo "") exitWith {
-	[["%1: _state is empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _state is empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 if (!(_state in GVAR(allowed_states))) exitWith {
-	[["%1: %2 is not in %3", __FILE_NAME__, _state, GVAR(allowed_states)], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: %2 is not in %3", __FILE_NAME__, _state, GVAR(allowed_states)], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _synchedObjs = synchronizedObjects _obj;
 
 if (_synchedObjs isEqualTo []) exitWith {
-	[["%1: No linked objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: No linked objects found", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 if (!(_synchedObjs isEqualTypeAll objNull)) exitWith {
-	[["%1: Linked types aren't of type objNull", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: Linked types aren't of type objNull", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _groups = [];
 _synchedObjs apply {
-    private _logicGroups = _x getVariable[QGVAR(groups), []];
-    _logicGroups apply {_groups pushBackUnique _x};
+    private _logicGroups = _x getVariable [QGVAR(groups), []];
+    _logicGroups apply { _groups pushBackUnique _x };
 };
 if (_groups isEqualTo []) exitWith {
-	[["%1: _groups are empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _groups are empty", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 _groups apply {
@@ -74,11 +75,29 @@ _groups apply {
         continue;
     };
 
-    [_x, _FSM, _currentState, _state, {
-        #ifdef BTC_DEBUG_STEALTH
-        [["%1: %2 manually transitioned from %3 to %4", __FILE_NAME__,
-            _this, _thisOrigin, _thisTarget], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-        #endif
+    [
+        _x,
+        _FSM,
+        _currentState,
+        _state,
+        {
+            #ifdef BTC_DEBUG_STEALTH
+            [
+                [
+                    "%1: %2 manually transitioned from %3 to %4",
+                    __FILE_NAME__,
+                    _this,
+                    _thisOrigin,
+                    _thisTarget
+                ],
+                LOGS,
+                QCOMPONENT
+            ]
+            call EFUNC(tools,debug);
+            #endif
 
-    }, QFUNC(core_manualTransition)] call CBA_statemachine_fnc_manualTransition;
+        },
+        QFUNC(core_manualTransition)
+    ]
+    call CBA_statemachine_fnc_manualTransition;
 };

@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_main_grp", controlNull, [controlNull]],
     ["_value", createHashMap, []]
@@ -29,8 +30,8 @@ disableSerialization;
 
 if (!(_value isEqualTypeAny ["", createHashMap])) exitWith {
     #ifdef BTC_DEBUG_CAS
-	[["%1: _value(%2):%3 not STRING or HASHMAP", __FILE_NAME__, typeName _value, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    [["%1: _value(%2):%3 not STRING or HASHMAP", __FILE_NAME__, typeName _value, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
 };
 disableSerialization;
 
@@ -53,10 +54,11 @@ if (_value isEqualType "") then {
 } else {
     GVAR(table) = +_value;
 };
-if (GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
-	#ifdef BTC_DEBUG_CAS
-	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+if (GVAR(table) isEqualTo createHashMap) exitWith {
+    //check again after parsing
+    #ifdef BTC_DEBUG_CAS
+    [["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
 };
 
 //get controls refs
@@ -89,7 +91,7 @@ for "_i" from 0 to (_classItemCount - 1) do {
 private _list1ItemCount = lbSize _grp1List;
 for "_i" from 0 to (_list1ItemCount - 1) do {
     private _lbData = _grp1List lbData _i;
-    private _dataIndex = _listData findIf {_x isEqualTo _lbData};
+    private _dataIndex = _listData findIf { _x isEqualTo _lbData };
     if (_dataIndex != -1) then {
         _grp1List lbSetSelected [_i, true];
     };

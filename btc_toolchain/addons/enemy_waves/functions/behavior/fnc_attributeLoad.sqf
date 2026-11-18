@@ -22,6 +22,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_comboGrp", controlNull, [controlNull]],
     ["_value", "", [""]]
@@ -29,8 +30,8 @@ params [
 
 if (!(_value isEqualType "")) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
-	[["%1: _value(%2):%3 not STRING", __FILE_NAME__, typeName _value, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    [["%1: _value(%2):%3 not STRING", __FILE_NAME__, typeName _value, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
 };
 
 #ifdef BTC_DEBUG_ENEMY_WAVES

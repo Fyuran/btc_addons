@@ -25,39 +25,42 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
-	["_group", grpNull, [grpNull]],
+    ["_group", grpNull, [grpNull]],
     ["_position", [0, 0, 0], [[]], 3],
     ["_wp_cfg", DEFAULT_CFG, [configNull, ""]],
     ["_completion_radius", 0, [123]],
     ["_script", "", ["", {}]],
     ["_wpAttributes", [], [[]]]
-]; 
+];
 
 _wpAttributes = _wpAttributes apply {
     [_x] call FUNC(wp_processAttribute);
 };
 
-_wpAttributes params [ //parse cfg properties
-	["_combat_mode", "NO CHANGE", [""]],
-	["_behavior", "UNCHANGED", [""]],
-	["_formation", "NO CHANGE", [""]],
-	["_speed", "UNCHANGED", [""]]
+_wpAttributes params [
+    //parse cfg properties
+    ["_combat_mode", "NO CHANGE", [""]],
+    ["_behavior", "UNCHANGED", [""]],
+    ["_formation", "NO CHANGE", [""]],
+    ["_speed", "UNCHANGED", [""]]
 ];
 
 if (isNull _group) exitWith {
-	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 if (_position isEqualTo [0, 0, 0]) exitWith {
-	[["%1: found _position at [0, 0, 0]", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: found _position at [0, 0, 0]", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-private _type = "MOVE"; //Prevent empty
+private _type = "MOVE";
+//Prevent empty
 if (_wp_cfg isEqualType "") then {
     _wp_cfg = [_wp_cfg] call EFUNC(tools,strToCfg);
 };
-if (!(isNull _wp_cfg) && {isClass _wp_cfg}) then {
+if (!(isNull _wp_cfg) && { isClass _wp_cfg }) then {
     _type = getText (_wp_cfg >> "type");
     _script = getText (_wp_cfg >> "file");
 };
@@ -87,15 +90,34 @@ if (_script isNotEqualTo "") then {
 };
 
 #ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: adding _wp with data: %2", __FILE_NAME__, [_group, _type, _position, _wp_cfg, 
-    _completion_radius, _script, _combat_mode, _behavior, _formation, _speed]], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[
+    [
+        "%1: adding _wp with data: %2",
+        __FILE_NAME__,
+        [
+            _group,
+            _type,
+            _position,
+            _wp_cfg,
+            _completion_radius,
+            _script,
+            _combat_mode,
+            _behavior,
+            _formation,
+            _speed
+        ]
+    ],
+    LOGS,
+    QCOMPONENT
+]
+call EFUNC(tools,debug);
 #endif
 
-private _wp = _group addWaypoint [_position, -1]; 
+private _wp = _group addWaypoint [_position, -1];
 _wp setWaypointType _type;
-_wp setWaypointCombatMode _combat_mode; 
-_wp setWaypointBehaviour _behavior; 
-_wp setWaypointFormation _formation; 
+_wp setWaypointCombatMode _combat_mode;
+_wp setWaypointBehaviour _behavior;
+_wp setWaypointFormation _formation;
 _wp setWaypointSpeed _speed;
 _wp setWaypointCompletionRadius _completion_radius;
 _wp setWaypointScript _script;

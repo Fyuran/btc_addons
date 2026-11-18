@@ -24,21 +24,14 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_weaponClass", "", [""]]
 ];
 
-if (_weaponClass isEqualTo "") exitWith {false};
+if (_weaponClass isEqualTo "") exitWith { false };
 
 private _cfg = configFile >> "CfgWeapons" >> _weaponClass;
-if (!isClass _cfg) exitWith {false};
+if (!isClass _cfg) exitWith { false };
 
-!(
-    _weaponClass isKindOf ["Horn", configFile >> "CfgWeapons"] ||
-    {_weaponClass isKindOf ["CMFlareLauncher", configFile >> "CfgWeapons"]} ||
-    {_weaponClass isKindOf ["FakeHorn", configFile >> "CfgWeapons"]} ||
-    {_weaponClass isKindOf ["Pylon_DummyLauncher", configFile >> "CfgWeapons"]} ||
-    {_weaponClass isKindOf ["FakeWeapon", configFile >> "CfgWeapons"]} ||
-    {_weaponClass isKindOf ["Laserdesignator_mounted", configFile >> "CfgWeapons"]} ||
-    {_weaponClass in ["CarHorn", "TruckHorn", "BikeHorn", "SportCarHorn", "CMFlareLauncher", "CMFlareLauncher_Triples", "CMFlareLauncher_Singles"]}
-)
+!(_weaponClass isKindOf ["Horn", configFile >> "CfgWeapons"] || { _weaponClass isKindOf ["CMFlareLauncher", configFile >> "CfgWeapons"] } || { _weaponClass isKindOf ["FakeHorn", configFile >> "CfgWeapons"] } || { _weaponClass isKindOf ["Pylon_DummyLauncher", configFile >> "CfgWeapons"] } || { _weaponClass isKindOf ["FakeWeapon", configFile >> "CfgWeapons"] } || { _weaponClass isKindOf ["Laserdesignator_mounted", configFile >> "CfgWeapons"] } || { _weaponClass in ["CarHorn", "TruckHorn", "BikeHorn", "SportCarHorn", "CMFlareLauncher", "CMFlareLauncher_Triples", "CMFlareLauncher_Singles"] })

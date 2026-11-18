@@ -24,13 +24,14 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_veh", objNull, [objNull]],
     ["_paradropClass", "", [""]],
     ["_inventory", [], [[]]]
 ];
 
-if (isNull _veh || {!alive _veh}) exitWith {
+if (isNull _veh || { !alive _veh }) exitWith {
     #ifdef BTC_DEBUG_SUPPLY
     [["%1: veh is not alive or has become null", __FILE_NAME__], 3, QCOMPONENT] call EFUNC(tools,debug);
     #endif
@@ -50,7 +51,7 @@ if ((_vehPosATL#2) < 15) exitWith {
     objNull
 };
 
-private _calculatedDropPos = _vehPosATL vectorAdd ((vectorDir _veh) vectorMultiply -15);
+private _calculatedDropPos = _vehPosATL vectorAdd ((vectorDir _veh) vectorMultiply - 15);
 _calculatedDropPos = _calculatedDropPos vectorDiff [0, 0, 1];
 
 private _supply = createVehicle [_paradropClass, [0, 0, 100], [], 0, "CAN_COLLIDE"];
@@ -89,7 +90,8 @@ _para setVelocityModelSpace [0, 10, 0];
         _smoke attachTo [_supply, [0, 0, 0]];
     },
     [_supply, CBA_missionTime + 50]
-] call CBAFUNC(waitUntilAndExecute);
+]
+call CBAFUNC(waitUntilAndExecute);
 
 if (_inventory isNotEqualTo []) then {
     [_supply, _inventory] call FUNC(fillInventory);

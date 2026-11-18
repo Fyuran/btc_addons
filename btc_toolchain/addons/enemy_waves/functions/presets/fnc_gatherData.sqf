@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 private _table = +(missionNamespace getVariable [QGVAR(table), createHashMap]);
 if (_table isEqualTo createHashMap) exitWith {
     [["No groups have been set yet"], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -37,13 +38,22 @@ private _formation = _formation_ctrl lbValue (lbCurSel _formation_ctrl);
 private _seek_end = cbChecked _seekEnd_cb;
 
 #ifdef BTC_DEBUG_ENEMY_WAVES
-[["%1: saving preset %2", __FILE_NAME__, createHashMapFromArray [
-    [QGVAR(side), _side],
-    [QGVAR(timeout), _timeout],
-    [QGVAR(formation), _formation],
-    [QGVAR(seek_end), _seek_end],
-    [QGVAR(table), _table]
-]], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[
+    [
+        "%1: saving preset %2",
+        __FILE_NAME__,
+        createHashMapFromArray [
+            [QGVAR(side), _side],
+            [QGVAR(timeout), _timeout],
+            [QGVAR(formation), _formation],
+            [QGVAR(seek_end), _seek_end],
+            [QGVAR(table), _table]
+        ]
+    ],
+    LOGS,
+    QCOMPONENT
+]
+call EFUNC(tools,debug);
 #endif
 
 createHashMapFromArray [

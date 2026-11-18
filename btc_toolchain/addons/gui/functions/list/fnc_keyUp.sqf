@@ -24,6 +24,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params ["_ctrlList", "_key", "_shift", "_ctrl", "_alt"];
 
 missionNamespace setVariable [QGVAR(shift_modifier), _shift];

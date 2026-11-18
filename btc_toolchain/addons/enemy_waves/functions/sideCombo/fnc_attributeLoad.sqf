@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_comboGrp", controlNull, [controlNull]],
     ["_value", 0, [123, ""]]
@@ -32,7 +33,7 @@ disableSerialization;
 
 private _combo = _comboGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
 if (_value isEqualType "") then {
-	_value = parseNumber _value;
+    _value = parseNumber _value;
 };
 
 private _lbCount = lbSize _combo;

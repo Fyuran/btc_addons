@@ -26,7 +26,7 @@ params [
 ];
 disableSerialization;
 
-private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
+private _logic = missionNamespace getVariable [QGVAR(logic), objNull];
 if (isNull _logic) exitWith {
     #ifdef BTC_DEBUG_SUPPLY
     [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -49,13 +49,13 @@ _logic setVariable [QGVAR(class), [_vehicleComboGrp] call EFUNC(gui,class_attrib
 
 private _allowDamageGrp = _attrHash getOrDefault [QGVAR(enableDamage), controlNull];
 private _allowDamageCb = _allowDamageGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
-_logic setVariable[QGVAR(enableDamage), cbChecked _allowDamageCb, _serverId];
+_logic setVariable [QGVAR(enableDamage), cbChecked _allowDamageCb, _serverId];
 
 _logic setVariable [QGVAR(list_value), [GVAR(table)] call CBAFUNC(encodeJSON), _serverId];
 
 private _debugGrp = _attrHash getOrDefault [QGVAR(debug), controlNull];
 private _debugCb = _debugGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
-_logic setVariable[QGVAR(debug), cbChecked _debugCb, _serverId];
+_logic setVariable [QGVAR(debug), cbChecked _debugCb, _serverId];
 
 _editDisplay closeDisplay 1;
 [_logic] remoteExecCall [QFUNC(drop), _serverId];

@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_add", controlNull, [controlNull]]
 ];
@@ -40,7 +41,7 @@ if (_groupIndex < 0) exitWith {
 private _uid = _grp1_list lbData _groupIndex;
 private _groupClasses = GVAR(table) getOrDefault [_uid, []];
 
-private _class = trim(ctrlText _edit);
+private _class = trim (ctrlText _edit);
 if (_class isEqualTo "") exitWith {
     ["Empty class passed", 1] call EFUNC(tools,3DENNotification);
 };
@@ -48,22 +49,23 @@ if (_class isEqualTo "") exitWith {
 private _classExists = (_groupClasses findIf {
     _x params ["_c", "_amount"];
     _c isEqualTo _class;
-}) isNotEqualTo -1;
+}
+) isNotEqualTo - 1;
 if (_classExists) exitWith {
-    [format["%1 class already exists", _class], 1] call EFUNC(tools,3DENNotification);
+    [format ["%1 class already exists", _class], 1] call EFUNC(tools,3DENNotification);
 };
 
 if (!([_class] call EFUNC(tools,inheritsFromAny))) exitWith {
-    [format["%1 class does not inherit from. 'Land' or 'Air'", _class], 1] call EFUNC(tools,3DENNotification);
+    [format ["%1 class does not inherit from. 'Land' or 'Air'", _class], 1] call EFUNC(tools,3DENNotification);
 };
 
 private _classCfg = configFile >> "CfgVehicles" >> _class;
-private _sideCombo = uiNamespace getVariable[QGVAR(side_combo), controlNull];
+private _sideCombo = uiNamespace getVariable [QGVAR(side_combo), controlNull];
 private _selectedSide = (_sideCombo lbValue (lbCurSel _sideCombo)) call BIS_fnc_sideType;
-private _classFaction = (getNumber(configFile >> "CfgFactionClasses" >> (getText(_classCfg >> "faction")) >> "side")) call BIS_fnc_sideType;
+private _classFaction = (getNumber (configFile >> "CfgFactionClasses" >> (getText (_classCfg >> "faction")) >> "side")) call BIS_fnc_sideType;
 
 if (_selectedSide isNotEqualTo _classFaction) exitWith {
-    [format["%1's faction(%2) does not belong to %3", _class, str _classFaction, str _selectedSide], 1] call EFUNC(tools,3DENNotification);
+    [format ["%1's faction(%2) does not belong to %3", _class, str _classFaction, str _selectedSide], 1] call EFUNC(tools,3DENNotification);
 };
 
 ([_class] call EFUNC(gui,getClassInfo)) params [

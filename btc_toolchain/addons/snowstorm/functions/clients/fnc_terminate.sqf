@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_flag", 14, [123]]
 ];
@@ -35,14 +36,16 @@ if (_disableSounds) then {
         GVAR(windSoundID) = -1;
     };
 
-    if (!isNil QGVAR(sound_loop_handle)) then { //sound loop
+    if (!isNil QGVAR(sound_loop_handle)) then {
+        //sound loop
         [GVAR(sound_loop_handle)] call CBAFUNC(removePerFrameHandler);
         GVAR(sound_loop_handle) = nil;
     };
 
     if (!isNil QGVAR(indoor_handle)) then {
         [GVAR(indoor_handle)] call CBAFUNC(removePerFrameHandler);
-        GVAR(indoor_handle) = nil; //reset to allow execution of client side function again
+        GVAR(indoor_handle) = nil;
+        //reset to allow execution of client side function again
     };
 
     enableEnvironment true;

@@ -54,14 +54,17 @@ private _3denAttributesCfg = configFile >> "Cfg3DEN" >> "Attributes";
 private _attributesCtrlsArr = [];
 private _attributesHash = _display getVariable [QGVAR(attributesHash), createHashMap];
 
-private _currentMaxY = uiNamespace getVariable [QGVAR(sizeY), 0]; //used for whole UI
+private _currentMaxY = uiNamespace getVariable [QGVAR(sizeY), 0];
+//used for whole UI
 private _currentY = 0;
 _attributesCfgs apply {
     private _moduleAttributeCfg = _x;
-    private _moduleAttributeCtrlClass = getText (_moduleAttributeCfg >> "control"); //class used in Cfg3DEN
+    private _moduleAttributeCtrlClass = getText (_moduleAttributeCfg >> "control");
+    //class used in Cfg3DEN
 
     if (_moduleAttributeCtrlClass isEqualTo "ModuleInfo") then {
-        continue; //will be added later by an appropriate function
+        continue;
+        //will be added later by an appropriate function
     };
     private _attributeCfg = _3denAttributesCfg >> _moduleAttributeCtrlClass;
     private _idc = getNumber (_attributeCfg >> "idc");
@@ -91,7 +94,7 @@ _attributesCfgs apply {
 
     // Look up the module property's defaultValue
     private _defaultValueCfg = _moduleAttributeCfg >> "defaultValue";
-    if (!isNumber _defaultValueCfg && {!isText _defaultValueCfg}) then {
+    if (!isNumber _defaultValueCfg && { !isText _defaultValueCfg }) then {
         _defaultValueCfg = _attributeCfg >> "defaultValue";
     };
 
@@ -143,7 +146,7 @@ _attributesCfgs apply {
         _attributeLoad = getText (_attributeCfg >> "attributeLoad");
     };
 
-    if (_attributeLoad isNotEqualTo "" && {!isNil "_defaultValue"}) then {
+    if (_attributeLoad isNotEqualTo "" && { !isNil "_defaultValue" }) then {
         private _config = _attributeCfg;
         private _value = _defaultValue;
         _attribute call (compile _attributeLoad);
@@ -173,11 +176,14 @@ _category ctrlCommit 0;
 
 _category setVariable [QGVAR(titleHeight), _titleH];
 _category setVariable [QGVAR(attributesHeight), _currentY];
-_category setVariable [QGVAR(data), createHashMapFromArray [
-    ["attributes", _attributes],
-    ["titleH", _titleH],
-    ["attributesH", _currentY]
-]];
+_category setVariable [
+    QGVAR(data),
+    createHashMapFromArray [
+        ["attributes", _attributes],
+        ["titleH", _titleH],
+        ["attributesH", _currentY]
+    ]
+];
 
 uiNamespace setVariable [QGVAR(sizeY), _currentMaxY];
 

@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 #ifdef BTC_DEBUG_CAS
 [["%1: saving preset %2", __FILE_NAME__, createHashMapFromArray [], LOGS, QCOMPONENT]] call EFUNC(tools,debug);
 #endif

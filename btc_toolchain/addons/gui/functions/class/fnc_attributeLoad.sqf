@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_comboGrp", controlNull, [controlNull]],
     ["_value", "", [""]]

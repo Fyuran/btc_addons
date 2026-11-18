@@ -21,22 +21,22 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_waypoint_module", objNull, [objNull]],
     ["_toArray", [], [[]]]
-]; 
+];
 
 if (!(_waypoint_module isKindOf QGVAR(waypoint_module))) exitWith {
-	[["%1: _waypoint_module's type: %2 is not a valid btc_enemy_waves_waypoint_module type", __FILE_NAME__, typeOf _waypoint_module], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _waypoint_module's type: %2 is not a valid btc_enemy_waves_waypoint_module type", __FILE_NAME__, typeOf _waypoint_module], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-_waypoint_module setVariable[QGVAR(hasBeenProcessed), true];
+_waypoint_module setVariable [QGVAR(hasBeenProcessed), true];
 _toArray pushBackUnique _waypoint_module;
 
 private _synchedObjs = synchronizedObjects _waypoint_module;
 _synchedObjs = _synchedObjs select {
-    _x isKindOf QGVAR(waypoint_module) &&
-    {!(_x getVariable[QGVAR(hasBeenProcessed), false])}
+    _x isKindOf QGVAR(waypoint_module) && { !(_x getVariable [QGVAR(hasBeenProcessed), false]) }
 };
 
 if (_synchedObjs isEqualTo []) exitWith {};

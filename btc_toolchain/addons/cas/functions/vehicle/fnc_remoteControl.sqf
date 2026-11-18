@@ -38,58 +38,68 @@ waitUntil { preloadCamera (getPos _veh) };
 [QGVAR(blackScreen), true, 2] call BIS_fnc_blackIn;
 
 (findDisplay IDD_RSCDISPLAYCURATOR) closeDisplay 2;
-waitUntil {isNull curatorCamera};
+waitUntil { isNull curatorCamera };
 switchCamera (effectiveCommander _veh);
 player remoteControl _veh;
 
 private _showMarker = _logic getVariable [QGVAR(remoteHelper), false];
-[{
-    params [
-        ["_args", [], [[]]],
-        ["_thisHandle", -1, [123]]
-    ];
-
-    _args params [
-        ["_veh", objNull, [objNull]],
-        ["_logic", objNull, [objNull]],
-        ["_showMarker", false, [true]]
-    ];
-
-    if (_showMarker) then {
-        drawIcon3D [
-            "\a3\ui_f\data\map\groupicons\selector_selectedEnemy_ca.paa",
-            [1, 0.35, 0.2, 1],
-            getPosVisual _logic,
-            1,
-            1,
-            0,
-            "",
-            1,
-            0.04
+[
+    {
+        params [
+            ["_args", [], [[]]],
+            ["_thisHandle", -1, [123]]
         ];
-    };
 
-    if (cameraOn != _veh || {!alive _veh}) exitWith {
-        switchCamera player;
-        player remoteControl objNull;
-        [_thisHandle] call CBAFUNC(removePerFrameHandler);
-        [{
-            params [
-                ["_veh", objNull, [objNull]],
-                ["_logic", objNull, [objNull]]
+        _args params [
+            ["_veh", objNull, [objNull]],
+            ["_logic", objNull, [objNull]],
+            ["_showMarker", false, [true]]
+        ];
+
+        if (_showMarker) then {
+            drawIcon3D [
+                "\a3\ui_f\data\map\groupicons\selector_selectedEnemy_ca.paa",
+                [1, 0.35, 0.2, 1],
+                getPosVisual _logic,
+                1,
+                1,
+                0,
+                "",
+                1,
+                0.04
             ];
+        };
 
-            private _posASL = getPosASL _veh;
-            private _originalHeight = _posASL#2;
-            private _dir = vectorDir _veh;
-            private _wp = (group _veh) addWaypoint [_posASL vectorAdd (_dir vectorMultiply worldSize), 0];
-            _wp setWaypointBehaviour "CARELESS";
-            _wp setWaypointType "MOVE";
-            _wp setWaypointSpeed "FULL";
-            _wp setWaypointStatements ["true", QUOTE(_veh = objectParent this; deleteVehicleCrew _veh; deleteVehicle _veh;)];
-            _veh flyInHeightASL [_originalHeight, _originalHeight, _originalHeight];
+        if (cameraOn != _veh || { !alive _veh }) exitWith {
+            switchCamera player;
+            player remoteControl objNull;
+            [_thisHandle] call CBAFUNC(removePerFrameHandler);
+            [
+                {
+                    params [
+                        ["_veh", objNull, [objNull]],
+                        ["_logic", objNull, [objNull]]
+                    ];
 
-            deleteVehicle _logic;
-        }, [_veh, _logic]] call CBA_fnc_execNextFrame; //delay by a frame, game engine is wonky
-    };
-}, 0, [_veh, _logic, _showMarker]] call CBAFUNC(addPerFrameHandler);
+                    private _posASL = getPosASL _veh;
+                    private _originalHeight = _posASL#2;
+                    private _dir = vectorDir _veh;
+                    private _wp = (group _veh) addWaypoint [_posASL vectorAdd (_dir vectorMultiply worldSize), 0];
+                    _wp setWaypointBehaviour "CARELESS";
+                    _wp setWaypointType "MOVE";
+                    _wp setWaypointSpeed "FULL";
+                    _wp setWaypointStatements ["true", QUOTE(_veh = objectParent this; deleteVehicleCrew _veh; deleteVehicle _veh;)];
+                    _veh flyInHeightASL [_originalHeight, _originalHeight, _originalHeight];
+
+                    deleteVehicle _logic;
+                },
+                [_veh, _logic]
+            ]
+            call CBA_fnc_execNextFrame;
+            //delay by a frame, game engine is wonky
+        };
+    },
+    0,
+    [_veh, _logic, _showMarker]
+]
+call CBAFUNC(addPerFrameHandler);

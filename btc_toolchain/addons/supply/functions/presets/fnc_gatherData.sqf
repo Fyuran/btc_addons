@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 private _attrHash = uiNamespace getVariable [QEGVAR(gui,attributesHash), createHashMap];
 private _vehicleClassCombo = uiNamespace getVariable [QEGVAR(gui,class), controlNull];
 private _enableDamageCb = uiNamespace getVariable [QGVAR(enableDamage), controlNull];
@@ -38,11 +39,20 @@ if (_table isEqualTo createHashMap) exitWith {
 };
 
 #ifdef BTC_DEBUG_SUPPLY
-[["%1: saving preset %2", __FILE_NAME__, createHashMapFromArray [
-    [QGVAR(table_vehicle), _vehicleClass],
-    [QGVAR(table_enableDamage), _enableDamage],
-    [QGVAR(table), _table]
-]], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[
+    [
+        "%1: saving preset %2",
+        __FILE_NAME__,
+        createHashMapFromArray [
+            [QGVAR(table_vehicle), _vehicleClass],
+            [QGVAR(table_enableDamage), _enableDamage],
+            [QGVAR(table), _table]
+        ]
+    ],
+    LOGS,
+    QCOMPONENT
+]
+call EFUNC(tools,debug);
 #endif
 
 createHashMapFromArray [

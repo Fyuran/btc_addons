@@ -20,13 +20,14 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_group", grpNull, [grpNull, objNull]]
 ];
 
 if (isNull _group) exitWith {
     #ifdef BTC_DEBUG_STEALTH
-	[["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: _group is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
     []
 };

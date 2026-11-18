@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_remove", controlNull, [controlNull]]
 ];
@@ -54,7 +55,7 @@ if (_groupClasses isEqualTo []) exitWith {
 
 private _class = _groupClasses deleteAt _enemyClassIndex;
 _grp2_list lnbDeleteRow _enemyClassIndex;
-_grp2_list lnbSetCurSelRow -1;
+_grp2_list lnbSetCurSelRow - 1;
 
 #ifdef BTC_DEBUG_ENEMY_WAVES
 [["%1: Removing %2 from Wave %3", __FILE_NAME__, _class, _groupIndex], LOGS, QCOMPONENT] call EFUNC(tools,debug);

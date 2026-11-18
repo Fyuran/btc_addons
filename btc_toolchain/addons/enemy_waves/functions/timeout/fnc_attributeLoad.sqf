@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_editGrp", controlNull, [controlNull]],
     ["_value", 60, [123, ""]]
@@ -32,6 +33,6 @@ disableSerialization;
 
 private _edit = _editGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
 if (_value isEqualType 123) then {
-	_value = str _value;
+    _value = str _value;
 };
 _edit ctrlSetText _value;

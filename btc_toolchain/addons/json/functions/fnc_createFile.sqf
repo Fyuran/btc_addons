@@ -21,9 +21,10 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
-	["_path", "", [""]],
-	["_data", "", []]
+    ["_path", "", [""]],
+    ["_data", "", []]
 ];
 if (_path isEqualTo "") exitWith {
     [["%1: path property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -38,10 +39,10 @@ if (_data isEqualTo "") exitWith {
     [["%1: data property missing", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
-private _request = createHashMapFromArray[
-	["function", "createFile"],
-	["path", _path],
-	["data", _data]
+private _request = createHashMapFromArray [
+    ["function", "createFile"],
+    ["path", _path],
+    ["data", _data]
 ];
 
 _request call FUNC(callExtension)

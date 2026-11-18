@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_comboGrp", controlNull, [controlNull]]
 ];
@@ -39,6 +40,6 @@ if (_combo_curSel < 0) exitWith {
     ""
 };
 private _chosen_class = _combo lbData _combo_curSel;
-if (isNil "_chosen_class") exitWith {""};
+if (isNil "_chosen_class") exitWith { "" };
 
 _chosen_class

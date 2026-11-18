@@ -25,9 +25,10 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params ["_ctrlList", "_key", "_shift", "_ctrl", "_alt"];
 
-if (_key isEqualTo DIK_C && {_ctrl}) then {
+if (_key isEqualTo DIK_C && { _ctrl }) then {
     private _text = "";
     if (ctrlType _ctrlList isEqualTo CT_LISTNBOX) then {
         private _row = lnbCurSelRow _ctrlList;
@@ -53,7 +54,6 @@ if (_key isEqualTo DIK_C && {_ctrl}) then {
     };
     false
 };
-
 
 missionNamespace setVariable [QGVAR(shift_modifier), _shift];
 

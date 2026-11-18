@@ -44,7 +44,7 @@ Author:
 ---------------------------------------------------------------------------- */
 
 params [
-	["_moduleCfg", "", [objNull, configNull, ""]],
+    ["_moduleCfg", "", [objNull, configNull, ""]],
     ["_categoriesCount", 1, [123]],
     ["_okCode", {}, [{}, ""]],
     ["_abortCode", {}, [{}, ""]]
@@ -64,19 +64,21 @@ if (_moduleCfg isEqualType "") then {
 if (!(isClass _moduleCfg)) exitWith {
     [["%1: _moduleCfg is not a valid cfg", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-private _moduleAttributesCfgs = configClasses [ _moduleCfg >> "Attributes", 0, false, true, false];
-
+private _moduleAttributesCfgs = configClasses [_moduleCfg >> "Attributes", 0, false, true, false];
 
 uiNamespace setVariable [QGVAR(sizeY), nil];
 uiNamespace setVariable [QGVAR(categories), nil];
 uiNamespace setVariable [QGVAR(attributesHash), nil];
 
-private _editDisplay = createDialog["Display3DENEditAttributes", true];
-_editDisplay displayAddEventHandler ["Unload", {
-    uiNamespace setVariable [QGVAR(sizeY), nil];
-    uiNamespace setVariable [QGVAR(categories), nil];
-    uiNamespace setVariable [QGVAR(attributesHash), nil];
-}];
+private _editDisplay = createDialog ["Display3DENEditAttributes", true];
+_editDisplay displayAddEventHandler [
+    "Unload",
+    {
+        uiNamespace setVariable [QGVAR(sizeY), nil];
+        uiNamespace setVariable [QGVAR(categories), nil];
+        uiNamespace setVariable [QGVAR(attributesHash), nil];
+    }
+];
 
 private _category = [_editDisplay, "=BTC= Curator Modules"] call FUNC(curator_addCategory);
 private _attributes = [_editDisplay, _category, _moduleAttributesCfgs] call FUNC(curator_addAttributes);
@@ -84,9 +86,10 @@ private _minimizeEH = [_category] call FUNC(curator_addMinimizeEH);
 
 //Title
 private _editDisplayHash = [_editDisplay] call EFUNC(tools,getCtrlsHashmap);
-private _ctrlTitle = _editDisplayHash getOrDefault["Title", controlNull];
+private _ctrlTitle = _editDisplayHash getOrDefault ["Title", controlNull];
 
-private _cString = localize "$STR_3DEN_Display3DENEditAttributes_Title_text"; //as it's used internally by the engine, the escape char is '%s' which is used by printf
+private _cString = localize "$STR_3DEN_Display3DENEditAttributes_Title_text";
+//as it's used internally by the engine, the escape char is '%s' which is used by printf
 _cString = _cString regexReplace ["%s", getText (_moduleCfg >> "displayName")];
 _ctrlTitle ctrlSetText _cString;
 
@@ -94,8 +97,8 @@ _ctrlTitle ctrlSetText _cString;
 private _moduleInfo = [_editDisplay, _moduleCfg] call FUNC(curator_addModuleInfo);
 
 //Ok and Abort
-private _ctrlOk = _editDisplayHash getOrDefault["ButtonOK", controlNull];
-private _ctrlAbort = _editDisplayHash getOrDefault["ButtonCancel", controlNull];
+private _ctrlOk = _editDisplayHash getOrDefault ["ButtonOK", controlNull];
+private _ctrlAbort = _editDisplayHash getOrDefault ["ButtonCancel", controlNull];
 
 _ctrlOk ctrlAddEventHandler ["ButtonClick", _okCode];
 _ctrlAbort ctrlAddEventHandler ["ButtonClick", _abortCode];

@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_ctrlGrp", controlNull, [controlNull, []], [1, 2]]
 ];
@@ -30,8 +31,9 @@ if (isNull _treeCtrl) exitWith {
 };
 
 private _root = configFile >> "cfgWaypoints";
-private _categories = configClasses [_root, 0, false, false]; //configClasses [config, depth, includeInherited, allSubclasses, classNames]
- 
+private _categories = configClasses [_root, 0, false, false];
+//configClasses [config, depth, includeInherited, allSubclasses, classNames]
+
 _categories apply {
     private _parentCfg = _x;
     private _parentIndex = _treeCtrl tvAdd [[], getText (_parentCfg >> "displayName")];

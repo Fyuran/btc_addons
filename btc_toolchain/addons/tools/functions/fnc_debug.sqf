@@ -29,7 +29,7 @@ params [
 ];
 if (_mode <= 0 || _mode > GLOBAL) exitWith {
     #ifdef BTC_DEBUG_DEBUG
-    [["%1: invalid _mode: %2 passed to btc_toolchain_tools_fnc_debug", __FILE_NAME__, _mode], REPORT, QCOMPONENT] call FUNC(debug);  
+    [["%1: invalid _mode: %2 passed to btc_toolchain_tools_fnc_debug", __FILE_NAME__, _mode], REPORT, QCOMPONENT] call FUNC(debug);
     #endif
 };
 
@@ -39,18 +39,19 @@ private _isError = [_mode, REPORT] call BIS_fnc_bitflagsCheck;
 private _global = [_mode, GLOBAL] call BIS_fnc_bitflagsCheck;
 
 if (_title isNotEqualTo "DEBUG") then {
-    _title = format["[BTC] (%1)", toUpper _title];
+    _title = format ["[BTC] (%1)", toUpper _title];
 };
 
 _message = format _message;
 if (!_isError) then {
     [_message, _title, [_useChat, _useLogs, _global]] call CBAFUNC(debug2);
-} else { //it's an REPORT message
-	if (is3DEN) then {
-		[_message, 1] call BIS_fnc_3DENNotification;
-	} else {
-		[_message] call BIS_fnc_error;
-	};
-    _title = format["%1 ERROR", _title];
+} else {
+    //it's an REPORT message
+    if (is3DEN) then {
+        [_message, 1] call BIS_fnc_3DENNotification;
+    } else {
+        [_message] call BIS_fnc_error;
+    };
+    _title = format ["%1 ERROR", _title];
     [_message, _title, [_useChat, true, _global]] call CBAFUNC(debug2);
 };

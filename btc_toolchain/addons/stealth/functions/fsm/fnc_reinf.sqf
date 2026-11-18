@@ -20,52 +20,73 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 [
-_this, 
-{
-	/*STATE*/
-	params [["_group", grpNull, [grpNull]]];
-	if ((units _group) isEqualTo []) exitWith {
-		#ifdef BTC_DEBUG_STEALTH
-		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
-		#endif
-		[_stateMachine] call CBA_statemachine_fnc_delete;
-	};
+    _this,
+    {
+        /*STATE*/
+        params [["_group", grpNull, [grpNull]]];
+        if ((units _group) isEqualTo []) exitWith {
+            #ifdef BTC_DEBUG_STEALTH
+            [["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+            #endif
+            [_stateMachine] call CBA_statemachine_fnc_delete;
+        };
 
-	(units _group) apply {
-		private _player = [_x, allPlayers] call FUNC(threat_unitDetectEntities);
-		if (!isNull _player) then {
-			private _threat_dis = _group getVariable[QGVAR(threat_distance), THREAT_DISTANCE];
+        (units _group) apply {
+            private _player = [_x, allPlayers] call FUNC(threat_unitDetectEntities);
+            if (!isNull _player) then {
+                private _threat_dis = _group getVariable [QGVAR(threat_distance), THREAT_DISTANCE];
 
-			private _rate = 1/5 + (1/8 - 1/5) * (((_x distance _entity) - MIN_DIS) / (_threat_dis - MIN_DIS));
-			[_group, _rate] call FUNC(threat_addThreat);
-			[_group, _player, 5] call FUNC(threat_setLastKnownPosition);
-		};
-	};
-}, {
-    /*ENTER*/
-    params [["_group", grpNull, [grpNull]]];
-	if ((units _group) isEqualTo []) exitWith {
-		#ifdef BTC_DEBUG_STEALTH
-		[["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug); 
-		#endif
-		[_stateMachine] call CBA_statemachine_fnc_delete;
-	};
+                private _rate = 1 / 5 + (1 / 8 - 1 / 5) * (((_x distance _entity) - MIN_DIS) / (_threat_dis - MIN_DIS));
+                [_group, _rate] call FUNC(threat_addThreat);
+                [_group, _player, 5] call FUNC(threat_setLastKnownPosition);
+            };
+        };
+    },
+    {
+        /*ENTER*/
+        params [["_group", grpNull, [grpNull]]];
+        if ((units _group) isEqualTo []) exitWith {
+            #ifdef BTC_DEBUG_STEALTH
+            [["%1: removing _stateMachine %2", __FILE_NAME__, _stateMachine], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+            #endif
+            [_stateMachine] call CBA_statemachine_fnc_delete;
+        };
 
-	_group setBehaviourStrong "AWARE";
+        _group setBehaviourStrong "AWARE";
 
-	private _reinf_location = _group getVariable[QGVAR(reinf_location), [0, 0, 0]];
-	if (_reinf_location isEqualTo [0, 0, 0]) exitWith {
-		#ifdef BTC_DEBUG_STEALTH
-		[["%1: %2 could not reinforce as reinf_location is invalid", __FILE_NAME__, _group], REPORT, QCOMPONENT] call EFUNC(tools,debug); 
-		#endif
-		_group setVariable[QGVAR(isReinforcement), false];
-	};
-	[_group, _group getVariable [QGVAR(investigate_threshold), 1]] call FUNC(threat_setThreat);
-	[_group, [[0, _reinf_location, 25, "MOVE", "UNCHANGED", "UNCHANGED", 
-		"FULL", "NO CHANGE", ["true", ""], [0, 0, 0]]]] call FUNC(waypoints_setWaypoints);
+        private _reinf_location = _group getVariable [QGVAR(reinf_location), [0, 0, 0]];
+        if (_reinf_location isEqualTo [0, 0, 0]) exitWith {
+            #ifdef BTC_DEBUG_STEALTH
+            [["%1: %2 could not reinforce as reinf_location is invalid", __FILE_NAME__, _group], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+            #endif
+            _group setVariable [QGVAR(isReinforcement), false];
+        };
+        [_group, _group getVariable [QGVAR(investigate_threshold), 1]] call FUNC(threat_setThreat);
+        [
+            _group,
+            [
+                [
+                    0,
+                    _reinf_location,
+                    25,
+                    "MOVE",
+                    "UNCHANGED",
+                    "UNCHANGED",
+                    "FULL",
+                    "NO CHANGE",
+                    ["true", ""],
+                    [0, 0, 0]
+                ]
+            ]
+        ]
+        call FUNC(waypoints_setWaypoints);
 
-}, {
-	/*EXIT*/
-	_group setVariable[QGVAR(isReinforcement), false];
-}, "Reinforcement"]
+    },
+    {
+        /*EXIT*/
+        _group setVariable [QGVAR(isReinforcement), false];
+    },
+    "Reinforcement"
+]

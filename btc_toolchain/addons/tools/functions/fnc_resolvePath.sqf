@@ -29,8 +29,8 @@ params [
 if (_path isEqualType []) then {
     _path = selectRandom _path;
 };
-if (_path isEqualTo "") exitWith {""};
-if ((_path select [0, 1]) isEqualTo "\" || {(_path select [1, 1]) isEqualTo ":"}) exitWith {
+if (_path isEqualTo "") exitWith { "" };
+if ((_path select [0, 1]) isEqualTo "\" || { (_path select [1, 1]) isEqualTo ":" }) exitWith {
     _path
 };
 

@@ -36,6 +36,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_class", "", [""]],
     ["_filterNonCombat", true, [true]]
@@ -76,20 +77,23 @@ _weapons apply {
     private _weaponClass = _x;
     private _weapCfg = configFile >> "CfgWeapons" >> _weaponClass;
     private _displayName = getText (_weapCfg >> "displayName");
-    if (_displayName isEqualTo "") then { _displayName = _weaponClass; };
+    if (_displayName isEqualTo "") then {
+        _displayName = _weaponClass;
+    };
     private _icon = getText (_weapCfg >> "picture");
-    if (_icon isEqualTo "") then { _icon = getText (_weapCfg >> "icon"); };
+    if (_icon isEqualTo "") then {
+        _icon = getText (_weapCfg >> "icon");
+    };
 
     private _modes = getArray (_weapCfg >> "modes");
     // If modes[] in config for the weapon says {"this"}, 
     // then the same classname as for the weapon 
     // should be used as firemode param. https://community.bistudio.com/wiki/forceWeaponFire
-    private _thisIndex = _modes findIf {_x isEqualTo "this"};
-    if (_thisIndex isNotEqualTo -1) then {
+    private _thisIndex = _modes findIf { _x isEqualTo "this" };
+    if (_thisIndex isNotEqualTo - 1) then {
         _modes set [_thisIndex, _weaponClass];
     };
 
-    
     _result pushBack (createHashMapFromArray [
         ["class", _weaponClass],
         ["displayName", _displayName],
@@ -97,7 +101,8 @@ _weapons apply {
         ["modes", _modes],
         ["magazines", getArray (_weapCfg >> "magazines")],
         ["muzzle", [_weaponClass] call FUNC(getWeaponType)]
-    ]);
+    ]
+    );
 };
 
 _result

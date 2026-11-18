@@ -26,7 +26,7 @@ params [
 ];
 disableSerialization;
 
-private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
+private _logic = missionNamespace getVariable [QGVAR(logic), objNull];
 if (isNull _logic) exitWith {
     #ifdef BTC_DEBUG_CAS
     [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -85,9 +85,10 @@ if (cbChecked _remoteCb) then {
     [["%1: curatorMouseOver: %2", __FILE_NAME__, _curatorMouseOver], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 
-    if ((_type isEqualTo "OBJECT") && {alive _object}) then {
-        if (!isPlayer _object) then { //curatorMouseOver is never guaranteed to be hovering over player, fuck this
-            private _playerIndex = allPlayers findIf {(_x distance _object ) < 5};
+    if ((_type isEqualTo "OBJECT") && { alive _object }) then {
+        if (!isPlayer _object) then {
+            //curatorMouseOver is never guaranteed to be hovering over player, fuck this
+            private _playerIndex = allPlayers findIf { (_x distance _object) < 5 };
             if (_playerIndex > -1) then {
                 _object = allPlayers select _playerIndex;
             };
@@ -114,7 +115,12 @@ _editDisplay closeDisplay 1;
 
 //allow user to rotate or move module as he sees fit
 _logic hideObject false;
-[{
-    [_this#0] remoteExecCall [QFUNC(init), _this#1];
-    (_this#0) hideObject true;
-}, [_logic, _serverId], 5] call CBAFUNC(waitAndExecute);
+[
+    {
+        [_this#0] remoteExecCall [QFUNC(init), _this#1];
+        (_this#0) hideObject true;
+    },
+    [_logic, _serverId],
+    5
+]
+call CBAFUNC(waitAndExecute);

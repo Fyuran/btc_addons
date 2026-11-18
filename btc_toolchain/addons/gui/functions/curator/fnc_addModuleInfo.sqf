@@ -24,7 +24,7 @@ Author:
 
 params [
     ["_display", displayNull, [displayNull]],
-	["_moduleCfg", configNull, [configNull]]
+    ["_moduleCfg", configNull, [configNull]]
 ];
 
 if (isNull _display) exitWith {

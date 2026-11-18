@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_ctrlGrp", controlNull, [controlNull]],
     ["_value", DEFAULT_CFG, []]
@@ -28,8 +29,8 @@ params [
 
 if (!(_value isEqualTypeAny ["", configNull])) then {
     #ifdef BTC_DEBUG_ENEMY_WAVES
-	[["%1: _value(%2):%3 not STRING or CONFIG", __FILE_NAME__, typeName _value, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    [["%1: _value(%2):%3 not STRING or CONFIG", __FILE_NAME__, typeName _value, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     _value = DEFAULT_CFG;
 };
 if (_value isEqualTo "") then {
@@ -43,8 +44,8 @@ if (_value isEqualType "") then {
 };
 if (!(isClass _value)) then {
     #ifdef BTC_DEBUG_ENEMY_WAVES
-	[["%1: _value: %2 not a valid CONFIG", __FILE_NAME__, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    [["%1: _value: %2 not a valid CONFIG", __FILE_NAME__, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     _value = DEFAULT_CFG;
 };
 

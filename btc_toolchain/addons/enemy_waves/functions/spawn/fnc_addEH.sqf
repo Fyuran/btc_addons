@@ -21,8 +21,8 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-params [ 
-	["_units", objNull, [objNull, [], grpNull]]
+params [
+    ["_units", objNull, [objNull, [], grpNull]]
 ];
 
 if (_units isEqualType objNull) then {
@@ -33,12 +33,12 @@ if (_units isEqualType grpNull) then {
     _units = units _units;
 };
 
-private _fnc = { 
+private _fnc = {
     params ["_unit"];
-    private _logic = _unit getVariable[QGVAR(wave_spawn), objNull];
-    private _units = _logic getVariable[QGVAR(wave_units), []];
-    private _index = _units find _unit; 
-    if (_index isNotEqualTo -1) then {
+    private _logic = _unit getVariable [QGVAR(wave_spawn), objNull];
+    private _units = _logic getVariable [QGVAR(wave_units), []];
+    private _index = _units find _unit;
+    if (_index isNotEqualTo - 1) then {
         _units deleteAt _index;
     };
 
@@ -46,7 +46,7 @@ private _fnc = {
     [["%1: Removing %2(%3) from %4", __FILE_NAME__, _unit, _logic, _units], LOGS, QCOMPONENT] call EFUNC(tools,debug);
     #endif
 
-    _logic setVariable[QGVAR(wave_units), _units];
+    _logic setVariable [QGVAR(wave_units), _units];
 };
 
 _units apply {
@@ -59,6 +59,6 @@ _units apply {
         continue;
     };
 
-    _unit addEventHandler["Killed", _fnc]; 
-    _unit addEventHandler["Deleted", _fnc];
+    _unit addEventHandler ["Killed", _fnc];
+    _unit addEventHandler ["Deleted", _fnc];
 };

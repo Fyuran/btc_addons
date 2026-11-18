@@ -22,8 +22,10 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params ["_uid", "", "_newAmount", "", "_grp2_curSelRow"];
 
 private _groupClasses = GVAR(table) getOrDefault [_uid, []];
 private _group = _groupClasses select _grp2_curSelRow;
-_group set [1, _newAmount]; //Class, Amount
+_group set [1, _newAmount];
+//Class, Amount

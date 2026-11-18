@@ -20,12 +20,13 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_OKButton", controlNull, [controlNull]]
 ];
 disableSerialization;
 
-private _logic = missionNamespace getVariable[QGVAR(logic), objNull];
+private _logic = missionNamespace getVariable [QGVAR(logic), objNull];
 if (isNull _logic) exitWith {
     #ifdef BTC_DEBUG_ENEMY_WAVES
     [["%1: _logic is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -54,7 +55,7 @@ private _timeout = _timeoutGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_V
 
 private _formationGrp = _attrHash getOrDefault [QGVAR(formation), controlNull];
 private _formationToolboxCtrl = _formationGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
-private _formation = ['no change','wedge','vee','line','column','file','stag_column','ech_left','ech_right','diamond'] select (_formationToolboxCtrl lbValue (lbCurSel _formationToolboxCtrl));
+private _formation = ['no change', 'wedge', 'vee', 'line', 'column', 'file', 'stag_column', 'ech_left', 'ech_right', 'diamond'] select (_formationToolboxCtrl lbValue (lbCurSel _formationToolboxCtrl));
 
 private _seekCbGrp = _attrHash getOrDefault [QGVAR(seek_end), controlNull];
 private _seek_cb = _seekCbGrp controlsGroupCtrl IDC_DISPLAY3DENEDITATTRIBUTES_VALUE;
@@ -68,7 +69,7 @@ _logic setVariable [QGVAR(timeout), parseNumber (ctrlText _timeout), _serverID];
 _logic setVariable [QGVAR(seek_end), cbChecked _seek_cb, _serverID];
 _logic setVariable [QGVAR(formation), _formation, _serverID];
 _logic setVariable [QGVAR(list_value), GVAR(table), _serverID];
-_logic setVariable[QGVAR(debug), cbChecked _debugCb, _serverId];
+_logic setVariable [QGVAR(debug), cbChecked _debugCb, _serverId];
 
 _editDisplay closeDisplay 1;
 [_logic] remoteExecCall [QFUNC(spawn_begin), _serverID];

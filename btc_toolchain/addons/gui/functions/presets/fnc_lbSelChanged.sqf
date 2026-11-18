@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_list", controlNull, [controlNull]],
     ["_lbCurSel", -1, [123]]

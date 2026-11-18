@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_seed", round diag_tickTime, []]
 ];
@@ -28,8 +29,8 @@ private _chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 private _suffix = "";
 
 for "_i" from 1 to 12 do {
-	_suffix = _suffix + selectRandom _chars;
+    _suffix = _suffix + selectRandom _chars;
 };
 
-private _uniqueID = format["%1-%2", _seed, _suffix];
+private _uniqueID = format ["%1-%2", _seed, _suffix];
 _uniqueID

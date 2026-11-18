@@ -2,8 +2,8 @@
 #define SCRIPT_VERSION_HPP
 
 #define MAJOR 1
-#define MINOR 5
-#define PATCH 3// `#define PATCHLVL` can also be used
+#define MINOR 6
+#define PATCH 0// `#define PATCHLVL` can also be used
 #define BUILD 0// Optional
 #define VERSION MAJOR.MINOR
 #define VERSION_STR MAJOR.MINOR.PATCH

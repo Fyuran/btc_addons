@@ -23,6 +23,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_btn", controlNull, [controlNull]],
     ["_isIncrement", true, [true]],

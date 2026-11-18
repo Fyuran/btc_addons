@@ -72,10 +72,11 @@ switch (typeName _object) do {
                 private _value = [_object, _name] call CBAFUNC(hashGet);
 
                 str formatText ["%1: %2", [_name] call FUNC(toJSON), [_value] call FUNC(toJSON)]
-            }) joinString ", ";
+            }
+            ) joinString ", ";
             "{" + _json + "}"
         } else {
-            private _json = (_object apply {[_x] call FUNC(toJSON)}) joinString ", ";
+            private _json = (_object apply { [_x] call FUNC(toJSON) }) joinString ", ";
             "[" + _json + "]"
         };
     };
@@ -89,12 +90,13 @@ switch (typeName _object) do {
             };
 
             str formatText ["%1: %2", [_key] call FUNC(toJSON), [_value] call FUNC(toJSON)]
-        }) joinString ", ";
+        }
+        ) joinString ", ";
         "{" + _json + "}"
     };
 
     default {
-        if !(typeName _object in (supportInfo "u:allVariables*" apply {_x splitString " " select 1})) exitWith {
+        if !(typeName _object in (supportInfo "u:allVariables*" apply { _x splitString " " select 1 })) exitWith {
             [str _object] call FUNC(toJSON)
         };
 
@@ -105,7 +107,8 @@ switch (typeName _object) do {
             private _value = _object getVariable [_name, objNull];
 
             str formatText ["%1: %2", [_name] call FUNC(toJSON), [_value] call FUNC(toJSON)]
-        }) joinString ", ";
+        }
+        ) joinString ", ";
         "{" + _json + "}"
     };
 };

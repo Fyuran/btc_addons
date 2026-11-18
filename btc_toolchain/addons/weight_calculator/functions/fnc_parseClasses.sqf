@@ -24,19 +24,19 @@ Author:
 ---------------------------------------------------------------------------- */
 
 params [
-	["_loadout", [], [[], ""]],
-	["_arr", [], [[]]]
+    ["_loadout", [], [[], ""]],
+    ["_arr", [], [[]]]
 ];
 if (_loadout isEqualTo []) exitWith {};
 if (_loadout isEqualTo "") exitWith {};
 if (_loadout isEqualType "") exitWith {};
 
 _loadout apply {
-	if (_x isEqualType []) then {
-		if (_x isEqualTo []) then {continue};
-		[_x, _arr] call FUNC(parseClasses);
-	} else {
-		if (_x isEqualTo "") then {continue};
-		_arr pushBack _x;
-	};
+    if (_x isEqualType []) then {
+        if (_x isEqualTo []) then { continue };
+        [_x, _arr] call FUNC(parseClasses);
+    } else {
+        if (_x isEqualTo "") then { continue };
+        _arr pushBack _x;
+    };
 };

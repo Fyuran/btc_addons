@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_remove", controlNull, [controlNull]],
     ["_uid", "", [""]]
@@ -34,10 +35,12 @@ if (_lbCurSel < 0) exitWith {
     ["Nothing is selected in Objects List", 1] call EFUNC(tools,3DENNotification);
 };
 
-if (_uid isEqualTo "") then { //first check if uid has been passed
+if (_uid isEqualTo "") then {
+    //first check if uid has been passed
     _uid = _grp1_list lbData _lbCurSel;
 };
-if (_uid isEqualTo "") exitWith { //invalid uid, time to fuck off
+if (_uid isEqualTo "") exitWith {
+    //invalid uid, time to fuck off
     #ifdef BTC_DEBUG_ENEMY_WAVES
     [["%1: invalid _uid", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
@@ -47,7 +50,8 @@ if (_uid isEqualTo "") exitWith { //invalid uid, time to fuck off
 GVAR(table) deleteAt _uid;
 
 _grp1_list lbDelete _lbCurSel;
-_grp1_list lbSetCurSel -1; //Should trigger LBSelChanged -1 exitWith lbClear
+_grp1_list lbSetCurSel - 1;
+//Should trigger LBSelChanged -1 exitWith lbClear
 
 #ifdef BTC_DEBUG_SUPPLY
 [["%1: removing %2 from LIST_1", __FILE_NAME__, _uid], LOGS, QCOMPONENT] call EFUNC(tools,debug);

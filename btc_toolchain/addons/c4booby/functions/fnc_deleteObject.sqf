@@ -22,7 +22,7 @@ Author:
 ---------------------------------------------------------------------------- */
 
 params [
-	["_obj",objNull,[objNull]]
+    ["_obj", objNull, [objNull]]
 ];
 if (isNull _obj) exitWith {
     [["%1: bad params: %2", __FILE_NAME__, _this], REPORT, QCOMPONENT] call EFUNC(tools,debug);
@@ -30,7 +30,7 @@ if (isNull _obj) exitWith {
 
 private _handle = _obj getVariable [QGVAR(timer_handle), -1];
 if (_handle != -1) then {
-	[_handle] call CBAFUNC(removePerFrameHandler);
+    [_handle] call CBAFUNC(removePerFrameHandler);
 };
 private _objs = attachedObjects _obj;
-_objs apply {deleteVehicle _x};
+_objs apply { deleteVehicle _x };

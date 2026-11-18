@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_root", controlNull, [controlNull, displayNull]]
 ];
@@ -44,7 +45,7 @@ private _controls = createHashMap;
     if (_key in _controls) then {
         private _index = 2;
         private _candidate = format ["%1_%2", _class, _index];
-        while {_candidate in _controls} do {
+        while { _candidate in _controls } do {
             _index = _index + 1;
             _candidate = format ["%1_%2", _class, _index];
         };
@@ -54,7 +55,7 @@ private _controls = createHashMap;
     #ifdef BTC_DEBUG_TOOLS
     [["%1: found [%2, %3]", __FILE_NAME__, _key, _control], LOGS, QCOMPONENT] call FUNC(debug);
     #endif
-    
+
     _controls set [_key, _control];
 };
 

@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_main_grp", controlNull, [controlNull]],
     ["_value", createHashMap, []]
@@ -28,8 +29,8 @@ params [
 
 if (!(_value isEqualTypeAny ["", createHashMap])) exitWith {
     #ifdef BTC_DEBUG_SUPPLY
-	[["%1: _value(%2):%3 not STRING or HASHMAP", __FILE_NAME__, typeName _value, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    [["%1: _value(%2):%3 not STRING or HASHMAP", __FILE_NAME__, typeName _value, _value], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
 };
 disableSerialization;
 
@@ -52,10 +53,11 @@ if (_value isEqualType "") then {
 } else {
     GVAR(table) = +_value;
 };
-if (GVAR(table) isEqualTo createHashMap) exitWith { //check again after parsing
-	#ifdef BTC_DEBUG_SUPPLY
-	[["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+if (GVAR(table) isEqualTo createHashMap) exitWith {
+    //check again after parsing
+    #ifdef BTC_DEBUG_SUPPLY
+    [["%1: GVAR(table) is an empty hashmap", __FILE_NAME__], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
 };
 
 //Group 1

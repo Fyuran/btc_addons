@@ -22,14 +22,18 @@ Author:
 
 ---------------------------------------------------------------------------- */
 
-[_this, {
-    params [
-        ["_player", objNull, [objNull]],
-        ["_object", objNull, [objNull]]
-    ];
-    if !(_object isKindOf "Land_SatelliteAntenna_01_F") exitWith {};
+[
+    _this,
+    {
+        params [
+            ["_player", objNull, [objNull]],
+            ["_object", objNull, [objNull]]
+        ];
+        if !(_object isKindOf "Land_SatelliteAntenna_01_F") exitWith {};
 
-    deleteVehicle _object;
-    _player addItem QGVAR(DeployableAntenna);
+        deleteVehicle _object;
+        _player addItem QGVAR(DeployableAntenna);
 
-}] remoteExecCall["call", [0, 2] select isMultiplayer];
+    }
+]
+remoteExecCall ["call", [0, 2] select isMultiplayer];

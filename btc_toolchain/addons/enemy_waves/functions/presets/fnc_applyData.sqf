@@ -20,6 +20,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_preset", createHashMap, [createHashMap]]
 ];
@@ -40,7 +41,6 @@ if (isNull _side_combo || isNull _timeout || isNull _seekEnd_cb || isNull _list_
 
 [_side_combo, _preset getOrDefault [QGVAR(side), east]] call FUNC(sideCombo_attributeLoad);
 [_timeout, _preset getOrDefault [QGVAR(timeout), 60]] call FUNC(timeout_attributeLoad);
-
 
 _formation_ctrl lbSetCurSel (_preset getOrDefault [QGVAR(formation), 0]);
 

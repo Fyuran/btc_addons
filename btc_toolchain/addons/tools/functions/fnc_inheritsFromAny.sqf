@@ -23,6 +23,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_class", "", ["", objNull]],
     ["_baseClasses", ["Air", "Land"], [[], ""]],
@@ -49,8 +50,9 @@ if (!isClass (configFile >> _root)) exitWith {
 
 private _cfgRoot = configFile >> _root;
 private _classCfg = _cfgRoot >> _class;
-if (!isClass _classCfg) exitWith {false};
+if (!isClass _classCfg) exitWith { false };
 
 (_baseClasses findIf {
     [_classCfg, _cfgRoot >> _x] call CBAFUNC(inheritsFrom);
-}) isNotEqualTo -1
+}
+) isNotEqualTo - 1

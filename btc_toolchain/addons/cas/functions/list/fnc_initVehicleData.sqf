@@ -22,6 +22,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_class", "", [""]]
 ];
@@ -63,7 +64,7 @@ _data apply {
     private _displayName = _x getOrDefault ["displayName", ""];
     private _icon = _x getOrDefault ["icon", ""];
 
-    if (_wpnClass isEqualTo "" || {_displayName isEqualTo ""}) then {
+    if (_wpnClass isEqualTo "" || { _displayName isEqualTo "" }) then {
         continue;
     };
 

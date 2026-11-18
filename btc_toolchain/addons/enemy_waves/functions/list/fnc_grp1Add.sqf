@@ -21,6 +21,7 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
+
 params [
     ["_add", controlNull, [controlNull]],
     ["_uid", "", [""]]
@@ -32,12 +33,12 @@ private _grp1_list = _grp1 controlsGroupCtrl VALUE_1;
 //row inits
 private _groupsCount = lbSize _grp1_list;
 
-private _lbRowText = format["Wave %1", _groupsCount + 1];
+private _lbRowText = format ["Wave %1", _groupsCount + 1];
 private _row = _grp1_list lbAdd _lbRowText;
 
 if (_uid isEqualTo "") then {
-    _uid = format["%1-%2", _lbRowText, ([] call EFUNC(tools,uid))];
-    GVAR(table) set[_uid, []];
+    _uid = format ["%1-%2", _lbRowText, ([] call EFUNC(tools,uid))];
+    GVAR(table) set [_uid, []];
 };
 
 _grp1_list lbSetData [_row, _uid];
