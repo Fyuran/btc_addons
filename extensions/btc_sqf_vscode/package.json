@@ -2,7 +2,7 @@
   "name": "btc-sqf-vscode",
   "displayName": "BTC SQF & CBA IntelliSense",
   "description": "Rich documentation hovers, parameter inspection, and Go-to-Definition for Arma 3 SQF and CBA/HEMTT macros.",
-  "version": "0.5.17",
+  "version": "0.5.18",
   "publisher": "btc",
   "engines": {
     "vscode": "^1.80.0"
@@ -26,7 +26,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "package": "vsce package --no-dependencies"
+    "package": "vsce package --no-dependencies",
+    "format:all": "node scripts/format_all.js"
   },
   "contributes": {
     "languages": [
@@ -162,9 +163,28 @@
         "title": "Reindex Workspace Functions",
         "category": "BTC SQF",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "btc-sqf.formatDocument",
+        "title": "Format Document",
+        "category": "BTC SQF",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "btc-sqf.formatAllDocuments",
+        "title": "Format All SQF Files (Workspace)",
+        "category": "BTC SQF",
+        "icon": "$(files)"
       }
     ],
     "menus": {
+      "editor/context": [
+        {
+          "command": "btc-sqf.formatDocument",
+          "when": "editorTextFocus && (resourceExtname == .sqf || editorLangId == sqf)",
+          "group": "1_modification@1"
+        }
+      ],
       "editor/title": [
         {
           "command": "btc-sqf.updateCurrentHeader",
@@ -179,29 +199,39 @@
       ],
       "view/title": [
         {
-          "command": "btc-sqf.updateCurrentHeader",
+          "command": "btc-sqf.formatDocument",
           "when": "view == btcSqfToolsView",
           "group": "navigation@1"
         },
         {
-          "command": "btc-sqf.updateAllHeaders",
+          "command": "btc-sqf.formatAllDocuments",
           "when": "view == btcSqfToolsView",
           "group": "navigation@2"
         },
         {
-          "command": "btc-sqf.generateCurrentXehPrep",
+          "command": "btc-sqf.updateCurrentHeader",
           "when": "view == btcSqfToolsView",
           "group": "navigation@3"
         },
         {
-          "command": "btc-sqf.generateAllXehPrep",
+          "command": "btc-sqf.updateAllHeaders",
           "when": "view == btcSqfToolsView",
           "group": "navigation@4"
         },
         {
-          "command": "btc-sqf.rebuildIndex",
+          "command": "btc-sqf.generateCurrentXehPrep",
           "when": "view == btcSqfToolsView",
           "group": "navigation@5"
+        },
+        {
+          "command": "btc-sqf.generateAllXehPrep",
+          "when": "view == btcSqfToolsView",
+          "group": "navigation@6"
+        },
+        {
+          "command": "btc-sqf.rebuildIndex",
+          "when": "view == btcSqfToolsView",
+          "group": "navigation@7"
         }
       ]
     },
@@ -209,6 +239,43 @@
       "type": "object",
       "title": "BTC SQF IntelliSense",
       "properties": {
+        "btcSqf.formatting.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable BTC SQF code formatting."
+        },
+        "btcSqf.formatting.braceStyle": {
+          "type": "string",
+          "enum": [
+            "1tbs",
+            "allman",
+            "stroustrup",
+            "whitesmiths"
+          ],
+          "enumDescriptions": [
+            "1TBS / K&R: Opening brace '{' on same line as statement, closing brace '}' on its own line, '} else {' on same line.",
+            "Allman: Both '{' and '}' on their own separate lines at statement indentation.",
+            "Stroustrup: Opening brace on same line, closing brace on its own line, 'else' / 'catch' starts on a new line ('} \\n else {').",
+            "Whitesmiths: Braces on their own lines, indented to match the indented code block inside them."
+          ],
+          "default": "1tbs",
+          "description": "Curly brace placement and indentation style for SQF documents."
+        },
+        "btcSqf.formatting.correctCasing": {
+          "type": "boolean",
+          "default": true,
+          "description": "Format native SQF commands (e.g. pushback -> pushBack, setposasl -> setPosASL) and workspace functions to their canonical casing."
+        },
+        "btcSqf.formatting.keepOneLineBlocks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep single-line code blocks (e.g. '{ false }' or '{ _x select 0 }') on a single line."
+        },
+        "btcSqf.formatting.maxEmptyLines": {
+          "type": "number",
+          "default": 1,
+          "description": "Maximum number of consecutive blank lines to preserve."
+        },
         "btcSqf.enableNativeHovers": {
           "type": "boolean",
           "default": true,

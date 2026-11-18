@@ -14,6 +14,7 @@ import { HeaderUpdater } from './headerUpdater';
 import { XehPrepBuilder } from './xehPrepBuilder';
 import { BtcSqfToolsTreeDataProvider } from './sidebarProvider';
 import { VariableTypeInferrer } from './variableInferrer';
+import { SqfFormatter, SqfFormatterOptions, BraceStyle } from './formatter';
 
 export async function activate(context: vscode.ExtensionContext) {
     console.log('[BTC SQF] Activating BTC SQF & CBA IntelliSense extension...');
@@ -95,6 +96,15 @@ export async function activate(context: vscode.ExtensionContext) {
             semanticTokensProvider,
             semanticLegend
         )
+    );
+
+    // Register Document and Range Formatting Providers
+    const sqfFormatter = new SqfFormatter(nativeCommands, indexer);
+    context.subscriptions.push(
+        vscode.languages.registerDocumentFormattingEditProvider(documentSelectors, sqfFormatter)
+    );
+    context.subscriptions.push(
+        vscode.languages.registerDocumentRangeFormattingEditProvider(documentSelectors, sqfFormatter)
     );
 
     // Watch for saved files to keep index fresh
@@ -359,6 +369,116 @@ export async function activate(context: vscode.ExtensionContext) {
             await indexer.indexWorkspace();
             const count = indexer.getAllFunctions().length;
             vscode.window.showInformationMessage(`BTC SQF: Reindexed ${count} functions.`);
+        })
+    );
+
+    // Command: Format SQF Document
+    context.subscriptions.push(
+        vscode.commands.registerCommand('btc-sqf.formatDocument', async () => {
+            const editor = vscode.window.activeTextEditor;
+            if (!editor) {
+                vscode.window.showWarningMessage('BTC SQF: No active editor. Please open an SQF file.');
+                return;
+            }
+
+            const doc = editor.document;
+            if (doc.languageId !== 'sqf' && !doc.uri.fsPath.endsWith('.sqf')) {
+                vscode.window.showWarningMessage('BTC SQF: Active file is not an SQF file.');
+                return;
+            }
+
+            const edits = sqfFormatter.formatDocument(doc, {
+                tabSize: Number(editor.options.tabSize) || 4,
+                insertSpaces: Boolean(editor.options.insertSpaces)
+            });
+
+            if (edits.length > 0) {
+                const workspaceEdit = new vscode.WorkspaceEdit();
+                workspaceEdit.set(doc.uri, edits);
+                await vscode.workspace.applyEdit(workspaceEdit);
+                vscode.window.showInformationMessage('BTC SQF: Document formatted.');
+            } else {
+                vscode.window.showInformationMessage('BTC SQF: Document is already formatted.');
+            }
+        })
+    );
+
+    // Command: Format All SQF Documents (Workspace)
+    context.subscriptions.push(
+        vscode.commands.registerCommand('btc-sqf.formatAllDocuments', async () => {
+            const sqfFiles = await vscode.workspace.findFiles('**/*.sqf', '**/{node_modules,.git,.hemtt,.hemttout}/**');
+            if (sqfFiles.length === 0) {
+                vscode.window.showInformationMessage('BTC SQF: No .sqf files found in workspace.');
+                return;
+            }
+
+            const config = vscode.workspace.getConfiguration('btcSqf');
+            const braceStyle = config.get<BraceStyle>('formatting.braceStyle', '1tbs');
+            const correctCasing = config.get<boolean>('formatting.correctCasing', true);
+            const keepOneLineBlocks = config.get<boolean>('formatting.keepOneLineBlocks', true);
+            const maxEmptyLines = config.get<number>('formatting.maxEmptyLines', 1);
+
+            const editorConfig = vscode.workspace.getConfiguration('editor');
+            const tabSize = editorConfig.get<number>('tabSize', 4);
+            const insertSpaces = editorConfig.get<boolean>('insertSpaces', true);
+
+            const formatterOptions: SqfFormatterOptions = {
+                braceStyle,
+                correctCasing,
+                keepOneLineBlocks,
+                tabSize,
+                insertSpaces,
+                maxEmptyLines
+            };
+
+            await vscode.window.withProgress(
+                {
+                    location: vscode.ProgressLocation.Notification,
+                    title: 'BTC SQF: Formatting all SQF files across workspace...',
+                    cancellable: true
+                },
+                async (progress, token) => {
+                    let updatedCount = 0;
+                    let unchangedCount = 0;
+                    const total = sqfFiles.length;
+
+                    for (let i = 0; i < total; i++) {
+                        if (token.isCancellationRequested) {
+                            break;
+                        }
+
+                        const uri = sqfFiles[i];
+                        const filePath = uri.fsPath;
+                        const fileName = vscode.workspace.asRelativePath(uri);
+
+                        progress.report({
+                            message: `[${i + 1}/${total}] ${fileName}`,
+                            increment: (1 / total) * 100
+                        });
+
+                        try {
+                            const rawBytes = await vscode.workspace.fs.readFile(uri);
+                            const content = new TextDecoder('utf-8').decode(rawBytes);
+                            const formatted = sqfFormatter.formatText(content, formatterOptions);
+
+                            if (formatted !== content) {
+                                await vscode.workspace.fs.writeFile(uri, new TextEncoder().encode(formatted));
+                                updatedCount++;
+                            } else {
+                                unchangedCount++;
+                            }
+                        } catch (err) {
+                            console.error(`[BTC SQF] Failed to format ${filePath}:`, err);
+                        }
+                    }
+
+                    // Refresh workspace index and diagnostics
+                    await indexer.indexWorkspace();
+                    vscode.window.showInformationMessage(
+                        `BTC SQF: Completed formatting. ${updatedCount} files updated, ${unchangedCount} already up to date.`
+                    );
+                }
+            );
         })
     );
 }

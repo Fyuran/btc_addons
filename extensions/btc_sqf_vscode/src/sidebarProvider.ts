@@ -41,6 +41,20 @@ export class BtcSqfToolsTreeDataProvider implements vscode.TreeDataProvider<BtcS
         if (!element) {
             return Promise.resolve([
                 new BtcSqfToolItem(
+                    'Format Document (Active File)',
+                    'Current SQF',
+                    'Format current SQF file and normalize casing and braces',
+                    'btc-sqf.formatDocument',
+                    'file-code'
+                ),
+                new BtcSqfToolItem(
+                    'Format All SQF Files (Workspace)',
+                    'Batch all .sqf',
+                    'Format all SQF files across workspace for consistent styling and casing',
+                    'btc-sqf.formatAllDocuments',
+                    'files'
+                ),
+                new BtcSqfToolItem(
                     'Update Header (Active File)',
                     'Current SQF',
                     'Parse current SQF file and adjust Function, Parameters, and Returns blocks in the comment header',
