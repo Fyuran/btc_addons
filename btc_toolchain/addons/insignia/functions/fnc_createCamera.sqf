@@ -34,17 +34,17 @@ params [
     ["_parentDisplay", findDisplay 46, [displayNull]]
 ];
 
-if (!alive player) exitWith { 
+if (!alive player) exitWith {
     #ifdef BTC_DEBUG_INSIGNIA
-	[["%1: player is not alive", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    [["%1: player is not alive", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     objNull
 };
 
 if (isNull _parentDisplay) exitWith {
     #ifdef BTC_DEBUG_INSIGNIA
-	[["%1: _parentDisplay is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    [["%1: _parentDisplay is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     objNull
 };
 
@@ -71,10 +71,11 @@ private _state = [false, _initialAzimuth, _initialElevation, _distance];
 
 // Create camera object
 private _camVector = [
-    (cos _initialElevation) * (sin _initialAzimuth), 
-    (cos _initialElevation) * (cos _initialAzimuth), 
+    (cos _initialElevation) * (sin _initialAzimuth),
+    (cos _initialElevation) * (cos _initialAzimuth),
     sin _initialElevation
-] vectorMultiply _distance;
+]
+vectorMultiply _distance;
 
 private _cam = "camera" camCreate (getPos player);
 _cam cameraEffect ["Internal", "Back"];
@@ -90,28 +91,48 @@ uiNamespace setVariable [QGVAR(cameraSelPos), _selectionPos];
 uiNamespace setVariable [QGVAR(cameraState), _state];
 uiNamespace setVariable [QGVAR(cameraDisplay), _parentDisplay];
 
-private _ehDown = _parentDisplay displayAddEventHandler ["MouseButtonDown", {
-    params ["", "_button"];
-    [_button, true] call FUNC(mouseButton);
-}];
+private _nvgDown = _parentDisplay displayAddEventHandler [
+    "KeyDown", 
+    {
+        params ["", "_key"];
+        [_key] call FUNC(keyboardDown);
+    }
+];
 
-private _ehUp = _parentDisplay displayAddEventHandler ["MouseButtonUp", {
-    params ["", "_button"];
-    [_button, false] call FUNC(mouseButton);
-}];
+private _ehDown = _parentDisplay displayAddEventHandler [
+    "MouseButtonDown",
+    {
+        params ["", "_button"];
+        [_button, true] call FUNC(mouseButton);
+    }
+];
 
-private _ehMove = _parentDisplay displayAddEventHandler ["MouseMoving", {
-    params ["", "_xDelta", "_yDelta"];
-    [_xDelta, _yDelta] call FUNC(mouseMoving);
-}];
+private _ehUp = _parentDisplay displayAddEventHandler [
+    "MouseButtonUp",
+    {
+        params ["", "_button"];
+        [_button, false] call FUNC(mouseButton);
+    }
+];
 
-private _ehWheel = _parentDisplay displayAddEventHandler ["MouseZChanged", {
-    params ["", "_zChange"];
-    [_zChange] call FUNC(mouseZChanged);
-}];
+private _ehMove = _parentDisplay displayAddEventHandler [
+    "MouseMoving",
+    {
+        params ["", "_xDelta", "_yDelta"];
+        [_xDelta, _yDelta] call FUNC(mouseMoving);
+    }
+];
+
+private _ehWheel = _parentDisplay displayAddEventHandler [
+    "MouseZChanged",
+    {
+        params ["", "_zChange"];
+        [_zChange] call FUNC(mouseZChanged);
+    }
+];
 
 // Store EHs for later deletion
-uiNamespace setVariable [QGVAR(cameraHandlers), [_ehDown, _ehUp, _ehMove, _ehWheel]];
+uiNamespace setVariable [QGVAR(cameraHandlers), [_nvgDown, _ehDown, _ehUp, _ehMove, _ehWheel]];
 
 // Apply initial positioning
 [] call FUNC(update);

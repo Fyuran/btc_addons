@@ -15,6 +15,7 @@ Returns:
 Author:
     =BTC= Fyuran
 ---------------------------------------------------------------------------- */
+
 params [
     ["_xDelta", 0, [123]],
     ["_yDelta", 0, [123]]
@@ -38,5 +39,5 @@ if (!_isHoldingRMB) exitWith {};
 
 _state set [1, _azimuth - _xDelta];
 _state set [2, ((_elevation - _yDelta) min 45) max 0];
- 
+
 [] call FUNC(update);

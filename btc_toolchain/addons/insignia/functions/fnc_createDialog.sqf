@@ -19,6 +19,7 @@ Examples:
 Author:
     =BTC= Fyuran
 ---------------------------------------------------------------------------- */
+
 params [
     ["_parentDisplay", findDisplay 46, [displayNull]]
 ];
@@ -26,17 +27,20 @@ params [
 private _display = createDialog [QGVAR(gui), true];
 if (isNull _display) exitWith {
     #ifdef BTC_DEBUG_INSIGNIA
-	[["%1: insignia display is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-	#endif
+    [["%1: insignia display is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    #endif
     [] call FUNC(destroyCamera);
 
     displayNull
 };
 uiNamespace setVariable [QGVAR(display), _display];
-_display displayAddEventHandler["Unload", {
-    params ["_display", "_exitCode"];
-    uiNamespace setVariable [QGVAR(display), nil];
-}];
+_display displayAddEventHandler [
+    "Unload",
+    {
+        params ["_display", "_exitCode"];
+        uiNamespace setVariable [QGVAR(display), nil];
+    }
+];
 
 private _group1 = _display displayCtrl GROUP_1_IDC;
 private _list = _group1 controlsGroupCtrl LIST_IDC;
@@ -57,31 +61,37 @@ _configs apply {
     _list lbSetData [_row, configName _cfg];
 };
 
-_list ctrlAddEventHandler ["LBSelChanged", {
-    params [
-        ["_list", controlNull, [controlNull]], 
-        ["_lbCurSel", -1, [123]]
-    ];
+_list ctrlAddEventHandler [
+    "LBSelChanged",
+    {
+        params [
+            ["_list", controlNull, [controlNull]],
+            ["_lbCurSel", -1, [123]]
+        ];
 
-    private _group1 = ctrlParentControlsGroup _list;
-    private _picture = _group1 controlsGroupCtrl PICTURE_IDC;
+        private _group1 = ctrlParentControlsGroup _list;
+        private _picture = _group1 controlsGroupCtrl PICTURE_IDC;
 
-    private _curPicture = _list lbPicture _lbCurSel;
-    private _curClassName = _list lbData _lbCurSel;
-    _picture ctrlSetText _curPicture;
+        private _curPicture = _list lbPicture _lbCurSel;
+        private _curClassName = _list lbData _lbCurSel;
+        _picture ctrlSetText _curPicture;
 
-    [player, _curClassName] call BIS_fnc_setUnitInsignia;
-}];
+        [player, _curClassName] call BIS_fnc_setUnitInsignia;
+    }
+];
 
-private _ehKeyDown = _display displayAddEventHandler ["KeyDown", {
-    params ["_display", "_key"];
-    if (_key isNotEqualTo DIK_ESCAPE) exitWith { false };
+private _ehKeyDown = _display displayAddEventHandler [
+    "KeyDown",
+    {
+        params ["_display", "_key"];
+        if (_key isNotEqualTo DIK_ESCAPE) exitWith { false };
 
-    private _cam = uiNamespace getVariable [QGVAR(camera), objNull];
-    [_cam] call FUNC(destroyCamera);
-    _display closeDisplay IDC_OK;
+        private _cam = uiNamespace getVariable [QGVAR(camera), objNull];
+        [_cam] call FUNC(destroyCamera);
+        _display closeDisplay IDC_OK;
 
-    true
-}];
+        true
+    }
+];
 
 _display

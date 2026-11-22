@@ -21,7 +21,7 @@ if (isNull _cam) exitWith {
     #endif
 };
 
-if (isNull _cam || {!alive player}) exitWith {
+if (isNull _cam || { !alive player }) exitWith {
     #ifdef BTC_DEBUG_INSIGNIA
     [["%1: _cam is null or player is not alive", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
@@ -38,10 +38,11 @@ _state params [
 ];
 
 private _camVector = [
-    (cos _elevation) * (sin _azimuth), 
-    (cos _elevation) * (cos _azimuth), 
+    (cos _elevation) * (sin _azimuth),
+    (cos _elevation) * (cos _azimuth),
     sin _elevation
-] vectorMultiply _distance;
-        
+]
+vectorMultiply _distance;
+
 _cam camSetRelPos _camVector;
-_cam camCommit 0.1;   
+_cam camCommit 0.1;

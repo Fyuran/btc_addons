@@ -32,14 +32,16 @@ if (isNull _cam) exitWith {
 // Remove display event handlers
 private _display = uiNamespace getVariable [QGVAR(cameraDisplay), displayNull];
 private _handlers = uiNamespace getVariable [QGVAR(cameraHandlers), []];
-if (!isNull _display && {_handlers isNotEqualTo []}) then {
+if (!isNull _display && { _handlers isNotEqualTo [] }) then {
     _handlers params [
-        ["_ehDown", -1, [123]], 
+        ["_nvgDown", -1, [123]],
+        ["_ehDown", -1, [123]],
         ["_ehUp", -1, [123]],
-        ["_ehMove", -1, [123]], 
+        ["_ehMove", -1, [123]],
         ["_ehWheel", -1, [123]]
     ];
 
+    _display displayRemoveEventHandler ["KeyDown", _nvgDown];
     _display displayRemoveEventHandler ["MouseButtonDown", _ehDown];
     _display displayRemoveEventHandler ["MouseButtonUp", _ehUp];
     _display displayRemoveEventHandler ["MouseMoving", _ehMove];
@@ -51,10 +53,12 @@ uiNamespace setVariable [QGVAR(cameraHandlers), nil];
 uiNamespace setVariable [QGVAR(cameraState), nil];
 uiNamespace setVariable [QGVAR(cameraSelPos), nil];
 uiNamespace setVariable [QGVAR(camera), nil];
+uiNamespace setVariable [QGVAR(nvg), nil];
 
 // Terminate and destroy camera
+camUseNVG false;
 _cam cameraEffect ["Terminate", "Back"];
 camDestroy _cam;
-player switchCamera "internal";	
+player switchCamera "internal";
 
 GVAR(camera) = nil;
