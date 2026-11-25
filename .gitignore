@@ -12,4 +12,5 @@ btc.txt
 *.kra
 __pycache__
 .vscode/
-
+*.blend[0-9]*
+*.blend@*
