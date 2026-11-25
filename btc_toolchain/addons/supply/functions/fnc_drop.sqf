@@ -51,12 +51,17 @@ if (!isClass (configFile >> "CfgVehicles" >> _vehicleClass)) exitWith {
 };
 
 private _data = _logic getVariable [QGVAR(list_value), ""];
+#ifdef BTC_DEBUG_SUPPLY
+[["%1: _data: %2", __FILE_NAME__, _data], LOGS, QCOMPONENT] call EFUNC(tools,debug);
+#endif
 if (_data isEqualTo "") exitWith {
-    [["%1: bad logic data has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+    [["%1: empty _data has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
-_data = fromJSON _data;
-if (_data isEqualTo []) exitWith {
-    [["%1: bad logic data has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
+if (_data isEqualType "") then {
+    _data = fromJSON _data;
+};
+if (_data isEqualTo createHashMap) exitWith {
+    [["%1: empty _data has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
 
 private _paradropData = [];
