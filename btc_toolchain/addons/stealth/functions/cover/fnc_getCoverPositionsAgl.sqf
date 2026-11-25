@@ -78,7 +78,7 @@ _positions = _positions apply {
 
 //add extra positions
 if (_object isKindOf "House") then {
-    _positions = _positions + (_object buildingPos - 1);
+    _positions = _positions + (_object buildingPos -1);
 };
 
 _positions

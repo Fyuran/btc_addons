@@ -41,7 +41,7 @@ if (alive _veh && { !(_veh in GVAR(debugVehs)) }) then {
 };
 
 GVAR(debugHandle) = missionNamespace getVariable [QGVAR(debugHandle), -1];
-if (GVAR(debugHandle) isNotEqualTo - 1) exitWith {
+if (GVAR(debugHandle) isNotEqualTo -1) exitWith {
     GVAR(debugHandle)
 };
 

@@ -18,16 +18,17 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
-	["_path", "", [""]]
+
+params [
+    ["_path", "", [""]]
 ];
-if(_path isEqualTo "") exitWith {
+if (_path isEqualTo "") exitWith {
     ["'path' property missing"] call BIS_fnc_error;
 };
 
-_request = createHashMapFromArray[
-	["function", "deleteFile"],
-	["path", _path]
+_request = createHashMapFromArray [
+    ["function", "deleteFile"],
+    ["path", _path]
 ];
 
 _request call FUNC(callExtension)

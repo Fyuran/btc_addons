@@ -49,7 +49,7 @@ if (_uid isEqualTo "") exitWith {
 
 GVAR(table) deleteAt _uid;
 _grp1_list lbDelete _lbCurSel;
-_grp1_list lbSetCurSel - 1;
+_grp1_list lbSetCurSel -1;
 //Triggers lbSelChanged exitWith lnbClear
 
 private _tableCount = count GVAR(table);

@@ -38,7 +38,7 @@ private _fnc = {
     private _logic = _unit getVariable [QGVAR(wave_spawn), objNull];
     private _units = _logic getVariable [QGVAR(wave_units), []];
     private _index = _units find _unit;
-    if (_index isNotEqualTo - 1) then {
+    if (_index isNotEqualTo -1) then {
         _units deleteAt _index;
     };
 

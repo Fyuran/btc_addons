@@ -90,7 +90,7 @@ _weapons apply {
     // then the same classname as for the weapon 
     // should be used as firemode param. https://community.bistudio.com/wiki/forceWeaponFire
     private _thisIndex = _modes findIf { _x isEqualTo "this" };
-    if (_thisIndex isNotEqualTo - 1) then {
+    if (_thisIndex isNotEqualTo -1) then {
         _modes set [_thisIndex, _weaponClass];
     };
 

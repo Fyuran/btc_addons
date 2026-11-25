@@ -50,7 +50,7 @@ private _classExists = (_groupClasses findIf {
     _x params ["_c", "_amount"];
     _c isEqualTo _class;
 }
-) isNotEqualTo - 1;
+) isNotEqualTo -1;
 if (_classExists) exitWith {
     [format ["%1 class already exists", _class], 1] call EFUNC(tools,3DENNotification);
 };

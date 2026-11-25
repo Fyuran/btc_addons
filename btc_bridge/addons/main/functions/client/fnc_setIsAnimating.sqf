@@ -20,17 +20,18 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
-	["_vehicle", objNull, [objNull]],
-	["_isAnimating", false, [true]]
+
+params [
+    ["_vehicle", objNull, [objNull]],
+    ["_isAnimating", false, [true]]
 ];
 
-_vehicle setVariable[QGVAR(isAnimating), _isAnimating];
-if(local _vehicle) then {
-	[_isAnimating] call FUNC_O(setDIKColors);
-	[_isAnimating] call FUNC_O(pictureRotation);
+_vehicle setVariable [QGVAR(isAnimating), _isAnimating];
+if (local _vehicle) then {
+    [_isAnimating] call FUNC_O(setDIKColors);
+    [_isAnimating] call FUNC_O(pictureRotation);
 
-	/* 
+    /* 
 	private _display = uiNamespace getVariable[QGVAR(display), displayNull];
 	if(isNull _display) exitWith {
 		[["%1: vehicle is local, but no display found", __FILE_NAME__], REPORT, QCOMPONENT] call BTCFUNC(tools,debug); 
@@ -57,4 +58,5 @@ if(local _vehicle) then {
 	};
 	_heightCtrl ctrlSetStructuredText parseText format["<t color='#b40379' font='PuristaBold'>Bridge Height: %1</t>", _adjusted_height];
 	 */
+
 };

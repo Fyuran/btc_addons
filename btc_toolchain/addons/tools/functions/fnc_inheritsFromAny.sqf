@@ -55,4 +55,4 @@ if (!isClass _classCfg) exitWith { false };
 (_baseClasses findIf {
     [_classCfg, _cfgRoot >> _x] call CBAFUNC(inheritsFrom);
 }
-) isNotEqualTo - 1
+) isNotEqualTo -1

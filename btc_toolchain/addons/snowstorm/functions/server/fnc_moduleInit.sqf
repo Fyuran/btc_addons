@@ -40,7 +40,7 @@ if (ACEGVAR(weather,windSimulation)) exitWith {
 #endif
 private _handle = missionNamespace getVariable [QGVAR(handle), -1];
 if (_activated) then {
-    if (_handle isNotEqualTo - 1) exitWith {
+    if (_handle isNotEqualTo -1) exitWith {
         #ifdef BTC_DEBUG_SNOWSTORM
         [["%1: one module is already running", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
         #endif
@@ -57,7 +57,7 @@ if (_activated) then {
     private _wind_max = _logic getVariable [QGVAR(intensity_max), 40];
     [_fogValue, _fogDecay, _fogBase, _duration, [_wind_min, _wind_avg, _wind_max]] call FUNC(server_init);
 } else {
-    if (_handle isEqualTo - 1) then {
+    if (_handle isEqualTo -1) then {
         //make sure the previous handler is removed
         #ifdef BTC_DEBUG_SNOWSTORM
         [["%1: deactivating snowstorm by module: %2", __FILE_NAME__, _logic], 3, QCOMPONENT] call EFUNC(tools,debug);

@@ -32,7 +32,7 @@ if (_weaponClass isEqualTo "") exitWith {
 private _weapCfg = configFile >> "CfgWeapons" >> _weaponClass;
 private _modes = getArray (_weapCfg >> "modes");
 private _thisIndex = _modes findIf { _x isEqualTo "this" };
-if (_thisIndex isNotEqualTo - 1) then {
+if (_thisIndex isNotEqualTo -1) then {
     _modes set [_thisIndex, _weaponClass];
 };
 

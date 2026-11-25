@@ -34,7 +34,7 @@ Author:
 if (!hasInterface) exitWith {};
 
 private _currentHandle = missionNamespace getVariable [QGVAR(debug_PFH_handle), -1];
-if (_currentHandle isNotEqualTo - 1) exitWith {
+if (_currentHandle isNotEqualTo -1) exitWith {
     _currentHandle
 };
 

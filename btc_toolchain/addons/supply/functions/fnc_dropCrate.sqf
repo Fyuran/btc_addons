@@ -51,7 +51,7 @@ if ((_vehPosATL#2) < 15) exitWith {
     objNull
 };
 
-private _calculatedDropPos = _vehPosATL vectorAdd ((vectorDir _veh) vectorMultiply - 15);
+private _calculatedDropPos = _vehPosATL vectorAdd ((vectorDir _veh) vectorMultiply -15);
 _calculatedDropPos = _calculatedDropPos vectorDiff [0, 0, 1];
 
 private _supply = createVehicle [_paradropClass, [0, 0, 100], [], 0, "CAN_COLLIDE"];

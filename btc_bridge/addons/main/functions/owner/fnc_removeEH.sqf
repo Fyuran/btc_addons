@@ -19,11 +19,12 @@ Author:
     =BTC= Fyuran
 
 ---------------------------------------------------------------------------- */
-params[
-	["_vehicle", objNull, [objNull]]
+
+params [
+    ["_vehicle", objNull, [objNull]]
 ];
-if(isNull _vehicle) exitWith {
-	[["%1: _vehicle is null", __FILE_NAME__], REPORT, QCOMPONENT] call BTCFUNC(tools,debug);
+if (isNull _vehicle) exitWith {
+    [["%1: _vehicle is null", __FILE_NAME__], REPORT, QCOMPONENT] call BTCFUNC(tools,debug);
 };
 
 #ifdef BTC_DEBUG_BRIDGE
@@ -31,21 +32,21 @@ if(isNull _vehicle) exitWith {
 #endif
 
 GVAR(v_EHs) apply {
-	[_x, _y] params[
-		["_eh", "", [""]],
-		["_handle", -1, [123]]
-	];
+    [_x, _y] params [
+        ["_eh", "", [""]],
+        ["_handle", -1, [123]]
+    ];
 
-	_vehicle removeEventHandler [_eh, _handle];
+    _vehicle removeEventHandler [_eh, _handle];
 };
 
 GVAR(p_EHs) apply {
-	[_x, _y] params[
-		["_eh", "", [""]],
-		["_handle", -1, [123]]
-	];
+    [_x, _y] params [
+        ["_eh", "", [""]],
+        ["_handle", -1, [123]]
+    ];
 
-	player removeEventHandler [_eh, _handle];
+    player removeEventHandler [_eh, _handle];
 };
 
 GVAR(v_EHs) = createHashMap;

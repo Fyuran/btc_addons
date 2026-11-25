@@ -50,7 +50,7 @@ if (_uid isEqualTo "") exitWith {
 GVAR(table) deleteAt _uid;
 
 _grp1_list lbDelete _lbCurSel;
-_grp1_list lbSetCurSel - 1;
+_grp1_list lbSetCurSel -1;
 //Should trigger LBSelChanged -1 exitWith lbClear
 
 #ifdef BTC_DEBUG_SUPPLY

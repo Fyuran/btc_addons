@@ -125,7 +125,7 @@ if (_preferRoads && { _isLandVehicle || _class isEqualTo "" }) then {
             ((_roadPos nearEntities [["AllVehicles"], _clearRadius]) isEqualTo []) && { (nearestObjects [_roadPos, ["Wreck_Base"], _clearRadius]) isEqualTo [] } && { (nearestTerrainObjects [_roadPos, ["TREE", "ROCK"], 2]) isEqualTo [] }
         };
 
-        if (_roadIndex isNotEqualTo - 1) then {
+        if (_roadIndex isNotEqualTo -1) then {
             private _selectedRoad = _nearRoads select _roadIndex;
             _foundPos = getPosATL _selectedRoad;
         };

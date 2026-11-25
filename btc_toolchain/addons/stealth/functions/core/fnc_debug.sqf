@@ -113,11 +113,11 @@ private _fnc_removeEh = {
 
 //Check if handles already exist
 private _handle = missionNamespace getVariable [QGVAR(removeEH_clients_handle), -1];
-if (_handle isNotEqualTo - 1) exitWith {};
+if (_handle isNotEqualTo -1) exitWith {};
 removeEH_clients_handle = [QGVAR(debug_removeEHs), _fnc_removeEh] call CBAFUNC(addEventHandler);
 
 _handle = missionNamespace getVariable [QGVAR(debug_PFH_handle), -1];
-if (_handle isNotEqualTo - 1) exitWith {};
+if (_handle isNotEqualTo -1) exitWith {};
 
 debug_PFH_handle = [
     {

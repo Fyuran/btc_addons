@@ -173,7 +173,7 @@ GVAR(box_handle) = [_conv_name, _path] spawn {
 
             waitUntil { CBA_missionTime >= _time };
 
-            if (_ehDraw isNotEqualTo - 1) then {
+            if (_ehDraw isNotEqualTo -1) then {
                 removeMissionEventHandler ["Draw3D", _ehDraw];
                 GVAR(currentSpeaker) = nil;
             };

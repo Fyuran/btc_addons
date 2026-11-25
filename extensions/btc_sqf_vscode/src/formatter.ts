@@ -81,6 +81,26 @@ const cbaMacros = new Set<string>([
     'arr_1', 'arr_2', 'arr_3', 'arr_4', 'arr_5', 'arr_6', 'arr_7', 'arr_8'
 ]);
 
+const sqfNonOperandWords = new Set<string>([
+    // Comparison & Logic
+    'isnotequalto', 'isequalto', 'in', 'and', 'or', 'not',
+    // Control flow
+    'to', 'step', 'then', 'else', 'do', 'case', 'switch', 'while', 'until', 'waituntil',
+    'for', 'from', 'foreach', 'with', 'assert', 'throw', 'catch', 'exitwith', 'return',
+    // Array & Container operations
+    'select', 'set', 'apply', 'find', 'count', 'resize', 'deleteat', 'pushback',
+    'pushbackunique', 'append', 'splitstring', 'joinstring',
+    // Code execution
+    'call', 'spawn', 'execvm', 'canadd',
+    // Scope & Variables
+    'private', 'params', 'isnil', 'isnull',
+    // Math & Vector
+    'random', 'round', 'floor', 'ceil', 'abs', 'sqrt', 'sin', 'cos', 'tan',
+    'asin', 'acos', 'atan', 'atan2', 'min', 'max', 'mod', 'vectormultiply',
+    'vectordiff', 'vectoradd', 'vectorcrossproduct', 'vectordotproduct',
+    'distance', 'distance2d', 'distancesqr', 'matrixmultiply'
+]);
+
 export class SqfTokenizer {
     public static tokenize(text: string): Token[] {
         const tokens: Token[] = [];
@@ -590,7 +610,28 @@ export class SqfFormatter implements vscode.DocumentFormattingEditProvider, vsco
             if (prev.type === TokenType.Comma || prev.type === TokenType.Colon || prev.type === TokenType.Semicolon) return true;
             if (prev.type === TokenType.Operator) return true;
             if (prev.type === TokenType.Preprocessor) return true;
-            if (prev.type === TokenType.Word && ['exitwith', 'return'].includes(prev.text.toLowerCase())) return true;
+            if (prev.type === TokenType.Word) {
+                if (prev.text.startsWith('_')) {
+                    return false;
+                }
+                const lower = prev.text.toLowerCase();
+                if (sqfNonOperandWords.has(lower)) {
+                    return true;
+                }
+                if (this.nativeCommands) {
+                    const cmd = this.nativeCommands.getCommand(lower);
+                    if (cmd) {
+                        if (cmd.callType === 'binary' || cmd.callType === 'unary') {
+                            return true;
+                        }
+                        if (cmd.syntaxes && cmd.syntaxes.length > 0) {
+                            if (cmd.syntaxes.some(s => s.callType === 'binary' || s.callType === 'unary')) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
             return false;
         };
 

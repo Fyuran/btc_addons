@@ -39,12 +39,32 @@ const extensionPath = path.resolve(__dirname, '..');
 const commandsPath = path.join(extensionPath, 'data', 'commands.json');
 let nativeCommandsMap = new Map();
 
+const sqfNonOperandWords = new Set([
+    // Comparison & Logic
+    'isnotequalto', 'isequalto', 'in', 'and', 'or', 'not',
+    // Control flow
+    'to', 'step', 'then', 'else', 'do', 'case', 'switch', 'while', 'until', 'waituntil',
+    'for', 'from', 'foreach', 'with', 'assert', 'throw', 'catch', 'exitwith', 'return',
+    // Array & Container operations
+    'select', 'set', 'apply', 'find', 'count', 'resize', 'deleteat', 'pushback',
+    'pushbackunique', 'append', 'splitstring', 'joinstring',
+    // Code execution
+    'call', 'spawn', 'execvm', 'canadd',
+    // Scope & Variables
+    'private', 'params', 'isnil', 'isnull',
+    // Math & Vector
+    'random', 'round', 'floor', 'ceil', 'abs', 'sqrt', 'sin', 'cos', 'tan',
+    'asin', 'acos', 'atan', 'atan2', 'min', 'max', 'mod', 'vectormultiply',
+    'vectordiff', 'vectoradd', 'vectorcrossproduct', 'vectordotproduct',
+    'distance', 'distance2d', 'distancesqr', 'matrixmultiply'
+]);
+
 if (fs.existsSync(commandsPath)) {
     try {
         const raw = fs.readFileSync(commandsPath, 'utf-8').replace(/HashMapUnknown/g, 'HashMap');
         const parsed = JSON.parse(raw);
         for (const k of Object.keys(parsed)) {
-            nativeCommandsMap.set(k.toLowerCase(), parsed[k].name);
+            nativeCommandsMap.set(k.toLowerCase(), parsed[k]);
         }
         console.log(`[BTC SQF] Loaded ${nativeCommandsMap.size} native commands.`);
     } catch (err) {
@@ -417,7 +437,8 @@ function formatSqf(text, options = {}) {
                 if (cbaMacros.has(lower)) {
                     t.text = t.text.toUpperCase();
                 } else if (nativeCommandsMap.has(lower)) {
-                    t.text = nativeCommandsMap.get(lower);
+                    const cmd = nativeCommandsMap.get(lower);
+                    t.text = typeof cmd === 'string' ? cmd : cmd.name;
                 } else if (cbaStandardFunctions.has(lower)) {
                     t.text = cbaStandardFunctions.get(lower);
                 }
@@ -515,7 +536,24 @@ function formatSqf(text, options = {}) {
         if (prev.type === TokenType.Comma || prev.type === TokenType.Colon || prev.type === TokenType.Semicolon) return true;
         if (prev.type === TokenType.Operator) return true;
         if (prev.type === TokenType.Preprocessor) return true;
-        if (prev.type === TokenType.Word && ['exitwith', 'return'].includes(prev.text.toLowerCase())) return true;
+        if (prev.type === TokenType.Word) {
+            if (prev.text.startsWith('_')) {
+                return false;
+            }
+            const lower = prev.text.toLowerCase();
+            if (sqfNonOperandWords.has(lower)) {
+                return true;
+            }
+            if (nativeCommandsMap.has(lower)) {
+                const cmd = nativeCommandsMap.get(lower);
+                if (cmd && (cmd.callType === 'binary' || cmd.callType === 'unary')) {
+                    return true;
+                }
+                if (cmd && cmd.syntaxes && cmd.syntaxes.some(s => s.callType === 'binary' || s.callType === 'unary')) {
+                    return true;
+                }
+            }
+        }
         return false;
     };
 

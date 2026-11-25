@@ -41,7 +41,7 @@ _logicPos set [2, 0];
 private _isHelicopter = _vehicleClass isKindOf "Helicopter";
 private _speed = [100, 30] select _isHelicopter;
 
-private _spawnPos = ((vectorDir _logic) vectorMultiply - 1) vectorMultiply _spawnDistance;
+private _spawnPos = ((vectorDir _logic) vectorMultiply -1) vectorMultiply _spawnDistance;
 private _vehPos = _logicPos vectorAdd [_spawnPos#0, _spawnPos#1, _spawnHeight];
 private _veh = ([_vehPos, 0, _vehicleClass] call EFUNC(tools,spawnCrewedVehicle)) select 0;
 if (_debug) then {

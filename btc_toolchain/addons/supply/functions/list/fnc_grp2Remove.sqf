@@ -49,7 +49,7 @@ private _class = _grp2_list lnbData [_grp2_list_lnbCurSelRow, 0];
 _inventory deleteAt _class;
 
 _grp2_list lnbDeleteRow _grp2_list_lnbCurSelRow;
-_grp2_list lnbSetCurSelRow - 1;
+_grp2_list lnbSetCurSelRow -1;
 
 #ifdef BTC_DEBUG_SUPPLY
 [["%1: removing %2 from LIST_2", __FILE_NAME__, _class], LOGS, QCOMPONENT] call EFUNC(tools,debug);
