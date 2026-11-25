@@ -22,6 +22,11 @@ params [
     ["_bool", false, [true]]
 ];
 
+private _cam = uiNamespace getVariable [QGVAR(camera), objNull];
+if (isNull _cam) exitWith {
+    [] call FUNC(cleanUp);
+};
+
 if (_button isNotEqualTo MOUSE_RMB) exitWith {};
 
 #ifdef BTC_DEBUG_INSIGNIA

@@ -29,18 +29,12 @@ if (isNull _display) exitWith {
     #ifdef BTC_DEBUG_INSIGNIA
     [["%1: insignia display is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
-    [] call FUNC(destroyCamera);
+    [] call FUNC(cleanUp);
 
     displayNull
 };
 uiNamespace setVariable [QGVAR(display), _display];
-_display displayAddEventHandler [
-    "Unload",
-    {
-        params ["_display", "_exitCode"];
-        uiNamespace setVariable [QGVAR(display), nil];
-    }
-];
+
 
 private _group1 = _display displayCtrl GROUP_1_IDC;
 private _list = _group1 controlsGroupCtrl LIST_IDC;
@@ -80,14 +74,21 @@ _list ctrlAddEventHandler [
     }
 ];
 
+private _ehUnload = _display displayAddEventHandler [
+    "Unload",
+    {
+        params ["_display", "_exitCode"];
+        uiNamespace setVariable [QGVAR(display), nil];
+        [] call FUNC(cleanUp);
+    }
+];
+
 private _ehKeyDown = _display displayAddEventHandler [
     "KeyDown",
     {
         params ["_display", "_key"];
         if (_key isNotEqualTo DIK_ESCAPE) exitWith { false };
 
-        private _cam = uiNamespace getVariable [QGVAR(camera), objNull];
-        [_cam] call FUNC(destroyCamera);
         _display closeDisplay IDC_OK;
 
         true

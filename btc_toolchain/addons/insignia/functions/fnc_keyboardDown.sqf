@@ -20,6 +20,11 @@ params [
     ["_key", -1, [123]]
 ];
 
+private _cam = uiNamespace getVariable [QGVAR(camera), objNull];
+if (isNull _cam) exitWith {
+    [] call FUNC(cleanUp);
+};
+
 if (_key isNotEqualTo DIK_N || {(hmd player) isEqualTo ""}) exitWith {};
 
 #ifdef BTC_DEBUG_INSIGNIA

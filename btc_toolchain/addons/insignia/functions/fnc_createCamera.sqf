@@ -58,7 +58,7 @@ private _selectionPos = if (_selectionPos isEqualType "") then {
 // Terminate previous camera if still active
 private _prevCam = uiNamespace getVariable [QGVAR(camera), objNull];
 if (!isNull _prevCam) then {
-    [_prevCam] call FUNC(destroyCamera);
+    [_prevCam] call FUNC(cleanUp);
 };
 
 // Initial heading: facing the outside of the player's left arm in world space
@@ -91,7 +91,7 @@ uiNamespace setVariable [QGVAR(cameraSelPos), _selectionPos];
 uiNamespace setVariable [QGVAR(cameraState), _state];
 uiNamespace setVariable [QGVAR(cameraDisplay), _parentDisplay];
 
-private _nvgDown = _parentDisplay displayAddEventHandler [
+private _keyDown = _parentDisplay displayAddEventHandler [
     "KeyDown", 
     {
         params ["", "_key"];
@@ -132,7 +132,7 @@ private _ehWheel = _parentDisplay displayAddEventHandler [
 ];
 
 // Store EHs for later deletion
-uiNamespace setVariable [QGVAR(cameraHandlers), [_nvgDown, _ehDown, _ehUp, _ehMove, _ehWheel]];
+uiNamespace setVariable [QGVAR(cameraHandlers), [_keyDown, _ehDown, _ehUp, _ehMove, _ehWheel]];
 
 // Apply initial positioning
 [] call FUNC(update);

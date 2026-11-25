@@ -15,16 +15,11 @@ Author:
 ---------------------------------------------------------------------------- */
 
 private _cam = uiNamespace getVariable [QGVAR(camera), objNull];
-if (isNull _cam) exitWith {
-    #ifdef BTC_DEBUG_INSIGNIA
-    [["%1: _cam is null", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
-    #endif
-};
-
 if (isNull _cam || { !alive player }) exitWith {
     #ifdef BTC_DEBUG_INSIGNIA
     [["%1: _cam is null or player is not alive", __FILE_NAME__], REPORT, QCOMPONENT] call EFUNC(tools,debug);
     #endif
+    [] call FUNC(cleanUp);
 };
 
 private _state = uiNamespace getVariable [QGVAR(cameraState), []];

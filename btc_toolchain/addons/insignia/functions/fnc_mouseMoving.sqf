@@ -21,6 +21,11 @@ params [
     ["_yDelta", 0, [123]]
 ];
 
+private _cam = uiNamespace getVariable [QGVAR(camera), objNull];
+if (isNull _cam) exitWith {
+    [] call FUNC(cleanUp);
+};
+
 // State array: [_isHoldingRMB, _azimuth, _elevation, _distance]
 private _state = uiNamespace getVariable [QGVAR(cameraState), []];
 if (_state isEqualTo []) exitWith {

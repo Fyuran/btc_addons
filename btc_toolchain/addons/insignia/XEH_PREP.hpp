@@ -2,7 +2,7 @@
 
 PREP(createCamera);
 PREP(createDialog);
-PREP(destroyCamera);
+PREP(cleanUp);
 PREP(keyboardDown);
 PREP(mouseButton);
 PREP(mouseMoving);
