@@ -51,9 +51,6 @@ if (!isClass (configFile >> "CfgVehicles" >> _vehicleClass)) exitWith {
 };
 
 private _data = _logic getVariable [QGVAR(list_value), ""];
-#ifdef BTC_DEBUG_SUPPLY
-[["%1: _data: %2", __FILE_NAME__, _data], LOGS, QCOMPONENT] call EFUNC(tools,debug);
-#endif
 if (_data isEqualTo "") exitWith {
     [["%1: empty _data has been passed to %2", __FILE_NAME__, _logic], REPORT, QCOMPONENT] call EFUNC(tools,debug);
 };
@@ -94,7 +91,7 @@ if (_paradropData isEqualTo []) exitWith {
 
 private _enableDamage = _logic getVariable [QGVAR(enableDamage), true];
 #ifdef BTC_DEBUG_SUPPLY
-[["%1: calling supply %2 with data: %3", __FILE_NAME__, _logic, [_vehicleClass, _data]], CHAT + LOGS, QCOMPONENT] call EFUNC(tools,debug);
+[["%1: calling supply %2 with data: %3", __FILE_NAME__, _logic, [_vehicleClass, _data]], LOGS, QCOMPONENT] call EFUNC(tools,debug);
 #endif
 
 // Spawn vehicle and crew
